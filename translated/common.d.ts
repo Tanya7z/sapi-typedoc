@@ -96,6 +96,10 @@ export class ArgumentOutOfBoundsError extends Error {
     private constructor();
     /**
      * @remarks
+     * 导致错误的参数的索引。
+     *
+     * Index of the argument that is in error.
+     *
      * @earlyExecution
      *
      */
@@ -132,10 +136,20 @@ export class ArgumentOutOfBoundsError extends Error {
 }
 
 // @ts-ignore Class inheritance allowed for native defined classes
+/**
+ * 此错误表示容器的尺寸超出了允许的范围。
+ *
+ * This type of error is thrown when the size of a container is out of expected bounds.
+ */
+// @ts-ignore Class inheritance allowed for native defined classes
 export class ContainerSizeOutOfBoundsError extends Error {
     private constructor();
     /**
      * @remarks
+     * 容器允许的最大尺寸。
+     *
+     * Maximum expected size for the container.
+     *
      * @earlyExecution
      *
      */
@@ -163,6 +177,8 @@ export class EngineError extends Error {
 export class InvalidArgumentError extends Error {
     /**
      * @remarks
+     * 出错的参数的索引。
+     *
      * Index of the argument that is in error.
      *
      * @earlyExecution
@@ -171,6 +187,8 @@ export class InvalidArgumentError extends Error {
     readonly index: number;
     /**
      * @remarks
+     * 参数错误的类型。
+     *
      * Type of the argument error.
      *
      * @earlyExecution
@@ -188,22 +206,40 @@ export class InvalidArgumentError extends Error {
 }
 
 // @ts-ignore Class inheritance allowed for native defined classes
+/**
+ * 此错误表示设置的属性值超出了允许的范围。
+ *
+ * This type of error is thrown when a property value is out of expected bounds.
+ */
+// @ts-ignore Class inheritance allowed for native defined classes
 export class PropertyOutOfBoundsError extends Error {
     private constructor();
     /**
      * @remarks
+     * 属性允许的最大值。
+     *
+     * Max expected value for the condition.
+     *
      * @earlyExecution
      *
      */
     readonly maxValue?: number;
     /**
      * @remarks
+     * 属性允许的最小值。
+     *
+     * Min expected value for the condition.
+     *
      * @earlyExecution
      *
      */
     readonly minValue?: number;
     /**
      * @remarks
+     * 设置的属性值。
+     *
+     * Value set for the property.
+     *
      * @earlyExecution
      *
      */
@@ -215,6 +251,12 @@ export class RuntimeConditionError extends Error {
     private constructor();
 }
 
+// @ts-ignore Class inheritance allowed for native defined classes
+/**
+ * 此错误表示调用了当前环境不支持的函数。
+ *
+ * This type of error is thrown when a functionality is called that is not supported in the current environment.
+ */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class UnsupportedFunctionalityError extends Error {
     private constructor();

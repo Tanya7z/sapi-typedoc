@@ -29,6 +29,13 @@ NPM 包：
 
 目前正在翻译中。欢迎[参与翻译](#参与翻译)！
 
+最后属性补充日期：`2026-07-01`
+
+本次补充的内容：
+- `common` 模块：补充了 `PropertyOutOfBoundsError`、`ContainerSizeOutOfBoundsError`、`UnsupportedFunctionalityError` 的类描述及属性说明的中文翻译，补充了 `ArgumentOutOfBoundsError.index` 和 `InvalidArgumentError.index`/`.type` 的中文翻译。
+- `server-ui` 模块：补充了 `UIManager` 的类描述及 `closeAllForms` 方法的参数说明的中文翻译。
+- `diagnostics` 模块：补充了 `Sentry` 类的完整中文翻译（含所有方法及参数说明），以及 `SentryCaptureContext` 接口、`SentryAlreadyInitializedError`、`SentryUninitializedError` 的中文翻译。
+
 不喜欢[译文](https://projectxero.top/sapi/)？您也可以直接查看[原文](https://projectxero.top/sapi/original/)。
 
 ## 参与翻译

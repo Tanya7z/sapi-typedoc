@@ -9,6 +9,10 @@ export class ArgumentOutOfBoundsError extends Error {
     private constructor();
     /**
      * @remarks
+     * 导致错误的参数的索引。
+     *
+     * Index of the argument that is in error.
+     *
      * @earlyExecution
      *
      */

@@ -10,6 +10,8 @@
 export class InvalidArgumentError extends Error {
     /**
      * @remarks
+     * 出错的参数的索引。
+     *
      * Index of the argument that is in error.
      *
      * @earlyExecution
@@ -18,6 +20,8 @@ export class InvalidArgumentError extends Error {
     readonly index: number;
     /**
      * @remarks
+     * 参数错误的类型。
+     *
      * Type of the argument error.
      *
      * @earlyExecution
