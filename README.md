@@ -2,7 +2,7 @@
 
 将 Minecraft 脚本 API 的 d.ts 生成网页以供查阅。
 
-在线网页：[https://projectxero.top/sapi/](https://projectxero.top/sapi/)
+在线网页：[https://sapi.dogelake.cn/](https://sapi.dogelake.cn/)
 
 d.ts 文件来源：[NPM @minecraft](https://www.npmjs.com/search?q=%40minecraft)
 

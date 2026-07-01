@@ -320,20 +320,24 @@ export default {
             '',
             'NPM 包：',
             '',
-            '|包名|版本|',
-            '| - | - |'
+            '|包名|版本|对应 MC 版本|更新日志|',
+            '| - | - | - | - |'
         ];
         let gameVersion: string | undefined;
         Object.entries(dependencies).forEach(([moduleName, version]) => {
             if (!version) return;
             let versionString = version;
+            let mcVersion = '-';
             const versionInfo = parsePackageVersion(version);
             if (versionInfo) {
                 gameVersion ??= versionInfo.gameVersion;
                 versionString = versionInfo.version;
+                mcVersion = `\`${versionInfo.gameVersion}\``;
             }
             const npmURL = `https://www.npmjs.com/package/${moduleName}`;
-            summaryLines.push(`|[${moduleName}](${npmURL})|\`${versionString}\`|`);
+            const moduleShortName = moduleName.slice('@minecraft/'.length);
+            const changelogURL = `https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/${moduleShortName}/changelog`;
+            summaryLines.push(`|[${moduleName}](${npmURL})|${versionString}|${mcVersion}|[查看](${changelogURL})|`);
         });
         summaryLines.push(['', `游戏版本号：\`${gameVersion}\``, '', '<!-- summary end -->']);
 

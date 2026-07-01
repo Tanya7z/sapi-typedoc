@@ -7,6 +7,7 @@
     "build": "tsx ./script/cli.ts build",
     "update": "tsx ./script/cli.ts update",
     "update-cache": "tsx ./script/cli.ts update-cached",
+    "update-changelog": "tsx ./script/cli.ts update",
     "lint-script": "cd ./script && eslint --fix ."
   },
   "dependencies": {
