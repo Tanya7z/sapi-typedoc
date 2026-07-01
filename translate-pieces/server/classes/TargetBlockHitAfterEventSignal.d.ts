@@ -3,6 +3,8 @@
 /**
  * Manages callbacks that are connected to when a target block
  * is hit.
+ *
+ * 管理与标靶方块被击中时相关的回调。
  */
 export class TargetBlockHitAfterEventSignal {
     private constructor();
@@ -10,6 +12,8 @@ export class TargetBlockHitAfterEventSignal {
      * @remarks
      * Adds a callback that will be called when a target block is
      * hit.
+     *
+     * 添加一个回调，当目标方块被击中时调用。
      *
      * @worldMutation
      *
@@ -21,6 +25,8 @@ export class TargetBlockHitAfterEventSignal {
      * @remarks
      * Removes a callback from being called when a target block is
      * hit.
+     *
+     * 移除一个在目标方块被击中时调用的回调。
      *
      * @worldMutation
      *

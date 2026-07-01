@@ -1,18 +1,11 @@
 /* IMPORT */ import { Entity } from '..';
 
 /**
- * Contains data related to an entity loaded within the world.
- * This could happen when an unloaded chunk is reloaded, or
- * when an entity changes dimensions.
+ * 包含实体已加载后的相关数据。
+ *
+ * Contains data related to an entity after it has been loaded.
  */
 export class EntityLoadAfterEvent {
     private constructor();
-    /**
-     * @remarks
-     * Entity that was loaded.
-     *
-     * @worldMutation
-     *
-     */
-    entity: Entity;
+    readonly entity: Entity;
 }

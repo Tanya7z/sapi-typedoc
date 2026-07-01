@@ -1,15 +1,11 @@
 /* IMPORT */ import { Entity } from '..';
 
 /**
- * @beta
- * Contains data related to an entity beginning to sneak.
+ * 包含实体开始潜行后的相关数据。
+ *
+ * Contains data related to an entity after it starts sneaking.
  */
 export class EntityStartSneakingAfterEvent {
     private constructor();
-    /**
-     * @remarks
-     * Entity that has started sneaking.
-     *
-     */
     readonly entity: Entity;
 }

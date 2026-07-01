@@ -1,6 +1,8 @@
 /* IMPORT */ import { EntityComponent } from '..';
 
 /**
+ * 当添加时，此组件表示该实体可以被堆叠。
+ *
  * When added, this component signifies that this entity can be
  * stacked.
  */

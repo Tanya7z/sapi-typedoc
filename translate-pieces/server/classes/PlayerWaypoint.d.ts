@@ -1,17 +1,17 @@
 /* IMPORT */ import { EntityWaypoint, InvalidWaypointError, InvalidWaypointTextureSelectorError, Player, PlayerVisibilityRules, RGB, WaypointTextureSelector } from '..';
 
 /**
- * Waypoint that tracks a player's position. Extends {@link
- * EntityWaypoint} with additional player-specific visibility
- * rules such as hidden state and spectator mode.
+ * 跟踪玩家位置的导航点。扩展 {@link EntityWaypoint}，增加了特定于玩家的可见性规则，如隐藏状态和旁观者模式。
+ *
+ * Waypoint that tracks a player's position. Extends {@link EntityWaypoint} with additional player-specific visibility rules such as hidden state and spectator mode.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class PlayerWaypoint extends EntityWaypoint {
     /**
      * @remarks
-     * The {@link PlayerVisibilityRules} that control when the
-     * waypoint is shown based on the player's state (e.g., hidden,
-     * spectator mode, spectator viewing another spectator).
+     * 控制导航点何时基于玩家状态显示的 {@link PlayerVisibilityRules}（例如隐藏、旁观者模式、旁观者查看其他旁观者）。
+     *
+     * The {@link PlayerVisibilityRules} that control when the waypoint is shown based on the player's state (e.g., hidden, spectator mode, spectator viewing another spectator).
      *
      * @throws This property can throw when used.
      *

@@ -1,6 +1,8 @@
 /* IMPORT */ import { LootItemCondition } from '..';
 
 /**
+ * 战利品物品条件，检查战利品来源是否被特定类型的实体伤害过。
+ *
  * Loot item condition that checks whether the loot source was
  * damaged by a specific type of entity.
  */
@@ -9,6 +11,8 @@ export class DamagedByEntityCondition extends LootItemCondition {
     private constructor();
     /**
      * @remarks
+     * 此条件通过所需的实体类型。
+     *
      * The entity type required for this condition to pass.
      *
      */

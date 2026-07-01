@@ -1,8 +1,9 @@
 /* IMPORT */ import { EntityComponent } from '..';
 
 /**
- * When added, this component signifies that this entity is a
- * baby.
+ * 当添加时，此组件表示该实体是幼年体。
+ *
+ * When added, this component signifies that this entity is a baby.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityIsBabyComponent extends EntityComponent {

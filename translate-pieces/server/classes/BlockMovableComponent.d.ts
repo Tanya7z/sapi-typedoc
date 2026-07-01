@@ -1,6 +1,8 @@
 /* IMPORT */ import { BlockComponent, LocationInUnloadedChunkError, LocationOutOfWorldBoundariesError, MovementType, StickyType } from '..';
 
 /**
+ * 表示可以移动的方块（例如活塞）。
+ * 
  * Represents a block that can move (such as a piston).
  */
 // @ts-ignore Class inheritance allowed for native defined classes

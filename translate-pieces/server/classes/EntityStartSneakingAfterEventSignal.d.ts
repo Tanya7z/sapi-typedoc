@@ -1,30 +1,29 @@
-/* IMPORT */ import { EntitySneakingChangedEventOptions, EntityStartSneakingAfterEvent } from '..';
+/* IMPORT */ import { EntityStartSneakingAfterEvent } from '..';
 
 /**
- * @beta
- * Manages callbacks that are connected to when an entity
- * begins sneaking.
+ * 管理与实体开始潜行后相关的回调。
+ *
+ * Manages callbacks that are connected to after an entity starts sneaking.
  */
 export class EntityStartSneakingAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * Adds a callback that will be called when an entity begins
-     * sneaking.
+     * 添加一个回调，将在实体开始潜行后被调用。
+     *
+     * Adds a callback that will be called after an entity starts sneaking.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
      */
-    subscribe(
-        callback: (arg0: EntityStartSneakingAfterEvent) => void,
-        options?: EntitySneakingChangedEventOptions,
-    ): (arg0: EntityStartSneakingAfterEvent) => void;
+    subscribe(callback: (arg0: EntityStartSneakingAfterEvent) => void): (arg0: EntityStartSneakingAfterEvent) => void;
     /**
      * @remarks
-     * Removes a callback from being called when an entity begins
-     * sneaking.
+     * 移除一个回调，使其在实体开始潜行后不再被调用。
+     *
+     * Removes a callback from being called after an entity starts sneaking.
      *
      * @worldMutation
      *

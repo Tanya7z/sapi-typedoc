@@ -1,8 +1,7 @@
 /* IMPORT */ import { BlockComponent, Container, ItemStack } from '..';
 
 /**
- * Represents the inventory of a block in the world. Used with
- * blocks like chests.
+ * 表示世界中方块的库存。用于像箱子这样的方块。
  * @seeExample placeItemsInChest.ts
  */
 // @ts-ignore Class inheritance allowed for native defined classes
@@ -10,7 +9,7 @@ export class BlockInventoryComponent extends BlockComponent {
     private constructor();
     /**
      * @remarks
-     * The container which holds an {@link ItemStack}.
+     * 持有 {@link ItemStack} 的容器。
      *
      * @throws This property can throw when used.
      */

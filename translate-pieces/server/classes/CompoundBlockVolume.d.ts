@@ -2,6 +2,14 @@
 
 /**
  * @beta
+ * Compound Block Volume 是单个方块体积定义的集合，这些定义共同定义一个更大的（有时是非连续的）不规则形状的体积。
+ * 该类大致基于 CSG（计算实体几何）的概念，允许用户通过构建体积和空洞的堆栈来创建复杂的体积，形成一个更大的单一体积。
+ * 例如——通常创建者会为每个面创建 6 个"墙壁"表面来制作一个空心立方体。
+ * 使用 Compound Block Volume，创建者可以通过创建一个单独的外部实体立方体，然后在较大的立方体内部定义一个单独的"空洞"立方体来制作一个空心立方体。
+ * 同样，Compound Block Volume 可以表示不规则的形状体积（例如，一棵树由树干和许多树叶方块组成，这些方块不一定连续放置）。
+ * 添加到 CompoundBlockVolume 的每个体积（默认情况下）都是相对于设置的原点（在构造时或通过某个 set 函数设置）的。
+ * 然而，也可以将绝对性质的体积推送到复合集合中，这些体积不受原点变化的影响。
+ *
  * The Compound Block Volume is a collection of individual
  * block volume definitions which, as a collection, define a
  * larger volume of (sometimes non-contiguous) irregular
@@ -28,6 +36,8 @@
 export class CompoundBlockVolume {
     /**
      * @remarks
+     * 返回表示堆栈中体积集合的边界矩形的"容量"。
+     *
      * Return the 'capacity' of the bounding rectangle which
      * represents the collection of volumes in the stack
      *
@@ -37,6 +47,8 @@ export class CompoundBlockVolume {
     readonly itemsAbsolute: CompoundBlockVolumeItem[];
     /**
      * @remarks
+     * 返回体积堆栈中体积（正向和负向）的数量。
+     *
      * Return the number of volumes (positive and negative) in the
      * volume stack
      *
@@ -44,9 +56,13 @@ export class CompoundBlockVolume {
     readonly volumeCount: number;
     /**
      * @remarks
+     * 创建一个 CompoundBlockVolume 对象。
+     *
      * Create a CompoundBlockVolume object
      *
      * @param origin
+     * 一个可选的用于居中复合体积的世界空间原点。如果未指定，原点设置为 `(0,0,0)`。
+     *
      * An optional world space origin on which to center the
      * compound volume.
      * If not specified, the origin is set to (0,0,0)
@@ -54,6 +70,8 @@ export class CompoundBlockVolume {
     constructor(origin?: Vector3);
     /**
      * @remarks
+     * 清空体积堆栈的内容。
+     *
      * Clear the contents of the volume stack
      *
      * @worldMutation
@@ -62,6 +80,8 @@ export class CompoundBlockVolume {
     clear(): void;
     /**
      * @remarks
+     * 获取 Compound Block Volume 的方块位置迭代器。此迭代器将允许创建者遍历更大边界区域内所有选中的体积。已被减去体积覆盖的体积区域将不包含在迭代器步骤中（即，如果你向堆栈推送一个立方体，然后向同一位置推送一个减去体积，迭代器将跳过初始体积，因为它被视为负空间）。请注意，此迭代器返回的方块位置是绝对世界空间坐标（无论推送的复合体积项是绝对的还是相对的）。
+     *
      * Fetch a Block Location Iterator for the Compound Block
      * Volume.  This iterator will allow a creator to iterate
      * across all of the selected volumes within the larger
@@ -83,6 +103,8 @@ export class CompoundBlockVolume {
     getBlockLocationIterator(): BlockLocationIterator;
     /**
      * @remarks
+     * 获取表示堆栈上所有体积容器的最大的边界框。请注意，返回的边界框以绝对世界空间坐标表示（无论推送的复合体积项是绝对的还是相对的）。
+     *
      * Get the largest bounding box that represents a container for
      * all of the volumes on the stack
      * Note that the bounding box returned is represented in
@@ -95,6 +117,8 @@ export class CompoundBlockVolume {
     getBoundingBox(): BlockBoundingBox;
     /**
      * @remarks
+     * 获取表示堆栈上体积的最外层边界矩形的最大方块位置。请注意，返回的最大位置以绝对世界空间坐标表示（无论推送的复合体积项是绝对的还是相对的）。
+     *
      * Get the max block location of the outermost bounding
      * rectangle which represents the volumes on the stack.
      * Note that the max location returned is in absolute world
@@ -107,6 +131,8 @@ export class CompoundBlockVolume {
     getMax(): Vector3;
     /**
      * @remarks
+     * 获取表示堆栈上体积的最外层边界矩形的最小方块位置。请注意，返回的最小位置以绝对世界空间坐标表示（无论推送的复合体积项是绝对的还是相对的）。
+     *
      * Get the min block location of the outermost bounding
      * rectangle which represents the volumes on the stack.
      * Note that the min location returned is in absolute world
@@ -119,6 +145,8 @@ export class CompoundBlockVolume {
     getMin(): Vector3;
     /**
      * @remarks
+     * 获取复合体积在世界空间中的原点。
+     *
      * Fetch the origin in world space of the compound volume
      *
      * @worldMutation
@@ -127,6 +155,8 @@ export class CompoundBlockVolume {
     getOrigin(): Vector3;
     /**
      * @remarks
+     * 返回一个布尔值，指示是否有体积项被推送到体积堆栈中。
+     *
      * Return a boolean which signals if there are any volume items
      * pushed to the volume
      *
@@ -136,6 +166,8 @@ export class CompoundBlockVolume {
     isEmpty(): boolean;
     /**
      * @remarks
+     * 返回一个布尔值，表示给定的绝对世界空间方块位置是否在正向方块体积内部。例如，如果堆栈包含一个大立方体后面跟着一个稍小的负立方体，并且测试位置在负立方体内部——该函数将返回 `false`，因为它不在体积"内部"（它在边界矩形内部，但不在正确定义的位置内部）。
+     *
      * Return a boolean representing whether or not a given
      * absolute world space block location is inside a positive
      * block volume.
@@ -152,12 +184,19 @@ export class CompoundBlockVolume {
     isInside(worldLocation: Vector3): boolean;
     /**
      * @remarks
+     * 检查推送到体积堆栈的最后一个条目，而不影响堆栈内容。
+     *
      * Inspect the last entry pushed to the volume stack without
      * affecting the stack contents.
      *
      * @worldMutation
      *
      * @param forceRelativity
+     * 确定函数是否返回强制为相对或绝对坐标系的 CompoundBlockVolumeItem。
+     * `true` = 强制返回的项相对于体积原点
+     * `false` = 强制返回的项为绝对世界空间位置
+     * 如果未指定标志，返回的项保留其推送时的相对性。
+     *
      * Determine whether the function returns a
      * CompoundBlockVolumeItem which is forced into either relative
      * or absolute coordinate system.
@@ -168,11 +207,15 @@ export class CompoundBlockVolume {
      * If no flag is specified, the item returned retains whatever
      * relativity it had when it was pushed
      * @returns
+     * 如果堆栈为空则返回 `undefined`。
+     *
      * Returns undefined if the stack is empty
      */
     peekLastVolume(forceRelativity?: CompoundBlockVolumePositionRelativity): CompoundBlockVolumeItem | undefined;
     /**
      * @remarks
+     * 从体积堆栈中移除最后一个条目。这将使堆栈大小减一。
+     *
      * Remove the last entry from the volume stack.  This will
      * reduce the stack size by one
      *
@@ -182,6 +225,8 @@ export class CompoundBlockVolume {
     popVolume(): boolean;
     /**
      * @remarks
+     * 将一个体积项推送到堆栈。该体积项包含一个 `action` 参数，用于确定该体积是正向空间还是负向空间。该项还包含一个 `locationRelativity`，用于确定它是相对于复合体积原点还是绝对的。
+     *
      * Push a volume item to the stack.  The volume item contains
      * an 'action' parameter which determines whether this volume
      * is a positive or negative space.
@@ -192,11 +237,15 @@ export class CompoundBlockVolume {
      * @worldMutation
      *
      * @param item
+     * 要推送到堆栈末尾的项。
+     *
      * Item to push to the end of the stack
      */
     pushVolume(item: CompoundBlockVolumeItem): void;
     /**
      * @remarks
+     * 如果体积堆栈为空，此函数将推送指定项到堆栈。如果体积堆栈不为空，此函数将用新项替换堆栈上的最后一个项。
+     *
      * If the volume stack is empty, this function will push the
      * specified item to the stack.
      * If the volume stack is NOT empty, this function will replace
@@ -205,17 +254,30 @@ export class CompoundBlockVolume {
      * @worldMutation
      *
      * @param item
+     * 要添加或替换的项。
+     *
      * Item to add or replace
      */
     replaceOrAddLastVolume(item: CompoundBlockVolumeItem): boolean;
     /**
      * @remarks
+     * 将复合体积的原点设置为绝对世界空间位置。
+     *
      * Set the origin of the compound volume to an absolute world
      * space location
      *
      * @worldMutation
      *
      * @param preserveExistingVolumes
+     * 此可选的布尔标志确定相对的 `CompoundBlockVolumeItem` 是固定在原地，还是受新原点影响。
+     * 想象一个场景，你有一系列围绕原点的相对位置，构成一个球体；所有这些位置的范围在 -2 到 2 之间。
+     * 将这些位置作为相对项推送到复合体积中。
+     * 现在，移动原点，表示球体的所有位置也会随之移动。
+     * 然而，假设你想在第一个球体旁边添加第二个球体。
+     * 在这种情况下，将新原点设置在几个位置之外，但设置 `preserveExistingVolumes` = `true`。
+     * 这将设置一个新原点，但现有的球体位置将保持相对于原始原点。
+     * 现在，你可以再次推送相对的球体位置（这次它们将相对于新原点）——结果得到两个相邻的球体。
+     *
      * This optional boolean flag determines whether the relative
      * `CompoundBlockVolumeItem`'s are frozen in place, or are
      * affected by the new origin.
@@ -239,6 +301,8 @@ export class CompoundBlockVolume {
     setOrigin(position: Vector3, preserveExistingVolumes?: boolean): void;
     /**
      * @remarks
+     * 类似于 {@link CompoundBlockVolume.setOrigin}——此函数会将原点按给定增量平移到一个新位置。
+     *
      * Similar to {@link CompoundBlockVolume.setOrigin} - this
      * function will translate the origin by a given delta to a new
      * position
@@ -246,6 +310,8 @@ export class CompoundBlockVolume {
      * @worldMutation
      *
      * @param preserveExistingVolumes
+     * 参见 {@link CompoundBlockVolume.setOrigin} 参数的描述。
+     *
      * See the description for the arguments to {@link
      * CompoundBlockVolume.setOrigin}
      */

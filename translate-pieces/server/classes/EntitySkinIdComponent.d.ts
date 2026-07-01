@@ -1,18 +1,12 @@
 /* IMPORT */ import { EntityComponent } from '..';
 
 /**
- * Skin Id value. Can be used to differentiate skins, such as
- * base skins for villagers.
+ * 定义实体的皮肤 ID（材质变体）。
+ *
+ * Defines the entity's skin ID (texture variant).
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntitySkinIdComponent extends EntityComponent {
     private constructor();
-    /**
-     * @remarks
-     * Returns the value of the skin Id identifier of the entity.
-     *
-     * @throws This property can throw when used.
-     */
-    readonly value: number;
     static readonly componentId = 'minecraft:skin_id';
 }

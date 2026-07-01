@@ -1,6 +1,8 @@
 /* IMPORT */ import { EntityComponent } from '..';
 
 /**
+ * 当添加时，此组件表示该实体可以在液体方块中漂浮。
+ *
  * When added, this component signifies that this entity can
  * float in liquid blocks.
  */

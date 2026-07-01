@@ -1,36 +1,34 @@
 /* IMPORT */ import { EntityLoadAfterEvent } from '..';
 
 /**
- * Registers a script-based event handler for handling what
- * happens when an entity loads.
+ * 管理与实体加载后相关的回调。
+ *
+ * Manages callbacks that are connected to after an entity is loaded.
  */
 export class EntityLoadAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * Method to register an event handler for what happens when an
-     * entity loads.
+     * 添加一个回调，将在实体加载后被调用。
+     *
+     * Adds a callback that will be called after an entity is loaded.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
-     * @param callback
-     * Function that handles the load event.
      */
     subscribe(callback: (arg0: EntityLoadAfterEvent) => void): (arg0: EntityLoadAfterEvent) => void;
     /**
      * @remarks
-     * Unregisters a method that was previously subscribed to the
-     * subscription event.
+     * 移除一个回调，使其在实体加载后不再被调用。
+     *
+     * Removes a callback from being called after an entity is loaded.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
-     * @param callback
-     * Original function that was passed into the subscribe event,
-     * that is to be unregistered.
      */
     unsubscribe(callback: (arg0: EntityLoadAfterEvent) => void): void;
 }

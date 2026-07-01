@@ -1,6 +1,8 @@
 /* IMPORT */ import { Block, Entity, ScriptEventSource } from '..';
 
 /**
+ * 返回关于 /scriptevent 命令调用的附加数据。
+ *
  * Returns additional data about a /scriptevent command
  * invocation.
  */
@@ -8,12 +10,16 @@ export class ScriptEventCommandMessageAfterEvent {
     private constructor();
     /**
      * @remarks
+     * 此 ScriptEvent 命令消息的标识符。
+     *
      * Identifier of this ScriptEvent command message.
      *
      */
     readonly id: string;
     /**
      * @remarks
+     * 如果此命令是通过 NPC 发起的，则返回发起 NPC 对话的实体。
+     *
      * If this command was initiated via an NPC, returns the entity
      * that initiated the NPC dialogue.
      *
@@ -21,6 +27,8 @@ export class ScriptEventCommandMessageAfterEvent {
     readonly initiator?: Entity;
     /**
      * @remarks
+     * 通过脚本事件命令传递的可选附加数据。
+     *
      * Optional additional data passed in with the script event
      * command.
      *
@@ -28,6 +36,8 @@ export class ScriptEventCommandMessageAfterEvent {
     readonly message: string;
     /**
      * @remarks
+     * 如果此命令是通过方块（如命令方块）触发的，则为源方块。
+     *
      * Source block if this command was triggered via a block
      * (e.g., a commandblock.)
      *
@@ -35,6 +45,8 @@ export class ScriptEventCommandMessageAfterEvent {
     readonly sourceBlock?: Block;
     /**
      * @remarks
+     * 如果此命令是由实体（如 NPC）触发的，则为源实体。
+     *
      * Source entity if this command was triggered by an entity
      * (e.g., a NPC).
      *
@@ -42,6 +54,8 @@ export class ScriptEventCommandMessageAfterEvent {
     readonly sourceEntity?: Entity;
     /**
      * @remarks
+     * 返回触发此命令的源类型。
+     *
      * Returns the type of source that fired this command.
      *
      */
