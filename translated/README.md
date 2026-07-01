@@ -32,8 +32,8 @@ NPM 包：
 不喜欢[译文](https://projectxero.top/sapi/)？您也可以直接查看[原文](https://projectxero.top/sapi/original/)。
 
 ## 参与翻译
-
-项目地址：[XeroAlpha/sapi-typedoc](https://github.com/XeroAlpha/sapi-typedoc)
+项目地址：[Tanya7z/sapi-typedoc](https://github.com/Tanya7z/sapi-typedoc)
+本项目为[XeroAlpha/sapi-typedoc](https://github.com/XeroAlpha/sapi-typedoc)的分支，欢迎支持原项目。
 
 欢迎通过 [Fork & Pull Request](https://docs.github.com/zh/pull-requests/collaborating-with-pull-requests/getting-started/about-collaborative-development-models) 参与此项目！
 
