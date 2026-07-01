@@ -35,6 +35,8 @@ NPM 包：
 项目地址：[Tanya7z/sapi-typedoc](https://github.com/Tanya7z/sapi-typedoc)
 本项目为[XeroAlpha/sapi-typedoc](https://github.com/XeroAlpha/sapi-typedoc)的分支，欢迎支持原项目。
 
+本分支通过DeepSeek v4快速翻译，可能会有不准确的地方，后期会逐步迭代。
+
 欢迎通过 [Fork & Pull Request](https://docs.github.com/zh/pull-requests/collaborating-with-pull-requests/getting-started/about-collaborative-development-models) 参与此项目！
 
 > [!TIP]
