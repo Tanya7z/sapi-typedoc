@@ -191,7 +191,7 @@ const stateDescMap: Record<(typeof statusList)[number], string> = {
 };
 
 export default {
-    afterConvert({ sourceFiles, tsdocApplication, tsdocProject }) {
+    afterConvert({ sourceFiles, tsdocApplication, tsdocProject, dependencies }) {
         const { readme } = tsdocProject;
         if (!readme) {
             throw new Error(`Readme is not found in project`);
@@ -207,11 +207,43 @@ export default {
             console.error(err);
             return;
         }
+
         tsdocApplication.renderer.on(RendererEvent.BEGIN, () => {
             const router = tsdocApplication.renderer.router;
             if (!router) {
                 throw new Error(`Unexpected renderer.router === undefined`);
             }
+
+            // Build version mapping table
+            const versionTableLines: string[] = [
+                '',
+                '## NPM 包版本映射',
+                '',
+                '|包名|版本|对应 MC 版本|更新日志|',
+                '| - | - | - | - |'
+            ];
+            let gameVersion: string | undefined;
+            Object.entries(dependencies).forEach(([moduleName, version]) => {
+                if (!version) return;
+                let versionString = version;
+                let mcVersion = '-';
+                const versionInfo = parsePackageVersion(version);
+                if (versionInfo) {
+                    gameVersion ??= versionInfo.gameVersion;
+                    versionString = versionInfo.version;
+                    mcVersion = `\`${versionInfo.gameVersion}\``;
+                }
+                const npmURL = `https://www.npmjs.com/package/${moduleName}`;
+                const moduleShortName = moduleName.startsWith(namespacePrefix) ? moduleName.slice(namespacePrefix.length) : moduleName;
+                const changelogURL = `https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/${moduleShortName}/changelog`;
+                versionTableLines.push(`|[${moduleName}](${npmURL})|\`${versionString}\`|${mcVersion}|[查看](${changelogURL})|`);
+            });
+            versionTableLines.push('');
+            if (gameVersion) {
+                versionTableLines.push(`游戏版本号：\`${gameVersion}\``);
+            }
+            versionTableLines.push('');
+
             const summaryLines: (string | string[])[] = ['', '', '<div class="readme-modules"><p>模块：</p><ul>'];
             const statusHeadLines: string[] = [
                 '',
@@ -295,7 +327,7 @@ export default {
             if (!statusLine) {
                 throw new Error(`Cannot find text part in readme`);
             }
-            statusLine.text = statusLine.text.replace('<!-- summary start -->', summaryLines.flat().join('\n'));
+            statusLine.text = statusLine.text.replace('<!-- summary start -->', [...versionTableLines, ...summaryLines.flat()].join('\n'));
             readme.push({
                 kind: 'text',
                 text: statusLines.flat().join('\n')

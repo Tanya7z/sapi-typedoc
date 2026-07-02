@@ -100,34 +100,41 @@ export default {
         );
 
         const changelogLines: string[] = ['', '', '## 更新日志', ''];
+        let hasContent = false;
         
         for (const moduleName of moduleNames) {
-            const cachedEntries = loadCachedChangelog(moduleName);
-            if (!cachedEntries || cachedEntries.length === 0) continue;
-            
             const version = dependencies[moduleName];
             if (!version) continue;
-            
-            // Find matching entry for current version
-            // Exact match first, then prefix match
-            let currentEntry = cachedEntries.find((entry) => version === entry.version);
-            if (!currentEntry) {
-                currentEntry = cachedEntries.find((entry) => version.startsWith(entry.version));
-            }
-            if (!currentEntry || currentEntry.changes.length === 0) continue;
+
+            const changelogURL = getChangelogURL(moduleName);
+            const cachedEntries = loadCachedChangelog(moduleName);
             
             changelogLines.push(`### ${moduleName}`);
             changelogLines.push('');
             changelogLines.push(`当前版本: \`${version}\``);
             changelogLines.push('');
             
-            currentEntry.changes.forEach((change) => {
-                changelogLines.push(`- ${change}`);
-            });
+            if (cachedEntries && cachedEntries.length > 0) {
+                // Find matching entry for current version
+                let currentEntry = cachedEntries.find((entry) => version === entry.version);
+                if (!currentEntry) {
+                    currentEntry = cachedEntries.find((entry) => version.startsWith(entry.version));
+                }
+                if (currentEntry && currentEntry.changes.length > 0) {
+                    currentEntry.changes.forEach((change) => {
+                        changelogLines.push(`- ${change}`);
+                    });
+                    hasContent = true;
+                } else {
+                    changelogLines.push(`[查看完整更新日志](${changelogURL})`);
+                }
+            } else {
+                changelogLines.push(`[查看完整更新日志](${changelogURL})`);
+            }
             changelogLines.push('');
         }
 
-        if (changelogLines.length > 3) {
+        if (hasContent || moduleNames.length > 0) {
             readme.push({ kind: 'text', text: changelogLines.join('\n') });
         }
     }
