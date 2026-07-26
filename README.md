@@ -76,3 +76,9 @@ GitHub Actions：
 | `translate-pieces/` | 按符号切分的翻译单元 |
 | `docs/` | MkDocs 源；`docs/api/` 为生成物 |
 | `script/` | 构建 / 更新 CLI |
+
+## TODO
+
+- [ ] 优化构建速度与性能  
+- [ ] 为不同页添加分类标签  
+- [ ] 完善翻译  
