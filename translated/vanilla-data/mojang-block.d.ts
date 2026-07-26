@@ -2,2833 +2,1419 @@
  * All possible MinecraftBlockTypes
  */
 export declare enum MinecraftBlockTypes {
-    /** 金合欢木按钮。 */
     AcaciaButton = "minecraft:acacia_button",
-    /** 金合欢木门。 */
     AcaciaDoor = "minecraft:acacia_door",
-    /** 金合欢木双层台阶。 */
     AcaciaDoubleSlab = "minecraft:acacia_double_slab",
-    /** 金合欢木栅栏。 */
     AcaciaFence = "minecraft:acacia_fence",
-    /** 金合欢木栅栏门。 */
     AcaciaFenceGate = "minecraft:acacia_fence_gate",
-    /** 悬挂式金合欢木告示牌。 */
     AcaciaHangingSign = "minecraft:acacia_hanging_sign",
-    /** 金合欢树叶。 */
     AcaciaLeaves = "minecraft:acacia_leaves",
-    /** 金合欢原木。 */
     AcaciaLog = "minecraft:acacia_log",
-    /** 金合欢木板。 */
     AcaciaPlanks = "minecraft:acacia_planks",
-    /** 金合欢木压力板。 */
     AcaciaPressurePlate = "minecraft:acacia_pressure_plate",
-    /** 金合欢树苗。 */
     AcaciaSapling = "minecraft:acacia_sapling",
-    /** 金合欢木展示架。 */
     AcaciaShelf = "minecraft:acacia_shelf",
-    /** 金合欢木台阶。 */
     AcaciaSlab = "minecraft:acacia_slab",
-    /** 金合欢木楼梯。 */
     AcaciaStairs = "minecraft:acacia_stairs",
-    /** 金合欢木告示牌。 */
     AcaciaStandingSign = "minecraft:acacia_standing_sign",
-    /** 金合欢木活板门。 */
     AcaciaTrapdoor = "minecraft:acacia_trapdoor",
-    /** 墙上的金合欢木告示牌。 */
     AcaciaWallSign = "minecraft:acacia_wall_sign",
-    /** 金合欢木。 */
     AcaciaWood = "minecraft:acacia_wood",
-    /** 激活铁轨。 */
     ActivatorRail = "minecraft:activator_rail",
-    /** 空气。 */
     Air = "minecraft:air",
-    /** 绒球葱。 */
     Allium = "minecraft:allium",
-    /** 允许方块。 */
     Allow = "minecraft:allow",
-    /** 紫水晶块。 */
     AmethystBlock = "minecraft:amethyst_block",
-    /** 紫水晶簇。 */
     AmethystCluster = "minecraft:amethyst_cluster",
-    /** 远古残骸。 */
     AncientDebris = "minecraft:ancient_debris",
-    /** 安山岩。 */
     Andesite = "minecraft:andesite",
-    /** 安山岩双层台阶。 */
     AndesiteDoubleSlab = "minecraft:andesite_double_slab",
-    /** 安山岩台阶。 */
     AndesiteSlab = "minecraft:andesite_slab",
-    /** 安山岩楼梯。 */
     AndesiteStairs = "minecraft:andesite_stairs",
-    /** 安山岩墙。 */
     AndesiteWall = "minecraft:andesite_wall",
-    /** 铁砧。 */
     Anvil = "minecraft:anvil",
-    /** 杜鹃花丛。 */
     Azalea = "minecraft:azalea",
-    /** 杜鹃树叶。 */
     AzaleaLeaves = "minecraft:azalea_leaves",
-    /** 盛开的杜鹃树叶。 */
     AzaleaLeavesFlowered = "minecraft:azalea_leaves_flowered",
-    /** 蓝花美耳草。 */
     AzureBluet = "minecraft:azure_bluet",
-    /** 竹子。 */
     Bamboo = "minecraft:bamboo",
-    /** 竹块。 */
     BambooBlock = "minecraft:bamboo_block",
-    /** 竹按钮。 */
     BambooButton = "minecraft:bamboo_button",
-    /** 竹门。 */
     BambooDoor = "minecraft:bamboo_door",
-    /** 竹双层台阶。 */
     BambooDoubleSlab = "minecraft:bamboo_double_slab",
-    /** 竹栅栏。 */
     BambooFence = "minecraft:bamboo_fence",
-    /** 竹栅栏门。 */
     BambooFenceGate = "minecraft:bamboo_fence_gate",
-    /** 悬挂式竹告示牌。 */
     BambooHangingSign = "minecraft:bamboo_hanging_sign",
-    /** 竹马赛克。 */
     BambooMosaic = "minecraft:bamboo_mosaic",
-    /** 竹马赛克双层台阶。 */
     BambooMosaicDoubleSlab = "minecraft:bamboo_mosaic_double_slab",
-    /** 竹马赛克台阶。 */
     BambooMosaicSlab = "minecraft:bamboo_mosaic_slab",
-    /** 竹马赛克楼梯。 */
     BambooMosaicStairs = "minecraft:bamboo_mosaic_stairs",
-    /** 竹板。 */
     BambooPlanks = "minecraft:bamboo_planks",
-    /** 竹压力板。 */
     BambooPressurePlate = "minecraft:bamboo_pressure_plate",
-    /** 竹笋。 */
     BambooSapling = "minecraft:bamboo_sapling",
-    /** 竹展示架。 */
     BambooShelf = "minecraft:bamboo_shelf",
-    /** 竹台阶。 */
     BambooSlab = "minecraft:bamboo_slab",
-    /** 竹楼梯。 */
     BambooStairs = "minecraft:bamboo_stairs",
-    /** 竹告示牌。 */
     BambooStandingSign = "minecraft:bamboo_standing_sign",
-    /** 竹活板门。 */
     BambooTrapdoor = "minecraft:bamboo_trapdoor",
-    /** 墙上的竹告示牌。 */
     BambooWallSign = "minecraft:bamboo_wall_sign",
-    /** 木桶。 */
     Barrel = "minecraft:barrel",
-    /** 屏障。 */
     Barrier = "minecraft:barrier",
-    /** 玄武岩。 */
     Basalt = "minecraft:basalt",
-    /** 信标。 */
     Beacon = "minecraft:beacon",
-    /** 床。 */
     Bed = "minecraft:bed",
-    /** 基岩。 */
     Bedrock = "minecraft:bedrock",
-    /** 蜂巢。 */
     BeeNest = "minecraft:bee_nest",
-    /** 蜂箱。 */
     Beehive = "minecraft:beehive",
-    /** 甜菜根。 */
     Beetroot = "minecraft:beetroot",
-    /** 钟。 */
     Bell = "minecraft:bell",
-    /** 大型垂滴叶。 */
     BigDripleaf = "minecraft:big_dripleaf",
-    /** 白桦木按钮。 */
     BirchButton = "minecraft:birch_button",
-    /** 白桦木门。 */
     BirchDoor = "minecraft:birch_door",
-    /** 白桦木双层台阶。 */
     BirchDoubleSlab = "minecraft:birch_double_slab",
-    /** 白桦木栅栏。 */
     BirchFence = "minecraft:birch_fence",
-    /** 白桦木栅栏门。 */
     BirchFenceGate = "minecraft:birch_fence_gate",
-    /** 悬挂式白桦木告示牌。 */
     BirchHangingSign = "minecraft:birch_hanging_sign",
-    /** 白桦树叶。 */
     BirchLeaves = "minecraft:birch_leaves",
-    /** 白桦原木。 */
     BirchLog = "minecraft:birch_log",
-    /** 白桦木板。 */
     BirchPlanks = "minecraft:birch_planks",
-    /** 白桦木压力板。 */
     BirchPressurePlate = "minecraft:birch_pressure_plate",
-    /** 白桦树苗。 */
     BirchSapling = "minecraft:birch_sapling",
-    /** 白桦木展示架。 */
     BirchShelf = "minecraft:birch_shelf",
-    /** 白桦木台阶。 */
     BirchSlab = "minecraft:birch_slab",
-    /** 白桦木楼梯。 */
     BirchStairs = "minecraft:birch_stairs",
-    /** 白桦木告示牌。 */
     BirchStandingSign = "minecraft:birch_standing_sign",
-    /** 白桦木活板门。 */
     BirchTrapdoor = "minecraft:birch_trapdoor",
-    /** 墙上的白桦木告示牌。 */
     BirchWallSign = "minecraft:birch_wall_sign",
-    /** 白桦木。 */
     BirchWood = "minecraft:birch_wood",
-    /** 黑色蜡烛。 */
     BlackCandle = "minecraft:black_candle",
-    /** 插上黑色蜡烛的蛋糕。 */
     BlackCandleCake = "minecraft:black_candle_cake",
-    /** 黑色地毯。 */
     BlackCarpet = "minecraft:black_carpet",
-    /** 黑色混凝土。 */
     BlackConcrete = "minecraft:black_concrete",
-    /** 黑色混凝土粉末。 */
     BlackConcretePowder = "minecraft:black_concrete_powder",
-    /** 黑色带釉陶瓦。 */
     BlackGlazedTerracotta = "minecraft:black_glazed_terracotta",
-    /** 黑色潜影盒。 */
     BlackShulkerBox = "minecraft:black_shulker_box",
-    /** 黑色染色玻璃。 */
     BlackStainedGlass = "minecraft:black_stained_glass",
-    /** 黑色染色玻璃板。 */
     BlackStainedGlassPane = "minecraft:black_stained_glass_pane",
-    /** 黑色陶瓦。 */
     BlackTerracotta = "minecraft:black_terracotta",
-    /** 黑色羊毛。 */
     BlackWool = "minecraft:black_wool",
-    /** 黑色羊毛双层台阶。 */
     BlackWoolDoubleSlab = "minecraft:black_wool_double_slab",
-    /** 黑色羊毛台阶。 */
     BlackWoolSlab = "minecraft:black_wool_slab",
-    /** 黑色羊毛楼梯。 */
     BlackWoolStairs = "minecraft:black_wool_stairs",
-    /** 黑石。 */
     Blackstone = "minecraft:blackstone",
-    /** 黑石双层台阶。 */
     BlackstoneDoubleSlab = "minecraft:blackstone_double_slab",
-    /** 黑石台阶。 */
     BlackstoneSlab = "minecraft:blackstone_slab",
-    /** 黑石楼梯。 */
     BlackstoneStairs = "minecraft:blackstone_stairs",
-    /** 黑石墙。 */
     BlackstoneWall = "minecraft:blackstone_wall",
-    /** 高炉。 */
     BlastFurnace = "minecraft:blast_furnace",
-    /** 蓝色蜡烛。 */
     BlueCandle = "minecraft:blue_candle",
-    /** 插上蓝色蜡烛的蛋糕。 */
     BlueCandleCake = "minecraft:blue_candle_cake",
-    /** 蓝色地毯。 */
     BlueCarpet = "minecraft:blue_carpet",
-    /** 蓝色混凝土。 */
     BlueConcrete = "minecraft:blue_concrete",
-    /** 蓝色混凝土粉末。 */
     BlueConcretePowder = "minecraft:blue_concrete_powder",
-    /** 蓝色带釉陶瓦。 */
     BlueGlazedTerracotta = "minecraft:blue_glazed_terracotta",
-    /** 蓝冰。 */
     BlueIce = "minecraft:blue_ice",
-    /** 兰花。 */
     BlueOrchid = "minecraft:blue_orchid",
-    /** 蓝色潜影盒。 */
     BlueShulkerBox = "minecraft:blue_shulker_box",
-    /** 蓝色染色玻璃。 */
     BlueStainedGlass = "minecraft:blue_stained_glass",
-    /** 蓝色染色玻璃板。 */
     BlueStainedGlassPane = "minecraft:blue_stained_glass_pane",
-    /** 蓝色陶瓦。 */
     BlueTerracotta = "minecraft:blue_terracotta",
-    /** 蓝色羊毛。 */
     BlueWool = "minecraft:blue_wool",
-    /** 蓝色羊毛双层台阶。 */
     BlueWoolDoubleSlab = "minecraft:blue_wool_double_slab",
-    /** 蓝色羊毛台阶。 */
     BlueWoolSlab = "minecraft:blue_wool_slab",
-    /** 蓝色羊毛楼梯。 */
     BlueWoolStairs = "minecraft:blue_wool_stairs",
-    /** 骨块。 */
     BoneBlock = "minecraft:bone_block",
-    /** 书架。 */
     Bookshelf = "minecraft:bookshelf",
-    /** 边界。 */
     BorderBlock = "minecraft:border_block",
-    /** 脑纹珊瑚。 */
     BrainCoral = "minecraft:brain_coral",
-    /** 脑纹珊瑚块。 */
     BrainCoralBlock = "minecraft:brain_coral_block",
-    /** 脑纹珊瑚扇。 */
     BrainCoralFan = "minecraft:brain_coral_fan",
-    /** 墙上的脑纹珊瑚扇。 */
     BrainCoralWallFan = "minecraft:brain_coral_wall_fan",
-    /** 酿造台。 */
     BrewingStand = "minecraft:brewing_stand",
-    /** 红砖块。 */
     BrickBlock = "minecraft:brick_block",
-    /** 红砖双层台阶。 */
     BrickDoubleSlab = "minecraft:brick_double_slab",
-    /** 红砖台阶。 */
     BrickSlab = "minecraft:brick_slab",
-    /** 红砖楼梯。 */
     BrickStairs = "minecraft:brick_stairs",
-    /** 红砖墙。 */
     BrickWall = "minecraft:brick_wall",
-    /** 棕色蜡烛。 */
     BrownCandle = "minecraft:brown_candle",
-    /** 插上棕色蜡烛的蛋糕。 */
     BrownCandleCake = "minecraft:brown_candle_cake",
-    /** 棕色地毯。 */
     BrownCarpet = "minecraft:brown_carpet",
-    /** 棕色混凝土。 */
     BrownConcrete = "minecraft:brown_concrete",
-    /** 棕色混凝土粉末。 */
     BrownConcretePowder = "minecraft:brown_concrete_powder",
-    /** 棕色带釉陶瓦。 */
     BrownGlazedTerracotta = "minecraft:brown_glazed_terracotta",
-    /** 棕色蘑菇。 */
     BrownMushroom = "minecraft:brown_mushroom",
-    /** 棕色蘑菇方块。 */
     BrownMushroomBlock = "minecraft:brown_mushroom_block",
-    /** 棕色潜影盒。 */
     BrownShulkerBox = "minecraft:brown_shulker_box",
-    /** 棕色染色玻璃。 */
     BrownStainedGlass = "minecraft:brown_stained_glass",
-    /** 棕色染色玻璃板。 */
     BrownStainedGlassPane = "minecraft:brown_stained_glass_pane",
-    /** 棕色陶瓦。 */
     BrownTerracotta = "minecraft:brown_terracotta",
-    /** 棕色羊毛。 */
     BrownWool = "minecraft:brown_wool",
-    /** 棕色羊毛双层台阶。 */
     BrownWoolDoubleSlab = "minecraft:brown_wool_double_slab",
-    /** 棕色羊毛台阶。 */
     BrownWoolSlab = "minecraft:brown_wool_slab",
-    /** 棕色羊毛楼梯。 */
     BrownWoolStairs = "minecraft:brown_wool_stairs",
-    /** 气泡柱。 */
     BubbleColumn = "minecraft:bubble_column",
-    /** 气泡珊瑚。 */
     BubbleCoral = "minecraft:bubble_coral",
-    /** 气泡珊瑚块。 */
     BubbleCoralBlock = "minecraft:bubble_coral_block",
-    /** 气泡珊瑚扇。 */
     BubbleCoralFan = "minecraft:bubble_coral_fan",
-    /** 墙上的气泡珊瑚扇。 */
     BubbleCoralWallFan = "minecraft:bubble_coral_wall_fan",
-    /** 紫水晶母岩。 */
     BuddingAmethyst = "minecraft:budding_amethyst",
-    /** 灌木丛。 */
     Bush = "minecraft:bush",
-    /** 仙人掌。 */
     Cactus = "minecraft:cactus",
-    /** 仙人掌花。 */
     CactusFlower = "minecraft:cactus_flower",
-    /** 蛋糕。 */
     Cake = "minecraft:cake",
-    /** 方解石。 */
     Calcite = "minecraft:calcite",
-    /** 校频幽匿感测体。 */
     CalibratedSculkSensor = "minecraft:calibrated_sculk_sensor",
-    /** 摄像机。 */
     Camera = "minecraft:camera",
-    /** 营火。 */
     Campfire = "minecraft:campfire",
-    /** 蜡烛。 */
     Candle = "minecraft:candle",
-    /** 插上蜡烛的蛋糕。 */
     CandleCake = "minecraft:candle_cake",
-    /** 胡萝卜。 */
     Carrots = "minecraft:carrots",
-    /** 制图台。 */
     CartographyTable = "minecraft:cartography_table",
-    /** 雕刻南瓜。 */
     CarvedPumpkin = "minecraft:carved_pumpkin",
-    /** 炼药锅。 */
     Cauldron = "minecraft:cauldron",
-    /** 洞穴藤蔓。 */
     CaveVines = "minecraft:cave_vines",
-    /** 洞穴藤蔓。 */
     CaveVinesBodyWithBerries = "minecraft:cave_vines_body_with_berries",
-    /** 洞穴藤蔓。 */
     CaveVinesHeadWithBerries = "minecraft:cave_vines_head_with_berries",
-    /** 连锁型命令方块。 */
     ChainCommandBlock = "minecraft:chain_command_block",
-    /** 加热块。 */
     ChemicalHeat = "minecraft:chemical_heat",
-    /** 樱花木按钮。 */
     CherryButton = "minecraft:cherry_button",
-    /** 樱花木门。 */
     CherryDoor = "minecraft:cherry_door",
-    /** 樱花木双层台阶。 */
     CherryDoubleSlab = "minecraft:cherry_double_slab",
-    /** 樱花木栅栏。 */
     CherryFence = "minecraft:cherry_fence",
-    /** 樱花木栅栏门。 */
     CherryFenceGate = "minecraft:cherry_fence_gate",
-    /** 悬挂式樱花木告示牌。 */
     CherryHangingSign = "minecraft:cherry_hanging_sign",
-    /** 樱花树叶。 */
     CherryLeaves = "minecraft:cherry_leaves",
-    /** 樱花原木。 */
     CherryLog = "minecraft:cherry_log",
-    /** 樱花木板。 */
     CherryPlanks = "minecraft:cherry_planks",
-    /** 樱花木压力板。 */
     CherryPressurePlate = "minecraft:cherry_pressure_plate",
-    /** 樱花树苗。 */
     CherrySapling = "minecraft:cherry_sapling",
-    /** 樱花木展示架。 */
     CherryShelf = "minecraft:cherry_shelf",
-    /** 樱花木台阶。 */
     CherrySlab = "minecraft:cherry_slab",
-    /** 樱花木楼梯。 */
     CherryStairs = "minecraft:cherry_stairs",
-    /** 樱花木告示牌。 */
     CherryStandingSign = "minecraft:cherry_standing_sign",
-    /** 樱花木活板门。 */
     CherryTrapdoor = "minecraft:cherry_trapdoor",
-    /** 墙上的樱花木告示牌。 */
     CherryWallSign = "minecraft:cherry_wall_sign",
-    /** 樱花木。 */
     CherryWood = "minecraft:cherry_wood",
-    /** 箱子。 */
     Chest = "minecraft:chest",
-    /** 开裂的铁砧。 */
     ChippedAnvil = "minecraft:chipped_anvil",
-    /** 雕纹书架。 */
     ChiseledBookshelf = "minecraft:chiseled_bookshelf",
-    /** 雕纹朱砂。 */
     ChiseledCinnabar = "minecraft:chiseled_cinnabar",
-    /** 雕纹铜块。 */
     ChiseledCopper = "minecraft:chiseled_copper",
-    /** 雕纹深板岩。 */
     ChiseledDeepslate = "minecraft:chiseled_deepslate",
-    /** 雕纹下界砖块。 */
     ChiseledNetherBricks = "minecraft:chiseled_nether_bricks",
-    /** 雕纹磨制黑石。 */
     ChiseledPolishedBlackstone = "minecraft:chiseled_polished_blackstone",
-    /** 雕纹石英块。 */
     ChiseledQuartzBlock = "minecraft:chiseled_quartz_block",
-    /** 雕纹红砂岩。 */
     ChiseledRedSandstone = "minecraft:chiseled_red_sandstone",
-    /** 雕纹树脂砖块。 */
     ChiseledResinBricks = "minecraft:chiseled_resin_bricks",
-    /** 雕纹砂岩。 */
     ChiseledSandstone = "minecraft:chiseled_sandstone",
-    /** 雕纹石砖。 */
     ChiseledStoneBricks = "minecraft:chiseled_stone_bricks",
-    /** 雕纹硫黄。 */
     ChiseledSulfur = "minecraft:chiseled_sulfur",
-    /** 雕纹凝灰岩。 */
     ChiseledTuff = "minecraft:chiseled_tuff",
-    /** 雕纹凝灰岩砖。 */
     ChiseledTuffBricks = "minecraft:chiseled_tuff_bricks",
-    /** 紫颂花。 */
     ChorusFlower = "minecraft:chorus_flower",
-    /** 紫颂植株。 */
     ChorusPlant = "minecraft:chorus_plant",
-    /** 朱砂。 */
     Cinnabar = "minecraft:cinnabar",
-    /** 朱砂砖双层台阶。 */
     CinnabarBrickDoubleSlab = "minecraft:cinnabar_brick_double_slab",
-    /** 朱砂砖台阶。 */
     CinnabarBrickSlab = "minecraft:cinnabar_brick_slab",
-    /** 朱砂砖楼梯。 */
     CinnabarBrickStairs = "minecraft:cinnabar_brick_stairs",
-    /** 朱砂砖墙。 */
     CinnabarBrickWall = "minecraft:cinnabar_brick_wall",
-    /** 朱砂砖。 */
     CinnabarBricks = "minecraft:cinnabar_bricks",
-    /** 朱砂双层台阶。 */
     CinnabarDoubleSlab = "minecraft:cinnabar_double_slab",
-    /** 朱砂台阶。 */
     CinnabarSlab = "minecraft:cinnabar_slab",
-    /** 朱砂楼梯。 */
     CinnabarStairs = "minecraft:cinnabar_stairs",
-    /** 朱砂墙。 */
     CinnabarWall = "minecraft:cinnabar_wall",
-    /** 黏土。 */
     Clay = "minecraft:clay",
-    /** 闭合的眼眸花。 */
     ClosedEyeblossom = "minecraft:closed_eyeblossom",
-    /** 煤炭块。 */
     CoalBlock = "minecraft:coal_block",
-    /** 煤矿石。 */
     CoalOre = "minecraft:coal_ore",
-    /** 砂土。 */
     CoarseDirt = "minecraft:coarse_dirt",
-    /** 深板岩圆石。 */
     CobbledDeepslate = "minecraft:cobbled_deepslate",
-    /** 深板岩圆石双层台阶。 */
     CobbledDeepslateDoubleSlab = "minecraft:cobbled_deepslate_double_slab",
-    /** 深板岩圆石台阶。 */
     CobbledDeepslateSlab = "minecraft:cobbled_deepslate_slab",
-    /** 深板岩圆石楼梯。 */
     CobbledDeepslateStairs = "minecraft:cobbled_deepslate_stairs",
-    /** 深板岩圆石墙。 */
     CobbledDeepslateWall = "minecraft:cobbled_deepslate_wall",
-    /** 圆石。 */
     Cobblestone = "minecraft:cobblestone",
-    /** 圆石双层台阶。 */
     CobblestoneDoubleSlab = "minecraft:cobblestone_double_slab",
-    /** 圆石台阶。 */
     CobblestoneSlab = "minecraft:cobblestone_slab",
-    /** 圆石墙。 */
     CobblestoneWall = "minecraft:cobblestone_wall",
-    /** 可可果。 */
     Cocoa = "minecraft:cocoa",
-    /** 蓝色火把。 */
     ColoredTorchBlue = "minecraft:colored_torch_blue",
-    /** 绿色火把。 */
     ColoredTorchGreen = "minecraft:colored_torch_green",
-    /** 紫色火把。 */
     ColoredTorchPurple = "minecraft:colored_torch_purple",
-    /** 红色火把。 */
     ColoredTorchRed = "minecraft:colored_torch_red",
-    /** 命令方块。 */
     CommandBlock = "minecraft:command_block",
-    /** 堆肥桶。 */
     Composter = "minecraft:composter",
-    /** 化合物创建器。 */
     CompoundCreator = "minecraft:compound_creator",
-    /** 潮涌核心。 */
     Conduit = "minecraft:conduit",
-    /** 铜栏杆。 */
     CopperBars = "minecraft:copper_bars",
-    /** 铜块。 */
     CopperBlock = "minecraft:copper_block",
-    /** 铜灯。 */
     CopperBulb = "minecraft:copper_bulb",
-    /** 铜链。 */
     CopperChain = "minecraft:copper_chain",
-    /** 铜箱子。 */
     CopperChest = "minecraft:copper_chest",
-    /** 铜门。 */
     CopperDoor = "minecraft:copper_door",
-    /** 铜傀儡像。 */
     CopperGolemStatue = "minecraft:copper_golem_statue",
-    /** 铜格栅。 */
     CopperGrate = "minecraft:copper_grate",
-    /** 铜灯笼。 */
     CopperLantern = "minecraft:copper_lantern",
-    /** 铜矿石。 */
     CopperOre = "minecraft:copper_ore",
-    /** 铜火把。 */
     CopperTorch = "minecraft:copper_torch",
-    /** 铜活板门。 */
     CopperTrapdoor = "minecraft:copper_trapdoor",
-    /** 矢车菊。 */
     Cornflower = "minecraft:cornflower",
-    /** 裂纹深板岩砖。 */
     CrackedDeepslateBricks = "minecraft:cracked_deepslate_bricks",
-    /** 裂纹深板岩瓦。 */
     CrackedDeepslateTiles = "minecraft:cracked_deepslate_tiles",
-    /** 裂纹下界砖块。 */
     CrackedNetherBricks = "minecraft:cracked_nether_bricks",
-    /** 裂纹磨制黑石砖。 */
     CrackedPolishedBlackstoneBricks = "minecraft:cracked_polished_blackstone_bricks",
-    /** 裂纹石砖。 */
     CrackedStoneBricks = "minecraft:cracked_stone_bricks",
-    /** 合成器。 */
     Crafter = "minecraft:crafter",
-    /** 工作台。 */
     CraftingTable = "minecraft:crafting_table",
-    /** 嘎枝之心。 */
     CreakingHeart = "minecraft:creaking_heart",
-    /** 苦力怕的头。 */
     CreeperHead = "minecraft:creeper_head",
-    /** 绯红木按钮。 */
     CrimsonButton = "minecraft:crimson_button",
-    /** 绯红木门。 */
     CrimsonDoor = "minecraft:crimson_door",
-    /** 绯红木双层台阶。 */
     CrimsonDoubleSlab = "minecraft:crimson_double_slab",
-    /** 绯红木栅栏。 */
     CrimsonFence = "minecraft:crimson_fence",
-    /** 绯红木栅栏门。 */
     CrimsonFenceGate = "minecraft:crimson_fence_gate",
-    /** 绯红菌。 */
     CrimsonFungus = "minecraft:crimson_fungus",
-    /** 悬挂式绯红木告示牌。 */
     CrimsonHangingSign = "minecraft:crimson_hanging_sign",
-    /** 绯红菌核。 */
     CrimsonHyphae = "minecraft:crimson_hyphae",
-    /** 绯红菌岩。 */
     CrimsonNylium = "minecraft:crimson_nylium",
-    /** 绯红木板。 */
     CrimsonPlanks = "minecraft:crimson_planks",
-    /** 绯红木压力板。 */
     CrimsonPressurePlate = "minecraft:crimson_pressure_plate",
-    /** 绯红菌索。 */
     CrimsonRoots = "minecraft:crimson_roots",
-    /** 绯红木展示架。 */
     CrimsonShelf = "minecraft:crimson_shelf",
-    /** 绯红木台阶。 */
     CrimsonSlab = "minecraft:crimson_slab",
-    /** 绯红木楼梯。 */
     CrimsonStairs = "minecraft:crimson_stairs",
-    /** 绯红木告示牌。 */
     CrimsonStandingSign = "minecraft:crimson_standing_sign",
-    /** 绯红菌柄。 */
     CrimsonStem = "minecraft:crimson_stem",
-    /** 绯红木活板门。 */
     CrimsonTrapdoor = "minecraft:crimson_trapdoor",
-    /** 墙上的绯红木告示牌。 */
     CrimsonWallSign = "minecraft:crimson_wall_sign",
-    /** 哭泣的黑曜石。 */
     CryingObsidian = "minecraft:crying_obsidian",
-    /** 切制铜块。 */
     CutCopper = "minecraft:cut_copper",
-    /** 切制铜台阶。 */
     CutCopperSlab = "minecraft:cut_copper_slab",
-    /** 切制铜楼梯。 */
     CutCopperStairs = "minecraft:cut_copper_stairs",
-    /** 切制红砂岩。 */
     CutRedSandstone = "minecraft:cut_red_sandstone",
-    /** 切制红砂岩双层台阶。 */
     CutRedSandstoneDoubleSlab = "minecraft:cut_red_sandstone_double_slab",
-    /** 切制红砂岩台阶。 */
     CutRedSandstoneSlab = "minecraft:cut_red_sandstone_slab",
-    /** 切制砂岩。 */
     CutSandstone = "minecraft:cut_sandstone",
-    /** 切制砂岩双层台阶。 */
     CutSandstoneDoubleSlab = "minecraft:cut_sandstone_double_slab",
-    /** 切制砂岩台阶。 */
     CutSandstoneSlab = "minecraft:cut_sandstone_slab",
-    /** 青色蜡烛。 */
     CyanCandle = "minecraft:cyan_candle",
-    /** 插上青色蜡烛的蛋糕。 */
     CyanCandleCake = "minecraft:cyan_candle_cake",
-    /** 青色地毯。 */
     CyanCarpet = "minecraft:cyan_carpet",
-    /** 青色混凝土。 */
     CyanConcrete = "minecraft:cyan_concrete",
-    /** 青色混凝土粉末。 */
     CyanConcretePowder = "minecraft:cyan_concrete_powder",
-    /** 青色带釉陶瓦。 */
     CyanGlazedTerracotta = "minecraft:cyan_glazed_terracotta",
-    /** 青色潜影盒。 */
     CyanShulkerBox = "minecraft:cyan_shulker_box",
-    /** 青色染色玻璃。 */
     CyanStainedGlass = "minecraft:cyan_stained_glass",
-    /** 青色染色玻璃板。 */
     CyanStainedGlassPane = "minecraft:cyan_stained_glass_pane",
-    /** 青色陶瓦。 */
     CyanTerracotta = "minecraft:cyan_terracotta",
-    /** 青色羊毛。 */
     CyanWool = "minecraft:cyan_wool",
-    /** 青色羊毛双层台阶。 */
     CyanWoolDoubleSlab = "minecraft:cyan_wool_double_slab",
-    /** 青色羊毛台阶。 */
     CyanWoolSlab = "minecraft:cyan_wool_slab",
-    /** 青色羊毛楼梯。 */
     CyanWoolStairs = "minecraft:cyan_wool_stairs",
-    /** 损坏的铁砧。 */
     DamagedAnvil = "minecraft:damaged_anvil",
-    /** 蒲公英。 */
     Dandelion = "minecraft:dandelion",
-    /** 深色橡木按钮。 */
     DarkOakButton = "minecraft:dark_oak_button",
-    /** 深色橡木门。 */
     DarkOakDoor = "minecraft:dark_oak_door",
-    /** 深色橡木双层台阶。 */
     DarkOakDoubleSlab = "minecraft:dark_oak_double_slab",
-    /** 深色橡木栅栏。 */
     DarkOakFence = "minecraft:dark_oak_fence",
-    /** 深色橡木栅栏门。 */
     DarkOakFenceGate = "minecraft:dark_oak_fence_gate",
-    /** 悬挂式深色橡木告示牌。 */
     DarkOakHangingSign = "minecraft:dark_oak_hanging_sign",
-    /** 深色橡树树叶。 */
     DarkOakLeaves = "minecraft:dark_oak_leaves",
-    /** 深色橡木原木。 */
     DarkOakLog = "minecraft:dark_oak_log",
-    /** 深色橡木木板。 */
     DarkOakPlanks = "minecraft:dark_oak_planks",
-    /** 深色橡木压力板。 */
     DarkOakPressurePlate = "minecraft:dark_oak_pressure_plate",
-    /** 深色橡树树苗。 */
     DarkOakSapling = "minecraft:dark_oak_sapling",
-    /** 深色橡木展示架。 */
     DarkOakShelf = "minecraft:dark_oak_shelf",
-    /** 深色橡木台阶。 */
     DarkOakSlab = "minecraft:dark_oak_slab",
-    /** 深色橡木楼梯。 */
     DarkOakStairs = "minecraft:dark_oak_stairs",
-    /** 深色橡木活板门。 */
     DarkOakTrapdoor = "minecraft:dark_oak_trapdoor",
-    /** 深色橡木。 */
     DarkOakWood = "minecraft:dark_oak_wood",
-    /** 暗海晶石。 */
     DarkPrismarine = "minecraft:dark_prismarine",
-    /** 暗海晶石双层台阶。 */
     DarkPrismarineDoubleSlab = "minecraft:dark_prismarine_double_slab",
-    /** 暗海晶石台阶。 */
     DarkPrismarineSlab = "minecraft:dark_prismarine_slab",
-    /** 暗海晶石楼梯。 */
     DarkPrismarineStairs = "minecraft:dark_prismarine_stairs",
-    /** 深色橡木告示牌。 */
     DarkoakStandingSign = "minecraft:darkoak_standing_sign",
-    /** 墙上的深色橡木告示牌。 */
     DarkoakWallSign = "minecraft:darkoak_wall_sign",
-    /** 阳光探测器。 */
     DaylightDetector = "minecraft:daylight_detector",
-    /** 反向阳光探测器。 */
     DaylightDetectorInverted = "minecraft:daylight_detector_inverted",
-    /** 失活的脑纹珊瑚。 */
     DeadBrainCoral = "minecraft:dead_brain_coral",
-    /** 失活的脑纹珊瑚块。 */
     DeadBrainCoralBlock = "minecraft:dead_brain_coral_block",
-    /** 失活的脑纹珊瑚扇。 */
     DeadBrainCoralFan = "minecraft:dead_brain_coral_fan",
-    /** 墙上的失活脑纹珊瑚扇。 */
     DeadBrainCoralWallFan = "minecraft:dead_brain_coral_wall_fan",
-    /** 失活的气泡珊瑚。 */
     DeadBubbleCoral = "minecraft:dead_bubble_coral",
-    /** 失活的气泡珊瑚块。 */
     DeadBubbleCoralBlock = "minecraft:dead_bubble_coral_block",
-    /** 失活的气泡珊瑚扇。 */
     DeadBubbleCoralFan = "minecraft:dead_bubble_coral_fan",
-    /** 墙上的失活气泡珊瑚扇。 */
     DeadBubbleCoralWallFan = "minecraft:dead_bubble_coral_wall_fan",
-    /** 失活的火珊瑚。 */
     DeadFireCoral = "minecraft:dead_fire_coral",
-    /** 失活的火珊瑚块。 */
     DeadFireCoralBlock = "minecraft:dead_fire_coral_block",
-    /** 失活的火珊瑚扇。 */
     DeadFireCoralFan = "minecraft:dead_fire_coral_fan",
-    /** 墙上的失活火珊瑚扇。 */
     DeadFireCoralWallFan = "minecraft:dead_fire_coral_wall_fan",
-    /** 失活的鹿角珊瑚。 */
     DeadHornCoral = "minecraft:dead_horn_coral",
-    /** 失活的鹿角珊瑚块。 */
     DeadHornCoralBlock = "minecraft:dead_horn_coral_block",
-    /** 失活的鹿角珊瑚扇。 */
     DeadHornCoralFan = "minecraft:dead_horn_coral_fan",
-    /** 墙上的失活鹿角珊瑚扇。 */
     DeadHornCoralWallFan = "minecraft:dead_horn_coral_wall_fan",
-    /** 失活的管珊瑚。 */
     DeadTubeCoral = "minecraft:dead_tube_coral",
-    /** 失活的管珊瑚块。 */
     DeadTubeCoralBlock = "minecraft:dead_tube_coral_block",
-    /** 失活的管珊瑚扇。 */
     DeadTubeCoralFan = "minecraft:dead_tube_coral_fan",
-    /** 墙上的失活管珊瑚扇。 */
     DeadTubeCoralWallFan = "minecraft:dead_tube_coral_wall_fan",
-    /** 枯萎的灌木。 */
     Deadbush = "minecraft:deadbush",
-    /** 饰纹陶罐。 */
     DecoratedPot = "minecraft:decorated_pot",
-    /** 深板岩。 */
     Deepslate = "minecraft:deepslate",
-    /** 深板岩砖双层台阶。 */
     DeepslateBrickDoubleSlab = "minecraft:deepslate_brick_double_slab",
-    /** 深板岩砖台阶。 */
     DeepslateBrickSlab = "minecraft:deepslate_brick_slab",
-    /** 深板岩砖楼梯。 */
     DeepslateBrickStairs = "minecraft:deepslate_brick_stairs",
-    /** 深板岩砖墙。 */
     DeepslateBrickWall = "minecraft:deepslate_brick_wall",
-    /** 深板岩砖。 */
     DeepslateBricks = "minecraft:deepslate_bricks",
-    /** 深层煤矿石。 */
     DeepslateCoalOre = "minecraft:deepslate_coal_ore",
-    /** 深层铜矿石。 */
     DeepslateCopperOre = "minecraft:deepslate_copper_ore",
-    /** 深层钻石矿石。 */
     DeepslateDiamondOre = "minecraft:deepslate_diamond_ore",
-    /** 深层绿宝石矿石。 */
     DeepslateEmeraldOre = "minecraft:deepslate_emerald_ore",
-    /** 深层金矿石。 */
     DeepslateGoldOre = "minecraft:deepslate_gold_ore",
-    /** 深层铁矿石。 */
     DeepslateIronOre = "minecraft:deepslate_iron_ore",
-    /** 深层青金石矿石。 */
     DeepslateLapisOre = "minecraft:deepslate_lapis_ore",
-    /** 深层红石矿石。 */
     DeepslateRedstoneOre = "minecraft:deepslate_redstone_ore",
-    /** 深板岩瓦双层台阶。 */
     DeepslateTileDoubleSlab = "minecraft:deepslate_tile_double_slab",
-    /** 深板岩瓦台阶。 */
     DeepslateTileSlab = "minecraft:deepslate_tile_slab",
-    /** 深板岩瓦楼梯。 */
     DeepslateTileStairs = "minecraft:deepslate_tile_stairs",
-    /** 深板岩瓦墙。 */
     DeepslateTileWall = "minecraft:deepslate_tile_wall",
-    /** 深板岩瓦。 */
     DeepslateTiles = "minecraft:deepslate_tiles",
-    /** 拒绝方块。 */
     Deny = "minecraft:deny",
-    /** 探测铁轨。 */
     DetectorRail = "minecraft:detector_rail",
-    /** 钻石块。 */
     DiamondBlock = "minecraft:diamond_block",
-    /** 钻石矿石。 */
     DiamondOre = "minecraft:diamond_ore",
-    /** 闪长岩。 */
     Diorite = "minecraft:diorite",
-    /** 闪长岩双层台阶。 */
     DioriteDoubleSlab = "minecraft:diorite_double_slab",
-    /** 闪长岩台阶。 */
     DioriteSlab = "minecraft:diorite_slab",
-    /** 闪长岩楼梯。 */
     DioriteStairs = "minecraft:diorite_stairs",
-    /** 闪长岩墙。 */
     DioriteWall = "minecraft:diorite_wall",
-    /** 泥土。 */
     Dirt = "minecraft:dirt",
-    /** 缠根泥土。 */
     DirtWithRoots = "minecraft:dirt_with_roots",
-    /** 发射器。 */
     Dispenser = "minecraft:dispenser",
-    /** 切制铜双层台阶。 */
     DoubleCutCopperSlab = "minecraft:double_cut_copper_slab",
-    /** 龙蛋。 */
     DragonEgg = "minecraft:dragon_egg",
-    /** 龙首。 */
     DragonHead = "minecraft:dragon_head",
-    /** 失水恶魂。 */
     DriedGhast = "minecraft:dried_ghast",
-    /** 干海带块。 */
     DriedKelpBlock = "minecraft:dried_kelp_block",
-    /** 滴水石块。 */
     DripstoneBlock = "minecraft:dripstone_block",
-    /** 投掷器。 */
     Dropper = "minecraft:dropper",
-    /** 未知元素。 */
     Element0 = "minecraft:element_0",
-    /** 氢。 */
     Element1 = "minecraft:element_1",
-    /** 氖。 */
     Element10 = "minecraft:element_10",
-    /** 镄。 */
     Element100 = "minecraft:element_100",
-    /** 钔。 */
     Element101 = "minecraft:element_101",
-    /** 锘。 */
     Element102 = "minecraft:element_102",
-    /** 铹。 */
     Element103 = "minecraft:element_103",
-    /** 𬬻。 */
     Element104 = "minecraft:element_104",
-    /** 𬭊。 */
     Element105 = "minecraft:element_105",
-    /** 𬭳。 */
     Element106 = "minecraft:element_106",
-    /** 𬭛。 */
     Element107 = "minecraft:element_107",
-    /** 𬭶。 */
     Element108 = "minecraft:element_108",
-    /** 鿏。 */
     Element109 = "minecraft:element_109",
-    /** 钠。 */
     Element11 = "minecraft:element_11",
-    /** 𫟼。 */
     Element110 = "minecraft:element_110",
-    /** 𬬭。 */
     Element111 = "minecraft:element_111",
-    /** 鿔。 */
     Element112 = "minecraft:element_112",
-    /** 鿭。 */
     Element113 = "minecraft:element_113",
-    /** 𫓧。 */
     Element114 = "minecraft:element_114",
-    /** 镆。 */
     Element115 = "minecraft:element_115",
-    /** 𫟷。 */
     Element116 = "minecraft:element_116",
-    /** 鿬。 */
     Element117 = "minecraft:element_117",
-    /** 鿫。 */
     Element118 = "minecraft:element_118",
-    /** 镁。 */
     Element12 = "minecraft:element_12",
-    /** 铝。 */
     Element13 = "minecraft:element_13",
-    /** 硅。 */
     Element14 = "minecraft:element_14",
-    /** 磷。 */
     Element15 = "minecraft:element_15",
-    /** 硫。 */
     Element16 = "minecraft:element_16",
-    /** 氯。 */
     Element17 = "minecraft:element_17",
-    /** 氩。 */
     Element18 = "minecraft:element_18",
-    /** 钾。 */
     Element19 = "minecraft:element_19",
-    /** 氦。 */
     Element2 = "minecraft:element_2",
-    /** 钙。 */
     Element20 = "minecraft:element_20",
-    /** 钪。 */
     Element21 = "minecraft:element_21",
-    /** 钛。 */
     Element22 = "minecraft:element_22",
-    /** 钒。 */
     Element23 = "minecraft:element_23",
-    /** 铬。 */
     Element24 = "minecraft:element_24",
-    /** 锰。 */
     Element25 = "minecraft:element_25",
-    /** 铁。 */
     Element26 = "minecraft:element_26",
-    /** 钴。 */
     Element27 = "minecraft:element_27",
-    /** 镍。 */
     Element28 = "minecraft:element_28",
-    /** 铜。 */
     Element29 = "minecraft:element_29",
-    /** 锂。 */
     Element3 = "minecraft:element_3",
-    /** 锌。 */
     Element30 = "minecraft:element_30",
-    /** 镓。 */
     Element31 = "minecraft:element_31",
-    /** 锗。 */
     Element32 = "minecraft:element_32",
-    /** 砷。 */
     Element33 = "minecraft:element_33",
-    /** 硒。 */
     Element34 = "minecraft:element_34",
-    /** 溴。 */
     Element35 = "minecraft:element_35",
-    /** 氪。 */
     Element36 = "minecraft:element_36",
-    /** 铷。 */
     Element37 = "minecraft:element_37",
-    /** 锶。 */
     Element38 = "minecraft:element_38",
-    /** 钇。 */
     Element39 = "minecraft:element_39",
-    /** 铍。 */
     Element4 = "minecraft:element_4",
-    /** 锆。 */
     Element40 = "minecraft:element_40",
-    /** 铌。 */
     Element41 = "minecraft:element_41",
-    /** 钼。 */
     Element42 = "minecraft:element_42",
-    /** 锝。 */
     Element43 = "minecraft:element_43",
-    /** 钌。 */
     Element44 = "minecraft:element_44",
-    /** 铑。 */
     Element45 = "minecraft:element_45",
-    /** 钯。 */
     Element46 = "minecraft:element_46",
-    /** 银。 */
     Element47 = "minecraft:element_47",
-    /** 镉。 */
     Element48 = "minecraft:element_48",
-    /** 铟。 */
     Element49 = "minecraft:element_49",
-    /** 硼。 */
     Element5 = "minecraft:element_5",
-    /** 锡。 */
     Element50 = "minecraft:element_50",
-    /** 锑。 */
     Element51 = "minecraft:element_51",
-    /** 碲。 */
     Element52 = "minecraft:element_52",
-    /** 碘。 */
     Element53 = "minecraft:element_53",
-    /** 氙。 */
     Element54 = "minecraft:element_54",
-    /** 铯。 */
     Element55 = "minecraft:element_55",
-    /** 钡。 */
     Element56 = "minecraft:element_56",
-    /** 镧。 */
     Element57 = "minecraft:element_57",
-    /** 铈。 */
     Element58 = "minecraft:element_58",
-    /** 镨。 */
     Element59 = "minecraft:element_59",
-    /** 碳。 */
     Element6 = "minecraft:element_6",
-    /** 钕。 */
     Element60 = "minecraft:element_60",
-    /** 钷。 */
     Element61 = "minecraft:element_61",
-    /** 钐。 */
     Element62 = "minecraft:element_62",
-    /** 铕。 */
     Element63 = "minecraft:element_63",
-    /** 钆。 */
     Element64 = "minecraft:element_64",
-    /** 铽。 */
     Element65 = "minecraft:element_65",
-    /** 镝。 */
     Element66 = "minecraft:element_66",
-    /** 钬。 */
     Element67 = "minecraft:element_67",
-    /** 铒。 */
     Element68 = "minecraft:element_68",
-    /** 铥。 */
     Element69 = "minecraft:element_69",
-    /** 氮。 */
     Element7 = "minecraft:element_7",
-    /** 镱。 */
     Element70 = "minecraft:element_70",
-    /** 镥。 */
     Element71 = "minecraft:element_71",
-    /** 铪。 */
     Element72 = "minecraft:element_72",
-    /** 钽。 */
     Element73 = "minecraft:element_73",
-    /** 钨。 */
     Element74 = "minecraft:element_74",
-    /** 铼。 */
     Element75 = "minecraft:element_75",
-    /** 锇。 */
     Element76 = "minecraft:element_76",
-    /** 铱。 */
     Element77 = "minecraft:element_77",
-    /** 铂。 */
     Element78 = "minecraft:element_78",
-    /** 金。 */
     Element79 = "minecraft:element_79",
-    /** 氧。 */
     Element8 = "minecraft:element_8",
-    /** 汞。 */
     Element80 = "minecraft:element_80",
-    /** 铊。 */
     Element81 = "minecraft:element_81",
-    /** 铅。 */
     Element82 = "minecraft:element_82",
-    /** 铋。 */
     Element83 = "minecraft:element_83",
-    /** 钋。 */
     Element84 = "minecraft:element_84",
-    /** 砹。 */
     Element85 = "minecraft:element_85",
-    /** 氡。 */
     Element86 = "minecraft:element_86",
-    /** 钫。 */
     Element87 = "minecraft:element_87",
-    /** 镭。 */
     Element88 = "minecraft:element_88",
-    /** 锕。 */
     Element89 = "minecraft:element_89",
-    /** 氟。 */
     Element9 = "minecraft:element_9",
-    /** 钍。 */
     Element90 = "minecraft:element_90",
-    /** 镤。 */
     Element91 = "minecraft:element_91",
-    /** 铀。 */
     Element92 = "minecraft:element_92",
-    /** 镎。 */
     Element93 = "minecraft:element_93",
-    /** 钚。 */
     Element94 = "minecraft:element_94",
-    /** 镅。 */
     Element95 = "minecraft:element_95",
-    /** 锔。 */
     Element96 = "minecraft:element_96",
-    /** 锫。 */
     Element97 = "minecraft:element_97",
-    /** 锎。 */
     Element98 = "minecraft:element_98",
-    /** 锿。 */
     Element99 = "minecraft:element_99",
-    /** 元素构造器。 */
     ElementConstructor = "minecraft:element_constructor",
-    /** 绿宝石块。 */
     EmeraldBlock = "minecraft:emerald_block",
-    /** 绿宝石矿石。 */
     EmeraldOre = "minecraft:emerald_ore",
-    /** 附魔台。 */
     EnchantingTable = "minecraft:enchanting_table",
-    /** 末地石砖楼梯。 */
     EndBrickStairs = "minecraft:end_brick_stairs",
-    /** 末地石砖。 */
     EndBricks = "minecraft:end_bricks",
-    /** 末地传送门。 */
     EndPortal = "minecraft:end_portal",
-    /** 末地传送门框架。 */
     EndPortalFrame = "minecraft:end_portal_frame",
-    /** 末地烛。 */
     EndRod = "minecraft:end_rod",
-    /** 末地石。 */
     EndStone = "minecraft:end_stone",
-    /** 末地石砖双层台阶。 */
     EndStoneBrickDoubleSlab = "minecraft:end_stone_brick_double_slab",
-    /** 末地石砖台阶。 */
     EndStoneBrickSlab = "minecraft:end_stone_brick_slab",
-    /** 末地石砖墙。 */
     EndStoneBrickWall = "minecraft:end_stone_brick_wall",
-    /** 末影箱。 */
     EnderChest = "minecraft:ender_chest",
-    /** 斑驳的雕纹铜块。 */
     ExposedChiseledCopper = "minecraft:exposed_chiseled_copper",
-    /** 斑驳的铜块。 */
     ExposedCopper = "minecraft:exposed_copper",
-    /** 斑驳的铜栏杆。 */
     ExposedCopperBars = "minecraft:exposed_copper_bars",
-    /** 斑驳的铜灯。 */
     ExposedCopperBulb = "minecraft:exposed_copper_bulb",
-    /** 斑驳的铜链。 */
     ExposedCopperChain = "minecraft:exposed_copper_chain",
-    /** 斑驳的铜箱子。 */
     ExposedCopperChest = "minecraft:exposed_copper_chest",
-    /** 斑驳的铜门。 */
     ExposedCopperDoor = "minecraft:exposed_copper_door",
-    /** 斑驳的铜傀儡像。 */
     ExposedCopperGolemStatue = "minecraft:exposed_copper_golem_statue",
-    /** 斑驳的铜格栅。 */
     ExposedCopperGrate = "minecraft:exposed_copper_grate",
-    /** 斑驳的铜灯笼。 */
     ExposedCopperLantern = "minecraft:exposed_copper_lantern",
-    /** 斑驳的铜活板门。 */
     ExposedCopperTrapdoor = "minecraft:exposed_copper_trapdoor",
-    /** 斑驳的切制铜块。 */
     ExposedCutCopper = "minecraft:exposed_cut_copper",
-    /** 斑驳的切制铜台阶。 */
     ExposedCutCopperSlab = "minecraft:exposed_cut_copper_slab",
-    /** 斑驳的切制铜楼梯。 */
     ExposedCutCopperStairs = "minecraft:exposed_cut_copper_stairs",
-    /** 斑驳的切制铜双层台阶。 */
     ExposedDoubleCutCopperSlab = "minecraft:exposed_double_cut_copper_slab",
-    /** 斑驳的避雷针。 */
     ExposedLightningRod = "minecraft:exposed_lightning_rod",
-    /** 耕地。 */
     Farmland = "minecraft:farmland",
-    /** 橡木栅栏门。 */
     FenceGate = "minecraft:fence_gate",
-    /** 蕨。 */
     Fern = "minecraft:fern",
-    /** 火。 */
     Fire = "minecraft:fire",
-    /** 火珊瑚。 */
     FireCoral = "minecraft:fire_coral",
-    /** 火珊瑚块。 */
     FireCoralBlock = "minecraft:fire_coral_block",
-    /** 火珊瑚扇。 */
     FireCoralFan = "minecraft:fire_coral_fan",
-    /** 墙上的火珊瑚扇。 */
     FireCoralWallFan = "minecraft:fire_coral_wall_fan",
-    /** 萤火虫灌木丛。 */
     FireflyBush = "minecraft:firefly_bush",
-    /** 制箭台。 */
     FletchingTable = "minecraft:fletching_table",
-    /** 花盆。 */
     FlowerPot = "minecraft:flower_pot",
-    /** 盛开的杜鹃花丛。 */
     FloweringAzalea = "minecraft:flowering_azalea",
-    /** 流动熔岩。 */
     FlowingLava = "minecraft:flowing_lava",
-    /** 流动水。 */
     FlowingWater = "minecraft:flowing_water",
-    /** 物品展示框。 */
     Frame = "minecraft:frame",
-    /** 青蛙卵。 */
     FrogSpawn = "minecraft:frog_spawn",
-    /** 霜冰。 */
     FrostedIce = "minecraft:frosted_ice",
-    /** 熔炉。 */
     Furnace = "minecraft:furnace",
-    /** 镶金黑石。 */
     GildedBlackstone = "minecraft:gilded_blackstone",
-    /** 玻璃。 */
     Glass = "minecraft:glass",
-    /** 玻璃板。 */
     GlassPane = "minecraft:glass_pane",
-    /** 荧光物品展示框。 */
     GlowFrame = "minecraft:glow_frame",
-    /** 发光地衣。 */
     GlowLichen = "minecraft:glow_lichen",
-    /** 荧石。 */
     Glowstone = "minecraft:glowstone",
-    /** 金块。 */
     GoldBlock = "minecraft:gold_block",
-    /** 金矿石。 */
     GoldOre = "minecraft:gold_ore",
-    /** 金蒲公英。 */
     GoldenDandelion = "minecraft:golden_dandelion",
-    /** 动力铁轨。 */
     GoldenRail = "minecraft:golden_rail",
-    /** 花岗岩。 */
     Granite = "minecraft:granite",
-    /** 花岗岩双层台阶。 */
     GraniteDoubleSlab = "minecraft:granite_double_slab",
-    /** 花岗岩台阶。 */
     GraniteSlab = "minecraft:granite_slab",
-    /** 花岗岩楼梯。 */
     GraniteStairs = "minecraft:granite_stairs",
-    /** 花岗岩墙。 */
     GraniteWall = "minecraft:granite_wall",
-    /** 草方块。 */
     GrassBlock = "minecraft:grass_block",
-    /** 土径。 */
     GrassPath = "minecraft:grass_path",
-    /** 沙砾。 */
     Gravel = "minecraft:gravel",
-    /** 灰色蜡烛。 */
     GrayCandle = "minecraft:gray_candle",
-    /** 插上灰色蜡烛的蛋糕。 */
     GrayCandleCake = "minecraft:gray_candle_cake",
-    /** 灰色地毯。 */
     GrayCarpet = "minecraft:gray_carpet",
-    /** 灰色混凝土。 */
     GrayConcrete = "minecraft:gray_concrete",
-    /** 灰色混凝土粉末。 */
     GrayConcretePowder = "minecraft:gray_concrete_powder",
-    /** 灰色带釉陶瓦。 */
     GrayGlazedTerracotta = "minecraft:gray_glazed_terracotta",
-    /** 灰色潜影盒。 */
     GrayShulkerBox = "minecraft:gray_shulker_box",
-    /** 灰色染色玻璃。 */
     GrayStainedGlass = "minecraft:gray_stained_glass",
-    /** 灰色染色玻璃板。 */
     GrayStainedGlassPane = "minecraft:gray_stained_glass_pane",
-    /** 灰色陶瓦。 */
     GrayTerracotta = "minecraft:gray_terracotta",
-    /** 灰色羊毛。 */
     GrayWool = "minecraft:gray_wool",
-    /** 灰色羊毛双层台阶。 */
     GrayWoolDoubleSlab = "minecraft:gray_wool_double_slab",
-    /** 灰色羊毛台阶。 */
     GrayWoolSlab = "minecraft:gray_wool_slab",
-    /** 灰色羊毛楼梯。 */
     GrayWoolStairs = "minecraft:gray_wool_stairs",
-    /** 绿色蜡烛。 */
     GreenCandle = "minecraft:green_candle",
-    /** 插上绿色蜡烛的蛋糕。 */
     GreenCandleCake = "minecraft:green_candle_cake",
-    /** 绿色地毯。 */
     GreenCarpet = "minecraft:green_carpet",
-    /** 绿色混凝土。 */
     GreenConcrete = "minecraft:green_concrete",
-    /** 绿色混凝土粉末。 */
     GreenConcretePowder = "minecraft:green_concrete_powder",
-    /** 绿色带釉陶瓦。 */
     GreenGlazedTerracotta = "minecraft:green_glazed_terracotta",
-    /** 绿色潜影盒。 */
     GreenShulkerBox = "minecraft:green_shulker_box",
-    /** 绿色染色玻璃。 */
     GreenStainedGlass = "minecraft:green_stained_glass",
-    /** 绿色染色玻璃板。 */
     GreenStainedGlassPane = "minecraft:green_stained_glass_pane",
-    /** 绿色陶瓦。 */
     GreenTerracotta = "minecraft:green_terracotta",
-    /** 绿色羊毛。 */
     GreenWool = "minecraft:green_wool",
-    /** 绿色羊毛双层台阶。 */
     GreenWoolDoubleSlab = "minecraft:green_wool_double_slab",
-    /** 绿色羊毛台阶。 */
     GreenWoolSlab = "minecraft:green_wool_slab",
-    /** 绿色羊毛楼梯。 */
     GreenWoolStairs = "minecraft:green_wool_stairs",
-    /** 砂轮。 */
     Grindstone = "minecraft:grindstone",
-    /** 垂根。 */
     HangingRoots = "minecraft:hanging_roots",
-    /** 黑色强化玻璃。 */
     HardBlackStainedGlass = "minecraft:hard_black_stained_glass",
-    /** 黑色强化玻璃板。 */
     HardBlackStainedGlassPane = "minecraft:hard_black_stained_glass_pane",
-    /** 蓝色强化玻璃。 */
     HardBlueStainedGlass = "minecraft:hard_blue_stained_glass",
-    /** 蓝色强化玻璃板。 */
     HardBlueStainedGlassPane = "minecraft:hard_blue_stained_glass_pane",
-    /** 棕色强化玻璃。 */
     HardBrownStainedGlass = "minecraft:hard_brown_stained_glass",
-    /** 棕色强化玻璃板。 */
     HardBrownStainedGlassPane = "minecraft:hard_brown_stained_glass_pane",
-    /** 青色强化玻璃。 */
     HardCyanStainedGlass = "minecraft:hard_cyan_stained_glass",
-    /** 青色强化玻璃板。 */
     HardCyanStainedGlassPane = "minecraft:hard_cyan_stained_glass_pane",
-    /** 强化玻璃。 */
     HardGlass = "minecraft:hard_glass",
-    /** 强化玻璃板。 */
     HardGlassPane = "minecraft:hard_glass_pane",
-    /** 灰色强化玻璃。 */
     HardGrayStainedGlass = "minecraft:hard_gray_stained_glass",
-    /** 灰色强化玻璃板。 */
     HardGrayStainedGlassPane = "minecraft:hard_gray_stained_glass_pane",
-    /** 绿色强化玻璃。 */
     HardGreenStainedGlass = "minecraft:hard_green_stained_glass",
-    /** 绿色强化玻璃板。 */
     HardGreenStainedGlassPane = "minecraft:hard_green_stained_glass_pane",
-    /** 淡蓝色强化玻璃。 */
     HardLightBlueStainedGlass = "minecraft:hard_light_blue_stained_glass",
-    /** 淡蓝色强化玻璃板。 */
     HardLightBlueStainedGlassPane = "minecraft:hard_light_blue_stained_glass_pane",
-    /** 淡灰色强化玻璃。 */
     HardLightGrayStainedGlass = "minecraft:hard_light_gray_stained_glass",
-    /** 淡灰色强化玻璃板。 */
     HardLightGrayStainedGlassPane = "minecraft:hard_light_gray_stained_glass_pane",
-    /** 黄绿色强化玻璃。 */
     HardLimeStainedGlass = "minecraft:hard_lime_stained_glass",
-    /** 黄绿色强化玻璃板。 */
     HardLimeStainedGlassPane = "minecraft:hard_lime_stained_glass_pane",
-    /** 品红色强化玻璃。 */
     HardMagentaStainedGlass = "minecraft:hard_magenta_stained_glass",
-    /** 品红色强化玻璃板。 */
     HardMagentaStainedGlassPane = "minecraft:hard_magenta_stained_glass_pane",
-    /** 橙色强化玻璃。 */
     HardOrangeStainedGlass = "minecraft:hard_orange_stained_glass",
-    /** 橙色强化玻璃板。 */
     HardOrangeStainedGlassPane = "minecraft:hard_orange_stained_glass_pane",
-    /** 粉红色强化玻璃。 */
     HardPinkStainedGlass = "minecraft:hard_pink_stained_glass",
-    /** 粉红色强化玻璃板。 */
     HardPinkStainedGlassPane = "minecraft:hard_pink_stained_glass_pane",
-    /** 紫色强化玻璃。 */
     HardPurpleStainedGlass = "minecraft:hard_purple_stained_glass",
-    /** 紫色强化玻璃板。 */
     HardPurpleStainedGlassPane = "minecraft:hard_purple_stained_glass_pane",
-    /** 红色强化玻璃。 */
     HardRedStainedGlass = "minecraft:hard_red_stained_glass",
-    /** 红色强化玻璃板。 */
     HardRedStainedGlassPane = "minecraft:hard_red_stained_glass_pane",
-    /** 白色强化玻璃。 */
     HardWhiteStainedGlass = "minecraft:hard_white_stained_glass",
-    /** 白色强化玻璃板。 */
     HardWhiteStainedGlassPane = "minecraft:hard_white_stained_glass_pane",
-    /** 黄色强化玻璃。 */
     HardYellowStainedGlass = "minecraft:hard_yellow_stained_glass",
-    /** 黄色强化玻璃板。 */
     HardYellowStainedGlassPane = "minecraft:hard_yellow_stained_glass_pane",
-    /** 陶瓦。 */
     HardenedClay = "minecraft:hardened_clay",
-    /** 干草捆。 */
     HayBlock = "minecraft:hay_block",
-    /** 沉重核心。 */
     HeavyCore = "minecraft:heavy_core",
-    /** 重质测重压力板。 */
     HeavyWeightedPressurePlate = "minecraft:heavy_weighted_pressure_plate",
-    /** 蜂蜜块。 */
     HoneyBlock = "minecraft:honey_block",
-    /** 蜜脾块。 */
     HoneycombBlock = "minecraft:honeycomb_block",
-    /** 漏斗。 */
     Hopper = "minecraft:hopper",
-    /** 鹿角珊瑚。 */
     HornCoral = "minecraft:horn_coral",
-    /** 鹿角珊瑚块。 */
     HornCoralBlock = "minecraft:horn_coral_block",
-    /** 鹿角珊瑚扇。 */
     HornCoralFan = "minecraft:horn_coral_fan",
-    /** 墙上的鹿角珊瑚扇。 */
     HornCoralWallFan = "minecraft:horn_coral_wall_fan",
-    /** 冰。 */
     Ice = "minecraft:ice",
-    /** 虫蚀雕纹石砖。 */
     InfestedChiseledStoneBricks = "minecraft:infested_chiseled_stone_bricks",
-    /** 虫蚀圆石。 */
     InfestedCobblestone = "minecraft:infested_cobblestone",
-    /** 虫蚀裂纹石砖。 */
     InfestedCrackedStoneBricks = "minecraft:infested_cracked_stone_bricks",
-    /** 虫蚀深板岩。 */
     InfestedDeepslate = "minecraft:infested_deepslate",
-    /** 虫蚀苔石砖。 */
     InfestedMossyStoneBricks = "minecraft:infested_mossy_stone_bricks",
-    /** 虫蚀石头。 */
     InfestedStone = "minecraft:infested_stone",
-    /** 虫蚀石砖。 */
     InfestedStoneBricks = "minecraft:infested_stone_bricks",
-    /** 铁栏杆。 */
     IronBars = "minecraft:iron_bars",
-    /** 铁块。 */
     IronBlock = "minecraft:iron_block",
-    /** 铁链。 */
     IronChain = "minecraft:iron_chain",
-    /** 铁门。 */
     IronDoor = "minecraft:iron_door",
-    /** 铁矿石。 */
     IronOre = "minecraft:iron_ore",
-    /** 铁活板门。 */
     IronTrapdoor = "minecraft:iron_trapdoor",
-    /** 拼图方块。 */
     Jigsaw = "minecraft:jigsaw",
-    /** 唱片机。 */
     Jukebox = "minecraft:jukebox",
-    /** 丛林木按钮。 */
     JungleButton = "minecraft:jungle_button",
-    /** 丛林木门。 */
     JungleDoor = "minecraft:jungle_door",
-    /** 丛林木双层台阶。 */
     JungleDoubleSlab = "minecraft:jungle_double_slab",
-    /** 丛林木栅栏。 */
     JungleFence = "minecraft:jungle_fence",
-    /** 丛林木栅栏门。 */
     JungleFenceGate = "minecraft:jungle_fence_gate",
-    /** 悬挂式丛林木告示牌。 */
     JungleHangingSign = "minecraft:jungle_hanging_sign",
-    /** 丛林树叶。 */
     JungleLeaves = "minecraft:jungle_leaves",
-    /** 丛林原木。 */
     JungleLog = "minecraft:jungle_log",
-    /** 丛林木板。 */
     JunglePlanks = "minecraft:jungle_planks",
-    /** 丛林木压力板。 */
     JunglePressurePlate = "minecraft:jungle_pressure_plate",
-    /** 丛林树苗。 */
     JungleSapling = "minecraft:jungle_sapling",
-    /** 丛林木展示架。 */
     JungleShelf = "minecraft:jungle_shelf",
-    /** 丛林木台阶。 */
     JungleSlab = "minecraft:jungle_slab",
-    /** 丛林木楼梯。 */
     JungleStairs = "minecraft:jungle_stairs",
-    /** 丛林木告示牌。 */
     JungleStandingSign = "minecraft:jungle_standing_sign",
-    /** 丛林木活板门。 */
     JungleTrapdoor = "minecraft:jungle_trapdoor",
-    /** 墙上的丛林木告示牌。 */
     JungleWallSign = "minecraft:jungle_wall_sign",
-    /** 丛林木。 */
     JungleWood = "minecraft:jungle_wood",
-    /** 海带。 */
     Kelp = "minecraft:kelp",
-    /** 实验台。 */
     LabTable = "minecraft:lab_table",
-    /** 梯子。 */
     Ladder = "minecraft:ladder",
-    /** 灯笼。 */
     Lantern = "minecraft:lantern",
-    /** 青金石块。 */
     LapisBlock = "minecraft:lapis_block",
-    /** 青金石矿石。 */
     LapisOre = "minecraft:lapis_ore",
-    /** 大型紫晶芽。 */
     LargeAmethystBud = "minecraft:large_amethyst_bud",
-    /** 大型蕨。 */
     LargeFern = "minecraft:large_fern",
-    /** 熔岩。 */
     Lava = "minecraft:lava",
-    /** 枯叶堆。 */
     LeafLitter = "minecraft:leaf_litter",
-    /** 讲台。 */
     Lectern = "minecraft:lectern",
-    /** 拉杆。 */
     Lever = "minecraft:lever",
-    /** 光源方块（0）。 */
     LightBlock0 = "minecraft:light_block_0",
-    /** 光源方块（1）。 */
     LightBlock1 = "minecraft:light_block_1",
-    /** 光源方块（10）。 */
     LightBlock10 = "minecraft:light_block_10",
-    /** 光源方块（11）。 */
     LightBlock11 = "minecraft:light_block_11",
-    /** 光源方块（12）。 */
     LightBlock12 = "minecraft:light_block_12",
-    /** 光源方块（13）。 */
     LightBlock13 = "minecraft:light_block_13",
-    /** 光源方块（14）。 */
     LightBlock14 = "minecraft:light_block_14",
-    /** 光源方块（15）。 */
     LightBlock15 = "minecraft:light_block_15",
-    /** 光源方块（2）。 */
     LightBlock2 = "minecraft:light_block_2",
-    /** 光源方块（3）。 */
     LightBlock3 = "minecraft:light_block_3",
-    /** 光源方块（4）。 */
     LightBlock4 = "minecraft:light_block_4",
-    /** 光源方块（5）。 */
     LightBlock5 = "minecraft:light_block_5",
-    /** 光源方块（6）。 */
     LightBlock6 = "minecraft:light_block_6",
-    /** 光源方块（7）。 */
     LightBlock7 = "minecraft:light_block_7",
-    /** 光源方块（8）。 */
     LightBlock8 = "minecraft:light_block_8",
-    /** 光源方块（9）。 */
     LightBlock9 = "minecraft:light_block_9",
-    /** 淡蓝色蜡烛。 */
     LightBlueCandle = "minecraft:light_blue_candle",
-    /** 插上淡蓝色蜡烛的蛋糕。 */
     LightBlueCandleCake = "minecraft:light_blue_candle_cake",
-    /** 淡蓝色地毯。 */
     LightBlueCarpet = "minecraft:light_blue_carpet",
-    /** 淡蓝色混凝土。 */
     LightBlueConcrete = "minecraft:light_blue_concrete",
-    /** 淡蓝色混凝土粉末。 */
     LightBlueConcretePowder = "minecraft:light_blue_concrete_powder",
-    /** 淡蓝色带釉陶瓦。 */
     LightBlueGlazedTerracotta = "minecraft:light_blue_glazed_terracotta",
-    /** 淡蓝色潜影盒。 */
     LightBlueShulkerBox = "minecraft:light_blue_shulker_box",
-    /** 淡蓝色染色玻璃。 */
     LightBlueStainedGlass = "minecraft:light_blue_stained_glass",
-    /** 淡蓝色染色玻璃板。 */
     LightBlueStainedGlassPane = "minecraft:light_blue_stained_glass_pane",
-    /** 淡蓝色陶瓦。 */
     LightBlueTerracotta = "minecraft:light_blue_terracotta",
-    /** 淡蓝色羊毛。 */
     LightBlueWool = "minecraft:light_blue_wool",
-    /** 淡蓝色羊毛双层台阶。 */
     LightBlueWoolDoubleSlab = "minecraft:light_blue_wool_double_slab",
-    /** 淡蓝色羊毛台阶。 */
     LightBlueWoolSlab = "minecraft:light_blue_wool_slab",
-    /** 淡蓝色羊毛楼梯。 */
     LightBlueWoolStairs = "minecraft:light_blue_wool_stairs",
-    /** 淡灰色蜡烛。 */
     LightGrayCandle = "minecraft:light_gray_candle",
-    /** 插上淡灰色蜡烛的蛋糕。 */
     LightGrayCandleCake = "minecraft:light_gray_candle_cake",
-    /** 淡灰色地毯。 */
     LightGrayCarpet = "minecraft:light_gray_carpet",
-    /** 淡灰色混凝土。 */
     LightGrayConcrete = "minecraft:light_gray_concrete",
-    /** 淡灰色混凝土粉末。 */
     LightGrayConcretePowder = "minecraft:light_gray_concrete_powder",
-    /** 淡灰色潜影盒。 */
     LightGrayShulkerBox = "minecraft:light_gray_shulker_box",
-    /** 淡灰色染色玻璃。 */
     LightGrayStainedGlass = "minecraft:light_gray_stained_glass",
-    /** 淡灰色染色玻璃板。 */
     LightGrayStainedGlassPane = "minecraft:light_gray_stained_glass_pane",
-    /** 淡灰色陶瓦。 */
     LightGrayTerracotta = "minecraft:light_gray_terracotta",
-    /** 淡灰色羊毛。 */
     LightGrayWool = "minecraft:light_gray_wool",
-    /** 淡灰色羊毛双层台阶。 */
     LightGrayWoolDoubleSlab = "minecraft:light_gray_wool_double_slab",
-    /** 淡灰色羊毛台阶。 */
     LightGrayWoolSlab = "minecraft:light_gray_wool_slab",
-    /** 淡灰色羊毛楼梯。 */
     LightGrayWoolStairs = "minecraft:light_gray_wool_stairs",
-    /** 轻质测重压力板。 */
     LightWeightedPressurePlate = "minecraft:light_weighted_pressure_plate",
-    /** 避雷针。 */
     LightningRod = "minecraft:lightning_rod",
-    /** 丁香。 */
     Lilac = "minecraft:lilac",
-    /** 铃兰。 */
     LilyOfTheValley = "minecraft:lily_of_the_valley",
-    /** 黄绿色蜡烛。 */
     LimeCandle = "minecraft:lime_candle",
-    /** 插上黄绿色蜡烛的蛋糕。 */
     LimeCandleCake = "minecraft:lime_candle_cake",
-    /** 黄绿色地毯。 */
     LimeCarpet = "minecraft:lime_carpet",
-    /** 黄绿色混凝土。 */
     LimeConcrete = "minecraft:lime_concrete",
-    /** 黄绿色混凝土粉末。 */
     LimeConcretePowder = "minecraft:lime_concrete_powder",
-    /** 黄绿色带釉陶瓦。 */
     LimeGlazedTerracotta = "minecraft:lime_glazed_terracotta",
-    /** 黄绿色潜影盒。 */
     LimeShulkerBox = "minecraft:lime_shulker_box",
-    /** 黄绿色染色玻璃。 */
     LimeStainedGlass = "minecraft:lime_stained_glass",
-    /** 黄绿色染色玻璃板。 */
     LimeStainedGlassPane = "minecraft:lime_stained_glass_pane",
-    /** 黄绿色陶瓦。 */
     LimeTerracotta = "minecraft:lime_terracotta",
-    /** 黄绿色羊毛。 */
     LimeWool = "minecraft:lime_wool",
-    /** 黄绿色羊毛双层台阶。 */
     LimeWoolDoubleSlab = "minecraft:lime_wool_double_slab",
-    /** 黄绿色羊毛台阶。 */
     LimeWoolSlab = "minecraft:lime_wool_slab",
-    /** 黄绿色羊毛楼梯。 */
     LimeWoolStairs = "minecraft:lime_wool_stairs",
-    /** 燃烧中的高炉。 */
     LitBlastFurnace = "minecraft:lit_blast_furnace",
-    /** 点亮的深层红石矿石。 */
     LitDeepslateRedstoneOre = "minecraft:lit_deepslate_redstone_ore",
-    /** 燃烧中的熔炉。 */
     LitFurnace = "minecraft:lit_furnace",
-    /** 南瓜灯。 */
     LitPumpkin = "minecraft:lit_pumpkin",
-    /** 点亮的红石灯。 */
     LitRedstoneLamp = "minecraft:lit_redstone_lamp",
-    /** 点亮的红石矿石。 */
     LitRedstoneOre = "minecraft:lit_redstone_ore",
-    /** 燃烧中的烟熏炉。 */
     LitSmoker = "minecraft:lit_smoker",
-    /** 磁石。 */
     Lodestone = "minecraft:lodestone",
-    /** 织布机。 */
     Loom = "minecraft:loom",
-    /** 品红色蜡烛。 */
     MagentaCandle = "minecraft:magenta_candle",
-    /** 插上品红色蜡烛的蛋糕。 */
     MagentaCandleCake = "minecraft:magenta_candle_cake",
-    /** 品红色地毯。 */
     MagentaCarpet = "minecraft:magenta_carpet",
-    /** 品红色混凝土。 */
     MagentaConcrete = "minecraft:magenta_concrete",
-    /** 品红色混凝土粉末。 */
     MagentaConcretePowder = "minecraft:magenta_concrete_powder",
-    /** 品红色带釉陶瓦。 */
     MagentaGlazedTerracotta = "minecraft:magenta_glazed_terracotta",
-    /** 品红色潜影盒。 */
     MagentaShulkerBox = "minecraft:magenta_shulker_box",
-    /** 品红色染色玻璃。 */
     MagentaStainedGlass = "minecraft:magenta_stained_glass",
-    /** 品红色染色玻璃板。 */
     MagentaStainedGlassPane = "minecraft:magenta_stained_glass_pane",
-    /** 品红色陶瓦。 */
     MagentaTerracotta = "minecraft:magenta_terracotta",
-    /** 品红色羊毛。 */
     MagentaWool = "minecraft:magenta_wool",
-    /** 品红色羊毛双层台阶。 */
     MagentaWoolDoubleSlab = "minecraft:magenta_wool_double_slab",
-    /** 品红色羊毛台阶。 */
     MagentaWoolSlab = "minecraft:magenta_wool_slab",
-    /** 品红色羊毛楼梯。 */
     MagentaWoolStairs = "minecraft:magenta_wool_stairs",
-    /** 岩浆块。 */
     Magma = "minecraft:magma",
-    /** 红树木按钮。 */
     MangroveButton = "minecraft:mangrove_button",
-    /** 红树木门。 */
     MangroveDoor = "minecraft:mangrove_door",
-    /** 红树木双层台阶。 */
     MangroveDoubleSlab = "minecraft:mangrove_double_slab",
-    /** 红树木栅栏。 */
     MangroveFence = "minecraft:mangrove_fence",
-    /** 红树木栅栏门。 */
     MangroveFenceGate = "minecraft:mangrove_fence_gate",
-    /** 悬挂式红树木告示牌。 */
     MangroveHangingSign = "minecraft:mangrove_hanging_sign",
-    /** 红树树叶。 */
     MangroveLeaves = "minecraft:mangrove_leaves",
-    /** 红树原木。 */
     MangroveLog = "minecraft:mangrove_log",
-    /** 红树木板。 */
     MangrovePlanks = "minecraft:mangrove_planks",
-    /** 红树木压力板。 */
     MangrovePressurePlate = "minecraft:mangrove_pressure_plate",
-    /** 红树胎生苗。 */
     MangrovePropagule = "minecraft:mangrove_propagule",
-    /** 红树根。 */
     MangroveRoots = "minecraft:mangrove_roots",
-    /** 红树木展示架。 */
     MangroveShelf = "minecraft:mangrove_shelf",
-    /** 红树木台阶。 */
     MangroveSlab = "minecraft:mangrove_slab",
-    /** 红树木楼梯。 */
     MangroveStairs = "minecraft:mangrove_stairs",
-    /** 红树木告示牌。 */
     MangroveStandingSign = "minecraft:mangrove_standing_sign",
-    /** 红树木活板门。 */
     MangroveTrapdoor = "minecraft:mangrove_trapdoor",
-    /** 墙上的红树木告示牌。 */
     MangroveWallSign = "minecraft:mangrove_wall_sign",
-    /** 红树木。 */
     MangroveWood = "minecraft:mangrove_wood",
-    /** 材料分解器。 */
     MaterialReducer = "minecraft:material_reducer",
-    /** 中型紫晶芽。 */
     MediumAmethystBud = "minecraft:medium_amethyst_bud",
-    /** 西瓜。 */
     MelonBlock = "minecraft:melon_block",
-    /** 西瓜茎。 */
     MelonStem = "minecraft:melon_stem",
-    /** 刷怪笼。 */
     MobSpawner = "minecraft:mob_spawner",
-    /** 苔藓块。 */
     MossBlock = "minecraft:moss_block",
-    /** 覆地苔藓。 */
     MossCarpet = "minecraft:moss_carpet",
-    /** 苔石。 */
     MossyCobblestone = "minecraft:mossy_cobblestone",
-    /** 苔石双层台阶。 */
     MossyCobblestoneDoubleSlab = "minecraft:mossy_cobblestone_double_slab",
-    /** 苔石台阶。 */
     MossyCobblestoneSlab = "minecraft:mossy_cobblestone_slab",
-    /** 苔石楼梯。 */
     MossyCobblestoneStairs = "minecraft:mossy_cobblestone_stairs",
-    /** 苔石墙。 */
     MossyCobblestoneWall = "minecraft:mossy_cobblestone_wall",
-    /** 苔石砖双层台阶。 */
     MossyStoneBrickDoubleSlab = "minecraft:mossy_stone_brick_double_slab",
-    /** 苔石砖台阶。 */
     MossyStoneBrickSlab = "minecraft:mossy_stone_brick_slab",
-    /** 苔石砖楼梯。 */
     MossyStoneBrickStairs = "minecraft:mossy_stone_brick_stairs",
-    /** 苔石砖墙。 */
     MossyStoneBrickWall = "minecraft:mossy_stone_brick_wall",
-    /** 苔石砖。 */
     MossyStoneBricks = "minecraft:mossy_stone_bricks",
-    /** 泥巴。 */
     Mud = "minecraft:mud",
-    /** 泥砖双层台阶。 */
     MudBrickDoubleSlab = "minecraft:mud_brick_double_slab",
-    /** 泥砖台阶。 */
     MudBrickSlab = "minecraft:mud_brick_slab",
-    /** 泥砖楼梯。 */
     MudBrickStairs = "minecraft:mud_brick_stairs",
-    /** 泥砖墙。 */
     MudBrickWall = "minecraft:mud_brick_wall",
-    /** 泥砖。 */
     MudBricks = "minecraft:mud_bricks",
-    /** 沾泥的红树根。 */
     MuddyMangroveRoots = "minecraft:muddy_mangrove_roots",
-    /** 蘑菇柄。 */
     MushroomStem = "minecraft:mushroom_stem",
-    /** 菌丝体。 */
     Mycelium = "minecraft:mycelium",
-    /** 下界砖块。 */
     NetherBrick = "minecraft:nether_brick",
-    /** 下界砖双层台阶。 */
     NetherBrickDoubleSlab = "minecraft:nether_brick_double_slab",
-    /** 下界砖栅栏。 */
     NetherBrickFence = "minecraft:nether_brick_fence",
-    /** 下界砖台阶。 */
     NetherBrickSlab = "minecraft:nether_brick_slab",
-    /** 下界砖楼梯。 */
     NetherBrickStairs = "minecraft:nether_brick_stairs",
-    /** 下界砖墙。 */
     NetherBrickWall = "minecraft:nether_brick_wall",
-    /** 下界金矿石。 */
     NetherGoldOre = "minecraft:nether_gold_ore",
-    /** 下界苗。 */
     NetherSprouts = "minecraft:nether_sprouts",
-    /** 下界疣。 */
     NetherWart = "minecraft:nether_wart",
-    /** 下界疣块。 */
     NetherWartBlock = "minecraft:nether_wart_block",
-    /** 下界合金块。 */
     NetheriteBlock = "minecraft:netherite_block",
-    /** 下界岩。 */
     Netherrack = "minecraft:netherrack",
-    /** 石头双层台阶。 */
     NormalStoneDoubleSlab = "minecraft:normal_stone_double_slab",
-    /** 石头台阶。 */
     NormalStoneSlab = "minecraft:normal_stone_slab",
-    /** 石头楼梯。 */
     NormalStoneStairs = "minecraft:normal_stone_stairs",
-    /** 音符盒。 */
     Noteblock = "minecraft:noteblock",
-    /** 橡木双层台阶。 */
     OakDoubleSlab = "minecraft:oak_double_slab",
-    /** 橡木栅栏。 */
     OakFence = "minecraft:oak_fence",
-    /** 悬挂式橡木告示牌。 */
     OakHangingSign = "minecraft:oak_hanging_sign",
-    /** 橡树树叶。 */
     OakLeaves = "minecraft:oak_leaves",
-    /** 橡木原木。 */
     OakLog = "minecraft:oak_log",
-    /** 橡木木板。 */
     OakPlanks = "minecraft:oak_planks",
-    /** 橡树树苗。 */
     OakSapling = "minecraft:oak_sapling",
-    /** 橡木展示架。 */
     OakShelf = "minecraft:oak_shelf",
-    /** 橡木台阶。 */
     OakSlab = "minecraft:oak_slab",
-    /** 橡木楼梯。 */
     OakStairs = "minecraft:oak_stairs",
-    /** 橡木。 */
     OakWood = "minecraft:oak_wood",
-    /** 侦测器。 */
     Observer = "minecraft:observer",
-    /** 黑曜石。 */
     Obsidian = "minecraft:obsidian",
-    /** 赭黄蛙明灯。 */
     OchreFroglight = "minecraft:ochre_froglight",
-    /** 张开的眼眸花。 */
     OpenEyeblossom = "minecraft:open_eyeblossom",
-    /** 橙色蜡烛。 */
     OrangeCandle = "minecraft:orange_candle",
-    /** 插上橙色蜡烛的蛋糕。 */
     OrangeCandleCake = "minecraft:orange_candle_cake",
-    /** 橙色地毯。 */
     OrangeCarpet = "minecraft:orange_carpet",
-    /** 橙色混凝土。 */
     OrangeConcrete = "minecraft:orange_concrete",
-    /** 橙色混凝土粉末。 */
     OrangeConcretePowder = "minecraft:orange_concrete_powder",
-    /** 橙色带釉陶瓦。 */
     OrangeGlazedTerracotta = "minecraft:orange_glazed_terracotta",
-    /** 橙色杨树树叶。 */
     OrangePoplarLeaves = "minecraft:orange_poplar_leaves",
-    /** 橙色潜影盒。 */
     OrangeShulkerBox = "minecraft:orange_shulker_box",
-    /** 橙色染色玻璃。 */
     OrangeStainedGlass = "minecraft:orange_stained_glass",
-    /** 橙色染色玻璃板。 */
     OrangeStainedGlassPane = "minecraft:orange_stained_glass_pane",
-    /** 橙色陶瓦。 */
     OrangeTerracotta = "minecraft:orange_terracotta",
-    /** 橙色郁金香。 */
     OrangeTulip = "minecraft:orange_tulip",
-    /** 橙色羊毛。 */
     OrangeWool = "minecraft:orange_wool",
-    /** 橙色羊毛双层台阶。 */
     OrangeWoolDoubleSlab = "minecraft:orange_wool_double_slab",
-    /** 橙色羊毛台阶。 */
     OrangeWoolSlab = "minecraft:orange_wool_slab",
-    /** 橙色羊毛楼梯。 */
     OrangeWoolStairs = "minecraft:orange_wool_stairs",
-    /** 滨菊。 */
     OxeyeDaisy = "minecraft:oxeye_daisy",
-    /** 氧化的雕纹铜块。 */
     OxidizedChiseledCopper = "minecraft:oxidized_chiseled_copper",
-    /** 氧化的铜块。 */
     OxidizedCopper = "minecraft:oxidized_copper",
-    /** 氧化的铜栏杆。 */
     OxidizedCopperBars = "minecraft:oxidized_copper_bars",
-    /** 氧化的铜灯。 */
     OxidizedCopperBulb = "minecraft:oxidized_copper_bulb",
-    /** 氧化的铜链。 */
     OxidizedCopperChain = "minecraft:oxidized_copper_chain",
-    /** 氧化的铜箱子。 */
     OxidizedCopperChest = "minecraft:oxidized_copper_chest",
-    /** 氧化的铜门。 */
     OxidizedCopperDoor = "minecraft:oxidized_copper_door",
-    /** 氧化的铜傀儡像。 */
     OxidizedCopperGolemStatue = "minecraft:oxidized_copper_golem_statue",
-    /** 氧化的铜格栅。 */
     OxidizedCopperGrate = "minecraft:oxidized_copper_grate",
-    /** 氧化的铜灯笼。 */
     OxidizedCopperLantern = "minecraft:oxidized_copper_lantern",
-    /** 氧化的铜活板门。 */
     OxidizedCopperTrapdoor = "minecraft:oxidized_copper_trapdoor",
-    /** 氧化的切制铜块。 */
     OxidizedCutCopper = "minecraft:oxidized_cut_copper",
-    /** 氧化的切制铜台阶。 */
     OxidizedCutCopperSlab = "minecraft:oxidized_cut_copper_slab",
-    /** 氧化的切制铜楼梯。 */
     OxidizedCutCopperStairs = "minecraft:oxidized_cut_copper_stairs",
-    /** 氧化的切制铜双层台阶。 */
     OxidizedDoubleCutCopperSlab = "minecraft:oxidized_double_cut_copper_slab",
-    /** 氧化的避雷针。 */
     OxidizedLightningRod = "minecraft:oxidized_lightning_rod",
-    /** 浮冰。 */
     PackedIce = "minecraft:packed_ice",
-    /** 泥坯。 */
     PackedMud = "minecraft:packed_mud",
-    /** 苍白垂须。 */
     PaleHangingMoss = "minecraft:pale_hanging_moss",
-    /** 苍白苔藓块。 */
     PaleMossBlock = "minecraft:pale_moss_block",
-    /** 苍白覆地苔藓。 */
     PaleMossCarpet = "minecraft:pale_moss_carpet",
-    /** 苍白橡木按钮。 */
     PaleOakButton = "minecraft:pale_oak_button",
-    /** 苍白橡木门。 */
     PaleOakDoor = "minecraft:pale_oak_door",
-    /** 苍白橡木双层台阶。 */
     PaleOakDoubleSlab = "minecraft:pale_oak_double_slab",
-    /** 苍白橡木栅栏。 */
     PaleOakFence = "minecraft:pale_oak_fence",
-    /** 苍白橡木栅栏门。 */
     PaleOakFenceGate = "minecraft:pale_oak_fence_gate",
-    /** 悬挂式苍白橡木告示牌。 */
     PaleOakHangingSign = "minecraft:pale_oak_hanging_sign",
-    /** 苍白橡树树叶。 */
     PaleOakLeaves = "minecraft:pale_oak_leaves",
-    /** 苍白橡木原木。 */
     PaleOakLog = "minecraft:pale_oak_log",
-    /** 苍白橡木木板。 */
     PaleOakPlanks = "minecraft:pale_oak_planks",
-    /** 苍白橡木压力板。 */
     PaleOakPressurePlate = "minecraft:pale_oak_pressure_plate",
-    /** 苍白橡树树苗。 */
     PaleOakSapling = "minecraft:pale_oak_sapling",
-    /** 苍白橡木展示架。 */
     PaleOakShelf = "minecraft:pale_oak_shelf",
-    /** 苍白橡木台阶。 */
     PaleOakSlab = "minecraft:pale_oak_slab",
-    /** 苍白橡木楼梯。 */
     PaleOakStairs = "minecraft:pale_oak_stairs",
-    /** 苍白橡木告示牌。 */
     PaleOakStandingSign = "minecraft:pale_oak_standing_sign",
-    /** 苍白橡木活板门。 */
     PaleOakTrapdoor = "minecraft:pale_oak_trapdoor",
-    /** 墙上的苍白橡木告示牌。 */
     PaleOakWallSign = "minecraft:pale_oak_wall_sign",
-    /** 苍白橡木。 */
     PaleOakWood = "minecraft:pale_oak_wood",
-    /** 珠光蛙明灯。 */
     PearlescentFroglight = "minecraft:pearlescent_froglight",
-    /** 牡丹。 */
     Peony = "minecraft:peony",
-    /** 石化橡木双层台阶。 */
     PetrifiedOakDoubleSlab = "minecraft:petrified_oak_double_slab",
-    /** 石化橡木台阶。 */
     PetrifiedOakSlab = "minecraft:petrified_oak_slab",
-    /** 猪灵的头。 */
     PiglinHead = "minecraft:piglin_head",
-    /** 粉红色蜡烛。 */
     PinkCandle = "minecraft:pink_candle",
-    /** 插上粉红色蜡烛的蛋糕。 */
     PinkCandleCake = "minecraft:pink_candle_cake",
-    /** 粉红色地毯。 */
     PinkCarpet = "minecraft:pink_carpet",
-    /** 粉红色混凝土。 */
     PinkConcrete = "minecraft:pink_concrete",
-    /** 粉红色混凝土粉末。 */
     PinkConcretePowder = "minecraft:pink_concrete_powder",
-    /** 粉红色带釉陶瓦。 */
     PinkGlazedTerracotta = "minecraft:pink_glazed_terracotta",
-    /** 粉红色花簇。 */
     PinkPetals = "minecraft:pink_petals",
-    /** 粉红色潜影盒。 */
     PinkShulkerBox = "minecraft:pink_shulker_box",
-    /** 粉红色染色玻璃。 */
     PinkStainedGlass = "minecraft:pink_stained_glass",
-    /** 粉红色染色玻璃板。 */
     PinkStainedGlassPane = "minecraft:pink_stained_glass_pane",
-    /** 粉红色陶瓦。 */
     PinkTerracotta = "minecraft:pink_terracotta",
-    /** 粉红色郁金香。 */
     PinkTulip = "minecraft:pink_tulip",
-    /** 粉红色羊毛。 */
     PinkWool = "minecraft:pink_wool",
-    /** 粉红色羊毛双层台阶。 */
     PinkWoolDoubleSlab = "minecraft:pink_wool_double_slab",
-    /** 粉红色羊毛台阶。 */
     PinkWoolSlab = "minecraft:pink_wool_slab",
-    /** 粉红色羊毛楼梯。 */
     PinkWoolStairs = "minecraft:pink_wool_stairs",
-    /** 活塞。 */
     Piston = "minecraft:piston",
-    /** 活塞头。 */
     PistonArmCollision = "minecraft:piston_arm_collision",
-    /** 瓶子草植株。 */
     PitcherCrop = "minecraft:pitcher_crop",
-    /** 瓶子草。 */
     PitcherPlant = "minecraft:pitcher_plant",
-    /** 玩家的头。 */
     PlayerHead = "minecraft:player_head",
-    /** 灰化土。 */
     Podzol = "minecraft:podzol",
-    /** 滴水石锥。 */
     PointedDripstone = "minecraft:pointed_dripstone",
-    /** 磨制安山岩。 */
     PolishedAndesite = "minecraft:polished_andesite",
-    /** 磨制安山岩双层台阶。 */
     PolishedAndesiteDoubleSlab = "minecraft:polished_andesite_double_slab",
-    /** 磨制安山岩台阶。 */
     PolishedAndesiteSlab = "minecraft:polished_andesite_slab",
-    /** 磨制安山岩楼梯。 */
     PolishedAndesiteStairs = "minecraft:polished_andesite_stairs",
-    /** 磨制玄武岩。 */
     PolishedBasalt = "minecraft:polished_basalt",
-    /** 磨制黑石。 */
     PolishedBlackstone = "minecraft:polished_blackstone",
-    /** 磨制黑石砖双层台阶。 */
     PolishedBlackstoneBrickDoubleSlab = "minecraft:polished_blackstone_brick_double_slab",
-    /** 磨制黑石砖台阶。 */
     PolishedBlackstoneBrickSlab = "minecraft:polished_blackstone_brick_slab",
-    /** 磨制黑石砖楼梯。 */
     PolishedBlackstoneBrickStairs = "minecraft:polished_blackstone_brick_stairs",
-    /** 磨制黑石砖墙。 */
     PolishedBlackstoneBrickWall = "minecraft:polished_blackstone_brick_wall",
-    /** 磨制黑石砖。 */
     PolishedBlackstoneBricks = "minecraft:polished_blackstone_bricks",
-    /** 磨制黑石按钮。 */
     PolishedBlackstoneButton = "minecraft:polished_blackstone_button",
-    /** 磨制黑石双层台阶。 */
     PolishedBlackstoneDoubleSlab = "minecraft:polished_blackstone_double_slab",
-    /** 磨制黑石压力板。 */
     PolishedBlackstonePressurePlate = "minecraft:polished_blackstone_pressure_plate",
-    /** 磨制黑石台阶。 */
     PolishedBlackstoneSlab = "minecraft:polished_blackstone_slab",
-    /** 磨制黑石楼梯。 */
     PolishedBlackstoneStairs = "minecraft:polished_blackstone_stairs",
-    /** 磨制黑石墙。 */
     PolishedBlackstoneWall = "minecraft:polished_blackstone_wall",
-    /** 磨制朱砂。 */
     PolishedCinnabar = "minecraft:polished_cinnabar",
-    /** 磨制朱砂双层台阶。 */
     PolishedCinnabarDoubleSlab = "minecraft:polished_cinnabar_double_slab",
-    /** 磨制朱砂台阶。 */
     PolishedCinnabarSlab = "minecraft:polished_cinnabar_slab",
-    /** 磨制朱砂楼梯。 */
     PolishedCinnabarStairs = "minecraft:polished_cinnabar_stairs",
-    /** 磨制朱砂墙。 */
     PolishedCinnabarWall = "minecraft:polished_cinnabar_wall",
-    /** 磨制深板岩。 */
     PolishedDeepslate = "minecraft:polished_deepslate",
-    /** 磨制深板岩双层台阶。 */
     PolishedDeepslateDoubleSlab = "minecraft:polished_deepslate_double_slab",
-    /** 磨制深板岩台阶。 */
     PolishedDeepslateSlab = "minecraft:polished_deepslate_slab",
-    /** 磨制深板岩楼梯。 */
     PolishedDeepslateStairs = "minecraft:polished_deepslate_stairs",
-    /** 磨制深板岩墙。 */
     PolishedDeepslateWall = "minecraft:polished_deepslate_wall",
-    /** 磨制闪长岩。 */
     PolishedDiorite = "minecraft:polished_diorite",
-    /** 磨制闪长岩双层台阶。 */
     PolishedDioriteDoubleSlab = "minecraft:polished_diorite_double_slab",
-    /** 磨制闪长岩台阶。 */
     PolishedDioriteSlab = "minecraft:polished_diorite_slab",
-    /** 磨制闪长岩楼梯。 */
     PolishedDioriteStairs = "minecraft:polished_diorite_stairs",
-    /** 磨制花岗岩。 */
     PolishedGranite = "minecraft:polished_granite",
-    /** 磨制花岗岩双层台阶。 */
     PolishedGraniteDoubleSlab = "minecraft:polished_granite_double_slab",
-    /** 磨制花岗岩台阶。 */
     PolishedGraniteSlab = "minecraft:polished_granite_slab",
-    /** 磨制花岗岩楼梯。 */
     PolishedGraniteStairs = "minecraft:polished_granite_stairs",
-    /** 磨制硫黄。 */
     PolishedSulfur = "minecraft:polished_sulfur",
-    /** 磨制硫黄双层台阶。 */
     PolishedSulfurDoubleSlab = "minecraft:polished_sulfur_double_slab",
-    /** 磨制硫黄台阶。 */
     PolishedSulfurSlab = "minecraft:polished_sulfur_slab",
-    /** 磨制硫黄楼梯。 */
     PolishedSulfurStairs = "minecraft:polished_sulfur_stairs",
-    /** 磨制硫黄墙。 */
     PolishedSulfurWall = "minecraft:polished_sulfur_wall",
-    /** 磨制凝灰岩。 */
     PolishedTuff = "minecraft:polished_tuff",
-    /** 磨制凝灰岩双层台阶。 */
     PolishedTuffDoubleSlab = "minecraft:polished_tuff_double_slab",
-    /** 磨制凝灰岩台阶。 */
     PolishedTuffSlab = "minecraft:polished_tuff_slab",
-    /** 磨制凝灰岩楼梯。 */
     PolishedTuffStairs = "minecraft:polished_tuff_stairs",
-    /** 磨制凝灰岩墙。 */
     PolishedTuffWall = "minecraft:polished_tuff_wall",
-    /** 杨木按钮。 */
     PoplarButton = "minecraft:poplar_button",
-    /** 杨木门。 */
     PoplarDoor = "minecraft:poplar_door",
-    /** 杨木双层台阶。 */
     PoplarDoubleSlab = "minecraft:poplar_double_slab",
-    /** 杨木栅栏。 */
     PoplarFence = "minecraft:poplar_fence",
-    /** 杨木栅栏门。 */
     PoplarFenceGate = "minecraft:poplar_fence_gate",
-    /** 悬挂式杨木告示牌。 */
     PoplarHangingSign = "minecraft:poplar_hanging_sign",
-    /** 杨木原木。 */
     PoplarLog = "minecraft:poplar_log",
-    /** 杨木木板。 */
     PoplarPlanks = "minecraft:poplar_planks",
-    /** 杨木压力板。 */
     PoplarPressurePlate = "minecraft:poplar_pressure_plate",
-    /** 杨树树苗。 */
     PoplarSapling = "minecraft:poplar_sapling",
-    /** 杨木展示架。 */
     PoplarShelf = "minecraft:poplar_shelf",
-    /** 杨木台阶。 */
     PoplarSlab = "minecraft:poplar_slab",
-    /** 杨木楼梯。 */
     PoplarStairs = "minecraft:poplar_stairs",
-    /** 杨木告示牌。 */
     PoplarStandingSign = "minecraft:poplar_standing_sign",
-    /** 杨木活板门。 */
     PoplarTrapdoor = "minecraft:poplar_trapdoor",
-    /** 墙上的杨木告示牌。 */
     PoplarWallSign = "minecraft:poplar_wall_sign",
-    /** 杨木。 */
     PoplarWood = "minecraft:poplar_wood",
-    /** 虞美人。 */
     Poppy = "minecraft:poppy",
-    /** 下界传送门。 */
     Portal = "minecraft:portal",
-    /** 马铃薯。 */
     Potatoes = "minecraft:potatoes",
-    /** 烈性硫黄。 */
     PotentSulfur = "minecraft:potent_sulfur",
-    /** 细雪。 */
     PowderSnow = "minecraft:powder_snow",
-    /** 激活的红石比较器。 */
     PoweredComparator = "minecraft:powered_comparator",
-    /** 激活的红石中继器。 */
     PoweredRepeater = "minecraft:powered_repeater",
-    /** 海晶石。 */
     Prismarine = "minecraft:prismarine",
-    /** 海晶石砖双层台阶。 */
     PrismarineBrickDoubleSlab = "minecraft:prismarine_brick_double_slab",
-    /** 海晶石砖台阶。 */
     PrismarineBrickSlab = "minecraft:prismarine_brick_slab",
-    /** 海晶石砖。 */
     PrismarineBricks = "minecraft:prismarine_bricks",
-    /** 海晶石砖楼梯。 */
     PrismarineBricksStairs = "minecraft:prismarine_bricks_stairs",
-    /** 海晶石双层台阶。 */
     PrismarineDoubleSlab = "minecraft:prismarine_double_slab",
-    /** 海晶石台阶。 */
     PrismarineSlab = "minecraft:prismarine_slab",
-    /** 海晶石楼梯。 */
     PrismarineStairs = "minecraft:prismarine_stairs",
-    /** 海晶石墙。 */
     PrismarineWall = "minecraft:prismarine_wall",
-    /** 南瓜。 */
     Pumpkin = "minecraft:pumpkin",
-    /** 南瓜茎。 */
     PumpkinStem = "minecraft:pumpkin_stem",
-    /** 紫色蜡烛。 */
     PurpleCandle = "minecraft:purple_candle",
-    /** 插上紫色蜡烛的蛋糕。 */
     PurpleCandleCake = "minecraft:purple_candle_cake",
-    /** 紫色地毯。 */
     PurpleCarpet = "minecraft:purple_carpet",
-    /** 紫色混凝土。 */
     PurpleConcrete = "minecraft:purple_concrete",
-    /** 紫色混凝土粉末。 */
     PurpleConcretePowder = "minecraft:purple_concrete_powder",
-    /** 紫色带釉陶瓦。 */
     PurpleGlazedTerracotta = "minecraft:purple_glazed_terracotta",
-    /** 紫色潜影盒。 */
     PurpleShulkerBox = "minecraft:purple_shulker_box",
-    /** 紫色染色玻璃。 */
     PurpleStainedGlass = "minecraft:purple_stained_glass",
-    /** 紫色染色玻璃板。 */
     PurpleStainedGlassPane = "minecraft:purple_stained_glass_pane",
-    /** 紫色陶瓦。 */
     PurpleTerracotta = "minecraft:purple_terracotta",
-    /** 紫色羊毛。 */
     PurpleWool = "minecraft:purple_wool",
-    /** 紫色羊毛双层台阶。 */
     PurpleWoolDoubleSlab = "minecraft:purple_wool_double_slab",
-    /** 紫色羊毛台阶。 */
     PurpleWoolSlab = "minecraft:purple_wool_slab",
-    /** 紫色羊毛楼梯。 */
     PurpleWoolStairs = "minecraft:purple_wool_stairs",
-    /** 紫珀块。 */
     PurpurBlock = "minecraft:purpur_block",
-    /** 紫珀双层台阶。 */
     PurpurDoubleSlab = "minecraft:purpur_double_slab",
-    /** 紫珀柱。 */
     PurpurPillar = "minecraft:purpur_pillar",
-    /** 紫珀台阶。 */
     PurpurSlab = "minecraft:purpur_slab",
-    /** 紫珀楼梯。 */
     PurpurStairs = "minecraft:purpur_stairs",
-    /** 石英块。 */
     QuartzBlock = "minecraft:quartz_block",
-    /** 石英砖。 */
     QuartzBricks = "minecraft:quartz_bricks",
-    /** 石英双层台阶。 */
     QuartzDoubleSlab = "minecraft:quartz_double_slab",
-    /** 下界石英矿石。 */
     QuartzOre = "minecraft:quartz_ore",
-    /** 石英柱。 */
     QuartzPillar = "minecraft:quartz_pillar",
-    /** 石英台阶。 */
     QuartzSlab = "minecraft:quartz_slab",
-    /** 石英楼梯。 */
     QuartzStairs = "minecraft:quartz_stairs",
-    /** 铁轨。 */
     Rail = "minecraft:rail",
-    /** 粗铜块。 */
     RawCopperBlock = "minecraft:raw_copper_block",
-    /** 粗金块。 */
     RawGoldBlock = "minecraft:raw_gold_block",
-    /** 粗铁块。 */
     RawIronBlock = "minecraft:raw_iron_block",
-    /** 红色蜡烛。 */
     RedCandle = "minecraft:red_candle",
-    /** 插上红色蜡烛的蛋糕。 */
     RedCandleCake = "minecraft:red_candle_cake",
-    /** 红色地毯。 */
     RedCarpet = "minecraft:red_carpet",
-    /** 红色混凝土。 */
     RedConcrete = "minecraft:red_concrete",
-    /** 红色混凝土粉末。 */
     RedConcretePowder = "minecraft:red_concrete_powder",
-    /** 红色带釉陶瓦。 */
     RedGlazedTerracotta = "minecraft:red_glazed_terracotta",
-    /** 红色蘑菇。 */
     RedMushroom = "minecraft:red_mushroom",
-    /** 红色蘑菇方块。 */
     RedMushroomBlock = "minecraft:red_mushroom_block",
-    /** 红色下界砖块。 */
     RedNetherBrick = "minecraft:red_nether_brick",
-    /** 红色下界砖双层台阶。 */
     RedNetherBrickDoubleSlab = "minecraft:red_nether_brick_double_slab",
-    /** 红色下界砖台阶。 */
     RedNetherBrickSlab = "minecraft:red_nether_brick_slab",
-    /** 红色下界砖楼梯。 */
     RedNetherBrickStairs = "minecraft:red_nether_brick_stairs",
-    /** 红色下界砖墙。 */
     RedNetherBrickWall = "minecraft:red_nether_brick_wall",
-    /** 红色杨树树叶。 */
     RedPoplarLeaves = "minecraft:red_poplar_leaves",
-    /** 红沙。 */
     RedSand = "minecraft:red_sand",
-    /** 红砂岩。 */
     RedSandstone = "minecraft:red_sandstone",
-    /** 红砂岩双层台阶。 */
     RedSandstoneDoubleSlab = "minecraft:red_sandstone_double_slab",
-    /** 红砂岩台阶。 */
     RedSandstoneSlab = "minecraft:red_sandstone_slab",
-    /** 红砂岩楼梯。 */
     RedSandstoneStairs = "minecraft:red_sandstone_stairs",
-    /** 红砂岩墙。 */
     RedSandstoneWall = "minecraft:red_sandstone_wall",
-    /** 红灌木。 */
     RedShrub = "minecraft:red_shrub",
-    /** 红色潜影盒。 */
     RedShulkerBox = "minecraft:red_shulker_box",
-    /** 红色染色玻璃。 */
     RedStainedGlass = "minecraft:red_stained_glass",
-    /** 红色染色玻璃板。 */
     RedStainedGlassPane = "minecraft:red_stained_glass_pane",
-    /** 红色陶瓦。 */
     RedTerracotta = "minecraft:red_terracotta",
-    /** 红色郁金香。 */
     RedTulip = "minecraft:red_tulip",
-    /** 红色羊毛。 */
     RedWool = "minecraft:red_wool",
-    /** 红色羊毛双层台阶。 */
     RedWoolDoubleSlab = "minecraft:red_wool_double_slab",
-    /** 红色羊毛台阶。 */
     RedWoolSlab = "minecraft:red_wool_slab",
-    /** 红色羊毛楼梯。 */
     RedWoolStairs = "minecraft:red_wool_stairs",
-    /** 红石块。 */
     RedstoneBlock = "minecraft:redstone_block",
-    /** 红石灯。 */
     RedstoneLamp = "minecraft:redstone_lamp",
-    /** 红石矿石。 */
     RedstoneOre = "minecraft:redstone_ore",
-    /** 红石火把。 */
     RedstoneTorch = "minecraft:redstone_torch",
-    /** 红石线。 */
     RedstoneWire = "minecraft:redstone_wire",
-    /** 甘蔗。 */
     Reeds = "minecraft:reeds",
-    /** 强化深板岩。 */
     ReinforcedDeepslate = "minecraft:reinforced_deepslate",
-    /** 循环型命令方块。 */
     RepeatingCommandBlock = "minecraft:repeating_command_block",
-    /** 树脂块。 */
     ResinBlock = "minecraft:resin_block",
-    /** 树脂砖双层台阶。 */
     ResinBrickDoubleSlab = "minecraft:resin_brick_double_slab",
-    /** 树脂砖台阶。 */
     ResinBrickSlab = "minecraft:resin_brick_slab",
-    /** 树脂砖楼梯。 */
     ResinBrickStairs = "minecraft:resin_brick_stairs",
-    /** 树脂砖墙。 */
     ResinBrickWall = "minecraft:resin_brick_wall",
-    /** 树脂砖块。 */
     ResinBricks = "minecraft:resin_bricks",
-    /** 树脂团。 */
     ResinClump = "minecraft:resin_clump",
-    /** 重生锚。 */
     RespawnAnchor = "minecraft:respawn_anchor",
-    /** 玫瑰丛。 */
     RoseBush = "minecraft:rose_bush",
-    /** 沙子。 */
     Sand = "minecraft:sand",
-    /** 砂岩。 */
     Sandstone = "minecraft:sandstone",
-    /** 砂岩双层台阶。 */
     SandstoneDoubleSlab = "minecraft:sandstone_double_slab",
-    /** 砂岩台阶。 */
     SandstoneSlab = "minecraft:sandstone_slab",
-    /** 砂岩楼梯。 */
     SandstoneStairs = "minecraft:sandstone_stairs",
-    /** 砂岩墙。 */
     SandstoneWall = "minecraft:sandstone_wall",
-    /** 脚手架。 */
     Scaffolding = "minecraft:scaffolding",
-    /** 幽匿块。 */
     Sculk = "minecraft:sculk",
-    /** 幽匿催发体。 */
     SculkCatalyst = "minecraft:sculk_catalyst",
-    /** 幽匿感测体。 */
     SculkSensor = "minecraft:sculk_sensor",
-    /** 幽匿尖啸体。 */
     SculkShrieker = "minecraft:sculk_shrieker",
-    /** 幽匿脉络。 */
     SculkVein = "minecraft:sculk_vein",
-    /** 海晶灯。 */
     SeaLantern = "minecraft:sea_lantern",
-    /** 海泡菜。 */
     SeaPickle = "minecraft:sea_pickle",
-    /** 海草。 */
     Seagrass = "minecraft:seagrass",
-    /** Shelf Mushroom。 */
     ShelfMushroom = "minecraft:shelf_mushroom",
-    /** 矮枯草丛。 */
     ShortDryGrass = "minecraft:short_dry_grass",
-    /** 矮草丛。 */
     ShortGrass = "minecraft:short_grass",
-    /** 菌光体。 */
     Shroomlight = "minecraft:shroomlight",
-    /** 淡灰色带釉陶瓦。 */
     SilverGlazedTerracotta = "minecraft:silver_glazed_terracotta",
-    /** 骷髅头颅。 */
     SkeletonSkull = "minecraft:skeleton_skull",
-    /** 黏液块。 */
     Slime = "minecraft:slime",
-    /** 小型紫晶芽。 */
     SmallAmethystBud = "minecraft:small_amethyst_bud",
-    /** 小型垂滴叶。 */
     SmallDripleafBlock = "minecraft:small_dripleaf_block",
-    /** 锻造台。 */
     SmithingTable = "minecraft:smithing_table",
-    /** 烟熏炉。 */
     Smoker = "minecraft:smoker",
-    /** 平滑玄武岩。 */
     SmoothBasalt = "minecraft:smooth_basalt",
-    /** 平滑石英块。 */
     SmoothQuartz = "minecraft:smooth_quartz",
-    /** 平滑石英双层台阶。 */
     SmoothQuartzDoubleSlab = "minecraft:smooth_quartz_double_slab",
-    /** 平滑石英台阶。 */
     SmoothQuartzSlab = "minecraft:smooth_quartz_slab",
-    /** 平滑石英楼梯。 */
     SmoothQuartzStairs = "minecraft:smooth_quartz_stairs",
-    /** 平滑红砂岩。 */
     SmoothRedSandstone = "minecraft:smooth_red_sandstone",
-    /** 平滑红砂岩双层台阶。 */
     SmoothRedSandstoneDoubleSlab = "minecraft:smooth_red_sandstone_double_slab",
-    /** 平滑红砂岩台阶。 */
     SmoothRedSandstoneSlab = "minecraft:smooth_red_sandstone_slab",
-    /** 平滑红砂岩楼梯。 */
     SmoothRedSandstoneStairs = "minecraft:smooth_red_sandstone_stairs",
-    /** 平滑砂岩。 */
     SmoothSandstone = "minecraft:smooth_sandstone",
-    /** 平滑砂岩双层台阶。 */
     SmoothSandstoneDoubleSlab = "minecraft:smooth_sandstone_double_slab",
-    /** 平滑砂岩台阶。 */
     SmoothSandstoneSlab = "minecraft:smooth_sandstone_slab",
-    /** 平滑砂岩楼梯。 */
     SmoothSandstoneStairs = "minecraft:smooth_sandstone_stairs",
-    /** 平滑石头。 */
     SmoothStone = "minecraft:smooth_stone",
-    /** 平滑石头双层台阶。 */
     SmoothStoneDoubleSlab = "minecraft:smooth_stone_double_slab",
-    /** 平滑石头台阶。 */
     SmoothStoneSlab = "minecraft:smooth_stone_slab",
-    /** 嗅探兽蛋。 */
     SnifferEgg = "minecraft:sniffer_egg",
-    /** 雪块。 */
     Snow = "minecraft:snow",
-    /** 雪。 */
     SnowLayer = "minecraft:snow_layer",
-    /** 灵魂营火。 */
     SoulCampfire = "minecraft:soul_campfire",
-    /** 灵魂火。 */
     SoulFire = "minecraft:soul_fire",
-    /** 灵魂灯笼。 */
     SoulLantern = "minecraft:soul_lantern",
-    /** 灵魂沙。 */
     SoulSand = "minecraft:soul_sand",
-    /** 灵魂土。 */
     SoulSoil = "minecraft:soul_soil",
-    /** 灵魂火把。 */
     SoulTorch = "minecraft:soul_torch",
-    /** 海绵。 */
     Sponge = "minecraft:sponge",
-    /** 孢子花。 */
     SporeBlossom = "minecraft:spore_blossom",
-    /** 云杉木按钮。 */
     SpruceButton = "minecraft:spruce_button",
-    /** 云杉木门。 */
     SpruceDoor = "minecraft:spruce_door",
-    /** 云杉木双层台阶。 */
     SpruceDoubleSlab = "minecraft:spruce_double_slab",
-    /** 云杉木栅栏。 */
     SpruceFence = "minecraft:spruce_fence",
-    /** 云杉木栅栏门。 */
     SpruceFenceGate = "minecraft:spruce_fence_gate",
-    /** 悬挂式云杉木告示牌。 */
     SpruceHangingSign = "minecraft:spruce_hanging_sign",
-    /** 云杉树叶。 */
     SpruceLeaves = "minecraft:spruce_leaves",
-    /** 云杉原木。 */
     SpruceLog = "minecraft:spruce_log",
-    /** 云杉木板。 */
     SprucePlanks = "minecraft:spruce_planks",
-    /** 云杉木压力板。 */
     SprucePressurePlate = "minecraft:spruce_pressure_plate",
-    /** 云杉树苗。 */
     SpruceSapling = "minecraft:spruce_sapling",
-    /** 云杉木展示架。 */
     SpruceShelf = "minecraft:spruce_shelf",
-    /** 云杉木台阶。 */
     SpruceSlab = "minecraft:spruce_slab",
-    /** 云杉木楼梯。 */
     SpruceStairs = "minecraft:spruce_stairs",
-    /** 云杉木告示牌。 */
     SpruceStandingSign = "minecraft:spruce_standing_sign",
-    /** 云杉木活板门。 */
     SpruceTrapdoor = "minecraft:spruce_trapdoor",
-    /** 墙上的云杉木告示牌。 */
     SpruceWallSign = "minecraft:spruce_wall_sign",
-    /** 云杉木。 */
     SpruceWood = "minecraft:spruce_wood",
-    /** 旗帜。 */
     StandingBanner = "minecraft:standing_banner",
-    /** 橡木告示牌。 */
     StandingSign = "minecraft:standing_sign",
-    /** 黏性活塞。 */
     StickyPiston = "minecraft:sticky_piston",
-    /** 黏性活塞头。 */
     StickyPistonArmCollision = "minecraft:sticky_piston_arm_collision",
-    /** 石头。 */
     Stone = "minecraft:stone",
-    /** 石砖双层台阶。 */
     StoneBrickDoubleSlab = "minecraft:stone_brick_double_slab",
-    /** 石砖台阶。 */
     StoneBrickSlab = "minecraft:stone_brick_slab",
-    /** 石砖楼梯。 */
     StoneBrickStairs = "minecraft:stone_brick_stairs",
-    /** 石砖墙。 */
     StoneBrickWall = "minecraft:stone_brick_wall",
-    /** 石砖。 */
     StoneBricks = "minecraft:stone_bricks",
-    /** 石头按钮。 */
     StoneButton = "minecraft:stone_button",
-    /** 石头压力板。 */
     StonePressurePlate = "minecraft:stone_pressure_plate",
-    /** 圆石楼梯。 */
     StoneStairs = "minecraft:stone_stairs",
-    /** 切石机。 */
     StonecutterBlock = "minecraft:stonecutter_block",
-    /** 去皮金合欢原木。 */
     StrippedAcaciaLog = "minecraft:stripped_acacia_log",
-    /** 去皮金合欢木。 */
     StrippedAcaciaWood = "minecraft:stripped_acacia_wood",
-    /** 去皮竹块。 */
     StrippedBambooBlock = "minecraft:stripped_bamboo_block",
-    /** 去皮白桦原木。 */
     StrippedBirchLog = "minecraft:stripped_birch_log",
-    /** 去皮白桦木。 */
     StrippedBirchWood = "minecraft:stripped_birch_wood",
-    /** 去皮樱花原木。 */
     StrippedCherryLog = "minecraft:stripped_cherry_log",
-    /** 去皮樱花木。 */
     StrippedCherryWood = "minecraft:stripped_cherry_wood",
-    /** 去皮绯红菌核。 */
     StrippedCrimsonHyphae = "minecraft:stripped_crimson_hyphae",
-    /** 去皮绯红菌柄。 */
     StrippedCrimsonStem = "minecraft:stripped_crimson_stem",
-    /** 去皮深色橡木原木。 */
     StrippedDarkOakLog = "minecraft:stripped_dark_oak_log",
-    /** 去皮深色橡木。 */
     StrippedDarkOakWood = "minecraft:stripped_dark_oak_wood",
-    /** 去皮丛林原木。 */
     StrippedJungleLog = "minecraft:stripped_jungle_log",
-    /** 去皮丛林木。 */
     StrippedJungleWood = "minecraft:stripped_jungle_wood",
-    /** 去皮红树原木。 */
     StrippedMangroveLog = "minecraft:stripped_mangrove_log",
-    /** 去皮红树木。 */
     StrippedMangroveWood = "minecraft:stripped_mangrove_wood",
-    /** 去皮橡木原木。 */
     StrippedOakLog = "minecraft:stripped_oak_log",
-    /** 去皮橡木。 */
     StrippedOakWood = "minecraft:stripped_oak_wood",
-    /** 去皮苍白橡木原木。 */
     StrippedPaleOakLog = "minecraft:stripped_pale_oak_log",
-    /** 去皮苍白橡木。 */
     StrippedPaleOakWood = "minecraft:stripped_pale_oak_wood",
-    /** 去皮杨木原木。 */
     StrippedPoplarLog = "minecraft:stripped_poplar_log",
-    /** 去皮杨木。 */
     StrippedPoplarWood = "minecraft:stripped_poplar_wood",
-    /** 去皮云杉原木。 */
     StrippedSpruceLog = "minecraft:stripped_spruce_log",
-    /** 去皮云杉木。 */
     StrippedSpruceWood = "minecraft:stripped_spruce_wood",
-    /** 去皮诡异菌核。 */
     StrippedWarpedHyphae = "minecraft:stripped_warped_hyphae",
-    /** 去皮诡异菌柄。 */
     StrippedWarpedStem = "minecraft:stripped_warped_stem",
-    /** 结构方块。 */
     StructureBlock = "minecraft:structure_block",
-    /** 结构空位。 */
     StructureVoid = "minecraft:structure_void",
-    /** 硫黄。 */
     Sulfur = "minecraft:sulfur",
-    /** 硫黄砖双层台阶。 */
     SulfurBrickDoubleSlab = "minecraft:sulfur_brick_double_slab",
-    /** 硫黄砖台阶。 */
     SulfurBrickSlab = "minecraft:sulfur_brick_slab",
-    /** 硫黄砖楼梯。 */
     SulfurBrickStairs = "minecraft:sulfur_brick_stairs",
-    /** 硫黄砖墙。 */
     SulfurBrickWall = "minecraft:sulfur_brick_wall",
-    /** 硫黄砖。 */
     SulfurBricks = "minecraft:sulfur_bricks",
-    /** 硫黄双层台阶。 */
     SulfurDoubleSlab = "minecraft:sulfur_double_slab",
-    /** 硫黄台阶。 */
     SulfurSlab = "minecraft:sulfur_slab",
-    /** Sulfur Spike。 */
     SulfurSpike = "minecraft:sulfur_spike",
-    /** 硫黄楼梯。 */
     SulfurStairs = "minecraft:sulfur_stairs",
-    /** 硫黄墙。 */
     SulfurWall = "minecraft:sulfur_wall",
-    /** 向日葵。 */
     Sunflower = "minecraft:sunflower",
-    /** 可疑的沙砾。 */
     SuspiciousGravel = "minecraft:suspicious_gravel",
-    /** 可疑的沙子。 */
     SuspiciousSand = "minecraft:suspicious_sand",
-    /** 甜浆果丛。 */
     SweetBerryBush = "minecraft:sweet_berry_bush",
-    /** 高枯草丛。 */
     TallDryGrass = "minecraft:tall_dry_grass",
-    /** 高草丛。 */
     TallGrass = "minecraft:tall_grass",
-    /** 标靶。 */
     Target = "minecraft:target",
-    /** 遮光玻璃。 */
     TintedGlass = "minecraft:tinted_glass",
-    /** TNT。 */
     Tnt = "minecraft:tnt",
-    /** 火把。 */
     Torch = "minecraft:torch",
-    /** 火把花。 */
     Torchflower = "minecraft:torchflower",
-    /** 火把花植株。 */
     TorchflowerCrop = "minecraft:torchflower_crop",
-    /** 橡木活板门。 */
     Trapdoor = "minecraft:trapdoor",
-    /** 陷阱箱。 */
     TrappedChest = "minecraft:trapped_chest",
-    /** 试炼刷怪笼。 */
     TrialSpawner = "minecraft:trial_spawner",
-    /** 绊线。 */
     TripWire = "minecraft:trip_wire",
-    /** 绊线钩。 */
     TripwireHook = "minecraft:tripwire_hook",
-    /** 管珊瑚。 */
     TubeCoral = "minecraft:tube_coral",
-    /** 管珊瑚块。 */
     TubeCoralBlock = "minecraft:tube_coral_block",
-    /** 管珊瑚扇。 */
     TubeCoralFan = "minecraft:tube_coral_fan",
-    /** 墙上的管珊瑚扇。 */
     TubeCoralWallFan = "minecraft:tube_coral_wall_fan",
-    /** 凝灰岩。 */
     Tuff = "minecraft:tuff",
-    /** 凝灰岩砖双层台阶。 */
     TuffBrickDoubleSlab = "minecraft:tuff_brick_double_slab",
-    /** 凝灰岩砖台阶。 */
     TuffBrickSlab = "minecraft:tuff_brick_slab",
-    /** 凝灰岩砖楼梯。 */
     TuffBrickStairs = "minecraft:tuff_brick_stairs",
-    /** 凝灰岩砖墙。 */
     TuffBrickWall = "minecraft:tuff_brick_wall",
-    /** 凝灰岩砖。 */
     TuffBricks = "minecraft:tuff_bricks",
-    /** 凝灰岩双层台阶。 */
     TuffDoubleSlab = "minecraft:tuff_double_slab",
-    /** 凝灰岩台阶。 */
     TuffSlab = "minecraft:tuff_slab",
-    /** 凝灰岩楼梯。 */
     TuffStairs = "minecraft:tuff_stairs",
-    /** 凝灰岩墙。 */
     TuffWall = "minecraft:tuff_wall",
-    /** 海龟蛋。 */
     TurtleEgg = "minecraft:turtle_egg",
-    /** 缠怨藤。 */
     TwistingVines = "minecraft:twisting_vines",
-    /** 水下TNT。 */
     UnderwaterTnt = "minecraft:underwater_tnt",
-    /** 水下火把。 */
     UnderwaterTorch = "minecraft:underwater_torch",
-    /** 潜影盒。 */
     UndyedShulkerBox = "minecraft:undyed_shulker_box",
-    /** 未知方块。 */
     Unknown = "minecraft:unknown",
-    /** 熄灭的红石火把。 */
     UnlitRedstoneTorch = "minecraft:unlit_redstone_torch",
-    /** 未激活的红石比较器。 */
     UnpoweredComparator = "minecraft:unpowered_comparator",
-    /** 未激活的红石中继器。 */
     UnpoweredRepeater = "minecraft:unpowered_repeater",
-    /** 宝库。 */
     Vault = "minecraft:vault",
-    /** 青翠蛙明灯。 */
     VerdantFroglight = "minecraft:verdant_froglight",
-    /** 藤蔓。 */
     Vine = "minecraft:vine",
-    /** 墙上的旗帜。 */
     WallBanner = "minecraft:wall_banner",
-    /** 墙上的橡木告示牌。 */
     WallSign = "minecraft:wall_sign",
-    /** 诡异木按钮。 */
     WarpedButton = "minecraft:warped_button",
-    /** 诡异木门。 */
     WarpedDoor = "minecraft:warped_door",
-    /** 诡异木双层台阶。 */
     WarpedDoubleSlab = "minecraft:warped_double_slab",
-    /** 诡异木栅栏。 */
     WarpedFence = "minecraft:warped_fence",
-    /** 诡异木栅栏门。 */
     WarpedFenceGate = "minecraft:warped_fence_gate",
-    /** 诡异菌。 */
     WarpedFungus = "minecraft:warped_fungus",
-    /** 悬挂式诡异木告示牌。 */
     WarpedHangingSign = "minecraft:warped_hanging_sign",
-    /** 诡异菌核。 */
     WarpedHyphae = "minecraft:warped_hyphae",
-    /** 诡异菌岩。 */
     WarpedNylium = "minecraft:warped_nylium",
-    /** 诡异木板。 */
     WarpedPlanks = "minecraft:warped_planks",
-    /** 诡异木压力板。 */
     WarpedPressurePlate = "minecraft:warped_pressure_plate",
-    /** 诡异菌索。 */
     WarpedRoots = "minecraft:warped_roots",
-    /** 诡异木展示架。 */
     WarpedShelf = "minecraft:warped_shelf",
-    /** 诡异木台阶。 */
     WarpedSlab = "minecraft:warped_slab",
-    /** 诡异木楼梯。 */
     WarpedStairs = "minecraft:warped_stairs",
-    /** 诡异木告示牌。 */
     WarpedStandingSign = "minecraft:warped_standing_sign",
-    /** 诡异菌柄。 */
     WarpedStem = "minecraft:warped_stem",
-    /** 诡异木活板门。 */
     WarpedTrapdoor = "minecraft:warped_trapdoor",
-    /** 墙上的诡异木告示牌。 */
     WarpedWallSign = "minecraft:warped_wall_sign",
-    /** 诡异疣块。 */
     WarpedWartBlock = "minecraft:warped_wart_block",
-    /** 水。 */
     Water = "minecraft:water",
-    /** 睡莲。 */
     Waterlily = "minecraft:waterlily",
-    /** 涂蜡的雕纹铜块。 */
     WaxedChiseledCopper = "minecraft:waxed_chiseled_copper",
-    /** 涂蜡的铜块。 */
     WaxedCopper = "minecraft:waxed_copper",
-    /** 涂蜡的铜栏杆。 */
     WaxedCopperBars = "minecraft:waxed_copper_bars",
-    /** 涂蜡的铜灯。 */
     WaxedCopperBulb = "minecraft:waxed_copper_bulb",
-    /** 涂蜡的铜链。 */
     WaxedCopperChain = "minecraft:waxed_copper_chain",
-    /** 涂蜡的铜箱子。 */
     WaxedCopperChest = "minecraft:waxed_copper_chest",
-    /** 涂蜡的铜门。 */
     WaxedCopperDoor = "minecraft:waxed_copper_door",
-    /** 涂蜡的铜傀儡像。 */
     WaxedCopperGolemStatue = "minecraft:waxed_copper_golem_statue",
-    /** 涂蜡的铜格栅。 */
     WaxedCopperGrate = "minecraft:waxed_copper_grate",
-    /** 涂蜡的铜灯笼。 */
     WaxedCopperLantern = "minecraft:waxed_copper_lantern",
-    /** 涂蜡的铜活板门。 */
     WaxedCopperTrapdoor = "minecraft:waxed_copper_trapdoor",
-    /** 涂蜡的切制铜块。 */
     WaxedCutCopper = "minecraft:waxed_cut_copper",
-    /** 涂蜡的切制铜台阶。 */
     WaxedCutCopperSlab = "minecraft:waxed_cut_copper_slab",
-    /** 涂蜡的切制铜楼梯。 */
     WaxedCutCopperStairs = "minecraft:waxed_cut_copper_stairs",
-    /** 涂蜡的切制铜双层台阶。 */
     WaxedDoubleCutCopperSlab = "minecraft:waxed_double_cut_copper_slab",
-    /** 涂蜡的斑驳雕纹铜块。 */
     WaxedExposedChiseledCopper = "minecraft:waxed_exposed_chiseled_copper",
-    /** 涂蜡的斑驳铜块。 */
     WaxedExposedCopper = "minecraft:waxed_exposed_copper",
-    /** 涂蜡的斑驳铜栏杆。 */
     WaxedExposedCopperBars = "minecraft:waxed_exposed_copper_bars",
-    /** 涂蜡的斑驳铜灯。 */
     WaxedExposedCopperBulb = "minecraft:waxed_exposed_copper_bulb",
-    /** 涂蜡的斑驳铜链。 */
     WaxedExposedCopperChain = "minecraft:waxed_exposed_copper_chain",
-    /** 涂蜡的斑驳铜箱子。 */
     WaxedExposedCopperChest = "minecraft:waxed_exposed_copper_chest",
-    /** 涂蜡的斑驳铜门。 */
     WaxedExposedCopperDoor = "minecraft:waxed_exposed_copper_door",
-    /** 涂蜡的斑驳铜傀儡像。 */
     WaxedExposedCopperGolemStatue = "minecraft:waxed_exposed_copper_golem_statue",
-    /** 涂蜡的斑驳铜格栅。 */
     WaxedExposedCopperGrate = "minecraft:waxed_exposed_copper_grate",
-    /** 涂蜡的斑驳铜灯笼。 */
     WaxedExposedCopperLantern = "minecraft:waxed_exposed_copper_lantern",
-    /** 涂蜡的斑驳铜活板门。 */
     WaxedExposedCopperTrapdoor = "minecraft:waxed_exposed_copper_trapdoor",
-    /** 涂蜡的斑驳切制铜块。 */
     WaxedExposedCutCopper = "minecraft:waxed_exposed_cut_copper",
-    /** 涂蜡的斑驳切制铜台阶。 */
     WaxedExposedCutCopperSlab = "minecraft:waxed_exposed_cut_copper_slab",
-    /** 涂蜡的斑驳切制铜楼梯。 */
     WaxedExposedCutCopperStairs = "minecraft:waxed_exposed_cut_copper_stairs",
-    /** 涂蜡的斑驳切制铜双层台阶。 */
     WaxedExposedDoubleCutCopperSlab = "minecraft:waxed_exposed_double_cut_copper_slab",
-    /** 涂蜡的斑驳避雷针。 */
     WaxedExposedLightningRod = "minecraft:waxed_exposed_lightning_rod",
-    /** 涂蜡的避雷针。 */
     WaxedLightningRod = "minecraft:waxed_lightning_rod",
-    /** 涂蜡的氧化雕纹铜块。 */
     WaxedOxidizedChiseledCopper = "minecraft:waxed_oxidized_chiseled_copper",
-    /** 涂蜡的氧化铜块。 */
     WaxedOxidizedCopper = "minecraft:waxed_oxidized_copper",
-    /** 涂蜡的氧化铜栏杆。 */
     WaxedOxidizedCopperBars = "minecraft:waxed_oxidized_copper_bars",
-    /** 涂蜡的氧化铜灯。 */
     WaxedOxidizedCopperBulb = "minecraft:waxed_oxidized_copper_bulb",
-    /** 涂蜡的氧化铜链。 */
     WaxedOxidizedCopperChain = "minecraft:waxed_oxidized_copper_chain",
-    /** 涂蜡的氧化铜箱子。 */
     WaxedOxidizedCopperChest = "minecraft:waxed_oxidized_copper_chest",
-    /** 涂蜡的氧化铜门。 */
     WaxedOxidizedCopperDoor = "minecraft:waxed_oxidized_copper_door",
-    /** 涂蜡的氧化铜傀儡像。 */
     WaxedOxidizedCopperGolemStatue = "minecraft:waxed_oxidized_copper_golem_statue",
-    /** 涂蜡的氧化铜格栅。 */
     WaxedOxidizedCopperGrate = "minecraft:waxed_oxidized_copper_grate",
-    /** 涂蜡的氧化铜灯笼。 */
     WaxedOxidizedCopperLantern = "minecraft:waxed_oxidized_copper_lantern",
-    /** 涂蜡的氧化铜活板门。 */
     WaxedOxidizedCopperTrapdoor = "minecraft:waxed_oxidized_copper_trapdoor",
-    /** 涂蜡的氧化切制铜块。 */
     WaxedOxidizedCutCopper = "minecraft:waxed_oxidized_cut_copper",
-    /** 涂蜡的氧化切制铜台阶。 */
     WaxedOxidizedCutCopperSlab = "minecraft:waxed_oxidized_cut_copper_slab",
-    /** 涂蜡的氧化切制铜楼梯。 */
     WaxedOxidizedCutCopperStairs = "minecraft:waxed_oxidized_cut_copper_stairs",
-    /** 涂蜡的氧化切制铜双层台阶。 */
     WaxedOxidizedDoubleCutCopperSlab = "minecraft:waxed_oxidized_double_cut_copper_slab",
-    /** 涂蜡的氧化避雷针。 */
     WaxedOxidizedLightningRod = "minecraft:waxed_oxidized_lightning_rod",
-    /** 涂蜡的锈蚀雕纹铜块。 */
     WaxedWeatheredChiseledCopper = "minecraft:waxed_weathered_chiseled_copper",
-    /** 涂蜡的锈蚀铜块。 */
     WaxedWeatheredCopper = "minecraft:waxed_weathered_copper",
-    /** 涂蜡的锈蚀铜栏杆。 */
     WaxedWeatheredCopperBars = "minecraft:waxed_weathered_copper_bars",
-    /** 涂蜡的锈蚀铜灯。 */
     WaxedWeatheredCopperBulb = "minecraft:waxed_weathered_copper_bulb",
-    /** 涂蜡的锈蚀铜链。 */
     WaxedWeatheredCopperChain = "minecraft:waxed_weathered_copper_chain",
-    /** 涂蜡的锈蚀铜箱子。 */
     WaxedWeatheredCopperChest = "minecraft:waxed_weathered_copper_chest",
-    /** 涂蜡的锈蚀铜门。 */
     WaxedWeatheredCopperDoor = "minecraft:waxed_weathered_copper_door",
-    /** 涂蜡的锈蚀铜傀儡像。 */
     WaxedWeatheredCopperGolemStatue = "minecraft:waxed_weathered_copper_golem_statue",
-    /** 涂蜡的锈蚀铜格栅。 */
     WaxedWeatheredCopperGrate = "minecraft:waxed_weathered_copper_grate",
-    /** 涂蜡的锈蚀铜灯笼。 */
     WaxedWeatheredCopperLantern = "minecraft:waxed_weathered_copper_lantern",
-    /** 涂蜡的锈蚀铜活板门。 */
     WaxedWeatheredCopperTrapdoor = "minecraft:waxed_weathered_copper_trapdoor",
-    /** 涂蜡的锈蚀切制铜块。 */
     WaxedWeatheredCutCopper = "minecraft:waxed_weathered_cut_copper",
-    /** 涂蜡的锈蚀切制铜台阶。 */
     WaxedWeatheredCutCopperSlab = "minecraft:waxed_weathered_cut_copper_slab",
-    /** 涂蜡的锈蚀切制铜楼梯。 */
     WaxedWeatheredCutCopperStairs = "minecraft:waxed_weathered_cut_copper_stairs",
-    /** 涂蜡的锈蚀切制铜双层台阶。 */
     WaxedWeatheredDoubleCutCopperSlab = "minecraft:waxed_weathered_double_cut_copper_slab",
-    /** 涂蜡的锈蚀避雷针。 */
     WaxedWeatheredLightningRod = "minecraft:waxed_weathered_lightning_rod",
-    /** 锈蚀的雕纹铜块。 */
     WeatheredChiseledCopper = "minecraft:weathered_chiseled_copper",
-    /** 锈蚀的铜块。 */
     WeatheredCopper = "minecraft:weathered_copper",
-    /** 锈蚀的铜栏杆。 */
     WeatheredCopperBars = "minecraft:weathered_copper_bars",
-    /** 锈蚀的铜灯。 */
     WeatheredCopperBulb = "minecraft:weathered_copper_bulb",
-    /** 锈蚀的铜链。 */
     WeatheredCopperChain = "minecraft:weathered_copper_chain",
-    /** 锈蚀的铜箱子。 */
     WeatheredCopperChest = "minecraft:weathered_copper_chest",
-    /** 锈蚀的铜门。 */
     WeatheredCopperDoor = "minecraft:weathered_copper_door",
-    /** 锈蚀的铜傀儡像。 */
     WeatheredCopperGolemStatue = "minecraft:weathered_copper_golem_statue",
-    /** 锈蚀的铜格栅。 */
     WeatheredCopperGrate = "minecraft:weathered_copper_grate",
-    /** 锈蚀的铜灯笼。 */
     WeatheredCopperLantern = "minecraft:weathered_copper_lantern",
-    /** 锈蚀的铜活板门。 */
     WeatheredCopperTrapdoor = "minecraft:weathered_copper_trapdoor",
-    /** 锈蚀的切制铜块。 */
     WeatheredCutCopper = "minecraft:weathered_cut_copper",
-    /** 锈蚀的切制铜台阶。 */
     WeatheredCutCopperSlab = "minecraft:weathered_cut_copper_slab",
-    /** 锈蚀的切制铜楼梯。 */
     WeatheredCutCopperStairs = "minecraft:weathered_cut_copper_stairs",
-    /** 锈蚀的切制铜双层台阶。 */
     WeatheredDoubleCutCopperSlab = "minecraft:weathered_double_cut_copper_slab",
-    /** 锈蚀的避雷针。 */
     WeatheredLightningRod = "minecraft:weathered_lightning_rod",
-    /** 蜘蛛网。 */
     Web = "minecraft:web",
-    /** 垂泪藤。 */
     WeepingVines = "minecraft:weeping_vines",
-    /** 湿海绵。 */
     WetSponge = "minecraft:wet_sponge",
-    /** 小麦植株。 */
     Wheat = "minecraft:wheat",
-    /** 白色蜡烛。 */
     WhiteCandle = "minecraft:white_candle",
-    /** 插上白色蜡烛的蛋糕。 */
     WhiteCandleCake = "minecraft:white_candle_cake",
-    /** 白色地毯。 */
     WhiteCarpet = "minecraft:white_carpet",
-    /** 白色混凝土。 */
     WhiteConcrete = "minecraft:white_concrete",
-    /** 白色混凝土粉末。 */
     WhiteConcretePowder = "minecraft:white_concrete_powder",
-    /** 白色带釉陶瓦。 */
     WhiteGlazedTerracotta = "minecraft:white_glazed_terracotta",
-    /** 白色潜影盒。 */
     WhiteShulkerBox = "minecraft:white_shulker_box",
-    /** 白色染色玻璃。 */
     WhiteStainedGlass = "minecraft:white_stained_glass",
-    /** 白色染色玻璃板。 */
     WhiteStainedGlassPane = "minecraft:white_stained_glass_pane",
-    /** 白色陶瓦。 */
     WhiteTerracotta = "minecraft:white_terracotta",
-    /** 白色郁金香。 */
     WhiteTulip = "minecraft:white_tulip",
-    /** 白色羊毛。 */
     WhiteWool = "minecraft:white_wool",
-    /** 白色羊毛双层台阶。 */
     WhiteWoolDoubleSlab = "minecraft:white_wool_double_slab",
-    /** 白色羊毛台阶。 */
     WhiteWoolSlab = "minecraft:white_wool_slab",
-    /** 白色羊毛楼梯。 */
     WhiteWoolStairs = "minecraft:white_wool_stairs",
-    /** 野花簇。 */
     Wildflowers = "minecraft:wildflowers",
-    /** 凋灵玫瑰。 */
     WitherRose = "minecraft:wither_rose",
-    /** 凋灵骷髅头颅。 */
     WitherSkeletonSkull = "minecraft:wither_skeleton_skull",
-    /** 橡木按钮。 */
     WoodenButton = "minecraft:wooden_button",
-    /** 橡木门。 */
     WoodenDoor = "minecraft:wooden_door",
-    /** 橡木压力板。 */
     WoodenPressurePlate = "minecraft:wooden_pressure_plate",
-    /** 黄色蜡烛。 */
     YellowCandle = "minecraft:yellow_candle",
-    /** 插上黄色蜡烛的蛋糕。 */
     YellowCandleCake = "minecraft:yellow_candle_cake",
-    /** 黄色地毯。 */
     YellowCarpet = "minecraft:yellow_carpet",
-    /** 黄色混凝土。 */
     YellowConcrete = "minecraft:yellow_concrete",
-    /** 黄色混凝土粉末。 */
     YellowConcretePowder = "minecraft:yellow_concrete_powder",
-    /** 黄色带釉陶瓦。 */
     YellowGlazedTerracotta = "minecraft:yellow_glazed_terracotta",
-    /** 黄色杨树树叶。 */
     YellowPoplarLeaves = "minecraft:yellow_poplar_leaves",
-    /** 黄色潜影盒。 */
     YellowShulkerBox = "minecraft:yellow_shulker_box",
-    /** 黄色染色玻璃。 */
     YellowStainedGlass = "minecraft:yellow_stained_glass",
-    /** 黄色染色玻璃板。 */
     YellowStainedGlassPane = "minecraft:yellow_stained_glass_pane",
-    /** 黄色陶瓦。 */
     YellowTerracotta = "minecraft:yellow_terracotta",
-    /** 黄色羊毛。 */
     YellowWool = "minecraft:yellow_wool",
-    /** 黄色羊毛双层台阶。 */
     YellowWoolDoubleSlab = "minecraft:yellow_wool_double_slab",
-    /** 黄色羊毛台阶。 */
     YellowWoolSlab = "minecraft:yellow_wool_slab",
-    /** 黄色羊毛楼梯。 */
     YellowWoolStairs = "minecraft:yellow_wool_stairs",
-    /** 僵尸的头。 */
     ZombieHead = "minecraft:zombie_head"
 }
 /**

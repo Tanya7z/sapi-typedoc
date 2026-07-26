@@ -81,6 +81,22 @@ typings/
 
 # build output
 dist/
+site/
+
+# TypeDoc Markdown（MkDocs 挂载，本地/CI 生成）
+docs/api/**
+!docs/api/index.md
+
+# 顶栏模块页（build:md 从 docs/api/<mod> 提升到 docs/<mod>）
+/docs/server/
+/docs/server-*/
+/docs/common/
+/docs/math/
+/docs/debug-utilities/
+/docs/diagnostics/
+
+# 首页侧栏更新日志（npm 稳定/预览 + MicrosoftDocs）
+/docs/changelog/
 
 # script cache
 cache/

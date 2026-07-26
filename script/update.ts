@@ -17,18 +17,27 @@ import {
 
 const excludedPackages = ['@minecraft/dummy-package', '@minecraft/core-build-tasks', '@minecraft/creator-tools'];
 
-export async function update(keepCachedPackageJson?: boolean) {
-    // 强制检出 original 分支
-    const head = execSync('git rev-parse --abbrev-ref HEAD', {
-        cwd: basePath
-    })
-        .toString('utf-8')
-        .trim();
-    if (head !== 'original' && head !== 'HEAD') {
-        execSync('git checkout original', {
-            cwd: basePath,
-            stdio: 'inherit'
-        });
+export async function update(
+    keepCachedPackageJson?: boolean,
+    options?: { skipCheckout?: boolean }
+) {
+    const skipCheckout = options?.skipCheckout === true || process.env.SAPI_UPDATE_SKIP_CHECKOUT === '1';
+
+    // 强制检出 original 分支（CI 可设 skipCheckout，直接在当前工作树更新）
+    if (!skipCheckout) {
+        const head = execSync('git rev-parse --abbrev-ref HEAD', {
+            cwd: basePath
+        })
+            .toString('utf-8')
+            .trim();
+        if (head !== 'original' && head !== 'HEAD') {
+            execSync('git checkout original', {
+                cwd: basePath,
+                stdio: 'inherit'
+            });
+        }
+    } else {
+        console.log('[update] skipCheckout=true，保持当前分支，仅刷新 npm @minecraft d.ts');
     }
 
     // 保证 npm 可以识别 overrides 属性
@@ -103,7 +112,7 @@ export async function update(keepCachedPackageJson?: boolean) {
                     2
                 )
             );
-            await update(true);
+            await update(true, options);
             return;
         }
     }

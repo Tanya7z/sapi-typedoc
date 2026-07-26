@@ -1,0 +1,16 @@
+nav:
+  - 首页:
+    - index.md
+    - 更新日志: changelog
+  - server
+  - server-ui
+  - server-net
+  - common
+  - math
+  - server-admin
+  - server-gametest
+  - server-graphics
+  - server-editor
+  - debug-utilities
+  - diagnostics
+  - 同步: sync.md

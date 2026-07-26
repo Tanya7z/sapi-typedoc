@@ -1,0 +1,94 @@
+name: Weekly Update & Deploy
+
+# 每周定时：拉取官方 @minecraft d.ts → 提交 main → 构建并部署 GitHub Pages
+on:
+  schedule:
+    # 每周一 08:00 UTC（北京时间 16:00）
+    - cron: "0 8 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  update-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: |
+          npm ci
+          pip install -r requirements-docs.txt
+
+      - name: Update d.ts (skip git checkout)
+        env:
+          SAPI_UPDATE_SKIP_CHECKOUT: "1"
+        run: npm run update:ci
+
+      - name: Commit data updates
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # docs/changelog、docs/api、模块页为构建产物，不入库
+          git add -A -- \
+            translate-pieces \
+            translated/package.json \
+            original/package.json \
+            docs/index.md \
+            docs/.pages \
+            || true
+
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "无 d.ts / 首页数据变更，仍将重建并部署站点（刷新更新日志）"
+          else
+            git commit -m "chore: 每周更新官方 @minecraft d.ts 与首页数据 [skip ci]"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build MkDocs site
+        run: npm run docs:build
+
+      - name: Setup GitHub Pages
+        id: pages_setup
+        uses: actions/configure-pages@v5
+        continue-on-error: true
+
+      - name: Upload Pages artifact
+        id: pages_upload
+        if: ${{ steps.pages_setup.outcome == 'success' }}
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ github.workspace }}/site
+
+      - name: Deploy to GitHub Pages
+        if: ${{ steps.pages_setup.outcome == 'success' }}
+        id: deployment
+        uses: actions/deploy-pages@v4

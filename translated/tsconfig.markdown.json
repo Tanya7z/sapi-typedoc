@@ -1,0 +1,44 @@
+{
+    "extends": "./tsconfig.json",
+    "typedocOptions": {
+        "name": "@minecraft",
+        "readme": "none",
+        "entryPoints": [
+            "common.d.ts",
+            "debug-utilities.d.ts",
+            "diagnostics.d.ts",
+            "math.d.ts",
+            "server.d.ts",
+            "server-admin.d.ts",
+            "server-editor.d.ts",
+            "server-gametest.d.ts",
+            "server-graphics.d.ts",
+            "server-net.d.ts",
+            "server-ui.d.ts"
+        ],
+        "exclude": ["vanilla-data.d.ts", "vanilla-data/**"],
+        "externalPattern": "",
+        "lang": "zh",
+        "githubPages": false,
+        "plugin": ["typedoc-plugin-markdown"],
+        "theme": "markdown",
+        "entryFileName": "index.md",
+        "hideBreadcrumbs": true,
+        "hidePageHeader": true,
+        "useHTMLEncodedBrackets": true,
+        "cascadedModifierTags": [],
+        "outputFileStrategy": "members",
+        "membersWithOwnFile": ["Class", "Interface", "Enum", "Function"],
+        "externalSymbolLinkMappings": {
+            "typescript": {
+                "Promise": "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+                "Iterable": "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols",
+                "Iterator": "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols",
+                "IteratorResult": "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols",
+                "Record": "https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type",
+                "Pick": "https://www.typescriptlang.org/docs/handbook/utility-types.html#picktype-keys",
+                "Parameters": "https://www.typescriptlang.org/docs/handbook/utility-types.html#parameterstype"
+            }
+        }
+    }
+}

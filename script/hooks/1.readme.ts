@@ -1,5 +1,3 @@
-import { readFileSync, writeFileSync } from 'fs';
-import { resolve as resolvePath } from 'path';
 import { ReflectionKind, RendererEvent } from 'typedoc';
 import { git, parsePackageVersion } from '../utils.js';
 import type { Hook } from './hook.js';
@@ -118,7 +116,6 @@ function analyzeTranslateState() {
     let originalHead = [
         'refs/heads/original',
         'refs/remotes/origin/original',
-        'refs/remotes/XeroAlpha/original',
         ...originalRefs
     ].find(isBranchExists);
     if (!originalHead) {
@@ -342,41 +339,6 @@ export default {
                 });
             }
         });
-    },
-    afterUpdate({ translatedPath, dependencies }) {
-        const readMePath = resolvePath(translatedPath, 'README.md');
-        const readMe = readFileSync(readMePath, 'utf-8');
-
-        const summaryLines: (string | string[])[] = [
-            '<!-- summary start -->',
-            '',
-            'NPM 包：',
-            '',
-            '|包名|版本|对应 MC 版本|更新日志|',
-            '| - | - | - | - |'
-        ];
-        let gameVersion: string | undefined;
-        Object.entries(dependencies).forEach(([moduleName, version]) => {
-            if (!version) return;
-            let versionString = version;
-            let mcVersion = '-';
-            const versionInfo = parsePackageVersion(version);
-            if (versionInfo) {
-                gameVersion ??= versionInfo.gameVersion;
-                versionString = versionInfo.version;
-                mcVersion = `\`${versionInfo.gameVersion}\``;
-            }
-            const npmURL = `https://www.npmjs.com/package/${moduleName}`;
-            const moduleShortName = moduleName.slice('@minecraft/'.length);
-            const changelogURL = `https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/${moduleShortName}/changelog`;
-            summaryLines.push(`|[${moduleName}](${npmURL})|${versionString}|${mcVersion}|[查看](${changelogURL})|`);
-        });
-        summaryLines.push(['', `游戏版本号：\`${gameVersion}\``, '', '<!-- summary end -->']);
-
-        const newReadMe = readMe.replace(
-            /<!-- summary start -->\n\n[^]+\n\n<!-- summary end -->/,
-            summaryLines.flat().join('\n')
-        );
-        writeFileSync(readMePath, newReadMe);
     }
+    // 首页版本表 / 更新日志改由 hooks/3.docs-home.ts（syncDocsHome）维护
 } as Hook;

@@ -1,33 +1,65 @@
 {
   "name": "sapi-typedoc",
   "version": "1.0.0",
+  "description": "基于官方 @minecraft/*.d.ts 生成的中文 Minecraft Script API 参考文档（TypeDoc + MkDocs Material）",
   "license": "MIT",
   "type": "module",
+  "homepage": "https://tanya7z.github.io/sapi-typedoc/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tanya7z/sapi-typedoc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Tanya7z/sapi-typedoc/issues"
+  },
+  "keywords": [
+    "minecraft",
+    "bedrock",
+    "script-api",
+    "typedoc",
+    "mkdocs",
+    "documentation"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "tsx ./script/cli.ts build",
+    "build:md": "tsx ./script/cli.ts build-md",
+    "build:both": "tsx ./script/cli.ts build-both",
     "update": "tsx ./script/cli.ts update",
     "update-cache": "tsx ./script/cli.ts update-cached",
-    "update-changelog": "tsx ./script/cli.ts update",
+    "update:ci": "tsx ./script/cli.ts update-ci",
+    "update:ci-cache": "tsx ./script/cli.ts update-ci-cached",
+    "docs:build": "node ./script/docs-cli.mjs build",
+    "docs:serve": "node ./script/docs-cli.mjs serve",
+    "docs:serve:rebuild": "node ./script/docs-cli.mjs serve --rebuild",
+    "docs:sync": "tsx ./script/official-data-cli.ts",
     "lint-script": "cd ./script && eslint --fix ."
   },
   "dependencies": {
-    "semver": "^7.7.2",
-    "ts-morph": "^27.0.0",
-    "typedoc": "^0.28.13",
-    "typedoc-plugin-mdn-links": "^5.0.9",
-    "typescript": "^5.9.2"
+    "semver": "^7.8.5",
+    "ts-morph": "^28.0.0",
+    "typedoc": "^0.28.20",
+    "typedoc-plugin-markdown": "^4.12.0",
+    "typedoc-plugin-mdn-links": "^5.1.1",
+    "typescript": "^6.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",
-    "@types/node": "^24.4.0",
+    "@types/node": "^26.1.1",
     "@types/semver": "^7.7.1",
-    "eslint": "^9.35.0",
+    "esbuild": "^0.28.1",
+    "eslint": "^10.0.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.4",
-    "globals": "^16.4.0",
-    "prettier": "^3.6.2",
-    "tsx": "^4.20.5",
-    "type-fest": "^5.0.0",
-    "typescript-eslint": "^8.43.0"
+    "eslint-plugin-prettier": "^5.5.6",
+    "globals": "^17.0.0",
+    "prettier": "^3.9.6",
+    "tsx": "^4.23.1",
+    "type-fest": "^5.8.0",
+    "typescript-eslint": "^8.65.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true
   }
 }
