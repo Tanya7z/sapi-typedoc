@@ -40,7 +40,7 @@ theme:
     - navigation.tracking
     - navigation.tabs
     # 不启用 navigation.sections：否则二级「类/枚举」会变成不可折叠分组
-    - navigation.expand
+    # 不启用 navigation.expand：全量展开继承树会导致侧栏过长、无法滚到底
     # 不启用 navigation.prune：保证分组始终用 Material 原版 icon（与展开态一致）
     - navigation.indexes
     - navigation.paths
@@ -52,6 +52,9 @@ theme:
     - toc.follow
   icon:
     repo: fontawesome/brands/github
+
+extra_css:
+  - stylesheets/sidebar-scroll.css
 
 plugins:
   - search:
