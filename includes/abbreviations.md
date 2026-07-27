@@ -15,7 +15,6 @@
 <!-- 语言 / 类型 -->
 *[TS]: TypeScript，带静态类型的 JavaScript 超集。
 *[JS]: JavaScript。
-*[d.ts]: TypeScript 声明文件，本文档由官方 @minecraft/*.d.ts 生成。
 *[JSON]: JavaScript Object Notation，轻量级数据交换格式。
 *[ESM]: ECMAScript Modules，ES 官方模块规范。
 *[readonly]: TypeScript 只读修饰符，标记属性不可重新赋值。

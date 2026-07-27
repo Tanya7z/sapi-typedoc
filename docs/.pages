@@ -13,7 +13,7 @@ nav:
   - server-editor
   - debug-utilities
   - diagnostics
-  - 索引
+  - 索引:
     - 同步: sync.md
     - 标签: tags.md
     - 术语: CHANGELOG-TERMS.md
