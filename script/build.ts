@@ -144,9 +144,7 @@ export async function build(translated?: boolean, formats: BuildFormat[] = ['htm
     const modulesReady = existsSync(resolvePath(originalPath, 'node_modules', '@minecraft'));
     try {
         if (modulesReady && process.env.SAPI_FORCE_NPM_INSTALL !== '1') {
-            console.log(
-                '[restoreDependencies] reuse existing original/node_modules (set SAPI_FORCE_NPM_INSTALL=1 to refresh)'
-            );
+            console.log('[restoreDependencies] reuse existing original/node_modules (set SAPI_FORCE_NPM_INSTALL=1 to refresh)');
         } else {
             execSync('npm install --ignore-scripts', {
                 cwd: originalPath,
@@ -358,7 +356,10 @@ const MODULE_TAB_ORDER = [
 const MODULE_KIND_ORDER = ['classes', 'interfaces', 'enumerations', 'functions', 'variables', 'types'] as const;
 
 /** 侧栏类型分组：Material 内置图标（material/*），文字仅作无障碍标题 */
-const MODULE_KIND_META: Record<(typeof MODULE_KIND_ORDER)[number], { icon: string; title: string }> = {
+const MODULE_KIND_META: Record<
+    (typeof MODULE_KIND_ORDER)[number],
+    { icon: string; title: string }
+> = {
     classes: { icon: 'material/code-braces', title: '类' },
     interfaces: { icon: 'material/application-brackets-outline', title: '接口' },
     enumerations: { icon: 'material/format-list-bulleted-type', title: '枚举' },
@@ -397,19 +398,14 @@ function moveDirectorySync(src: string, dest: string) {
 /** 生成 docs/.pages 与各模块 .pages，供 Material tabs + awesome-pages */
 function writeMkdocsModuleTabs() {
     const docsDir = resolvePath(basePath, 'docs');
-    const reservedTopLevel = new Set([
-        'api',
-        'changelog',
-        'index.md',
-        'sync.md',
-        'tags.md',
-        'CHANGELOG-TERMS.md',
-        '.pages'
-    ]);
+    const reservedTopLevel = new Set(['api', 'changelog', 'index.md', 'sync.md', 'tags.md', 'CHANGELOG-TERMS.md', '.pages']);
 
     const moduleDirs = readdirSync(docsApiPath, { withFileTypes: true })
         .filter(
-            (d) => d.isDirectory() && d.name !== 'assets' && existsSync(resolvePath(docsApiPath, d.name, 'index.md'))
+            (d) =>
+                d.isDirectory() &&
+                d.name !== 'assets' &&
+                existsSync(resolvePath(docsApiPath, d.name, 'index.md'))
         )
         .map((d) => d.name);
 
@@ -454,7 +450,10 @@ function writeMkdocsModuleTabs() {
     for (const fileName of ['index.md', 'modules.md']) {
         const filePath = resolvePath(docsApiPath, fileName);
         if (!existsSync(filePath)) continue;
-        const patched = readFileSync(filePath, 'utf-8').replace(/\(([\w.-]+)\/index\.md\)/g, '(../$1/index.md)');
+        const patched = readFileSync(filePath, 'utf-8').replace(
+            /\(([\w.-]+)\/index\.md\)/g,
+            '(../$1/index.md)'
+        );
         writeFileSync(filePath, patched, 'utf-8');
     }
 
@@ -465,10 +464,10 @@ function writeMkdocsModuleTabs() {
         '    - index.md',
         '    - 更新日志: changelog',
         ...ordered.map((m) => `  - ${m}`),
-        '  - 索引:',
-        '   - 同步: sync.md',
-        '   - 标签: tag.md',
-        '   - 术语变更日志: CHANGELOG-TERMS.md',
+        '  - 索引: tags.md',
+        '    - 同步: sync.md',
+        '    - 标签: tag.md',
+        '    - 术语变更日志: CHANGELOG-TERMS.md',
         ''
     ];
     writeFileSync(resolvePath(docsDir, '.pages'), rootNav.join('\n'), 'utf-8');
@@ -523,7 +522,9 @@ function writeKindSection(kindDir: string, kind: (typeof MODULE_KIND_ORDER)[numb
         patchMemberMarkdown(resolvePath(kindDir, file), meta.icon, boost, [moduleName, meta.title]);
     }
 
-    const navLines = graph ? renderInheritanceNavLines(graph) : memberFiles.map((file) => `  - ${file}`);
+    const navLines = graph
+        ? renderInheritanceNavLines(graph)
+        : memberFiles.map((file) => `  - ${file}`);
 
     writeFileSync(
         resolvePath(kindDir, '.pages'),
@@ -690,7 +691,10 @@ const DOMAIN_TAG_RULES: DomainRule[] = [
 
 function makeNameRegex(tokens: string[]): RegExp {
     // 词法单元必须出现在 CamelCase 边界（开头、上一段为小写、下一段为大写/下划线/数字/结尾）
-    return new RegExp(`(?:^|(?<=[a-z]))(${tokens.join('|')})(?=[A-Z0-9_]|$)`, 'g');
+    return new RegExp(
+        `(?:^|(?<=[a-z]))(${tokens.join('|')})(?=[A-Z0-9_]|$)`,
+        'g'
+    );
 }
 
 const COMPILED_RULES = DOMAIN_TAG_RULES.map((rule) => ({
@@ -732,8 +736,12 @@ function patchMemberMarkdown(filePath: string, icon: string, searchBoost?: numbe
                 '---',
                 `icon: ${icon}`,
                 `title: "${symbolName.replace(/"/g, '\\"')}"`,
-                ...(searchBoost !== undefined ? ['search:', `  boost: ${searchBoost}`] : []),
-                ...(allTags.length > 0 ? ['tags:', ...allTags.map((tag) => `  - ${tag}`)] : []),
+                ...(searchBoost !== undefined
+                    ? ['search:', `  boost: ${searchBoost}`]
+                    : []),
+                ...(allTags.length > 0
+                    ? ['tags:', ...allTags.map((tag) => `  - ${tag}`)]
+                    : []),
                 '---',
                 '',
                 ''
