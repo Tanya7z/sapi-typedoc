@@ -228,4 +228,4 @@ hide:
 | 依据 | [中文 Minecraft Wiki · 旗帜](https://zh.minecraft.wiki/w/%E6%97%97%E5%B8%9C) 标准用「旗帜底色」；地图 base color 同理 |
 | 影响范围 | `SetBannerDetailsFunction.d.ts`、`BlockMapColorComponent.d.ts` |
 
-[abbr]: ../includes/abbreviations.md
+[abbr]: https://github.com/Tanya7z/sapi-typedoc/blob/main/includes/abbreviations.md

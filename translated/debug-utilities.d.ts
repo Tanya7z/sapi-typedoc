@@ -25,24 +25,32 @@
 import { ArgumentOutOfBoundsError } from '@minecraft/common';
 import { Dimension, DimensionLocation, Entity, Player, RGBA, RawMessage, RawMessageError, Vector2, Vector3 } from '@minecraft/server';
 /**
+ * 箭头头部/箭尖的长度。
+ *
  * The length of the arrow's head/tip.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class DebugArrow extends DebugLine {
     /**
      * @remarks
+     * 向世界中添加一个新的调试形状。
+     *
      * Adds a new debug shape to the world.
      *
      */
     headLength: number;
     /**
      * @remarks
+     * 箭头头部/箭尖的半径。
+     *
      * The radius of the arrow's head/tip.
      *
      */
     headRadius: number;
     /**
      * @remarks
+     * 箭头头部/箭尖底部圆周的段数（默认：4）。
+     *
      * The number of segments for the base circle of the arrow's
      * head/tip (default: 4).
      *
@@ -85,18 +93,24 @@ export class DebugCircle extends DebugShape {
 }
 
 /**
+ * 表示圆锥体的调试形状类。
+ *
  * A debug shape class that represents a cone.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class DebugCone extends DebugShape {
     /**
      * @remarks
+     * 圆锥体的高度。
+     *
      * The height of the cone.
      *
      */
     height: number;
     /**
      * @remarks
+     * 用于近似圆锥体圆形底面的分段数量。取值范围:[3, 128]
+     *
      * The number of segments used to approximate the circular base
      * of the cone. Bounds: [3, 128]
      *
@@ -105,6 +119,8 @@ export class DebugCone extends DebugShape {
     numSegments: number;
     /**
      * @remarks
+     * 圆锥体圆形底面的半径(x:底部半径,y:顶部半径)。
+     *
      * The radii of the cone's circular base (x: bottom radius, y:
      * top radius).
      *
@@ -114,18 +130,24 @@ export class DebugCone extends DebugShape {
 }
 
 /**
+ * 表示圆柱体的调试形状类。
+ *
  * A debug shape class that represents a cylinder.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class DebugCylinder extends DebugShape {
     /**
      * @remarks
+     * 圆柱体的高度。
+     *
      * The height of the cylinder.
      *
      */
     height: number;
     /**
      * @remarks
+     * 用于近似圆柱体圆形截面的分段数。取值范围：[3, 128]
+     *
      * The number of segments used to approximate the circular
      * cross-section of the cylinder. Bounds: [3, 128]
      *
@@ -134,6 +156,8 @@ export class DebugCylinder extends DebugShape {
     numSegments: number;
     /**
      * @remarks
+     * 圆柱体圆形截面的半径（x：底部半径，y：顶部半径）。
+     *
      * The radii of the cylinder's circular cross-section (x:
      * bottom radius, y: top radius).
      *
@@ -143,6 +167,8 @@ export class DebugCylinder extends DebugShape {
 }
 
 /**
+ * 用于在世界中添加和移除线框形状的调试绘制类。
+ *
  * Debug Drawing class used to allow adding and removing
  * wireframe shapes in world space.
  */
@@ -150,9 +176,13 @@ export class DebugDrawer {
     private constructor();
     /**
      * @remarks
+     * 向世界中添加一个新的调试形状。
+     *
      * Adds a new debug shape to the world.
      *
      * @param shape
+     * 要添加的调试形状,应为 DebugBox、DebugLine、DebugCircle、DebugSphere、DebugArrow 或 DebugText 类型。
+     *
      * The debug shape to be added. Should be of type DebugBox,
      * DebugLine, DebugCircle, DebugSphere, DebugArrow or
      * DebugText.
@@ -160,12 +190,16 @@ export class DebugDrawer {
     addShape(shape: DebugShape, dimension?: Dimension): void;
     /**
      * @remarks
+     * 移除世界中的所有调试形状。
+     *
      * Removes all debug shapes from the world.
      *
      */
     removeAll(): void;
     /**
      * @remarks
+     * 从世界中移除一个调试形状实例。等同于在形状本身上调用 remove。
+     *
      * Removes an instance of a debug shape from the world. This is
      * equivalent to calling remove on the shape itself.
      *
@@ -224,24 +258,32 @@ export class DebugLine extends DebugShape {
 }
 
 /**
+ * 表示金字塔的调试形状类。
+ *
  * A debug shape class that represents a pyramid.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class DebugPyramid extends DebugShape {
     /**
      * @remarks
+     * 金字塔底面的深度。
+     *
      * The depth of the pyramid's base.
      *
      */
     depth?: number;
     /**
      * @remarks
+     * 金字塔的高度。
+     *
      * The height of the pyramid.
      *
      */
     height: number;
     /**
      * @remarks
+     * 金字塔底面的宽度。
+     *
      * The width of the pyramid's base.
      *
      */

@@ -159,7 +159,7 @@ export enum BlockPistonState {
     Expanding = 'Expanding',
     /**
      * @remarks
-     * 活塞是否完全收回。
+     * 活塞是否完全缩回。
      *
      * Whether the piston is fully retracted.
      *
@@ -167,7 +167,7 @@ export enum BlockPistonState {
     Retracted = 'Retracted',
     /**
      * @remarks
-     * 活塞是否正在收回过程中。
+     * 活塞是否正在缩回过程中。
      *
      * Whether the piston is in the process of retracting.
      *
@@ -2391,7 +2391,7 @@ export enum GameRule {
     DrowningDamage = 'drowningDamage',
     /**
      * @remarks
-     * 控制实体是否因坠落而受到伤害。
+     * 控制实体是否因摔落而受到伤害。
      *
      * Controls whether entities take damage from falling.
      *
@@ -4109,6 +4109,10 @@ export type BlockComponentTypeMap = {
 };
 
 /**
+ * 由 {@link BlockPermutation} 的 matches 与 resolve 函数使用的类型别名,
+ * 用于将方块状态参数类型收窄到
+ * 由 {@link @minecraft/vanilla-data.BlockStateMapping} 映射出来的类型。
+ *
  * Type alias used by the {@link BlockPermutation} matches and
  * resolve functions to narrow block state argument types to
  * those mapped by {@link
@@ -5660,14 +5664,14 @@ export class Block {
     getParts(): Block[] | undefined;
     /**
      * @remarks
-     * 返回该方块的净红石能量强度。
-     * 考虑了所有输入和输出后的总红石能量强度。
-     * 表示了一个方块与周围环境中所有红石元件的相互作用后的红石能量状态。
+     * 返回该方块的净红石信号强度。
+     * 考虑了所有输入和输出后的总红石信号强度。
+     * 表示了一个方块与周围环境中所有红石元件的相互作用后的红石信号状态。
      *
      * Returns the net redstone power of this block.
      *
      * @returns
-     * 如果这个方块不适用红石能量，返回 undefined。
+     * 如果这个方块不适用红石信号强度，返回 undefined。
      *
      * Returns undefined if redstone power is not applicable to
      * this block.
@@ -6060,11 +6064,11 @@ export class BlockBoundingBoxUtils {
      * @worldMutation
      *
      * @param min
-     * 一个角落的世界坐标位置。
+     * 一个角点的世界坐标位置。
      * 
      * A corner world location
      * @param max
-     * 对角线相对的另一个角落的世界坐标位置。
+     * 对角线相对的另一个角点的世界坐标位置。
      * 
      * A corner world location diametrically opposite
      */
@@ -6073,7 +6077,7 @@ export class BlockBoundingBoxUtils {
      * @remarks
      * 沿各轴按给定大小扩展一个 {@link BlockBoundingBox}。
      * 大小可以为负数以实现收缩。
-     * 注意：如果收缩大小大于跨度，角落可能被反转，但 min/max 关系将保持正确。
+     * 注意：如果收缩大小大于跨度，角点可能被反转，但 min/max 关系将保持正确。
      * 
      * Expand a {@link BlockBoundingBox} by a given amount along
      * each axis.
@@ -6220,7 +6224,7 @@ export class BlockComponent extends Component {
     private constructor();
     /**
      * @remarks
-     * 此组件所属的方块实例。
+     * 此组件所属的方块。
      * 
      * Block instance that this component pertains to.
      *
@@ -6256,7 +6260,7 @@ export class BlockComponentBlockBreakEvent extends BlockEvent {
     readonly brokenBlockPermutation: BlockPermutation;
     /**
      * @remarks
-     * 导致破坏的 Actor。
+     * 导致破坏的 Actor（引擎对象）。
      * 
      * The Actor that caused destruction.
      *
@@ -6320,7 +6324,7 @@ export class BlockComponentEntityEvent extends BlockEvent {
 }
 
 /**
- * 包含有关实体坠落到特定方块上的信息。
+ * 包含有关实体摔落到特定方块上的信息。
  * 
  * Contains information regarding an entity falling onto a
  * specific block.
@@ -6330,7 +6334,7 @@ export class BlockComponentEntityFallOnEvent extends BlockEvent {
     private constructor();
     /**
      * @remarks
-     * 坠落到方块上的实体。
+     * 摔落到方块上的实体。
      * 
      * The entity that fell onto the block.
      *
@@ -6338,7 +6342,7 @@ export class BlockComponentEntityFallOnEvent extends BlockEvent {
     readonly entity?: Entity;
     /**
      * @remarks
-     * 实体坠落到此方块上的距离。
+     * 实体摔落到此方块上的距离。
      * 
      * The distance that the entity fell onto this block with.
      *
@@ -6835,7 +6839,7 @@ export class BlockEvent {
     readonly block: Block;
     /**
      * @remarks
-     * 包含此事件主题方块的维度。
+     * 包含此事件主体方块的维度。
      * 
      * Dimension that contains the block that is the subject of
      * this event.
@@ -6987,8 +6991,8 @@ export class BlockFluidContainerComponent extends BlockComponent {
 
 /**
  * @beta
- * 表示方块可以分配在其上表面和下表面的乐器。
- * 
+ * 表示方块可在上表面与下表面分别设置的乐器。
+ *
  * Represents the instruments a block can have assigned to it's
  * up and down faces.
  */
@@ -7131,8 +7135,8 @@ export class BlockMapColorComponent extends BlockComponent {
     private constructor();
     /**
      * @remarks
-     * 为该方块定义的基础地图颜色。
-     * 
+     * 为该方块定义的底色（地图显示色）。
+     *
      * Base map color defined for that block.
      *
      * @throws This property can throw when used.
@@ -7140,7 +7144,7 @@ export class BlockMapColorComponent extends BlockComponent {
     readonly color: RGBA;
     /**
      * @remarks
-     * 返回基色乘以在给定位置评估的着色值的结果。
+     * 返回底色乘以在给定位置评估的着色值的结果。
      * 
      * Returns the base color multiplied to the evaluated tint at
      * the given position.
@@ -7194,7 +7198,7 @@ export class BlockPermutation {
     private constructor();
     /**
      * @remarks
-     * 此 BlockPermutation 名称在 .lang 文件中使用的本地化键。
+     * 此方块排列的名称在 .lang 文件中使用的本地化键。
      * 
      * Key for the localization of this BlockPermutation's name
      * used in .lang files.
@@ -7268,7 +7272,7 @@ export class BlockPermutation {
      * Container/ContainerSlot APIs.
      *
      * @param amount
-     * 要放入原型物品堆中的此方块实例数量。
+     * 要放入原型物品堆中的此方块排列的数量。
      * 默认为：1
      * 范围：[1, 255]
      * 
@@ -7373,7 +7377,7 @@ export class BlockPermutation {
     ): boolean;
     /**
      * @remarks
-     * 返回一个设置了特定属性的派生 BlockPermutation。
+     * 返回一个设置了特定属性的派生方块排列。
      * 
      * Returns a derived BlockPermutation with a specific property
      * set.
@@ -7394,7 +7398,7 @@ export class BlockPermutation {
     ): BlockPermutation;
     /**
      * @remarks
-     * 给定类型标识符和可选的属性集合，将返回一个可在其他方块 API 中使用的 BlockPermutation 对象（例如 block.setPermutation）。
+     * 给定类型标识符和可选的属性集合，将返回一个可在其他方块 API 中使用的方块排列对象（例如 block.setPermutation）。
      * 
      * Given a type identifier and an optional set of properties,
      * will return a BlockPermutation object that is usable in
@@ -7424,7 +7428,7 @@ export class BlockPistonComponent extends BlockComponent {
     private constructor();
     /**
      * @remarks
-     * 活塞是否正在伸出或收回的过程中。
+     * 活塞是否正在伸出或缩回的过程中。
      * 
      * Whether the piston is in the process of expanding or
      * retracting.
@@ -7610,7 +7614,7 @@ export class BlockRedstoneProducerComponent extends BlockComponent {
     private constructor();
     /**
      * @remarks
-     * 获取此方块向电路系统输出的功率。如果方块不再有效或不具有 `minecraft:redstone_producer` 组件，则返回错误。
+     * 获取此方块向电路系统输出的红石信号强度。如果方块不再有效或不具有 `minecraft:redstone_producer` 组件，则返回错误。
      * 
      * Gets the power that this block outputs to circuit system.
      * Returns error if block is no longer valid or if block
@@ -7624,7 +7628,7 @@ export class BlockRedstoneProducerComponent extends BlockComponent {
     static readonly componentId = 'minecraft:redstone_producer';
     /**
      * @remarks
-     * 获取此方块可以连接到电路并输出功率的面。如果方块不再有效或不具有 `minecraft:redstone_producer` 组件，则返回错误。
+     * 获取此方块可以连接到电路并输出红石信号强度的面。如果方块不再有效或不具有 `minecraft:redstone_producer` 组件，则返回错误。
      * 
      * Gets the faces of this block that can connect to the circuit
      * and output power. Returns error if block is no longer valid
@@ -7829,7 +7833,7 @@ export class BlockStates {
 }
 
 /**
- * 表示方块实例的可配置状态值。例如，楼梯的朝向方向可以作为方块状态访问。
+ * 表示方块的可配置状态值。例如，楼梯的朝向方向可以作为方块状态访问。
  * 
  * Represents a configurable state value of a block instance.
  * For example, the facing direction of stairs is accessible as
@@ -7921,17 +7925,19 @@ export class BlockTypes {
 }
 
 /**
- * BlockVolume 是一个简单的接口对象，表示在方块世界位置处给定大小的 3D 矩形（以方块计）。
- * 注意这些并不等同于"min"和"max"值，因为向量分量不保证按任何顺序排列。
+ * BlockVolume 是一个简单对象，描述世界中位于方块坐标处的给定大小（以方块计）的 3D 矩形区域。
+ * 注意这些向量分量不保证按任何顺序排列，因此不等同于「min」与「max」值。
  * 此外，这些向量位置不可与 BlockLocation 互换。
- * 如果您想将此体积表示为 BlockLocation 范围，可以使用 getBoundingBox 实用函数。
- * 此体积类将保持最初设置的角落索引的顺序。想象一下，每个角落都在编辑器中分配——当您移动角落时（可能会反转边界的 min/max 关系）——
- * 您最初选择为顶部/左侧的角落通常会变成底部/右侧。
- * 在手动编辑这些类型的体积时，您需要在编辑时保持角落的标识——BlockVolume 实用函数正是这样做的。
- * 
- * 需要注意的是，这是测量方块大小（从/到）——一个普通的 AABB (0,0,0) 到 (0,0,0) 传统上大小为 (0,0,0)，
- * 但是，因为我们测量的是方块，BlockVolume 的大小或跨度实际上将是 (1,1,1)。
- * 
+ * 如需将此体积表示为 BlockLocation 范围，可使用 getBoundingBox 实用函数。
+ *
+ * 此体积类保留初始设置的角点索引顺序。
+ * 类比编辑器中分配每个角点的场景——当你移动角点时（可能反转边界的 min/max 关系），
+ * 原本位于顶部/左侧的角点就会变成底部/右侧。
+ * 因此手动编辑此类体积时，需在编辑过程中维持角点的标识——BlockVolume 实用函数正是为此而设计。
+ *
+ * 另请注意：此处测量的是「方块大小」（端点到端点）。普通 AABB (0,0,0) 到 (0,0,0) 大小通常为 (0,0,0)；
+ * 但因为按方块计数，BlockVolume 的大小或跨度实际为 (1,1,1)。
+ *
  * A BlockVolume is a simple interface to an object which
  * represents a 3D rectangle of a given size (in blocks) at a
  * world block location.
@@ -7965,7 +7971,7 @@ export class BlockTypes {
 export class BlockVolume extends BlockVolumeBase {
     /**
      * @remarks
-     * 表示 3D 矩形中一个角落的世界方块位置。
+     * 表示 3D 矩形中一个角点的世界方块位置。
      * 
      * A world block location that represents a corner in a 3D
      * rectangle
@@ -7974,7 +7980,7 @@ export class BlockVolume extends BlockVolumeBase {
     'from': Vector3;
     /**
      * @remarks
-     * 表示 3D 矩形中对角角落的世界方块位置。
+     * 表示 3D 矩形中对角角点的世界方块位置。
      * 
      * A world block location that represents the opposite corner
      * in a 3D rectangle
@@ -8114,7 +8120,7 @@ export class BlockVolumeBase {
     getFarthest(count: number, location: Vector3): Vector3[];
     /**
      * @remarks
-     * 获取体积的最大角落位置（保证 >= min）。
+     * 获取体积的最大角点位置（保证 >= min）。
      * 
      * Get the largest corner position of the volume (guaranteed to
      * be >= min)
@@ -8124,7 +8130,7 @@ export class BlockVolumeBase {
     getMax(): Vector3;
     /**
      * @remarks
-     * 获取体积的最小角落位置（保证 <= max）。
+     * 获取体积的最小角点位置（保证 <= max）。
      * 
      * Get the smallest corner position of the volume (guaranteed
      * to be <= max)
@@ -10374,7 +10380,7 @@ export class Dimension {
     getBiome(location: Vector3): BiomeType;
     /**
      * @remarks
-     * 返回给定位置的方块实例。
+     * 返回给定位置的方块。
      *
      * Returns a block instance at the given location.
      *
@@ -11664,7 +11670,7 @@ export class Entity {
     readonly isClimbing: boolean;
     /**
      * @remarks
-     * 实体是否具有大于 0 的坠落距离，或在滑翔时大于 1。
+     * 实体是否具有大于 0 的摔落距离，或在滑翔时大于 1。
      *
      * Whether the entity has a fall distance greater than 0, or
      * greater than 1 while gliding.
@@ -14003,7 +14009,7 @@ export class EntityHealthComponent extends EntityAttributeComponent {
 }
 
 /**
- * 包含实体撞击方块后的相关信息。
+ * 包含实体击中方块后的相关信息。
  *
  * Contains information related to an entity hitting a block.
  */
@@ -14019,7 +14025,7 @@ export class EntityHitBlockAfterEvent {
 }
 
 /**
- * 管理与实体撞击方块后相关的回调。
+ * 管理与实体击中方块后相关的回调。
  *
  * Manages callbacks that are connected to after an entity hits a block.
  */
@@ -14027,7 +14033,7 @@ export class EntityHitBlockAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * 添加一个回调，将在实体撞击方块后被调用。
+     * 添加一个回调，将在实体击中方块后被调用。
      *
      * Adds a callback that will be called after an entity hits a block.
      *
@@ -14039,7 +14045,7 @@ export class EntityHitBlockAfterEventSignal {
     subscribe(callback: (arg0: EntityHitBlockAfterEvent) => void, options?: EntityEventOptions): (arg0: EntityHitBlockAfterEvent) => void;
     /**
      * @remarks
-     * 移除一个回调，使其在实体撞击方块后不再被调用。
+     * 移除一个回调，使其在实体击中方块后不再被调用。
      *
      * Removes a callback from being called after an entity hits a block.
      *
@@ -14052,7 +14058,7 @@ export class EntityHitBlockAfterEventSignal {
 }
 
 /**
- * 包含实体撞击另一个实体后的相关信息。
+ * 包含实体击中另一个实体后的相关信息。
  *
  * Contains information related to an entity hitting another entity.
  */
@@ -14063,7 +14069,7 @@ export class EntityHitEntityAfterEvent {
 }
 
 /**
- * 管理与实体撞击另一个实体后相关的回调。
+ * 管理与实体击中另一个实体后相关的回调。
  *
  * Manages callbacks that are connected to after an entity hits another entity.
  */
@@ -14071,7 +14077,7 @@ export class EntityHitEntityAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * 添加一个回调，将在实体撞击另一个实体后被调用。
+     * 添加一个回调，将在实体击中另一个实体后被调用。
      *
      * Adds a callback that will be called after an entity hits another entity.
      *
@@ -14083,7 +14089,7 @@ export class EntityHitEntityAfterEventSignal {
     subscribe(callback: (arg0: EntityHitEntityAfterEvent) => void, options?: EntityEventOptions): (arg0: EntityHitEntityAfterEvent) => void;
     /**
      * @remarks
-     * 移除一个回调，使其在实体撞击另一个实体后不再被调用。
+     * 移除一个回调，使其在实体击中另一个实体后不再被调用。
      *
      * Removes a callback from being called after an entity hits another entity.
      *
@@ -16584,7 +16590,7 @@ export class FogSettings {
      * stack, allowing it to be targeted by pop or remove. If
      * omitted, the entry is stored with the tag 'untagged'.
      * @returns
-     * 返回雾设置插入堆栈位置的从零开始索引。
+     * 雾设置被插入到堆栈后所在位置的从零开始索引。
      *
      * Returns the zero-based index at which the fog definition was
      * inserted into the stack.
@@ -17798,21 +17804,29 @@ export class ItemCooldownComponent extends ItemComponent {
     getCooldownTicksRemaining(player: Player): number;
     /**
      * @remarks
+     * 如果物品属于传入的冷却类别则返回 true，否则返回 false。
+     *
      * Will return true if the item is the cooldown category passed
      * in and false otherwise.
      *
      * @worldMutation
      *
      * @param cooldownCategory
+     * 可能与此物品关联的冷却类别。
+     *
      * The cooldown category that might be associated with this
      * item.
      * @returns
+     * 如果物品属于给定的冷却类别则返回 true。
+     *
      * True if the item is the given cooldown category.
      * @throws This function can throw errors.
      */
     isCooldownCategory(cooldownCategory: string): boolean;
     /**
      * @remarks
+     * 此函数无法在只读模式下调用。
+     *
      * 无法在只读模式下调用此函数，详见 {@link WorldBeforeEvents}。
      *
      * @throws This function can throw errors.
@@ -17820,15 +17834,23 @@ export class ItemCooldownComponent extends ItemComponent {
     getCooldownTicksRemaining(player: Player): number;
     /**
      * @remarks
+     * 如果物品属于传入的冷却类别则返回 true，否则返回 false。
+     *
      * Will return true if the item is the cooldown category passed
      * in and false otherwise.
+     *
+     * 此函数无法在只读模式下调用。
      *
      * 无法在只读模式下调用此函数，详见 {@link WorldBeforeEvents}。
      *
      * @param cooldownCategory
+     * 可能与此物品关联的冷却类别。
+     *
      * The cooldown category that might be associated with this
      * item.
      * @returns
+     * 如果物品属于给定的冷却类别则返回 true。
+     *
      * True if the item is the given cooldown category.
      * @throws This function can throw errors.
      */
@@ -17859,9 +17881,9 @@ export class ItemCustomComponentInstance extends ItemComponent {
 }
 
 /**
- * 表示物品耐久组件。当出现在物品上时，表示该物品可以在使用中受到损坏。
- * 注意，只能在数驱物品上获取和使用该组件。
- * 
+ * 表示物品耐久组件。当出现在物品上时，表示该物品在使用过程中会损耗耐久。
+ * 注意，此组件仅对数驱物品生效。
+ *
  * When present on an item, this item can take damage in the
  * process of being used. Note that this component only applies
  * to data-driven items.
@@ -17894,6 +17916,8 @@ export class ItemDurabilityComponent extends ItemComponent {
     readonly maxDurability: number;
     /**
      * @remarks
+     * 表示物品是否会损坏或损失耐久度。将其设置为 true 会暂时移除物品的耐久度 HUD，并暂停该物品的耐久度损失。
+     *
      * Whether an item breaks or loses durability. Setting to true
      * temporarily removes item's durability HUD, and freezes
      * durability loss on item.
@@ -18235,6 +18259,9 @@ export class ItemFoodComponent extends ItemComponent {
 }
 
 /**
+ * 该组件被添加到具有 `Storage Item`(存储物品)组件的物品上。
+ * 可以访问和修改该物品的物品栏容器。
+ *
  * This component is added to items with the `Storage Item`
  * component. Can access and modify this items inventory
  * container.
@@ -19449,7 +19476,7 @@ export class KilledByPlayerOrPetsCondition extends LootItemCondition {
 }
 
 /**
- * 包含与拉杆激活或停用变化相关的信息。
+ * 包含与拉杆激活或停用相关的信息。
  *
  * Contains information related to changes to a lever
  * activating or deactivating.
@@ -19560,7 +19587,7 @@ export class ListBlockVolume extends BlockVolumeBase {
      * Insert block locations into container.
      *
      * @param locations
-     * 要插入容器的方块位置数组。
+     * 要添加到容器中的方块位置数组。
      *
      * Array of block locations to be inserted into container.
      */
@@ -20444,7 +20471,7 @@ export class PassengerOfEntityCondition extends LootItemCondition {
 }
 
 /**
- * 包含与活塞扩展或收缩变化相关的信息。
+ * 包含与活塞伸出或缩回相关的信息。
  *
  * Contains information related to changes to a piston
  * expanding or retracting.
@@ -20454,7 +20481,7 @@ export class PassengerOfEntityCondition extends LootItemCondition {
 export class PistonActivateAfterEvent extends BlockEvent {
     private constructor();
     /**
-     * 如果活塞正在扩展过程中，则为 `true`。
+     * 如果活塞正在伸出过程中，则为 `true`。
      *
      * @remarks
      * True if the piston is the process of expanding.
@@ -20488,7 +20515,7 @@ export class PistonActivateAfterEventSignal {
      */
     subscribe(callback: (arg0: PistonActivateAfterEvent) => void): (arg0: PistonActivateAfterEvent) => void;
     /**
-     * 移除在活塞扩展或收缩时调用的回调。
+     * 移除在活塞伸出或缩回时调用的回调。
      *
      * @remarks
      * Removes a callback from being called when a piston expands
@@ -21511,7 +21538,7 @@ export class PlayerButtonInputAfterEventSignal {
 
 /**
  * @rc
- * 包含玩家取消破坏方块后的事件相关信息。
+ * 包含玩家取消方块破坏时触发事件的相关信息。
  *
  * Contains information regarding an event after a player
  * cancels breaking a block.
@@ -23346,6 +23373,8 @@ export class PlayerWaypoint extends EntityWaypoint {
 }
 
 /**
+ * 表示药水效果是如何被施加的。
+ *
  * Represents how the potion effect is delivered.
  */
 export class PotionDeliveryType {
@@ -23454,7 +23483,7 @@ export class Potions {
 }
 
 /**
- * 包含与压力板弹起变化相关的信息。
+ * 包含与压力板复位相关的信息。
  *
  * Contains information related to changes to a pressure plate
  * pop.
@@ -23463,7 +23492,7 @@ export class Potions {
 export class PressurePlatePopAfterEvent extends BlockEvent {
     private constructor();
     /**
-     * 压力板弹起之前的红石能量。
+     * 压力板复位之前的红石信号强度。
      *
      * @remarks
      * The redstone power of the pressure plate before it was
@@ -23472,7 +23501,7 @@ export class PressurePlatePopAfterEvent extends BlockEvent {
      */
     readonly previousRedstonePower: number;
     /**
-     * 弹起时压力板的红石能量。
+     * 弹起时压力板的红石信号强度。
      *
      * @remarks
      * The redstone power of the pressure plate at the time of the
@@ -23483,7 +23512,7 @@ export class PressurePlatePopAfterEvent extends BlockEvent {
 }
 
 /**
- * 管理与压力板弹起时相关的回调。
+ * 管理与压力板复位时相关的回调。
  *
  * Manages callbacks that are connected to when a pressure
  * plate is popped.
@@ -23491,7 +23520,7 @@ export class PressurePlatePopAfterEvent extends BlockEvent {
 export class PressurePlatePopAfterEventSignal {
     private constructor();
     /**
-     * 添加一个将在压力板弹起时调用的回调。
+     * 添加一个将在压力板复位时调用的回调。
      *
      * @remarks
      * Adds a callback that will be called when a pressure plate is
@@ -23504,7 +23533,7 @@ export class PressurePlatePopAfterEventSignal {
      */
     subscribe(callback: (arg0: PressurePlatePopAfterEvent) => void): (arg0: PressurePlatePopAfterEvent) => void;
     /**
-     * 移除一个在压力板弹起时调用的回调。
+     * 移除一个在压力板复位时调用的回调。
      *
      * @remarks
      * Removes a callback from being called when a pressure plate
@@ -23519,7 +23548,7 @@ export class PressurePlatePopAfterEventSignal {
 }
 
 /**
- * 包含与压力板按下变化相关的信息。
+ * 包含与压力板被触发相关的信息。
  *
  * Contains information related to changes to a pressure plate push.
  */
@@ -23528,7 +23557,7 @@ export class PressurePlatePushAfterEvent extends BlockEvent {
     private constructor();
     /**
      * @remarks
-     * 压力板按下前的红石能量。
+     * 压力板触发前的红石信号强度。
      *
      * The redstone power of the pressure plate before it was pushed.
      *
@@ -23536,7 +23565,7 @@ export class PressurePlatePushAfterEvent extends BlockEvent {
     readonly previousRedstonePower: number;
     /**
      * @remarks
-     * 按下时压力板的红石能量。
+     * 按下时压力板的红石信号强度。
      *
      * The redstone power of the pressure plate at the time of the push.
      *
@@ -23544,7 +23573,7 @@ export class PressurePlatePushAfterEvent extends BlockEvent {
     readonly redstonePower: number;
     /**
      * @remarks
-     * 触发压力板按下的源实体。
+     * 触发压力板的源实体。
      *
      * Source that triggered the pressure plate push.
      *
@@ -23553,7 +23582,7 @@ export class PressurePlatePushAfterEvent extends BlockEvent {
 }
 
 /**
- * 管理连接到压力板按下事件的回调。
+ * 管理连接到压力板触发事件的回调。
  *
  * Manages callbacks that are connected to when a pressure plate is pushed.
  */
@@ -23561,7 +23590,7 @@ export class PressurePlatePushAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * 添加一个将在压力板按下时调用的回调。
+     * 添加一个将在压力板触发时调用的回调。
      *
      * Adds a callback that will be called when a pressure plate is pushed.
      *
@@ -23573,7 +23602,7 @@ export class PressurePlatePushAfterEventSignal {
     subscribe(callback: (arg0: PressurePlatePushAfterEvent) => void): (arg0: PressurePlatePushAfterEvent) => void;
     /**
      * @remarks
-     * 移除一个在压力板按下时调用的回调。
+     * 移除一个在压力板触发时调用的回调。
      *
      * Removes a callback from being called when a pressure plate is pushed.
      *
@@ -24225,6 +24254,8 @@ export class ScoreboardIdentity {
     readonly id: number;
     /**
      * @remarks
+     * 如果 ScoreboardIdentity 引用仍然有效，则返回 true。
+     *
      * Returns true if the ScoreboardIdentity reference is still
      * valid.
      *
@@ -24281,6 +24312,8 @@ export class ScoreboardObjective {
     readonly id: string;
     /**
      * @remarks
+     * 如果此 ScoreboardObjective 引用仍然有效，则返回 true。
+     *
      * Returns true if the ScoreboardObjective reference is still
      * valid.
      *
@@ -24288,11 +24321,15 @@ export class ScoreboardObjective {
     readonly isValid: boolean;
     /**
      * @remarks
+     * 为给定分数持有者和记分项添加分数。
+     *
      * Adds a score to the given participant and objective.
      *
      * @worldMutation
      *
      * @param participant
+     * 要对其应用记分项分数增加的分数持有者。
+     *
      * Participant to apply the scoreboard value addition to.
      * @throws This function can throw errors.
      */
@@ -24336,6 +24373,8 @@ export class ScoreboardObjective {
     getScores(): ScoreboardScoreInfo[];
     /**
      * @remarks
+     * 返回指定身份是否是该记分项的分数持有者。
+     *
      * Returns if the specified identity is a participant of the
      * scoreboard objective.
      *
@@ -24344,11 +24383,15 @@ export class ScoreboardObjective {
     hasParticipant(participant: Entity | ScoreboardIdentity | string): boolean;
     /**
      * @remarks
+     * 从该记分项中移除一个分数持有者。
+     *
      * Removes a participant from this scoreboard objective.
      *
      * @worldMutation
      *
      * @param participant
+     * 要从该记分项追踪中移除的分数持有者。
+     *
      * Participant to remove from being tracked with this
      * objective.
      * @throws This function can throw errors.
@@ -24356,13 +24399,19 @@ export class ScoreboardObjective {
     removeParticipant(participant: Entity | ScoreboardIdentity | string): boolean;
     /**
      * @remarks
+     * 为分数持有者设置分数。
+     *
      * Sets a score for a participant.
      *
      * @worldMutation
      *
      * @param participant
+     * 分数持有者的身份。
+     *
      * Identity of the participant.
      * @param score
+     * 新的分数。
+     *
      * New value of the score.
      * @throws This function can throw errors.
      */
@@ -24751,7 +24800,7 @@ export class SetBannerDetailsFunction extends LootItemFunction {
     /**
      * @beta
      * @remarks
-     * 掉落旗帜的基础颜色。
+     * 掉落旗帜的底色。
      *
      * The base color for the dropped banner.
      *
@@ -27852,7 +27901,7 @@ export class WorldAfterEvents {
      * @remarks
      * This event fires when a piston expands or retracts.
      *
-     * 此事件在活塞伸出或收回时触发。
+     * 此事件在活塞伸出或缩回时触发。
      *
      * @earlyExecution
      *
@@ -28753,7 +28802,7 @@ export interface BlockHitInformation {
 
 /**
  * @beta
- * 在体积中查询方块的选项。扩展了 `BlockFilter`，增加了基于距离位置的额外排序和限制选项。
+ * 在体积中查询方块的选项。扩展了 `BlockFilter`，增加了基于距离坐标的额外排序和限制选项。
  *
  * Options for querying blocks in a volume. Extends BlockFilter
  * with additional sorting and limiting options based on
@@ -28763,7 +28812,7 @@ export interface BlockHitInformation {
 export interface BlockQueryOptions extends BlockFilter {
     /**
      * @remarks
-     * 如果指定，则返回距离位置最近的 N 个方块。必须大于 0。不能与 `farthest` 同时使用。需要设置 `location`。
+     * 如果指定，则返回距离坐标最近的 N 个方块。必须大于 0。不能与 `farthest` 同时使用。需要设置 `location`。
      *
      * If specified, returns the closest N blocks to the location.
      * Must be greater than 0. Cannot be used with farthest.
@@ -28773,7 +28822,7 @@ export interface BlockQueryOptions extends BlockFilter {
     closest?: number;
     /**
      * @remarks
-     * 如果指定，则返回距离位置最远的 N 个方块。必须大于 0。不能与 `closest` 同时使用。需要设置 `location`。
+     * 如果指定，则返回距离坐标最远的 N 个方块。必须大于 0。不能与 `closest` 同时使用。需要设置 `location`。
      *
      * If specified, returns the farthest N blocks from the
      * location. Must be greater than 0. Cannot be used with
@@ -31779,7 +31828,7 @@ export interface TickingAreaOptions {
     dimension: Dimension;
     /**
      * @remarks
-     * 边界框的一个角落方块位置。
+     * 边界框的一个角点方块位置。
      *
      * Corner block location of the bounding box.
      *
@@ -31787,7 +31836,7 @@ export interface TickingAreaOptions {
     from: Vector3;
     /**
      * @remarks
-     * 边界框的对角角落方块位置。
+     * 边界框的对角角点方块位置。
      *
      * Opposite corner block location of the bounding box.
      *
@@ -32446,6 +32495,8 @@ export class ItemCustomComponentReloadNewComponentError extends Error {
 }
 
 /**
+ * 在使用 /reload 命令后，当尝试注册一个此前已注册但用于处理新事件的物品自定义组件时抛出。
+ *
  * Thrown after using the /reload command when trying to
  * register a previously registered item custom component that
  * handles a new event.
@@ -32456,6 +32507,8 @@ export class ItemCustomComponentReloadNewEventError extends Error {
 }
 
 /**
+ * 在使用 /reload 命令后，尝试使用较新的 API 版本注册先前已注册过的物品自定义组件时抛出。
+ *
  * Thrown after using the /reload command when trying to
  * register a previously registered item custom component with
  * a newer API version.

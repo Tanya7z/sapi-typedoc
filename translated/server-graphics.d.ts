@@ -26,7 +26,7 @@
 import { EngineError, InvalidArgumentError } from '@minecraft/common';
 import { BiomeType, Player, RGB, Vector3 } from '@minecraft/server';
 /**
- * 用于在「生动视觉」(Vibrant Visuals) 中按生物群系影响大气散射。
+ * 用于在「灵动视效」(Vibrant Visuals) 中按生物群系影响大气散射。
  *
  * Used to affect atmospheric scattering per biome for Vibrant
  * Visuals
@@ -177,7 +177,7 @@ export class BiomeAtmospherics {
     resetSunMieStrength(): void;
     /**
      * @remarks
-     * 为「生动视觉」中的大气散射设置地平线混合上限。
+     * 为「灵动视效」中的大气散射设置地平线混合上限。
      *
      * Sets the horizon blend max for atmospheric scattering in
      * Vibrant Visuals
@@ -193,7 +193,7 @@ export class BiomeAtmospherics {
     setHorizonBlendMax(blendMax: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的大气散射设置地平线混合 Mie 起始值。
+     * 为「灵动视效」中的大气散射设置地平线混合 Mie 起始值。
      *
      * Sets the horizon blend mie start for atmospheric scattering
      * in Vibrant Visuals
@@ -209,7 +209,7 @@ export class BiomeAtmospherics {
     setHorizonBlendMieStart(blendMieStart: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的大气散射设置地平线混合下限。
+     * 为「灵动视效」中的大气散射设置地平线混合下限。
      *
      * Sets the horizon blend min for atmospheric scattering in
      * Vibrant Visuals
@@ -225,7 +225,7 @@ export class BiomeAtmospherics {
     setHorizonBlendMin(blendMin: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的大气散射设置地平线混合起始值。
+     * 为「灵动视效」中的大气散射设置地平线混合起始值。
      *
      * Sets the horizon blend start for atmospheric scattering in
      * Vibrant Visuals
@@ -241,7 +241,7 @@ export class BiomeAtmospherics {
     setHorizonBlendStart(blendStart: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的大气散射设置月亮 Mie 强度。
+     * 为「灵动视效」中的大气散射设置月亮 Mie 强度。
      *
      * Sets the moon mie strength for atmospheric scattering in
      * Vibrant Visuals
@@ -257,7 +257,7 @@ export class BiomeAtmospherics {
     setMoonMieStrength(moonMieStrength: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的大气散射设置瑞利散射强度。
+     * 为「灵动视效」中的大气散射设置瑞利散射强度。
      *
      * Sets the rayleigh strength for atmospheric scattering in
      * Vibrant Visuals
@@ -273,7 +273,7 @@ export class BiomeAtmospherics {
     setRayleighStrength(rayleighStrength: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的大气散射设置天空地平线颜色。
+     * 为「灵动视效」中的大气散射设置天空地平线颜色。
      *
      * Sets the sky horizon color for atmospheric scattering in
      * Vibrant Visuals
@@ -289,7 +289,7 @@ export class BiomeAtmospherics {
     setSkyHorizonColor(color: Record<number, RGB> | RGB): void;
     /**
      * @remarks
-     * 为「生动视觉」中的大气散射设置天空天顶颜色。
+     * 为「灵动视效」中的大气散射设置天空天顶颜色。
      *
      * Sets the sky zenith color for atmospheric scattering in
      * Vibrant Visuals
@@ -305,7 +305,7 @@ export class BiomeAtmospherics {
     setSkyZenithColor(color: Record<number, RGB> | RGB): void;
     /**
      * @remarks
-     * 为「生动视觉」中的大气散射设置太阳眩光形状。
+     * 为「灵动视效」中的大气散射设置太阳眩光形状。
      *
      * Sets the sun glare shape for atmospheric scattering in
      * Vibrant Visuals
@@ -321,7 +321,7 @@ export class BiomeAtmospherics {
     setSunGlareShape(sunGlareShape: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的大气散射设置太阳 Mie 强度。
+     * 为「灵动视效」中的大气散射设置太阳 Mie 强度。
      *
      * Sets the sun mie strength for atmospheric scattering in
      * Vibrant Visuals
@@ -338,7 +338,7 @@ export class BiomeAtmospherics {
 }
 
 /**
- * 用于影响 Vibrant Visuals（绚丽视界）的颜色分级。
+ * 用于影响 Vibrant Visuals（灵动视效）的颜色分级。
  *
  * Used to affect color grading for Vibrant Visuals
  */
@@ -1107,7 +1107,7 @@ export class BiomeColorGrading {
 }
 
 /**
- * 用于在「生动视觉」(Vibrant Visuals) 中影响光照。
+ * 用于在「灵动视效」(Vibrant Visuals) 中影响光照。
  *
  * Used to affect lighting for Vibrant Visuals
  */
@@ -1263,7 +1263,7 @@ export class BiomeLighting {
     resetSunIlluminance(): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置环境光颜色。
+     * 为「灵动视效」中的光照设置环境光颜色。
      *
      * Sets the ambient color for lighting in Vibrant Visuals
      *
@@ -1276,7 +1276,7 @@ export class BiomeLighting {
     setAmbientColor(color: Record<number, RGB> | RGB): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置环境光照度。
+     * 为「灵动视效」中的光照设置环境光照度。
      *
      * Sets the ambient illuminance for lighting in Vibrant Visuals
      *
@@ -1289,7 +1289,7 @@ export class BiomeLighting {
     setAmbientIlluminance(illuminance: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置自发光去饱和度。
+     * 为「灵动视效」中的光照设置自发光去饱和度。
      *
      * Sets the emissive desaturation for lighting in Vibrant
      * Visuals
@@ -1303,7 +1303,7 @@ export class BiomeLighting {
     setEmissiveDesaturation(value: number): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置闪光颜色。
+     * 为「灵动视效」中的光照设置闪光颜色。
      *
      * Sets the flash color for lighting in Vibrant Visuals
      *
@@ -1316,7 +1316,7 @@ export class BiomeLighting {
     setFlashColor(color: Record<number, RGB> | RGB): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置闪光照度。
+     * 为「灵动视效」中的光照设置闪光照度。
      *
      * Sets the flash illuminance for lighting in Vibrant Visuals
      *
@@ -1329,7 +1329,7 @@ export class BiomeLighting {
     setFlashIlluminance(illuminance: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置月亮颜色。
+     * 为「灵动视效」中的光照设置月亮颜色。
      *
      * Sets the moon color for lighting in Vibrant Visuals
      *
@@ -1342,7 +1342,7 @@ export class BiomeLighting {
     setMoonColor(color: Record<number, RGB> | RGB): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置月亮照度。
+     * 为「灵动视效」中的光照设置月亮照度。
      *
      * Sets the moon illuminance for lighting in Vibrant Visuals
      *
@@ -1355,7 +1355,7 @@ export class BiomeLighting {
     setMoonIlluminance(illuminance: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置轨道偏移。
+     * 为「灵动视效」中的光照设置轨道偏移。
      *
      * Sets the orbital offset for lighting in Vibrant Visuals
      *
@@ -1368,7 +1368,7 @@ export class BiomeLighting {
     setOrbitalOffsetDegrees(degrees: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置天空强度。
+     * 为「灵动视效」中的光照设置天空强度。
      *
      * Sets the sky intensity for lighting in Vibrant Visuals
      *
@@ -1381,7 +1381,7 @@ export class BiomeLighting {
     setSkyIntensity(intensity: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置太阳颜色。
+     * 为「灵动视效」中的光照设置太阳颜色。
      *
      * Sets the sun color for lighting in Vibrant Visuals
      *
@@ -1394,7 +1394,7 @@ export class BiomeLighting {
     setSunColor(color: Record<number, RGB> | RGB): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置太阳照度。
+     * 为「灵动视效」中的光照设置太阳照度。
      *
      * Sets the sun illuminance for lighting in Vibrant Visuals
      *
@@ -1860,7 +1860,7 @@ export class BiomeWater {
 
 /**
  * @remarks
- * 获取 BiomeAtmospherics 组件，用于在「生动视觉」(Vibrant Visuals) 中控制大气散射效果。
+ * 获取 BiomeAtmospherics 组件，用于在「灵动视效」(Vibrant Visuals) 中控制大气散射效果。
  *
  * Retrieves the BiomeAtmospherics component to control
  * atmoshperic scattering for Vibrant Visuals.
@@ -1871,7 +1871,7 @@ export class BiomeWater {
 export function getBiomeAtmospherics(biome: BiomeType): BiomeAtmospherics;
 /**
  * @remarks
- * 获取 BiomeColorGrading 组件，用于在「生动视觉」中控制色彩分级。
+ * 获取 BiomeColorGrading 组件，用于在「灵动视效」中控制色彩分级。
  *
  * Retrieves the BiomeColorGrading component to control color
  * grading for Vibrant Visuals.
@@ -1882,7 +1882,7 @@ export function getBiomeAtmospherics(biome: BiomeType): BiomeAtmospherics;
 export function getBiomeColorGrading(biome: BiomeType): BiomeColorGrading;
 /**
  * @remarks
- * 获取 BiomeLighting 组件，用于在「生动视觉」中控制光照。
+ * 获取 BiomeLighting 组件，用于在「灵动视效」中控制光照。
  *
  * Retrieves the BiomeLighting component to control lighting
  * for Vibrant Visuals.
@@ -1893,7 +1893,7 @@ export function getBiomeColorGrading(biome: BiomeType): BiomeColorGrading;
 export function getBiomeLighting(biome: BiomeType): BiomeLighting;
 /**
  * @remarks
- * 获取 BiomeWater 组件，用于在「生动视觉」中控制水的效果。
+ * 获取 BiomeWater 组件，用于在「灵动视效」中控制水的效果。
  *
  * Retrieves the BiomeWater component to control water for
  * Vibrant Visuals
@@ -1904,7 +1904,7 @@ export function getBiomeLighting(biome: BiomeType): BiomeLighting;
 export function getBiomeWater(biome: BiomeType): BiomeWater;
 /**
  * @remarks
- * 获取 PlayerAtmospherics 组件，用于在「生动视觉」中控制特定玩家的大气散射效果。它提供与 BiomeAtmospherics 相同的控制选项，但 PlayerAtmospherics 的控制将始终优先于 BiomeAtmospherics。
+ * 获取 PlayerAtmospherics 组件，用于在「灵动视效」中控制特定玩家的大气散射效果。它提供与 BiomeAtmospherics 相同的控制选项，但 PlayerAtmospherics 的控制将始终优先于 BiomeAtmospherics。
  *
  * Retrieves the PlayerAtmospherics component to control
  * atmospheric scattering for a particular player in Vibrant
@@ -1921,7 +1921,7 @@ export function getPlayerAtmospherics(
 ): BiomeAtmospherics;
 /**
  * @remarks
- * 获取 PlayerColorGrading 组件，用于在「生动视觉」中控制特定玩家的色彩分级。它提供与 BiomeColorGrading 相同的控制选项，但 PlayerColorGrading 的控制将始终优先于 BiomeColorGrading。
+ * 获取 PlayerColorGrading 组件，用于在「灵动视效」中控制特定玩家的色彩分级。它提供与 BiomeColorGrading 相同的控制选项，但 PlayerColorGrading 的控制将始终优先于 BiomeColorGrading。
  *
  * Retrieves the PlayerColorGrading component to control color
  * grading for a particular player in Vibrant Visuals. This
@@ -1938,7 +1938,7 @@ export function getPlayerColorGrading(
 ): BiomeColorGrading;
 /**
  * @remarks
- * 获取 PlayerLighting 组件，用于在「生动视觉」中控制特定玩家的光照。它提供与 BiomeLighting 相同的控制选项，但 PlayerLighting 的控制将始终优先于 BiomeLighting。
+ * 获取 PlayerLighting 组件，用于在「灵动视效」中控制特定玩家的光照。它提供与 BiomeLighting 相同的控制选项，但 PlayerLighting 的控制将始终优先于 BiomeLighting。
  *
  * Retrieves the PlayerLighting component to control lighting
  * for a particular player in Vibrant Visuals. This offers the
@@ -1951,7 +1951,7 @@ export function getPlayerColorGrading(
 export function getPlayerLighting(biome: BiomeType, player: Player): BiomeLighting;
 /**
  * @remarks
- * 获取 PlayerWater 组件，用于在「生动视觉」中控制特定玩家的水效果。它提供与 BiomeWater 相同的控制选项，但 PlayerWater 的控制将始终优先于 BiomeWater。
+ * 获取 PlayerWater 组件，用于在「灵动视效」中控制特定玩家的水效果。它提供与 BiomeWater 相同的控制选项，但 PlayerWater 的控制将始终优先于 BiomeWater。
  *
  * Retrieves the PlayerWater component to control water for a
  * particular player in Vibrant Visuals. This offers the same

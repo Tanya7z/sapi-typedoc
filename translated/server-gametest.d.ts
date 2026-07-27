@@ -2037,7 +2037,7 @@ export class Test {
     ): void;
     /**
      * @remarks
-     * 断言某位置上的红石能量等级与特定值匹配。否则抛出异常。
+     * 断言某位置上的红石信号强度等级与特定值匹配。否则抛出异常。
      *
      * Tests that Redstone power at a particular location matches a
      * particular value. If not, an exception is thrown.
@@ -3253,11 +3253,14 @@ export class GameTestError extends Error {
 
 /**
  * @remarks
+ * 返回玩家皮肤的相关数据。
+ *
  * Returns data about a player's skin.
  *
  * @worldMutation
  *
  * @param player
+ * 要获取皮肤数据的玩家。
  * The player who's skin is returned.
  * @throws This function can throw errors.
  *
@@ -3267,6 +3270,27 @@ export class GameTestError extends Error {
  */
 export function getPlayerSkin(player: Player): PlayerSkinData;
 /**
+ * @remarks
+ * 注册一个新的 GameTest 函数。该 GameTest 将可通过
+ * `/gametest run [testClassName]:[testName]`
+ * 在 Minecraft 中运行。
+ *
+ * @worldMutation
+ *
+ * @earlyExecution
+ *
+ * @param testClassName
+ * 此测试所属的测试类名称。
+ * @param testName
+ * 此具体测试的名称。
+ * @param testFunction
+ * 测试函数的实现。
+ * @returns
+ * 返回一个 {@link RegistrationBuilder} 对象，
+ * 可通过其构建器方法为此测试指定
+ * 其他选项。
+ * @seeExample simpleMobGameTest.ts
+ *
  * @remarks
  * Registers a new GameTest function. This GameTest will become
  * available in Minecraft via `/gametest run
@@ -3295,6 +3319,10 @@ export function register(
 ): RegistrationBuilder;
 /**
  * @remarks
+ * 注册一个为异步执行而设计的新 GameTest 函数。此 GameTest
+ * 将可以在 Minecraft 中通过
+ * `/gametest run [testClassName]:[testName]` 使用。
+ *
  * Registers a new GameTest function that is designed for
  * asynchronous execution. This GameTest will become available
  * in Minecraft via `/gametest run [testClassName]:[testName]`.
@@ -3322,6 +3350,8 @@ export function registerAsync(
 ): RegistrationBuilder;
 /**
  * @remarks
+ * 设置一个在批次运行结束后被调用的回调函数。
+ * 这将覆盖先前为该批次设置的回调函数。
  * Sets a callback that is called after the batch gets called.
  * This will overwrite previously set callbacks for this batch.
  *
@@ -3330,6 +3360,7 @@ export function registerAsync(
  * @earlyExecution
  *
  * @param batchName
+ * 回调将在其之后运行的测试批次名称。
  * Name of the batch of tests the callback will run after.
  * @throws This function can throw errors.
  *
@@ -3338,6 +3369,9 @@ export function registerAsync(
 export function setAfterBatchCallback(batchName: string, batchCallback: () => void): void;
 /**
  * @remarks
+ * 设置一个在批次调用前调用的回调。
+ * 这将覆盖此前为此批次设置的回调。
+ *
  * Sets a callback that is called before the batch gets called.
  * This will overwrite previously set callbacks for this batch.
  *
@@ -3346,8 +3380,9 @@ export function setAfterBatchCallback(batchName: string, batchCallback: () => vo
  * @earlyExecution
  *
  * @param batchName
+ * 测试回调将要在其之前运行的批次名称。
  * Name of the batch of tests the callback will run before.
- * @throws This function can throw errors.
+ * @throws 此函数可能会抛出错误。 This function can throw errors.
  *
  * {@link GameTestError}
  */

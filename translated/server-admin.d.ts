@@ -34,6 +34,10 @@ export class AdminBeforeEvents {
     private constructor();
     /**
      * @remarks
+     * 该事件在玩家加入世界之前触发。与其他 before 事件不同，这是一个
+     * before 事件，你可以通过不解析 subscribe 函数中返回的 Promise
+     * 来将其延迟若干 tick。如果该 Promise 被拒绝，则客户端将被拒绝连入。
+     *
      * This event is fired before a player joins the world. Unlike
      * other before events, this event is a before event that you
      * can delay several ticks by not resolving the promise
@@ -227,6 +231,11 @@ export class AsyncPlayerJoinBeforeEventSignal {
     private constructor();
     /**
      * @remarks
+     * 添加一个在玩家加入世界之前执行的回调。该回调会返回一个 Promise,
+     * 在该 Promise 解析之前玩家不会加入。如果该 Promise 未能在合理时间内
+     * 解析,则玩家的加入将被拒绝。如果加入服务器的玩家中途离开或断开
+     * 连接,那么事件数据的 isValid 将返回 false。
+     *
      * Add a callback that's ran before a player joins the world.
      * This callback returns a promise and the player won't join
      * until that promise is resolved. If the promise is not
@@ -517,6 +526,8 @@ export interface TransferPlayerNetherNetOptions {
 }
 
 /**
+ * 当允许列表文件重新加载失败时抛出的错误。
+ *
  * An error that is thrown when the allow list file fails to
  * reload.
  */
@@ -526,6 +537,8 @@ export class AllowListFileReloadError extends Error {
 }
 
 /**
+ * 修改允许列表失败时抛出的错误。
+ *
  * An error which is thrown when modifying the allow list has
  * failed.
  */
@@ -544,6 +557,8 @@ export class CannotDeopPlayerError extends Error {
 }
 
 /**
+ * 当尝试踢出一个无法被踢出的玩家时抛出的错误。
+ *
  * An error which is thrown when attempting to kick a player
  * who cannot be kicked.
  */
@@ -574,6 +589,8 @@ export class DisconnectedError extends Error {
 }
 
 /**
+ * 当关卡存储的存档状态管理被乱序调用、或以无效方式重复调用时抛出的错误。
+ *
  * An error that is thrown when level storage save state
  * management are used out of sequence or are repeated in an
  * invalid way.
@@ -611,13 +628,19 @@ export class PlayerAlreadyOpError extends Error {
 export function deopPlayer(player: Player): void;
 /**
  * @remarks
+ * 将玩家从服务器中踢出。
+ *
  * Kicks a player from the server.
  *
  * @worldMutation
  *
  * @param player
+ * 要踢出的玩家。
+ *
  * Player to kick.
  * @param reason
+ * 踢出玩家的原因。
+ *
  * Reason for kicking the player.
  * @throws This function can throw errors.
  *
@@ -630,11 +653,15 @@ export function deopPlayer(player: Player): void;
 export function kickPlayer(player: Player, reason?: string): void;
 /**
  * @remarks
+ * 给予玩家 OP 权限。
+ *
  * Gives the player op permissions.
  *
  * @worldMutation
  *
  * @param player
+ * 要给予权限的玩家。
+ *
  * Player to add permissions to.
  * @throws This function can throw errors.
  *
@@ -664,6 +691,8 @@ export function transferPlayer(
 export const beforeEvents: AdminBeforeEvents;
 /**
  * @remarks
+ * 一个全局可用的、可选的对象，包含仅在专用服务器上才有的 API。
+ *
  * A globally available, optional object that contains
  * dedicated-server only apis.
  *

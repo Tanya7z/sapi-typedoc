@@ -14,7 +14,6 @@ nav:
   - debug-utilities
   - diagnostics
   - 索引:
+    - 标签索引: tags.md
     - 同步: sync.md
-    - 标签: tags.md
-    - 术语: CHANGELOG-TERMS.md
-    
+    - 术语变更日志: CHANGELOG-TERMS.md

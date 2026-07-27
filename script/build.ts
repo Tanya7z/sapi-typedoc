@@ -398,7 +398,18 @@ function moveDirectorySync(src: string, dest: string) {
 /** 生成 docs/.pages 与各模块 .pages，供 Material tabs + awesome-pages */
 function writeMkdocsModuleTabs() {
     const docsDir = resolvePath(basePath, 'docs');
-    const reservedTopLevel = new Set(['api', 'changelog', 'index.md', 'sync.md', 'tags.md', 'CHANGELOG-TERMS.md', '.pages']);
+    const reservedTopLevel = new Set([
+        'api',
+        'changelog',
+        'index.md',
+        'sync.md',
+        'tags.md',
+        'CHANGELOG-TERMS.md',
+        '.pages',
+        'stylesheets',
+        'assets',
+        'includes'
+    ]);
 
     const moduleDirs = readdirSync(docsApiPath, { withFileTypes: true })
         .filter(
@@ -457,16 +468,16 @@ function writeMkdocsModuleTabs() {
         writeFileSync(filePath, patched, 'utf-8');
     }
 
-    // 首页侧栏仅保留「首页 + 更新日志」；API 总览不再挂入导航
+    // 首页侧栏仅保留「首页 + 更新日志」；文末「索引」分组挂标签/同步/术语日志
     const rootNav = [
         'nav:',
         '  - 首页:',
         '    - index.md',
         '    - 更新日志: changelog',
         ...ordered.map((m) => `  - ${m}`),
-        '  - 索引: tags.md',
+        '  - 索引:',
+        '    - 标签索引: tags.md',
         '    - 同步: sync.md',
-        '    - 标签: tag.md',
         '    - 术语变更日志: CHANGELOG-TERMS.md',
         ''
     ];
