@@ -1,4 +1,6 @@
 /**
+ * 一组常用的颜色常量值。
+ *
  * A set of commonly used color constant values.
  *
  * @public

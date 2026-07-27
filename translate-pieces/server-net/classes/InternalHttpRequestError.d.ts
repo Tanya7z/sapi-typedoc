@@ -1,4 +1,6 @@
 /**
+ * 当发生平台级 HTTP 错误时抛出的错误。此类中提供的信息可能对诊断很有用，但因平台而异。
+ *
  * An error thrown when a platform-level HTTP error occurs.
  * Information provided in this class may be useful for
  * diagnostics purposes but will differ from platform to

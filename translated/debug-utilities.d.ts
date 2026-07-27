@@ -9,6 +9,8 @@
 /**
  * @beta
  * @packageDocumentation
+ * 包含调试实用工具相关函数。
+ *
  * Contains debug utility functions.
  *
  * Manifest Details
@@ -54,12 +56,16 @@ export class DebugArrow extends DebugLine {
 }
 
 /**
+ * 表示一个长方体（立方体）的调试形状类。
+ *
  * A debug shape class that represents a box or cuboid.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class DebugBox extends DebugShape {
     /**
      * @remarks
+     * 该形状的包围盒。最终绘制的方块将是该包围盒乘以形状的缩放比例。
+     *
      * The bounding box of the shape. The final box will be this
      * bound multiplied by the shape's scale.
      *
@@ -69,6 +75,8 @@ export class DebugBox extends DebugShape {
 }
 
 /**
+ * 表示一个圆（2D）的调试形状类。
+ *
  * A debug shape class that represents a circle (2D).
  */
 // @ts-ignore Class inheritance allowed for native defined classes
@@ -166,18 +174,24 @@ export class DebugDrawer {
 }
 
 /**
+ * 表示椭球体的调试形状类。
+ *
  * A debug shape class that represents an ellipsoid.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class DebugEllipsoid extends DebugShape {
     /**
      * @remarks
+     * 椭球体沿各坐标轴（x、y、z）的半径。
+     *
      * The radii of the ellipsoid along each axis (x, y, z).
      *
      */
     radii: Vector3;
     /**
      * @remarks
+     * 沿每个轴用于近似椭球体的分段数。范围：[3, 128]
+     *
      * The number of segments used to approximate the ellipsoid per
      * axis. Bounds: [3, 128]
      *
@@ -188,12 +202,16 @@ export class DebugEllipsoid extends DebugShape {
 }
 
 /**
+ * 表示一条线段的调试形状类。
+ *
  * A debug shape class that represents a line segment.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class DebugLine extends DebugShape {
     /**
      * @remarks
+     * 线段的终点位置。最终绘制的线段将位于 location 与 endLocation 之间。
+     *
      * The end location of the line segment. The final line will
      * spawn between location and endLocation.
      *
@@ -232,6 +250,8 @@ export class DebugPyramid extends DebugShape {
 }
 
 /**
+ * 所有调试形状的基类。表示世界中的一个对象及其基本属性。
+ *
  * The base class for all debug shapes. Represents an object in
  * the world and its base properties.
  */
@@ -239,6 +259,9 @@ export class DebugShape {
     private constructor();
     /**
      * @remarks
+     * 此形状所附加的实体。设置后，此形状将复制附加实体的根位置，
+     * 而形状的位置将作为偏移量使用。
+     *
      * The entity this shape is attached to. When set, this shape
      * will copy the root location of the attached entity and the
      * shape's position will be used as an offset.
@@ -247,12 +270,16 @@ export class DebugShape {
     attachedTo?: Entity;
     /**
      * @remarks
+     * 形状的颜色。
+     *
      * The color of the shape.
      *
      */
     color: RGBA;
     /**
      * @remarks
+     * 该形状可见的维度。如果该维度未定义，则会在所有维度中显示。
+     *
      * The dimension the shape is visible within. If the dimension
      * is undefined, it will display in all dimensions.
      *
@@ -260,6 +287,8 @@ export class DebugShape {
     readonly dimension: Dimension;
     /**
      * @remarks
+     * 如果形状在被移除之前具有有限的时间跨度，则返回 true。
+     *
      * Returns true if the shape has a limited time span before
      * being removed.
      *
@@ -267,6 +296,9 @@ export class DebugShape {
     readonly hasDuration: boolean;
     /**
      * @remarks
+     * 形状的位置。对于大多数形状，该位置是形状的中心，
+     * 但 DebugLine 和 DebugArrow 例外，它们表示线的起点。
+     *
      * The location of the shape. For most shapes the location is
      * the centre of the shape, except DebugLine and DebugArrow
      * where this represents the start point of the line.
@@ -275,6 +307,9 @@ export class DebugShape {
     readonly location: Vector3;
     /**
      * @remarks
+     * 如果已定义，此距离将用于确定该形状对每个客户端所渲染的远处距离。
+     * 默认情况下，距离将匹配客户端的视距设置。
+     *
      * If defined, this distance will be used to determine how far
      * away this shape will be rendered for each client. By default
      * the distance will match the client's render distance
@@ -285,6 +320,8 @@ export class DebugShape {
     maximumRenderDistance?: number;
     /**
      * @remarks
+     * 形状的旋转（欧拉角 - [俯仰角，偏航角，滚转角]）。
+     *
      * The rotation of the shape (Euler angles - [Pitch, Yaw,
      * Roll]).
      *
@@ -292,6 +329,8 @@ export class DebugShape {
     rotation: Vector3;
     /**
      * @remarks
+     * 形状的缩放比例。此属性不适用于 DebugLine 或 DebugArrow。
+     *
      * The scale of the shape. This does not apply to DebugLine or
      * DebugArrow.
      *
@@ -299,6 +338,9 @@ export class DebugShape {
     scale: number;
     /**
      * @remarks
+     * 此形状被自动移除之前剩余的时间（以秒为单位）。
+     * 如果形状没有有限的生命周期，则返回 undefined。
+     *
      * The time left (in seconds) until this shape is automatically
      * removed. Returns undefined if the shape does not have a
      * limited life-span.
@@ -307,6 +349,9 @@ export class DebugShape {
     timeLeft?: number;
     /**
      * @remarks
+     * 直到该形状被自动移除为止的初始总时间跨度（以秒为单位）。
+     * 如果形状没有有限的生命周期，则返回 undefined。
+     *
      * The total initial time-span (in seconds) until this shape is
      * automatically removed. Returns undefined if the shape does
      * not have a limited life-span.
@@ -315,6 +360,8 @@ export class DebugShape {
     readonly totalTimeLeft?: number;
     /**
      * @remarks
+     * 可以看到此形状的玩家列表。如果留空，则所有玩家都可以看到该形状。
+     *
      * The list of players that this shape will be visible to. If
      * left empty, the shape will be visible to all players.
      *
@@ -322,6 +369,8 @@ export class DebugShape {
     visibleTo: Player[];
     /**
      * @remarks
+     * 从世界中移除此形状。可以通过 DebugDrawer 的 addShape 方法重新添加。
+     *
      * Removes this shape from the world. The shape can be re-added
      * via the DebugDrawer's addShape method.
      *
@@ -329,6 +378,10 @@ export class DebugShape {
     remove(): void;
     /**
      * @remarks
+     * 设置形状的位置和维度。如果该维度未定义，则会在所有维度中显示。
+     * 对于大多数形状，该位置是形状的中心，但 DebugLine 和 DebugArrow
+     * 例外，它们表示线的起点。
+     *
      * Set the location and dimension of the shape. If the
      * dimension is undefined, it will display in all dimensions.
      * For most shapes the location is the centre of the shape,
@@ -340,6 +393,8 @@ export class DebugShape {
 }
 
 /**
+ * 表示一个球体的调试形状类。
+ *
  * A debug shape class that represents a sphere.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
@@ -348,6 +403,8 @@ export class DebugSphere extends DebugShape {
 }
 
 /**
+ * 表示世界中带有背景的文本标签的调试形状类。
+ *
  * A debug shape class that represents a text label in the
  * world with a background.
  */
@@ -355,6 +412,8 @@ export class DebugSphere extends DebugShape {
 export class DebugText extends DebugShape {
     /**
      * @remarks
+     * 若设为 true，调试文本将渲染背景的背面。默认为 true，但当 `useRotation` 设为 false 时将始终为 false。
+     *
      * If set to true, the debug text will render the back-face of
      * the background. Defaults to true but will always be false if
      * 'useRotation' is set to false.
@@ -363,6 +422,8 @@ export class DebugText extends DebugShape {
     backfaceVisible: boolean;
     /**
      * @remarks
+     * 文本背景板的颜色。若设为 undefined，则使用默认颜色。
+     *
      * The color of the background plate of the text. If set to
      * undefined, it will use the default color.
      *
@@ -370,6 +431,8 @@ export class DebugText extends DebugShape {
     backgroundColorOverride?: RGBA;
     /**
      * @remarks
+     * 若设为 true，文本将被方块或实体遮挡。默认为 false（始终渲染）。
+     *
      * If set to true, the text will be hidden behind blocks or
      * entities. By default this is set to false (will always
      * render).
@@ -378,6 +441,8 @@ export class DebugText extends DebugShape {
     depthTest: boolean;
     /**
      * @remarks
+     * 获取调试文本形状的文本内容。如果 `setText` 传入的是 RawMessage 或 RawText 对象，则返回该 RawText；否则返回字符串。
+     *
      * Get the text of the debug text shape. Returns the RawText of
      * the debug text if `setText` was called with a RawMessage or
      * a RawText object, otherwise returns a string.
@@ -386,6 +451,8 @@ export class DebugText extends DebugShape {
     readonly text: RawMessage | string;
     /**
      * @remarks
+     * 若设为 true，调试文本将渲染文本的背面。默认为 true，但当 `useRotation` 设为 false 时将始终为 false。
+     *
      * If set to true, the debug text will render the back-face of
      * the text. Defaults to true but will always be false if
      * 'useRotation' is set to false.
@@ -394,6 +461,8 @@ export class DebugText extends DebugShape {
     textBackfaceVisible: boolean;
     /**
      * @remarks
+     * 若设为 true，文本将不会朝向相机，而是使用形状自带的旋转。
+     *
      * If set to true, the text will not face the camera and
      * instead will use the rotation from the shape.
      *
@@ -405,6 +474,8 @@ export class DebugText extends DebugShape {
     );
     /**
      * @remarks
+     * 设置要显示的文本内容。
+     *
      * Sets the text to display.
      *
      * @throws This function can throw errors.
@@ -452,32 +523,45 @@ export interface RuntimeStats {
 
 /**
  * @remarks
+ * 为每个已激活的脚本插件/附加包收集类型使用统计信息。
+ *
  * Collect type usage stats for each active script
  * plugin/add-on.
  *
  * @returns
+ * PluginStats 对象。
+ *
  * PluginStats object.
  */
 export function collectPluginStats(): PluginStats;
 /**
  * @remarks
+ * 收集脚本运行时的内存统计信息。
+ *
  * Collect memory stats for script runtimes.
  *
  * @returns
+ * RuntimeStats 对象。
+ *
  * RuntimeStats object.
  */
 export function collectRuntimeStats(): RuntimeStats;
 /**
  * @remarks
+ * 按插件禁用看门狗的“运行缓慢”与“耗时突增”警告。
+ *
  * Disable watchdog slow and spike warnings per plugin.
  *
  * @param disable
+ * 用于禁用或重新启用警告的开关。
  * Flag to disable or re-enable warnings.
  * @throws This function can throw errors.
  */
 export function disableWatchdogTimingWarnings(disable: boolean): void;
 /**
  * @remarks
+ * 用于在世界空间中新增与移除线框形状的调试绘制类。
+ *
  * Debug Drawing class used to allow adding and removing
  * wireframe shapes in world space.
  *

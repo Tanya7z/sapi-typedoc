@@ -91,18 +91,24 @@ export declare class Vector3Utils {
      * ceil
      *
      * Ceil the components of a vector to produce a new vector
+     *
+     * 对向量的各个分量向上取整，生成一个新的向量。
      */
     static ceil(v: Vector3): Vector3;
     /**
      * min
      *
      * Min the components of two vectors to produce a new vector
+     *
+     * 取两个向量各分量中的较小值，生成一个新的向量。
      */
     static min(a: Vector3, b: Vector3): Vector3;
     /**
      * max
      *
      * Max the components of two vectors to produce a new vector
+     *
+     * 取两个向量各分量中的较大值，生成一个新的向量。
      */
     static max(a: Vector3, b: Vector3): Vector3;
     /**
@@ -118,6 +124,8 @@ export declare class Vector3Utils {
     }): string;
     /**
      * fromString
+     *
+     * 从 {@link Vector3Utils.toString} 产生的字符串表示中解析出 Vector3。若任一数值不是数字或格式无效，则返回 undefined。
      *
      * Gets a Vector3 from the string representation produced by {@link Vector3Utils.toString}. If any numeric value is not a number
      * or the format is invalid, undefined is returned.
@@ -155,12 +163,17 @@ export declare class Vector3Utils {
     /**
      * multiply
      *
+     * 对两个向量进行逐元素相乘。
+     * 不要与 {@link Vector3Utils.dot} 点积或 {@link Vector3Utils.cross} 叉积混淆。
+     *
      * Element-wise multiplication of two vectors together.
      * Not to be confused with {@link Vector3Utils.dot} product or {@link Vector3Utils.cross} product
      */
     static multiply(a: Vector3, b: Vector3): Vector3;
     /**
      * rotateX
+     *
+     * 沿 x 轴逆时针（左手法则）旋转该向量。
      *
      * Rotates the vector around the x axis counterclockwise (left hand rule)
      * @param a - Angle in radians
@@ -169,12 +182,16 @@ export declare class Vector3Utils {
     /**
      * rotateY
      *
+     * 沿 y 轴逆时针（左手法则）旋转该向量。
+     *
      * Rotates the vector around the y axis counterclockwise (left hand rule)
      * @param a - Angle in radians
      */
     static rotateY(v: Vector3, a: number): Vector3;
     /**
      * rotateZ
+     *
+     * 沿 z 轴逆时针（左手法则）旋转该向量。
      *
      * Rotates the vector around the z axis counterclockwise (left hand rule)
      * @param a - Angle in radians

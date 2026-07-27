@@ -2,12 +2,16 @@
 /* IMPORT */ import { RGB } from '../../server';
 
 /**
+ * 用于在「生动视觉」(Vibrant Visuals) 中影响光照。
+ *
  * Used to affect lighting for Vibrant Visuals
  */
 export class BiomeLighting {
     private constructor();
     /**
      * @remarks
+     * 将环境光颜色重置为资源包所设置的值。
+     *
      * Resets the ambient color to the value set by resource packs
      *
      * @worldMutation
@@ -19,6 +23,8 @@ export class BiomeLighting {
     resetAmbientColor(): void;
     /**
      * @remarks
+     * 将环境光照度重置为资源包所设置的值。
+     *
      * Resets the ambient illuminance to the value set by resource
      * packs
      *
@@ -31,6 +37,8 @@ export class BiomeLighting {
     resetAmbientIlluminance(): void;
     /**
      * @remarks
+     * 将自发光去饱和度重置为资源包所设置的值。
+     *
      * Resets the emissive desaturation to the value set by
      * resource packs
      *
@@ -43,6 +51,8 @@ export class BiomeLighting {
     resetEmissiveDesaturation(): void;
     /**
      * @remarks
+     * 将闪光颜色重置为资源包所设置的值。
+     *
      * Resets the flash color to the value set by resource packs
      *
      * @worldMutation
@@ -54,6 +64,8 @@ export class BiomeLighting {
     resetFlashColor(): void;
     /**
      * @remarks
+     * 将闪光照度重置为资源包所设置的值。
+     *
      * Resets the flash illuminance to the value set by resource
      * packs
      *
@@ -66,6 +78,8 @@ export class BiomeLighting {
     resetFlashIlluminance(): void;
     /**
      * @remarks
+     * 将月亮颜色重置为资源包所设置的值。
+     *
      * Resets the moon color to the value set by resource packs
      *
      * @worldMutation
@@ -77,6 +91,8 @@ export class BiomeLighting {
     resetMoonColor(): void;
     /**
      * @remarks
+     * 将月亮照度重置为资源包所设置的值。
+     *
      * Resets the moon illuminance to the value set by resource
      * packs
      *
@@ -89,6 +105,8 @@ export class BiomeLighting {
     resetMoonIlluminance(): void;
     /**
      * @remarks
+     * 将轨道偏移角度重置为资源包所设置的值。
+     *
      * Resets the orbital offset to the value set by resource packs
      *
      * @worldMutation
@@ -100,6 +118,8 @@ export class BiomeLighting {
     resetOrbitalOffsetDegrees(): void;
     /**
      * @remarks
+     * 将天空强度重置为资源包所设置的值。
+     *
      * Resets the sky intensity to the value set by resource packs
      *
      * @worldMutation
@@ -111,6 +131,8 @@ export class BiomeLighting {
     resetSkyIntensity(): void;
     /**
      * @remarks
+     * 将太阳颜色重置为资源包所设置的值。
+     *
      * Resets the sun color to the value set by resource packs
      *
      * @worldMutation
@@ -122,6 +144,8 @@ export class BiomeLighting {
     resetSunColor(): void;
     /**
      * @remarks
+     * 将太阳照度重置为资源包所设置的值。
+     *
      * Resets the sun illuminance to the value set by resource
      * packs
      *
@@ -134,6 +158,8 @@ export class BiomeLighting {
     resetSunIlluminance(): void;
     /**
      * @remarks
+     * 为「生动视觉」中的光照设置环境光颜色。
+     *
      * Sets the ambient color for lighting in Vibrant Visuals
      *
      * @worldMutation
@@ -145,6 +171,8 @@ export class BiomeLighting {
     setAmbientColor(color: Record<number, RGB> | RGB): void;
     /**
      * @remarks
+     * 为「生动视觉」中的光照设置环境光照度。
+     *
      * Sets the ambient illuminance for lighting in Vibrant Visuals
      *
      * @worldMutation
@@ -156,6 +184,8 @@ export class BiomeLighting {
     setAmbientIlluminance(illuminance: number | Record<number, number>): void;
     /**
      * @remarks
+     * 为「生动视觉」中的光照设置自发光去饱和度。
+     *
      * Sets the emissive desaturation for lighting in Vibrant
      * Visuals
      *
@@ -168,6 +198,8 @@ export class BiomeLighting {
     setEmissiveDesaturation(value: number): void;
     /**
      * @remarks
+     * 为「生动视觉」中的光照设置闪光颜色。
+     *
      * Sets the flash color for lighting in Vibrant Visuals
      *
      * @worldMutation
@@ -179,6 +211,8 @@ export class BiomeLighting {
     setFlashColor(color: Record<number, RGB> | RGB): void;
     /**
      * @remarks
+     * 为「生动视觉」中的光照设置闪光照度。
+     *
      * Sets the flash illuminance for lighting in Vibrant Visuals
      *
      * @worldMutation
@@ -190,6 +224,8 @@ export class BiomeLighting {
     setFlashIlluminance(illuminance: number | Record<number, number>): void;
     /**
      * @remarks
+     * 为「生动视觉」中的光照设置月亮颜色。
+     *
      * Sets the moon color for lighting in Vibrant Visuals
      *
      * @worldMutation
@@ -201,6 +237,8 @@ export class BiomeLighting {
     setMoonColor(color: Record<number, RGB> | RGB): void;
     /**
      * @remarks
+     * 为「生动视觉」中的光照设置月亮照度。
+     *
      * Sets the moon illuminance for lighting in Vibrant Visuals
      *
      * @worldMutation
@@ -212,6 +250,8 @@ export class BiomeLighting {
     setMoonIlluminance(illuminance: number | Record<number, number>): void;
     /**
      * @remarks
+     * 为「生动视觉」中的光照设置轨道偏移。
+     *
      * Sets the orbital offset for lighting in Vibrant Visuals
      *
      * @worldMutation
@@ -223,6 +263,8 @@ export class BiomeLighting {
     setOrbitalOffsetDegrees(degrees: number | Record<number, number>): void;
     /**
      * @remarks
+     * 为「生动视觉」中的光照设置天空强度。
+     *
      * Sets the sky intensity for lighting in Vibrant Visuals
      *
      * @worldMutation
@@ -234,6 +276,8 @@ export class BiomeLighting {
     setSkyIntensity(intensity: number | Record<number, number>): void;
     /**
      * @remarks
+     * 为「生动视觉」中的光照设置太阳颜色。
+     *
      * Sets the sun color for lighting in Vibrant Visuals
      *
      * @worldMutation
@@ -245,6 +289,8 @@ export class BiomeLighting {
     setSunColor(color: Record<number, RGB> | RGB): void;
     /**
      * @remarks
+     * 为「生动视觉」中的光照设置太阳照度。
+     *
      * Sets the sun illuminance for lighting in Vibrant Visuals
      *
      * @worldMutation

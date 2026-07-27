@@ -398,7 +398,7 @@ function moveDirectorySync(src: string, dest: string) {
 /** 生成 docs/.pages 与各模块 .pages，供 Material tabs + awesome-pages */
 function writeMkdocsModuleTabs() {
     const docsDir = resolvePath(basePath, 'docs');
-    const reservedTopLevel = new Set(['api', 'changelog', 'index.md', 'sync.md', '.pages']);
+    const reservedTopLevel = new Set(['api', 'changelog', 'index.md', 'sync.md', 'tags.md', '.pages']);
 
     const moduleDirs = readdirSync(docsApiPath, { withFileTypes: true })
         .filter(
@@ -435,7 +435,7 @@ function writeMkdocsModuleTabs() {
         for (const kind of MODULE_KIND_ORDER) {
             if (!kindDirs.has(kind)) continue;
             navItems.push(kind);
-            writeKindSection(resolvePath(dest, kind), kind);
+            writeKindSection(resolvePath(dest, kind), kind, mod);
         }
         // 其它未列入的子目录仍自动收录
         navItems.push('...');
@@ -464,6 +464,7 @@ function writeMkdocsModuleTabs() {
         '    - index.md',
         '    - 更新日志: changelog',
         ...ordered.map((m) => `  - ${m}`),
+        '  - 标签: tags.md',
         '  - 同步: sync.md',
         ''
     ];
@@ -485,7 +486,7 @@ function writeMkdocsModuleTabs() {
  * - 成员页：用 icon front matter 表示种类，标题去掉 “类：” 前缀
  * - classes / interfaces：按本模块内「继承」嵌套侧栏，并用 search.boost 提高父级权重
  */
-function writeKindSection(kindDir: string, kind: (typeof MODULE_KIND_ORDER)[number]) {
+function writeKindSection(kindDir: string, kind: (typeof MODULE_KIND_ORDER)[number], moduleName: string) {
     const meta = MODULE_KIND_META[kind];
     writeFileSync(
         resolvePath(kindDir, 'index.md'),
@@ -516,7 +517,7 @@ function writeKindSection(kindDir: string, kind: (typeof MODULE_KIND_ORDER)[numb
     for (const file of memberFiles) {
         const depth = graph?.depthOf.get(file) ?? 0;
         const boost = useInheritance ? boostForInheritanceDepth(depth) : undefined;
-        patchMemberMarkdown(resolvePath(kindDir, file), meta.icon, boost);
+        patchMemberMarkdown(resolvePath(kindDir, file), meta.icon, boost, [moduleName, meta.title]);
     }
 
     const navLines = graph
@@ -650,9 +651,9 @@ function renderInheritanceNavLines(graph: InheritanceGraph): string[] {
 }
 
 /**
- * 给成员页加 icon（侧栏去掉「类：」前缀）、可选 search.boost，并补上构造函数锚点。
+ * 给成员页加 icon（侧栏去掉「类：」前缀）、可选 search.boost、tags，并补上构造函数锚点。
  */
-function patchMemberMarkdown(filePath: string, icon: string, searchBoost?: number) {
+function patchMemberMarkdown(filePath: string, icon: string, searchBoost?: number, tags?: string[]) {
     let content = readFileSync(filePath, 'utf-8');
     let changed = false;
 
@@ -668,6 +669,9 @@ function patchMemberMarkdown(filePath: string, icon: string, searchBoost?: numbe
                 `title: "${symbolName.replace(/"/g, '\\"')}"`,
                 ...(searchBoost !== undefined
                     ? ['search:', `  boost: ${searchBoost}`]
+                    : []),
+                ...(tags && tags.length > 0
+                    ? ['tags:', ...tags.map((tag) => `  - ${tag}`)]
                     : []),
                 '---',
                 '',

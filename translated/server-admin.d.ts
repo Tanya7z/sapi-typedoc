@@ -45,6 +45,8 @@ export class AdminBeforeEvents {
 }
 
 /**
+ * 控制服务器的允许列表。仅在专用服务器上可用。
+ *
  * Controls the allow list for the server. Only available on
  * dedicated server.
  */
@@ -58,11 +60,15 @@ export class AllowList {
     enabled: boolean;
     /**
      * @remarks
+     * 将玩家添加到服务器的允许列表。
+     *
      * Adds a player to the server's allow list.
      *
      * @worldMutation
      *
      * @param player
+     * 应添加到允许列表的玩家或玩家名称。
+     *
      * Player or player name that should be added to the allow
      * list.
      * @throws This function can throw errors.
@@ -74,6 +80,8 @@ export class AllowList {
     add(player: Player | string): void;
     /**
      * @remarks
+     * 清空允许列表，移除其中的所有条目。
+     *
      * Clears the allow list, removing all entries.
      *
      * @worldMutation
@@ -82,9 +90,13 @@ export class AllowList {
     clear(): void;
     /**
      * @remarks
+     * 返回玩家是否在服务器的允许列表中。
+     *
      * Returns if the player is in the server's allow list.
      *
      * @param player
+     * 要检查的玩家或玩家名称。
+     *
      * Player or player name that should be checked for.
      * @throws This function can throw errors.
      *
@@ -93,6 +105,8 @@ export class AllowList {
     contains(player: Player | string): boolean;
     /**
      * @remarks
+     * 从磁盘重新加载服务器的允许列表。
+     *
      * Reloads the server's allow list from disk.
      *
      * @worldMutation
@@ -104,11 +118,15 @@ export class AllowList {
     reloadFile(): void;
     /**
      * @remarks
+     * 从服务器的允许列表中移除玩家。
+     *
      * Removes a player from the server's allow list.
      *
      * @worldMutation
      *
      * @param player
+     * 应从允许列表中移除的玩家或玩家名称。
+     *
      * Player or player name that should be removed from the allow
      * list.
      * @throws This function can throw errors.
@@ -121,18 +139,24 @@ export class AllowList {
 }
 
 /**
+ * 玩家加入世界前可获得的数据。
+ *
  * The data available before a player joins the world.
  */
 export class AsyncPlayerJoinBeforeEvent {
     private constructor();
     /**
      * @remarks
+     * 玩家的名称。
+     *
      * The player's name
      *
      */
     readonly name: string;
     /**
      * @remarks
+     * 一个可用于跨会话识别玩家的标识符。
+     *
      * An identifier that can be used to identify a player across
      * sessions.
      *
@@ -140,6 +164,8 @@ export class AsyncPlayerJoinBeforeEvent {
     readonly persistentId: string;
     /**
      * @remarks
+     * 加入玩家的分屏槽位；若玩家不在分屏会话中则为 undefined。
+     *
      * The split screen slot of the joining player or undefined if
      * the player is not in a split screen session.
      *
@@ -147,6 +173,8 @@ export class AsyncPlayerJoinBeforeEvent {
     readonly splitScreenSlot?: PlayerSplitScreenSlot;
     /**
      * @remarks
+     * 调用此方法可显式允许玩家加入服务器。当玩家加入被禁用时（在专用服务器上 `allow-player-joining` 被设置为 `false`）很有用。
+     *
      * Call this to explicitly allow the player to join the server.
      * This is useful when player joining is disabled
      * (`allow-player-joining` is set to `false` when playing on
@@ -159,6 +187,8 @@ export class AsyncPlayerJoinBeforeEvent {
     allowJoin(): void;
     /**
      * @remarks
+     * 调用此方法以拒绝玩家加入服务器。可用于阻止未授权的访问。
+     *
      * Call this to disallow the player from joining the server.
      * This is useful for preventing unauthorized access to the
      * server.
@@ -170,6 +200,8 @@ export class AsyncPlayerJoinBeforeEvent {
     disallowJoin(reason?: string): void;
     /**
      * @remarks
+     * 已弃用 - 请改用 {@link disallowJoin}。调用此方法可断开玩家的连接。他们将可以重新尝试加入。被断开连接后，玩家将可以再次尝试加入。
+     *
      * Deprecated - use {@link disallowJoin} instead.Call this to
      * disconnect a player. They will be allowed to try to join
      * again. They will be allowed to try to join again after being
@@ -182,6 +214,8 @@ export class AsyncPlayerJoinBeforeEvent {
     disconnect(reason?: string): void;
     /**
      * @remarks
+     * 若玩家仍在等待加入世界则返回 true。若玩家已断开连接则返回 false。
+     *
      * Will return true if the player is still waiting to join the
      * world. If they disconnect then it will return false.
      *
@@ -208,6 +242,8 @@ export class AsyncPlayerJoinBeforeEventSignal {
 }
 
 /**
+ * 包含仅在基岩版专用服务器中可用的 API。
+ *
  * Contains apis that are only available when in Bedrock
  * Dedicated Server.
  */
@@ -215,18 +251,24 @@ export class DedicatedServerUtils {
     private constructor();
     /**
      * @remarks
+     * 返回用于管理服务器允许列表的对象。
+     *
      * Returns an object that manages the server's allow list.
      *
      */
     readonly allowList: AllowList;
     /**
      * @remarks
+     * 返回用于管理关卡存储的对象。
+     *
      * Returns an object that manages the level's storage.
      *
      */
     readonly levelStorage: LevelStorage;
     /**
      * @remarks
+     * 从磁盘重新加载 CDN 配置。
+     *
      * Reloads the cdn configuration from disk.
      *
      * @worldMutation
@@ -238,6 +280,8 @@ export class DedicatedServerUtils {
     reloadCDNConfig(): void;
     /**
      * @remarks
+     * 从磁盘重新加载服务器权限。
+     *
      * Reloads the permissions for the server from disk.
      *
      * @worldMutation
@@ -249,6 +293,8 @@ export class DedicatedServerUtils {
     reloadPermissions(): void;
     /**
      * @remarks
+     * 从磁盘重新加载服务器的脚本配置。
+     *
      * Reloads the script configuration for the server from disk.
      *
      * @worldMutation
@@ -260,6 +306,8 @@ export class DedicatedServerUtils {
     reloadScriptingConfig(): void;
     /**
      * @remarks
+     * 关闭专用服务器。
+     *
      * Shuts down the dedicated server.
      *
      * @worldMutation
@@ -269,6 +317,8 @@ export class DedicatedServerUtils {
 }
 
 /**
+ * 控制服务器如何保存到磁盘。仅在专用服务器上可用。
+ *
  * Controls how the server saves to disk. Only available on
  * dedicated server.
  */
@@ -276,6 +326,8 @@ export class LevelStorage {
     private constructor();
     /**
      * @remarks
+     * 停止服务器写入世界文件，并开始创建快照。
+     *
      * Disables the server writing to the world files and begins
      * creating a snapshot.
      *
@@ -288,6 +340,8 @@ export class LevelStorage {
     saveHold(): void;
     /**
      * @remarks
+     * 返回当前快照（如果正在创建快照）中每个文件的路径和大小。
+     *
      * Returns the path and size of every file in the current
      * snapshot if a snapshot is being taken.
      *
@@ -300,6 +354,8 @@ export class LevelStorage {
     saveQuery(): LevelStorageQuerySnapshotFile[];
     /**
      * @remarks
+     * 重新启用服务器将世界状态写入文件，并移除快照。
+     *
      * Re-enables server writing world state to files and removes
      * snapshot.
      *
@@ -313,6 +369,8 @@ export class LevelStorage {
 }
 
 /**
+ * 包含快照过程中所收集的文件的相关信息。
+ *
  * Contains information about a file that was gathered during a
  * snapshot.
  */
@@ -320,12 +378,16 @@ export class LevelStorageQuerySnapshotFile {
     private constructor();
     /**
      * @remarks
+     * 快照中该文件的路径。
+     *
      * The path to the file in the snapshot.
      *
      */
     readonly fileName: string;
     /**
      * @remarks
+     * 快照中该文件的大小。
+     *
      * The size of the file in the snapshot.
      *
      */
@@ -413,18 +475,24 @@ export class ServerVariables {
 }
 
 /**
+ * 传输玩家到支持直接主机/端口连接的目标服务器时所使用的选项。
+ *
  * Options when transferring a player to a server that supports
  * direct host/port connections.
  */
 export interface TransferPlayerIpPortOptions {
     /**
      * @remarks
+     * 目标服务器的主机名。
+     *
      * Hostname of the destination server.
      *
      */
     hostname: string;
     /**
      * @remarks
+     * 目标服务器的端口。
+     *
      * Port of the destination server.
      *
      */
@@ -432,12 +500,16 @@ export interface TransferPlayerIpPortOptions {
 }
 
 /**
+ * 传输玩家到支持 NetherNet 连接的目标服务器时所使用的选项。
+ *
  * Options when transferring a player to a server that supports
  * NetherNet connections.
  */
 export interface TransferPlayerNetherNetOptions {
     /**
      * @remarks
+     * 目标服务器的 NetherNet ID。
+     *
      * NetherNet ID of the destination server.
      *
      */
@@ -481,6 +553,8 @@ export class CannotKickPlayerError extends Error {
 }
 
 /**
+ * 当尝试与加入事件交互但玩家已断开连接时抛出的错误。
+ *
  * An error that is thrown when trying to interact with a join
  * event and the player is disconnected.
  */
@@ -489,6 +563,8 @@ export class DisconnectedError extends Error {
     private constructor();
     /**
      * @remarks
+     * 已断开连接的玩家的 ID。
+     *
      * The id of the player that was disconnected.
      *
      * @earlyExecution

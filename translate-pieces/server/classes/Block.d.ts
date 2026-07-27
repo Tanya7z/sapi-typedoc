@@ -75,6 +75,8 @@ export class Block {
     readonly isSolid: boolean;
     /**
      * @remarks
+     * 如果对该方块的引用仍然有效则返回 true（例如，如果方块所在区块被卸载，对该方块的引用将不再有效）。
+     *
      * Returns true if this reference to a block is still valid
      * (for example, if the block is unloaded, references to that
      * block will no longer be valid.)
@@ -96,6 +98,8 @@ export class Block {
     readonly isWaterlogged: boolean;
     /**
      * @remarks
+     * 该方块名称在 .lang 文件中用于本地化的键名。
+     *
      * Key for the localization of this block's name used in .lang
      * files.
      *
@@ -234,12 +238,18 @@ export class Block {
     bottomCenter(): Vector3;
     /**
      * @remarks
+     * 返回当被液体接触时该方块是否会被移除。
+     *
      * Returns whether this block is removed when touched by
      * liquid.
      *
      * @param liquidType
+     * 此函数所针对的液体类型。
+     *
      * The type of liquid this function should be called for.
      * @returns
+     * 当被液体接触时该方块是否会被移除。
+     *
      * Whether this block is removed when touched by liquid.
      * @throws This function can throw errors.
      *
@@ -252,12 +262,18 @@ export class Block {
     canBeDestroyedByLiquidSpread(liquidType: LiquidType): boolean;
     /**
      * @remarks
+     * 返回该方块上是否可以放置液体，即能否被含水。
+     *
      * Returns whether this block can have a liquid placed over it,
      * i.e. be waterlogged.
      *
      * @param liquidType
+     * 此函数所针对的液体类型。
+     *
      * The type of liquid this function should be called for.
      * @returns
+     * 该方块上是否可以放置液体。
+     *
      * Whether this block can have a liquid placed over it.
      * @throws This function can throw errors.
      *
@@ -271,12 +287,18 @@ export class Block {
     /**
      * @beta
      * @remarks
+     * 返回当被液体接触时该方块是否会被移除。
+     *
      * Returns whether this block is removed when touched by
      * liquid.
      *
      * @param liquidType
+     * 此函数所针对的液体类型。
+     *
      * The type of liquid this function should be called for.
      * @returns
+     * 当被液体接触时该方块是否会被移除。
+     *
      * Whether this block is removed when touched by liquid.
      * @throws This function can throw errors.
      *
@@ -290,12 +312,18 @@ export class Block {
     /**
      * @beta
      * @remarks
+     * 返回该方块上是否可以放置液体，即能否被含水。
+     *
      * Returns whether this block can have a liquid placed over it,
      * i.e. be waterlogged.
      *
      * @param liquidType
+     * 此函数所针对的液体类型。
+     *
      * The type of liquid this function should be called for.
      * @returns
+     * 该方块上是否可以放置液体。
+     *
      * Whether this block can have a liquid placed over it.
      * @throws This function can throw errors.
      *
@@ -399,6 +427,8 @@ export class Block {
     getComponent<T extends string>(componentId: T): BlockComponentReturnType<T> | undefined;
     /**
      * @remarks
+     * 返回该方块上存在的所有脚本组件。
+     *
      * Returns all scripting components that are present on this
      * block.
      *
@@ -444,12 +474,16 @@ export class Block {
     getItemStack(amount?: number, withData?: boolean): ItemStack | undefined;
     /**
      * @remarks
+     * 返回照射在某方块上的光照总亮度等级。
+     *
      * Returns the total brightness level of light shining on a
      * certain block.
      *
      * @worldMutation
      *
      * @returns
+     * 该方块上的亮度等级。
+     *
      * The brightness level on the block.
      * @throws This function can throw errors.
      *
@@ -470,6 +504,8 @@ export class Block {
     /**
      * @rc
      * @remarks
+     * 如果该方块具有 'minecraft:multi_block' 特性，则返回所有已加载方块部件的数组。如果不具有该特性，则返回 undefined。
+     *
      * Returns array of all loaded block parts if this block has
      * the 'minecraft:multi_block' trait. If it does not have the
      * trait returns undefined
@@ -503,12 +539,16 @@ export class Block {
     getRedstonePower(): number | undefined;
     /**
      * @remarks
+     * 返回天空照射在某方块上的光照亮度等级。
+     *
      * Returns the brightness level of light shining from the sky
      * on a certain block.
      *
      * @worldMutation
      *
      * @returns
+     * 该方块上的亮度等级。
+     *
      * The brightness level on the block.
      * @throws This function can throw errors.
      *
@@ -536,10 +576,14 @@ export class Block {
     getTags(): string[];
     /**
      * @remarks
+     * 如果该方块上存在指定的组件，则返回 true。
+     *
      * Returns true if the specified component is present on this
      * block.
      *
      * @param componentId
+     * 要检索的组件的标识符（例如 'minecraft:inventory'）。如果未指定命名空间前缀，将默认使用 'minecraft:'。
+     *
      * The identifier of the component (e.g.,
      * 'minecraft:inventory') to retrieve. If no namespace prefix
      * is specified, 'minecraft:' is assumed.
@@ -576,11 +620,17 @@ export class Block {
     hasTag(tag: string): boolean;
     /**
      * @remarks
+     * 返回该方块是否会阻止液体流动。
+     *
      * Returns whether this block stops liquid from flowing.
      *
      * @param liquidType
+     * 此函数所针对的液体类型。
+     *
      * The type of liquid this function should be called for.
      * @returns
+     * 该方块是否会阻止液体流动。
+     *
      * Whether this block stops liquid from flowing.
      * @throws This function can throw errors.
      *
@@ -593,13 +643,19 @@ export class Block {
     isLiquidBlocking(liquidType: LiquidType): boolean;
     /**
      * @remarks
+     * 返回液体能否从指定方向流入该方块，或当用桶将液体放入该方块时能否从指定方向流出。
+     *
      * Returns whether liquid can flow into the block from the
      * provided direction, or flow out from the provided direction
      * when liquid is placed into it with a bucket.
      *
      * @param liquidType
+     * 此函数所针对的液体类型。
+     *
      * The type of liquid this function should be called for.
      * @returns
+     * 液体能否从指定方向流入该方块，或当用桶将液体放入该方块时能否从指定方向流出。
+     *
      * Whether liquid can flow into the block from the provided
      * direction, or flow out from the provided direction when
      * liquid is placed into it with a bucket
@@ -614,12 +670,18 @@ export class Block {
     liquidCanFlowFromDirection(liquidType: LiquidType, flowDirection: Direction): boolean;
     /**
      * @remarks
+     * 返回当被液体接触时该方块是否会被移除并生成其掉落物。
+     *
      * Returns whether this block is removed and spawns its item
      * when touched by liquid.
      *
      * @param liquidType
+     * 此函数所针对的液体类型。
+     *
      * The type of liquid this function should be called for.
      * @returns
+     * 当被液体接触时该方块是否会被移除并生成其掉落物。
+     *
      * Whether this block is removed and spawns its item when
      * touched by liquid.
      * @throws This function can throw errors.
@@ -633,13 +695,21 @@ export class Block {
     liquidSpreadCausesSpawn(liquidType: LiquidType): boolean;
     /**
      * @remarks
+     * 测试该方块是否符合特定条件。
+     *
      * Tests whether this block matches a specific criteria.
      *
      * @param blockName
+     * 用于与此 API 匹配的方块类型标识符。
+     *
      * Block type identifier to match this API against.
      * @param states
+     * 可选的一组方块状态，用于测试该方块。
+     *
      * Optional set of block states to test this block against.
      * @returns
+     * 如果该方块符合指定条件则返回 true。
+     *
      * Returns true if the block matches the specified criteria.
      * @throws This function can throw errors.
      *
@@ -669,12 +739,18 @@ export class Block {
     north(steps?: number): Block | undefined;
     /**
      * @remarks
+     * 返回相对于该方块偏移指定向量处的方块。
+     *
      * Returns a block at an offset relative vector to this block.
      *
      * @param offset
+     * 偏移向量。例如，偏移量为 0, 1, 0 将返回当前方块上方的方块。
+     *
      * The offset vector. For example, an offset of 0, 1, 0 will
      * return the block above the current block.
      * @returns
+     * 位于指定偏移处的方块；如果无法获取该方块（例如，该方块及其所在区块尚未加载），则返回 undefined。
+     *
      * Block at the specified offset, or undefined if that block
      * could not be retrieved (for example, the block and its
      * relative chunk is not loaded yet.)
@@ -731,12 +807,16 @@ export class Block {
     setType(blockType: BlockType | string): void;
     /**
      * @remarks
+     * 设置该方块是否处于含水状态——例如，楼梯是否被浸没在水中。
+     *
      * Sets whether this block has a water logged state - for
      * example, whether stairs are submerged within water.
      *
      * @worldMutation
      *
      * @param isWaterlogged
+     * 如果方块应含水，则为 true。
+     *
      * true if the block should have water within it.
      * @throws This function can throw errors.
      *

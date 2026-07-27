@@ -5216,6 +5216,8 @@ export class Block {
     readonly isSolid: boolean;
     /**
      * @remarks
+     * 如果对该方块的引用仍然有效则返回 true（例如，如果方块所在区块被卸载，对该方块的引用将不再有效）。
+     *
      * Returns true if this reference to a block is still valid
      * (for example, if the block is unloaded, references to that
      * block will no longer be valid.)
@@ -5237,6 +5239,8 @@ export class Block {
     readonly isWaterlogged: boolean;
     /**
      * @remarks
+     * 该方块名称在 .lang 文件中用于本地化的键名。
+     *
      * Key for the localization of this block's name used in .lang
      * files.
      *
@@ -5375,12 +5379,18 @@ export class Block {
     bottomCenter(): Vector3;
     /**
      * @remarks
+     * 返回当被液体接触时该方块是否会被移除。
+     *
      * Returns whether this block is removed when touched by
      * liquid.
      *
      * @param liquidType
+     * 此函数所针对的液体类型。
+     *
      * The type of liquid this function should be called for.
      * @returns
+     * 当被液体接触时该方块是否会被移除。
+     *
      * Whether this block is removed when touched by liquid.
      * @throws This function can throw errors.
      *
@@ -5393,12 +5403,18 @@ export class Block {
     canBeDestroyedByLiquidSpread(liquidType: LiquidType): boolean;
     /**
      * @remarks
+     * 返回该方块上是否可以放置液体，即能否被含水。
+     *
      * Returns whether this block can have a liquid placed over it,
      * i.e. be waterlogged.
      *
      * @param liquidType
+     * 此函数所针对的液体类型。
+     *
      * The type of liquid this function should be called for.
      * @returns
+     * 该方块上是否可以放置液体。
+     *
      * Whether this block can have a liquid placed over it.
      * @throws This function can throw errors.
      *
@@ -5412,12 +5428,18 @@ export class Block {
     /**
      * @beta
      * @remarks
+     * 返回当被液体接触时该方块是否会被移除。
+     *
      * Returns whether this block is removed when touched by
      * liquid.
      *
      * @param liquidType
+     * 此函数所针对的液体类型。
+     *
      * The type of liquid this function should be called for.
      * @returns
+     * 当被液体接触时该方块是否会被移除。
+     *
      * Whether this block is removed when touched by liquid.
      * @throws This function can throw errors.
      *
@@ -5431,12 +5453,18 @@ export class Block {
     /**
      * @beta
      * @remarks
+     * 返回该方块上是否可以放置液体，即能否被含水。
+     *
      * Returns whether this block can have a liquid placed over it,
      * i.e. be waterlogged.
      *
      * @param liquidType
+     * 此函数所针对的液体类型。
+     *
      * The type of liquid this function should be called for.
      * @returns
+     * 该方块上是否可以放置液体。
+     *
      * Whether this block can have a liquid placed over it.
      * @throws This function can throw errors.
      *
@@ -5540,6 +5568,8 @@ export class Block {
     getComponent<T extends string>(componentId: T): BlockComponentReturnType<T> | undefined;
     /**
      * @remarks
+     * 返回该方块上存在的所有脚本组件。
+     *
      * Returns all scripting components that are present on this
      * block.
      *
@@ -5585,12 +5615,16 @@ export class Block {
     getItemStack(amount?: number, withData?: boolean): ItemStack | undefined;
     /**
      * @remarks
+     * 返回照射在某方块上的光照总亮度等级。
+     *
      * Returns the total brightness level of light shining on a
      * certain block.
      *
      * @worldMutation
      *
      * @returns
+     * 该方块上的亮度等级。
+     *
      * The brightness level on the block.
      * @throws This function can throw errors.
      *
@@ -5611,6 +5645,8 @@ export class Block {
     /**
      * @rc
      * @remarks
+     * 如果该方块具有 'minecraft:multi_block' 特性，则返回所有已加载方块部件的数组。如果不具有该特性，则返回 undefined。
+     *
      * Returns array of all loaded block parts if this block has
      * the 'minecraft:multi_block' trait. If it does not have the
      * trait returns undefined
@@ -5644,12 +5680,16 @@ export class Block {
     getRedstonePower(): number | undefined;
     /**
      * @remarks
+     * 返回天空照射在某方块上的光照亮度等级。
+     *
      * Returns the brightness level of light shining from the sky
      * on a certain block.
      *
      * @worldMutation
      *
      * @returns
+     * 该方块上的亮度等级。
+     *
      * The brightness level on the block.
      * @throws This function can throw errors.
      *
@@ -5677,10 +5717,14 @@ export class Block {
     getTags(): string[];
     /**
      * @remarks
+     * 如果该方块上存在指定的组件，则返回 true。
+     *
      * Returns true if the specified component is present on this
      * block.
      *
      * @param componentId
+     * 要检索的组件的标识符（例如 'minecraft:inventory'）。如果未指定命名空间前缀，将默认使用 'minecraft:'。
+     *
      * The identifier of the component (e.g.,
      * 'minecraft:inventory') to retrieve. If no namespace prefix
      * is specified, 'minecraft:' is assumed.
@@ -5717,11 +5761,17 @@ export class Block {
     hasTag(tag: string): boolean;
     /**
      * @remarks
+     * 返回该方块是否会阻止液体流动。
+     *
      * Returns whether this block stops liquid from flowing.
      *
      * @param liquidType
+     * 此函数所针对的液体类型。
+     *
      * The type of liquid this function should be called for.
      * @returns
+     * 该方块是否会阻止液体流动。
+     *
      * Whether this block stops liquid from flowing.
      * @throws This function can throw errors.
      *
@@ -5734,13 +5784,19 @@ export class Block {
     isLiquidBlocking(liquidType: LiquidType): boolean;
     /**
      * @remarks
+     * 返回液体能否从指定方向流入该方块，或当用桶将液体放入该方块时能否从指定方向流出。
+     *
      * Returns whether liquid can flow into the block from the
      * provided direction, or flow out from the provided direction
      * when liquid is placed into it with a bucket.
      *
      * @param liquidType
+     * 此函数所针对的液体类型。
+     *
      * The type of liquid this function should be called for.
      * @returns
+     * 液体能否从指定方向流入该方块，或当用桶将液体放入该方块时能否从指定方向流出。
+     *
      * Whether liquid can flow into the block from the provided
      * direction, or flow out from the provided direction when
      * liquid is placed into it with a bucket
@@ -5755,12 +5811,18 @@ export class Block {
     liquidCanFlowFromDirection(liquidType: LiquidType, flowDirection: Direction): boolean;
     /**
      * @remarks
+     * 返回当被液体接触时该方块是否会被移除并生成其掉落物。
+     *
      * Returns whether this block is removed and spawns its item
      * when touched by liquid.
      *
      * @param liquidType
+     * 此函数所针对的液体类型。
+     *
      * The type of liquid this function should be called for.
      * @returns
+     * 当被液体接触时该方块是否会被移除并生成其掉落物。
+     *
      * Whether this block is removed and spawns its item when
      * touched by liquid.
      * @throws This function can throw errors.
@@ -5774,13 +5836,21 @@ export class Block {
     liquidSpreadCausesSpawn(liquidType: LiquidType): boolean;
     /**
      * @remarks
+     * 测试该方块是否符合特定条件。
+     *
      * Tests whether this block matches a specific criteria.
      *
      * @param blockName
+     * 用于与此 API 匹配的方块类型标识符。
+     *
      * Block type identifier to match this API against.
      * @param states
+     * 可选的一组方块状态，用于测试该方块。
+     *
      * Optional set of block states to test this block against.
      * @returns
+     * 如果该方块符合指定条件则返回 true。
+     *
      * Returns true if the block matches the specified criteria.
      * @throws This function can throw errors.
      *
@@ -5810,12 +5880,18 @@ export class Block {
     north(steps?: number): Block | undefined;
     /**
      * @remarks
+     * 返回相对于该方块偏移指定向量处的方块。
+     *
      * Returns a block at an offset relative vector to this block.
      *
      * @param offset
+     * 偏移向量。例如，偏移量为 0, 1, 0 将返回当前方块上方的方块。
+     *
      * The offset vector. For example, an offset of 0, 1, 0 will
      * return the block above the current block.
      * @returns
+     * 位于指定偏移处的方块；如果无法获取该方块（例如，该方块及其所在区块尚未加载），则返回 undefined。
+     *
      * Block at the specified offset, or undefined if that block
      * could not be retrieved (for example, the block and its
      * relative chunk is not loaded yet.)
@@ -5872,12 +5948,16 @@ export class Block {
     setType(blockType: BlockType | string): void;
     /**
      * @remarks
+     * 设置该方块是否处于含水状态——例如，楼梯是否被浸没在水中。
+     *
      * Sets whether this block has a water logged state - for
      * example, whether stairs are submerged within water.
      *
      * @worldMutation
      *
      * @param isWaterlogged
+     * 如果方块应含水，则为 true。
+     *
      * true if the block should have water within it.
      * @throws This function can throw errors.
      *
@@ -16265,6 +16345,8 @@ export class ExplosionDecayFunction extends LootItemFunction {
 }
 
 /**
+ * 作为 Healable 组件的一部分，表示可喂给实体并产生生命值效果的特定物品。
+ *
  * As part of the Healable component, represents a specific
  * item that can be fed to an entity to cause health effects.
  */
@@ -16272,6 +16354,8 @@ export class FeedItem {
     private constructor();
     /**
      * @remarks
+     * 实体被喂食此物品时获得的生命值。该数值是从 0 开始的整数，示例值最高可达 40。
+     *
      * The amount of health this entity gains when fed this item.
      * This number is an integer starting at 0. Sample values can
      * go as high as 40.
@@ -16280,6 +16364,8 @@ export class FeedItem {
     readonly healAmount: number;
     /**
      * @remarks
+     * 可用于喂食的物品类型标识符。若未指定命名空间，则假定为 'minecraft:'。示例值包括 'wheat' 或 'golden_apple'。
+     *
      * Identifier of type of item that can be fed. If a namespace
      * is not specified, 'minecraft:' is assumed. Example values
      * include 'wheat' or 'golden_apple'.
@@ -16288,6 +16374,8 @@ export class FeedItem {
     readonly item: string;
     /**
      * @remarks
+     * 喂食后产生的物品的类型 ID。该值通常为空，但也用于向鹦鹉螺喂食一桶鱼等场景，此时产生的物品将是空桶。
+     *
      * Type ID of the resulting item after feeding has occurred.
      * This will usually be empty but is used for scenarios such as
      * feeding a Nautilus with a bucket of fish, where the result
@@ -16297,6 +16385,8 @@ export class FeedItem {
     readonly resultItem?: string;
     /**
      * @remarks
+     * 作为 Healable 组件的一部分，表示实体被喂食某物品后可能产生的可选副作用集合。
+     *
      * As part of the Healable component, an optional collection of
      * side effects that can occur from being fed an item.
      *
@@ -16305,6 +16395,8 @@ export class FeedItem {
 }
 
 /**
+ * 表示将食物喂给实体后产生的效果。
+ *
  * Represents an effect that is applied as a result of a food
  * item being fed to an entity.
  */
@@ -16312,6 +16404,8 @@ export class FeedItemEffect {
     private constructor();
     /**
      * @remarks
+     * 获取可能应用于此效果的倍率。有效值为从 0 开始的整数，通常介于 0 到 4 之间。
+     *
      * Gets an amplifier that may have been applied to this effect.
      * Valid values are integers starting at 0 and up - but usually
      * ranging between 0 and 4.
@@ -16320,6 +16414,8 @@ export class FeedItemEffect {
     readonly amplifier: number;
     /**
      * @remarks
+     * 实体被喂食此物品后应用该效果的概率。有效值介于 0 到 1 之间。
+     *
      * Chance that this effect is applied as a result of the entity
      * being fed this item. Valid values range between 0 and 1.
      *
@@ -16327,12 +16423,16 @@ export class FeedItemEffect {
     readonly chance: number;
     /**
      * @remarks
+     * 获取此效果的持续时间，以刻为单位。
+     *
      * Gets the duration, in ticks, of this effect.
      *
      */
     readonly duration: number;
     /**
      * @remarks
+     * 获取要应用的效果标识符。示例值包括 'fire_resistance' 或 'regeneration'。
+     *
      * Gets the identifier of the effect to apply. Example values
      * include 'fire_resistance' or 'regeneration'.
      *
@@ -16341,6 +16441,8 @@ export class FeedItemEffect {
 }
 
 /**
+ * 使用另一张战利品表来填充已掉落容器物品的战利品物品函数。
+ *
  * Loot item function that populates a dropped container item
  * using another loot table.
  */
@@ -16349,6 +16451,8 @@ export class FillContainerFunction extends LootItemFunction {
     private constructor();
     /**
      * @remarks
+     * 用于填充该容器的战利品表路径。
+     *
      * The path to the loot table with which the container will be
      * filled.
      *
@@ -16357,12 +16461,16 @@ export class FillContainerFunction extends LootItemFunction {
 }
 
 /**
+ * 表示与流体容器相关的常量。
+ *
  * Represents constants related to fluid containers.
  */
 export class FluidContainer {
     private constructor();
     /**
      * @remarks
+     * 表示流体容器的最大填充等级常量。
+     *
      * Constant that represents the maximum fill level of a fluid
      * container.
      *
@@ -16370,6 +16478,8 @@ export class FluidContainer {
     static readonly maxFillLevel = 6;
     /**
      * @remarks
+     * 表示流体容器的最小填充等级常量。
+     *
      * Constant that represents the minimum fill level of a fluid
      * container.
      *
@@ -16379,6 +16489,8 @@ export class FluidContainer {
 
 /**
  * @beta
+ * 提供对玩家实体雾设置堆栈的访问，使脚本能够推入、弹出、移除和查询生效中的雾设置。
+ *
  * Provides access to the fog definitions stack of a player
  * entity, allowing scripts to push, pop, remove, and query
  * active fog definitions.
@@ -16387,12 +16499,16 @@ export class FogSettings {
     private constructor();
     /**
      * @remarks
+     * 返回玩家雾设置堆栈中当前的雾标识符列表，按从底部到顶部的顺序排列。
+     *
      * Returns the list of fog identifiers currently on the
      * player's fog stack, ordered from bottom to top.
      *
      * @worldMutation
      *
      * @returns
+     * 当前堆栈中的雾设置标识符数组。
+     *
      * An array of fog definition identifiers currently on the
      * stack.
      * @throws
@@ -16403,12 +16519,16 @@ export class FogSettings {
     getStack(): string[];
     /**
      * @remarks
+     * 返回玩家雾设置堆栈中当前存在的标签列表。
+     *
      * Returns the list of tags currently present on the player's
      * fog stack.
      *
      * @worldMutation
      *
      * @returns
+     * 与堆栈中雾设置关联的标签字符串数组。
+     *
      * An array of tag strings associated with fog settings on the
      * stack.
      * @throws
@@ -16419,17 +16539,23 @@ export class FogSettings {
     getTags(): string[];
     /**
      * @remarks
+     * 从玩家的雾设置堆栈中移除最近推入的雾设置。
+     *
      * Removes the most recently pushed fog definition from the
      * player's fog stack.
      *
      * @worldMutation
      *
      * @param tag
+     * 用于标识要弹出条目的可选标签。如果提供，则从顶部到底部搜索堆栈，并移除最近推入且带有此标签的条目。如果省略，则移除最近推入的条目，无论其标签为何。
+     *
      * An optional tag identifying which entry to pop. If provided,
      * searches the stack from top to bottom and removes the most
      * recently pushed entry with this tag. If omitted, removes the
      * most recently pushed entry regardless of tag.
      * @returns
+     * 返回被弹出的雾设置标识符；如果堆栈未发生变化，则返回 undefined。
+     *
      * Returns the identifier of the popped fog definition, or
      * undefined if the stack was unchanged.
      * @throws
@@ -16440,18 +16566,26 @@ export class FogSettings {
     pop(tag?: string): string | undefined;
     /**
      * @remarks
+     * 将新的雾设置推入玩家的雾设置堆栈。
+     *
      * Pushes a new fog definition onto the player's fog stack.
      *
      * @worldMutation
      *
      * @param fogId
+     * 要推入堆栈的雾设置标识符（例如 'minecraft:fog_bamboo_jungle'）。
+     *
      * The identifier of the fog definition to push onto the stack
      * (e.g. 'minecraft:fog_bamboo_jungle').
      * @param tag
+     * 用于标记此雾设置在堆栈中条目的可选标签，以便通过 pop 或 remove 定位该条目。如果省略，则以 'untagged' 标签存储该条目。
+     *
      * An optional tag used to label this fog definition on the
      * stack, allowing it to be targeted by pop or remove. If
      * omitted, the entry is stored with the tag 'untagged'.
      * @returns
+     * 返回雾设置插入堆栈位置的从零开始索引。
+     *
      * Returns the zero-based index at which the fog definition was
      * inserted into the stack.
      * @throws
@@ -16465,6 +16599,8 @@ export class FogSettings {
     push(fogId: string, tag?: string): number;
     /**
      * @remarks
+     * 从玩家的雾设置堆栈中移除带有指定标签的所有雾设置。如果未提供标签，则清除所有雾设置。
+     *
      * Removes all fog definitions with the given tag from the
      * player's fog stack. If no tag is provided, clears all fog
      * definitions.
@@ -16472,9 +16608,13 @@ export class FogSettings {
      * @worldMutation
      *
      * @param tag
+     * 用于标识要移除条目的可选标签。如果省略，则清除所有雾设置，无论其标签为何。
+     *
      * An optional tag identifying which the entries to remove. If
      * omitted, clears all fog definitions regardless of tag.
      * @returns
+     * 如果至少移除了一个条目，则返回 true；如果堆栈未发生变化，则返回 false。
+     *
      * Returns true if at least one entry was removed, or false if
      * the stack was unchanged.
      * @throws
@@ -16485,16 +16625,22 @@ export class FogSettings {
     remove(tag?: string): boolean;
     /**
      * @remarks
+     * 将玩家的雾设置堆栈设为给定的雾标识符列表，并替换所有现有条目。
+     *
      * Sets the player's fog stack to the given list of fog
      * identifiers, replacing any existing entries.
      *
      * @worldMutation
      *
      * @param fogIds
+     * 要设为玩家雾设置堆栈的雾设置标识符堆栈（例如 ['minecraft:fog_bamboo_jungle']）。最多 16 个条目。
+     *
      * A stack of fog definition identifiers to set on the player's
      * fog stack (e.g. ['minecraft:fog_bamboo_jungle']). Maximum of
      * 16 entries.
      * @param tag
+     * 与新条目关联的可选标签，用于通过 pop 或 remove 定位这些条目。
+     *
      * An optional tag to associate with the new entries, used to
      * target them with pop or remove.
      * @throws
@@ -16510,6 +16656,8 @@ export class FogSettings {
 }
 
 /**
+ * 包含关于已更改的 world.gameRules 属性的信息。
+ *
  * Contains information regarding a changed world.gameRules
  * property.
  */
@@ -16517,6 +16665,8 @@ export class GameRuleChangeAfterEvent {
     private constructor();
     /**
      * @remarks
+     * 与已更改的 world.gameRules 属性相对应的规则标识符。
+     *
      * The rule identifier pertaining to the changed
      * world.gameRules property.
      *
@@ -16524,6 +16674,8 @@ export class GameRuleChangeAfterEvent {
     readonly rule: GameRule;
     /**
      * @remarks
+     * 更改之后的 world.gameRules 属性的值。
+     *
      * The value of the world.gameRules property after being
      * changed.
      *
@@ -16532,6 +16684,8 @@ export class GameRuleChangeAfterEvent {
 }
 
 /**
+ * 管理当 world.gameRules 属性发生变化时所连接的回调。
+ *
  * Manages callbacks that are connected to when a
  * world.gameRules property has changed.
  */
@@ -16539,6 +16693,8 @@ export class GameRuleChangeAfterEventSignal {
     private constructor();
     /**
      * @remarks
+     * 添加当 world.gameRules 属性发生变化时会被调用的回调。
+     *
      * Adds a callback that will be called when a world.gameRules
      * property is changed.
      *
@@ -16550,6 +16706,8 @@ export class GameRuleChangeAfterEventSignal {
     subscribe(callback: (arg0: GameRuleChangeAfterEvent) => void): (arg0: GameRuleChangeAfterEvent) => void;
     /**
      * @remarks
+     * 移除当 world.gameRules 属性发生变化时不再被调用的回调。
+     *
      * Removes a callback from being called when a world.gameRules
      * property is changed.
      *
@@ -16562,6 +16720,8 @@ export class GameRuleChangeAfterEventSignal {
 }
 
 /**
+ * 表示一个世界体验的规则集合。
+ *
  * Represents the game rules for a world experience.
  */
 export class GameRules {
@@ -16798,12 +16958,16 @@ export class GameRules {
 }
 
 /**
+ * 包含某个客户端实例的输入信息。
+ *
  * Contains the input information for a client instance.
  */
 export class InputInfo {
     private constructor();
     /**
      * @remarks
+     * 玩家最后使用的输入模式。
+     *
      * The last input mode used by the player.
      *
      * @throws This property can throw when used.
@@ -16815,6 +16979,8 @@ export class InputInfo {
     readonly lastInputModeUsed: InputMode;
     /**
      * @remarks
+     * 玩家的触摸输入是否仅影响触摸栏。
+     *
      * Whether the player touch input only affects the touchbar or
      * not.
      *
@@ -16840,6 +17006,8 @@ export class InputInfo {
 }
 
 /**
+ * 用于检查掉落战利品的实体是否为幼体的战利品物品条件。
+ *
  * Loot item condition that checks whether or not the entity
  * dropping loot is a baby.
  */
@@ -16854,6 +17022,10 @@ export class ISerializable {
 
 /**
  * @beta
+ * 表示方块的动态属性。仅可从方块实体获取。
+ * 每个内容包在每个方块实体的动态属性存储中
+ * 最多可以存储 1KBytes 的数据。
+ *
  * Represents the dynamic properties of a block. Only available
  * from block entities. Up to 1KBytes of data can be stored per
  * content pack per block entity in their dynamic properties
@@ -16865,6 +17037,9 @@ export class ItemBlockDynamicPropertiesComponent extends ItemComponent {
     static readonly componentId = 'minecraft:block_actor_dynamic_properties';
     /**
      * @remarks
+     * 返回使用提供的键存储的 DynamicProperty。每个内容包的键是唯一的，
+     * 无法用于检索其他内容包设置的动态属性。若未找到对应键，则返回 undefined。
+     *
      * Returns a DynamicProperty that was stored with the provided
      * key. Keys are unique to each content pack and cannot be used
      * to retrieve dynamic properties set from other content packs.
@@ -16879,6 +17054,11 @@ export class ItemBlockDynamicPropertiesComponent extends ItemComponent {
     get(key: string): boolean | number | string | Vector3 | undefined;
     /**
      * @remarks
+     * 设置具有提供的键和值的动态属性。每个内容包的键是唯一的，
+     * 无法用于设置其他内容包的动态属性。值可以是 Number、String 或 Vector3。
+     * 将属性设置为 undefined 会将其从存储中移除。存储大小计入每个内容包
+     * 1KBytes 的限额。
+     *
      * Sets a dynamic property with the provided key and value.
      * Keys are unique to each content pack and cannot be used to
      * set dynamic properties for other content packs. Values can
@@ -16896,6 +17076,9 @@ export class ItemBlockDynamicPropertiesComponent extends ItemComponent {
     set(key: string, value?: boolean | number | string | Vector3): void;
     /**
      * @remarks
+     * 返回当前该方块动态属性存储的字节大小。字节数仅计算由你的内容包
+     * 设置的属性。1KBytes 限额是按每个内容包计算的。
+     *
      * Returns the current size, in bytes, of the dynamic
      * properties storage for this block. The byte count only
      * accounts for properties set by your content pack. The
@@ -16909,6 +17092,9 @@ export class ItemBlockDynamicPropertiesComponent extends ItemComponent {
 }
 
 /**
+ * 当此组件存在于物品上时，表示该物品为书本物品。可以访问和
+ * 修改书本的内容并对其进行签名。
+ *
  * When present on an item, this item is a book item. Can
  * access and modify the contents of the book and sign it.
  */
@@ -16917,6 +17103,8 @@ export class ItemBookComponent extends ItemComponent {
     private constructor();
     /**
      * @remarks
+     * 若书本已签名，则为书本作者的名字；否则为 undefined。
+     *
      * The name of the author of the book if it is signed,
      * otherwise undefined.
      *
@@ -16927,6 +17115,9 @@ export class ItemBookComponent extends ItemComponent {
     readonly author?: string;
     /**
      * @remarks
+     * 书本中以字符串格式存储的各页内容。非字符串格式的条目将为
+     * undefined。
+     *
      * The contents of pages in the book that are in string format.
      * Entries not in string format will be undefined.
      *
@@ -16937,6 +17128,8 @@ export class ItemBookComponent extends ItemComponent {
     readonly contents: (string | undefined)[];
     /**
      * @remarks
+     * 判断书本是否已被签名。
+     *
      * Determines whether the book has been signed or not.
      *
      * @throws This property can throw when used.
@@ -16946,6 +17139,8 @@ export class ItemBookComponent extends ItemComponent {
     readonly isSigned: boolean;
     /**
      * @remarks
+     * 书本拥有的页数。
+     *
      * The amount of pages the book has.
      *
      * @throws This property can throw when used.
@@ -16955,6 +17150,9 @@ export class ItemBookComponent extends ItemComponent {
     readonly pageCount: number;
     /**
      * @remarks
+     * 书本中以 {@link RawMessage} 格式存储的各页内容。非 {@link
+     * RawMessage} 格式的条目将为 undefined。
+     *
      * The contents of pages in the book that are in {@link
      * RawMessage} format. Entries not in {@link RawMessage} format
      * will be undefined.
@@ -16966,6 +17164,8 @@ export class ItemBookComponent extends ItemComponent {
     readonly rawContents: (RawMessage | undefined)[];
     /**
      * @remarks
+     * 若书本已签名，则为书本的标题；否则为 undefined。
+     *
      * The title of the book if it is signed, otherwise undefined.
      *
      * @throws This property can throw when used.
@@ -16976,11 +17176,18 @@ export class ItemBookComponent extends ItemComponent {
     static readonly componentId = 'minecraft:book';
     /**
      * @remarks
+     * 获取指定索引处页面的字符串格式内容。
+     *
      * Gets the string format content of a page for a given index.
      *
      * @param pageIndex
+     * 页面的索引。
+     *
      * The index of the page.
      * @returns
+     * 若提供的索引有效且该页为字符串格式，则返回该页内容；否则
+     * 返回 undefined。
+     *
      * The content of the page if a valid index is provided and it
      * is in string format, otherwise returns undefined.
      * @throws This function can throw errors.
@@ -16990,12 +17197,19 @@ export class ItemBookComponent extends ItemComponent {
     getPageContent(pageIndex: number): string | undefined;
     /**
      * @remarks
+     * 获取指定索引处页面的 {@link RawMessage} 格式内容。
+     *
      * Gets the {@link RawMessage} format content of a page for a
      * given index.
      *
      * @param pageIndex
+     * 页面的索引。
+     *
      * The index of the page.
      * @returns
+     * 若提供的索引有效且该页为 {@link RawMessage} 格式，则返回该
+     * 页内容；否则返回 undefined。
+     *
      * The content of the page if a valid index is provided and it
      * is in {@link RawMessage} format, otherwise returns
      * undefined.
@@ -17006,6 +17220,11 @@ export class ItemBookComponent extends ItemComponent {
     getRawPageContent(pageIndex: number): RawMessage | undefined;
     /**
      * @remarks
+     * 在指定索引处插入一页。若索引大于当前书本大小，则会创建空
+     * 白页面。
+     * 页面对于字符串以及 {@link RawMessage} 的 JSON 表示均有最多
+     * 256 个字符的限制。书本最多有 50 页的限制。
+     *
      * Inserts a page at a given index. Empty pages will be created
      * if the index is greater than the current book size.
      * Pages have a maximum limit of 256 characters for strings as
@@ -17015,8 +17234,13 @@ export class ItemBookComponent extends ItemComponent {
      * @worldMutation
      *
      * @param pageIndex
+     * 页面的索引。
+     *
      * The index of the page.
      * @param content
+     * 要为该页设置的内容。可以是单个字符串或 {@link RawMessage}，
+     * 或字符串和/或 {@link RawMessage} 组成的数组。
+     *
      * The content to set for the page. Can be a single string or
      * {@link RawMessage} or an array of strings and/or {@link
      * RawMessage}s
@@ -17031,12 +17255,17 @@ export class ItemBookComponent extends ItemComponent {
     insertPage(pageIndex: number, content: (RawMessage | string)[] | RawMessage | string): void;
     /**
      * @remarks
+     * 移除指定索引处的一页。该页之后的现有页面将向前移动以填补
+     * 空缺。
+     *
      * Removes a page at a given index. Existing pages following
      * this page will be moved backward to fill the empty space.
      *
      * @worldMutation
      *
      * @param pageIndex
+     * 页面的索引。
+     *
      * The index of the page.
      * @throws This function can throw errors.
      *
@@ -17045,6 +17274,10 @@ export class ItemBookComponent extends ItemComponent {
     removePage(pageIndex: number): void;
     /**
      * @remarks
+     * 设置书本各页的内容。原有页面将被清除。
+     * 页面对于字符串以及 {@link RawMessage} 的 JSON 表示均有最多
+     * 256 个字符的限制。书本最多有 50 页的限制。
+     *
      * Sets the contents of the book's pages. Pre-existing pages
      * will be cleared.
      * Pages have a maximum limit of 256 characters for strings as
@@ -17054,6 +17287,9 @@ export class ItemBookComponent extends ItemComponent {
      * @worldMutation
      *
      * @param contents
+     * 由各页内容组成的数组。每一页可以是单个字符串或 {@link
+     * RawMessage}，或字符串和/或 {@link RawMessage} 组成的数组。
+     *
      * An array of each page's contents. Each page can be a single
      * string or {@link RawMessage} or an array of strings and/or
      * {@link RawMessage}s.
@@ -17068,6 +17304,11 @@ export class ItemBookComponent extends ItemComponent {
     setContents(contents: ((RawMessage | string)[] | RawMessage | string)[]): void;
     /**
      * @remarks
+     * 设置或创建指定页面的内容。若索引大于当前书本大小，则会创
+     * 建空白页面。
+     * 页面对于字符串以及 {@link RawMessage} 的 JSON 表示均有最多
+     * 256 个字符的限制。书本最多有 50 页的限制。
+     *
      * Sets or creates the content of a specific page. Empty pages
      * will be created if the index is greater than the current
      * book size.
@@ -17078,8 +17319,13 @@ export class ItemBookComponent extends ItemComponent {
      * @worldMutation
      *
      * @param pageIndex
+     * 页面的索引。
+     *
      * The index of the page.
      * @param content
+     * 要为该页设置的内容。可以是单个字符串或 {@link RawMessage}，
+     * 或字符串和/或 {@link RawMessage} 组成的数组。
+     *
      * The content to set for the page. Can be a single string or
      * {@link RawMessage} or an array of strings and/or {@link
      * RawMessage}s
@@ -17094,6 +17340,10 @@ export class ItemBookComponent extends ItemComponent {
     setPageContent(pageIndex: number, content: (RawMessage | string)[] | RawMessage | string): void;
     /**
      * @remarks
+     * 为书本签名，赋予其标题和作者名。一旦签名，玩家便无法再直
+     * 接编辑该书本。
+     * 标题最多有 16 个字符的限制。
+     *
      * Signs a book giving it a title and author name. Once signed
      * players can no longer directly edit the book.
      * Titles have a maximum character limit of 16.
@@ -17101,8 +17351,12 @@ export class ItemBookComponent extends ItemComponent {
      * @worldMutation
      *
      * @param title
+     * 要赋予书本的标题。
+     *
      * The title to give the book.
      * @param author
+     * 书本作者的名字。
+     *
      * The name of the book's author.
      * @throws This function can throw errors.
      *
@@ -17116,6 +17370,8 @@ export class ItemBookComponent extends ItemComponent {
 }
 
 /**
+ * 包含与可蓄力物品完成蓄力相关的信息。
+ *
  * Contains information related to a chargeable item completing
  * being charged.
  */
@@ -17123,18 +17379,24 @@ export class ItemCompleteUseAfterEvent {
     private constructor();
     /**
      * @remarks
+     * 返回已完成蓄力的物品堆。
+     *
      * Returns the item stack that has completed charging.
      *
      */
     readonly itemStack: ItemStack;
     /**
      * @remarks
+     * 返回触发此物品事件的源实体。
+     *
      * Returns the source entity that triggered this item event.
      *
      */
     readonly source: Player;
     /**
      * @remarks
+     * 返回距蓄力完成周期还剩余的时长（以刻为单位）。
+     *
      * Returns the time, in ticks, for the remaining duration left
      * before the charge completes its cycle.
      *
@@ -17143,6 +17405,8 @@ export class ItemCompleteUseAfterEvent {
 }
 
 /**
+ * 管理与可蓄力物品完成蓄力相关联的回调。
+ *
  * Manages callbacks that are connected to the completion of
  * charging for a chargeable item.
  */
@@ -17150,6 +17414,8 @@ export class ItemCompleteUseAfterEventSignal {
     private constructor();
     /**
      * @remarks
+     * 添加当可蓄力物品完成蓄力时会被调用的回调。
+     *
      * Adds a callback that will be called when a chargeable item
      * completes charging.
      *
@@ -17161,6 +17427,8 @@ export class ItemCompleteUseAfterEventSignal {
     subscribe(callback: (arg0: ItemCompleteUseAfterEvent) => void): (arg0: ItemCompleteUseAfterEvent) => void;
     /**
      * @remarks
+     * 移除当可蓄力物品完成蓄力时不再被调用的回调。
+     *
      * Removes a callback from being called when a chargeable item
      * completes charging.
      *
@@ -17173,6 +17441,8 @@ export class ItemCompleteUseAfterEventSignal {
 }
 
 /**
+ * 包含与可蓄力物品完成蓄力相关的信息。
+ *
  * Contains information related to a chargeable item completing
  * being charged.
  */
@@ -17180,12 +17450,16 @@ export class ItemCompleteUseEvent {
     private constructor();
     /**
      * @remarks
+     * 返回已完成蓄力的物品堆。
+     *
      * Returns the item stack that has completed charging.
      *
      */
     readonly itemStack: ItemStack;
     /**
      * @remarks
+     * 返回触发该物品事件的源实体。
+     *
      * Returns the source entity that triggered this item event.
      *
      */
@@ -17193,6 +17467,8 @@ export class ItemCompleteUseEvent {
 }
 
 /**
+ * 物品组件的基类。
+ *
  * Base class for item components.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
@@ -17201,6 +17477,8 @@ export class ItemComponent extends Component {
 }
 
 /**
+ * 包含物品因击中实体而受损前的相关信息。
+ *
  * Contains information regarding an item before it is damaged
  * from hitting an entity.
  */
@@ -17208,12 +17486,16 @@ export class ItemComponentBeforeDurabilityDamageEvent {
     private constructor();
     /**
      * @remarks
+     * 发起攻击的实体。
+     *
      * The attacking entity.
      *
      */
     readonly attackingEntity: Entity;
     /**
      * @remarks
+     * 事件发生时对物品耐久度造成的损耗。
+     *
      * The damage applied to the item's durability when the event
      * occurs.
      *
@@ -17221,12 +17503,16 @@ export class ItemComponentBeforeDurabilityDamageEvent {
     durabilityDamage: number;
     /**
      * @remarks
+     * 被击中的实体。
+     *
      * The entity being hit.
      *
      */
     readonly hitEntity: Entity;
     /**
      * @remarks
+     * 用于击中实体的物品堆。
+     *
      * The item stack used to hit the entity.
      *
      */
@@ -17234,6 +17520,8 @@ export class ItemComponentBeforeDurabilityDamageEvent {
 }
 
 /**
+ * 包含与通过组件完成蓄力的可蓄力物品相关的信息。
+ *
  * Contains information related to a chargeable item completing
  * being charged via a component.
  */
@@ -17243,18 +17531,24 @@ export class ItemComponentCompleteUseEvent extends ItemCompleteUseEvent {
 }
 
 /**
+ * 包含与食物被消耗相关的信息。
+ *
  * Contains information related to a food item being consumed.
  */
 export class ItemComponentConsumeEvent {
     private constructor();
     /**
      * @remarks
+     * 被消耗的物品堆。
+     *
      * The item stack that was consumed.
      *
      */
     readonly itemStack: ItemStack;
     /**
      * @remarks
+     * 消耗该物品的源实体。
+     *
      * The source entity that consumed the item.
      *
      */
@@ -17262,6 +17556,8 @@ export class ItemComponentConsumeEvent {
 }
 
 /**
+ * 包含使用物品击中实体时的相关信息。
+ *
  * Contains information regarding when an item is used to hit
  * an entity.
  */
@@ -17269,24 +17565,32 @@ export class ItemComponentHitEntityEvent {
     private constructor();
     /**
      * @remarks
+     * 发起攻击的实体。
+     *
      * The attacking entity.
      *
      */
     readonly attackingEntity: Entity;
     /**
      * @remarks
+     * 此次击打是否命中或产生了任何效果。
+     *
      * Whether the hit landed or had any effect.
      *
      */
     readonly hadEffect: boolean;
     /**
      * @remarks
+     * 被击中的实体。
+     *
      * The entity being hit.
      *
      */
     readonly hitEntity: Entity;
     /**
      * @remarks
+     * 用于击中实体的物品堆。
+     *
      * The item stack used to hit the entity.
      *
      */
@@ -17294,6 +17598,8 @@ export class ItemComponentHitEntityEvent {
 }
 
 /**
+ * 包含使用物品挖掘方块的相关信息。
+ *
  * Contains information regarding the mining of a block using
  * an item.
  */
@@ -17301,24 +17607,32 @@ export class ItemComponentMineBlockEvent {
     private constructor();
     /**
      * @remarks
+     * 此事件影响的方块。
+     *
      * The block impacted by this event.
      *
      */
     readonly block: Block;
     /**
      * @remarks
+     * 用于挖掘方块的物品堆。
+     *
      * The item stack used to mine the block.
      *
      */
     readonly itemStack?: ItemStack;
     /**
      * @remarks
+     * 被挖掘方块的方块状态（BlockPermutation）。
+     *
      * The block permutation that was mined.
      *
      */
     readonly minedBlockPermutation: BlockPermutation;
     /**
      * @remarks
+     * 挖掘方块的实体。
+     *
      * The entity that mined the block.
      *
      */
@@ -17326,6 +17640,8 @@ export class ItemComponentMineBlockEvent {
 }
 
 /**
+ * 提供为物品注册自定义组件的功能。
+ *
  * Provides the functionality for registering custom components
  * for items.
  */
@@ -17333,19 +17649,18 @@ export class ItemComponentRegistry {
     private constructor();
     /**
      * @remarks
+     * 注册一个可在物品 JSON 配置中使用的物品自定义组件。
+     *
      * Registers an item custom component that can be used in item
      * JSON configuration.
      *
      * @earlyExecution
      *
      * @param name
-     * The id that represents this custom component. Must have a
-     * namespace. This id can be specified in a item's JSON
-     * configuration under the 'minecraft:custom_components' item
-     * component.
+     * 表示该自定义组件的 ID，必须包含命名空间。该 ID 可在物品 JSON 配置的
+     * 'minecraft:custom_components' 物品组件下指定。
      * @param itemCustomComponent
-     * The collection of event functions that will be called when
-     * the event occurs on an item using this custom component id.
+     * 当使用此自定义组件 ID 的物品上发生对应事件时，将被调用的事件函数集合。
      * @throws This function can throw errors.
      *
      * {@link CustomComponentInvalidRegistryError}
@@ -17366,18 +17681,24 @@ export class ItemComponentRegistry {
 }
 
 /**
+ * 包含与物品使用相关的信息。
+ *
  * Contains information regarding the use of an item.
  */
 export class ItemComponentUseEvent {
     private constructor();
     /**
      * @remarks
+     * 物品被使用时的物品堆。
+     *
      * The item stack when the item was used.
      *
      */
     readonly itemStack?: ItemStack;
     /**
      * @remarks
+     * 使用该物品的玩家。
+     *
      * The player who used the item.
      *
      */
@@ -17385,6 +17706,8 @@ export class ItemComponentUseEvent {
 }
 
 /**
+ * 包含通过组件对某个方块使用物品时相关的信息。
+ *
  * Contains information regarding the use of an item on a block
  * via a component.
  */
@@ -17393,12 +17716,16 @@ export class ItemComponentUseOnEvent extends ItemUseOnEvent {
     private constructor();
     /**
      * @remarks
+     * 对方块使用该物品的实体。
+     *
      * The entity that used the item on the block.
      *
      */
     readonly source: Entity;
     /**
      * @remarks
+     * 物品被使用的方块所对应的方块状态。
+     *
      * The block permutation that the item was used on.
      *
      */
@@ -17406,6 +17733,8 @@ export class ItemComponentUseOnEvent extends ItemUseOnEvent {
 }
 
 /**
+ * 当存在此组件时，若堆肥概率处于 [1, 100] 区间内，该物品可以在堆肥桶中进行堆肥。
+ *
  * When present, the item can be composted in the composter
  * block if the composting chance is in the range [1 - 100].
  */
@@ -17414,6 +17743,8 @@ export class ItemCompostableComponent extends ItemComponent {
     private constructor();
     /**
      * @remarks
+     * 该物品在堆肥桶中进行堆肥并产生堆肥层的百分比概率。注意，对于原版中可堆肥但并未使用该堆肥组件的物品，此 API 同样会返回其堆肥概率。
+     *
      * This is the percent chance of the item composting in the
      * composter block and generating a compost layer. Note this
      * api will also return the composting chance for vanilla items
@@ -17430,7 +17761,7 @@ export class ItemCompostableComponent extends ItemComponent {
 /**
  * 表示物品使用冷却组件。当出现在物品上时，表示该物品被实体使用后会有冷却效果。
  * 注意，若使用后不会进入冷却，原版物品会获取到没有实际作用的该组件。
- * 
+ *
  * When present on an item, this item has a cooldown effect
  * when used by entities.
  */
@@ -17440,7 +17771,7 @@ export class ItemCooldownComponent extends ItemComponent {
     /**
      * @remarks
      * 表示物品的冷却类别。
-     * 
+     *
      * Represents the cooldown category that this item is
      * associated with.
      *
@@ -17450,7 +17781,7 @@ export class ItemCooldownComponent extends ItemComponent {
     /**
      * @remarks
      * 物品冷却所需的时间，单位为刻。
-     * 
+     *
      * Amount of time, in ticks, it will take this item to
      * cooldown.
      *
@@ -17506,7 +17837,7 @@ export class ItemCooldownComponent extends ItemComponent {
      * @remarks
      * 开始物品的冷却周期。
      * 如果物品已在冷却中，将重新开始冷却。
-     * 
+     *
      * Starts a new cooldown period for this item.
      *
      * @worldMutation
@@ -17517,6 +17848,8 @@ export class ItemCooldownComponent extends ItemComponent {
 }
 
 /**
+ * 物品上某一自定义组件的实例。
+ *
  * An instance of a custom component on an item.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
@@ -17611,6 +17944,8 @@ export class ItemDurabilityComponent extends ItemComponent {
 }
 
 /**
+ * 表示物品可被染色。当出现在物品上时，表示该物品可被染色。
+ *
  * When present on an item, this item can be dyed.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
@@ -17618,6 +17953,8 @@ export class ItemDyeableComponent extends ItemComponent {
     private constructor();
     /**
      * @remarks
+     * 设置并返回该物品当前的颜色。
+     *
      * Sets and returns the current color of the item.
      *
      * @worldMutation
@@ -17626,6 +17963,8 @@ export class ItemDyeableComponent extends ItemComponent {
     color?: RGB;
     /**
      * @remarks
+     * 返回该物品的默认颜色。
+     *
      * Returns the default color of the item.
      *
      * @throws This property can throw when used.
@@ -17635,6 +17974,8 @@ export class ItemDyeableComponent extends ItemComponent {
 }
 
 /**
+ * 当此组件存在于物品上时，表示该物品可以被附魔。
+ *
  * When present on an item, this item can have enchantments
  * applied to it.
  */
@@ -17648,11 +17989,15 @@ export class ItemEnchantableComponent extends ItemComponent {
     static readonly componentId = 'minecraft:enchantable';
     /**
      * @remarks
+     * 向物品堆添加一个附魔。
+     *
      * Adds an enchantment to the item stack.
      *
      * @worldMutation
      *
      * @param enchantment
+     * 要添加的附魔接口。
+     *
      * The enchantment interface to be added.
      * @throws
      * ScriptItemEnchantmentUnknownIdError: Exception thrown if the
@@ -17678,11 +18023,15 @@ export class ItemEnchantableComponent extends ItemComponent {
     addEnchantment(enchantment: Enchantment): void;
     /**
      * @remarks
+     * 向物品堆添加一组附魔。
+     *
      * Adds a list of enchantments to the item stack.
      *
      * @worldMutation
      *
      * @param enchantments
+     * 要添加的附魔列表。
+     *
      * The list of enchantments to be added.
      * @throws
      * ScriptItemEnchantmentUnknownIdError: Exception thrown if any
@@ -17708,12 +18057,18 @@ export class ItemEnchantableComponent extends ItemComponent {
     addEnchantments(enchantments: Enchantment[]): void;
     /**
      * @remarks
+     * 检查某个附魔是否可以添加到物品堆。
+     *
      * Checks whether an enchantment can be added to the item
      * stack.
      *
      * @param enchantment
+     * 要添加的附魔接口。
+     *
      * The enchantment interface to be added.
      * @returns
+     * 若该附魔可以添加到物品堆，则返回 true。
+     *
      * Returns true if the enchantment can be added to the item
      * stack.
      * @throws
@@ -17732,11 +18087,17 @@ export class ItemEnchantableComponent extends ItemComponent {
     canAddEnchantment(enchantment: Enchantment): boolean;
     /**
      * @remarks
+     * 从物品堆获取指定类型的附魔。
+     *
      * Gets the enchantment of a given type from the item stack.
      *
      * @param enchantmentType
+     * 要获取的附魔类型。
+     *
      * The enchantment type to get.
      * @returns
+     * 若该附魔存在于物品堆上，则返回该附魔。
+     *
      * Returns the enchantment if it exists on the item stack.
      * @throws
      * ScriptItemEnchantmentUnknownIdError: Exception thrown if the
@@ -17748,20 +18109,30 @@ export class ItemEnchantableComponent extends ItemComponent {
     getEnchantment(enchantmentType: EnchantmentType | string): Enchantment | undefined;
     /**
      * @remarks
+     * 获取物品堆上的所有附魔。
+     *
      * Gets all enchantments on the item stack.
      *
      * @returns
+     * 返回物品堆上的附魔列表。
+     *
      * Returns a list of enchantments on the item stack.
      * @throws This function can throw errors.
      */
     getEnchantments(): Enchantment[];
     /**
      * @remarks
+     * 检查物品堆是否具有指定的附魔类型。
+     *
      * Checks whether an item stack has a given enchantment type.
      *
      * @param enchantmentType
+     * 要检查的附魔类型。
+     *
      * The enchantment type to check for.
      * @returns
+     * 若物品堆具有该附魔类型，则返回 true。
+     *
      * Returns true if the item stack has the enchantment type.
      * @throws
      * ScriptItemEnchantmentUnknownIdError: Exception thrown if the
@@ -17773,6 +18144,8 @@ export class ItemEnchantableComponent extends ItemComponent {
     hasEnchantment(enchantmentType: EnchantmentType | string): boolean;
     /**
      * @remarks
+     * 移除应用于此物品堆的所有附魔。
+     *
      * Removes all enchantments applied to this item stack.
      *
      * @worldMutation
@@ -17782,11 +18155,15 @@ export class ItemEnchantableComponent extends ItemComponent {
     removeAllEnchantments(): void;
     /**
      * @remarks
+     * 移除指定类型的附魔。
+     *
      * Removes an enchantment of the given type.
      *
      * @worldMutation
      *
      * @param enchantmentType
+     * 要移除的附魔类型。
+     *
      * The enchantment type to remove.
      * @throws
      * ScriptItemEnchantmentUnknownIdError: Exception thrown if the
@@ -17875,6 +18252,8 @@ export class ItemInventoryComponent extends ItemComponent {
 }
 
 /**
+ * 表示物品为药水物品。当出现在物品上时，表示该物品为药水物品。
+ *
  * When present on an item, this item is a potion item.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
@@ -17882,6 +18261,8 @@ export class ItemPotionComponent extends ItemComponent {
     private constructor();
     /**
      * @remarks
+     * 与该药水物品关联的 PotionDeliveryType。
+     *
      * The PotionDeliveryType associated with the potion item.
      *
      * @throws This property can throw when used.
@@ -17893,6 +18274,8 @@ export class ItemPotionComponent extends ItemComponent {
     readonly potionDeliveryType: PotionDeliveryType;
     /**
      * @remarks
+     * 与该药水物品关联的 PotionEffectType。
+     *
      * The PotionEffectType associated with the potion item.
      *
      * @throws This property can throw when used.
@@ -17906,6 +18289,8 @@ export class ItemPotionComponent extends ItemComponent {
 }
 
 /**
+ * 包含与可蓄力物品在玩家结束使用并释放建造动作时相关的信息。
+ *
  * Contains information related to a chargeable item when the
  * player has finished using the item and released the build
  * action.
@@ -17914,18 +18299,24 @@ export class ItemReleaseUseAfterEvent {
     private constructor();
     /**
      * @remarks
+     * 返回触发此物品事件的物品堆。
+     *
      * Returns the item stack that triggered this item event.
      *
      */
     readonly itemStack?: ItemStack;
     /**
      * @remarks
+     * 返回触发此物品事件的源实体。
+     *
      * Returns the source entity that triggered this item event.
      *
      */
     readonly source: Player;
     /**
      * @remarks
+     * 返回距蓄力完成周期还剩余的时长（以刻为单位）。
+     *
      * Returns the time, in ticks, for the remaining duration left
      * before the charge completes its cycle.
      *
@@ -17934,6 +18325,8 @@ export class ItemReleaseUseAfterEvent {
 }
 
 /**
+ * 管理与可蓄力物品停止蓄力事件相关联的回调。
+ *
  * Manages callbacks that are connected to the releasing of
  * charging for a chargeable item.
  */
@@ -17941,6 +18334,8 @@ export class ItemReleaseUseAfterEventSignal {
     private constructor();
     /**
      * @remarks
+     * 添加一个回调，当可蓄力物品停止蓄力时将被调用。
+     *
      * Adds a callback that will be called when a chargeable item
      * is released from charging.
      *
@@ -17952,6 +18347,8 @@ export class ItemReleaseUseAfterEventSignal {
     subscribe(callback: (arg0: ItemReleaseUseAfterEvent) => void): (arg0: ItemReleaseUseAfterEvent) => void;
     /**
      * @remarks
+     * 移除一个回调，使可蓄力物品停止蓄力时不再被调用。
+     *
      * Removes a callback from being called when a chargeable item
      * is released from charging.
      *
@@ -17964,6 +18361,8 @@ export class ItemReleaseUseAfterEventSignal {
 }
 
 /**
+ * 定义一个物品集合。
+ *
  * Defines a collection of items.
  * @seeExample itemStacks.ts
  * @seeExample givePlayerEquipment.ts
@@ -17972,6 +18371,9 @@ export class ItemReleaseUseAfterEventSignal {
 export class ItemStack {
     /**
      * @remarks
+     * 物品堆中的物品数量。有效值范围为 1-255。提供的值会被
+     * 限制在该物品的最大堆叠数量以内。
+     *
      * Number of the items in the stack. Valid values range between
      * 1-255. The provided value will be clamped to the item's
      * maximum stack size.
@@ -17985,6 +18387,9 @@ export class ItemStack {
     amount: number;
     /**
      * @remarks
+     * 返回该物品是否可堆叠。当物品的最大堆叠数量大于 1 且不
+     * 包含任何自定义数据或属性时，该物品被视为可堆叠。
+     *
      * Returns whether the item is stackable. An item is considered
      * stackable if the item's maximum stack size is greater than 1
      * and the item does not contain any custom data or properties.
@@ -17993,6 +18398,8 @@ export class ItemStack {
     readonly isStackable: boolean;
     /**
      * @remarks
+     * 获取或设置该物品是否在死亡时保留。
+     *
      * Gets or sets whether the item is kept on death.
      *
      * @worldMutation
@@ -18001,6 +18408,8 @@ export class ItemStack {
     keepOnDeath: boolean;
     /**
      * @remarks
+     * 用于在 .lang 文件中本地化该物品名称的键。
+     *
      * Key for the localization of this items's name used in .lang
      * files.
      *
@@ -18011,6 +18420,9 @@ export class ItemStack {
     readonly localizationKey: string;
     /**
      * @remarks
+     * 获取或设置该物品的锁定模式。默认值为
+     * `ItemLockMode.none`。
+     *
      * Gets or sets the item's lock mode. The default value is
      * `ItemLockMode.none`.
      *
@@ -18020,6 +18432,9 @@ export class ItemStack {
     lockMode: ItemLockMode;
     /**
      * @remarks
+     * 最大堆叠数量。该值因物品类型而异。例如，火把的最大堆叠
+     * 数量为 64，而鸡蛋的最大堆叠数量为 16。
+     *
      * The maximum stack size. This value varies depending on the
      * type of item. For example, torches have a maximum stack size
      * of 64, while eggs have a maximum stack size of 16.
@@ -18028,6 +18443,9 @@ export class ItemStack {
     readonly maxAmount: number;
     /**
      * @remarks
+     * 该物品堆的给定名称。名称标签会在悬停于物品上时显示。将
+     * 名称标签设置为空字符串或 `undefined` 会移除名称标签。
+     *
      * Given name of this stack of items. The name tag is displayed
      * when hovering over the item. Setting the name tag to an
      * empty string or `undefined` will remove the name tag.
@@ -18040,12 +18458,17 @@ export class ItemStack {
     nameTag?: string;
     /**
      * @remarks
+     * 该物品的类型。
+     *
      * The type of the item.
      *
      */
     readonly 'type': ItemType;
     /**
      * @remarks
+     * 该物品堆的物品类型标识符。若未指定命名空间，则默认使用
+     * 'minecraft:'。例如 'wheat' 或 'apple'。
+     *
      * Identifier of the type of items for the stack. If a
      * namespace is not specified, 'minecraft:' is assumed.
      * Examples include 'wheat' or 'apple'.
@@ -18054,6 +18477,10 @@ export class ItemStack {
     readonly typeId: string;
     /**
      * @remarks
+     * 物品堆中所有物品的总重量，加上由 `Storage Item` 组件定义
+     * 的物品容器内所有物品的重量。每个物品的重量可通过
+     * `Storage Weight Modifier` 组件修改。
+     *
      * The total weight of all items in the stack plus the weight
      * of all items in the items container which is defined with
      * the `Storage Item` component. The weight per item can be
@@ -18063,14 +18490,24 @@ export class ItemStack {
     readonly weight: number;
     /**
      * @remarks
+     * 创建一个可在世界中使用的物品堆新实例。
+     *
      * Creates a new instance of a stack of items for use in the
      * world.
      *
      * @param itemType
+     * 要创建的物品类型。参见 {@link
+     * @minecraft/vanilla-data.MinecraftItemTypes} 枚举以获取
+     * Minecraft 中标准物品类型的列表。
+     *
      * Type of item to create. See the {@link
      * @minecraft/vanilla-data.MinecraftItemTypes} enumeration for
      * a list of standard item types in Minecraft experiences.
      * @param amount
+     * 放入物品堆的物品数量，介于 1-255 之间。提供的值会被限制
+     * 在该物品的最大堆叠数量以内。注意某些物品的物品堆中只能有
+     * 一个物品。
+     *
      * Number of items to place in the stack, between 1-255. The
      * provided value will be clamped to the item's maximum stack
      * size. Note that certain items can only have one item in the
@@ -18084,6 +18521,8 @@ export class ItemStack {
     constructor(itemType: ItemType | string, amount?: number);
     /**
      * @remarks
+     * 清除已在该物品堆上设置的所有动态属性。
+     *
      * Clears all dynamic properties that have been set on this
      * item stack.
      *
@@ -18091,15 +18530,21 @@ export class ItemStack {
     clearDynamicProperties(): void;
     /**
      * @remarks
+     * 创建该物品堆的精确副本，包括任何自定义数据或属性。
+     *
      * Creates an exact copy of the item stack, including any
      * custom data or properties.
      *
      * @returns
+     * 返回该物品堆的一个副本。
+     *
      * Returns a copy of this item stack.
      */
     clone(): ItemStack;
     /**
      * @remarks
+     * 获取该物品在冒险模式下可破坏的方块类型列表。
+     *
      * Get the list of block types this item can break in Adventure
      * mode.
      *
@@ -18109,6 +18554,8 @@ export class ItemStack {
     getCanDestroy(): string[];
     /**
      * @remarks
+     * 获取该物品在冒险模式下可放置于其上的方块类型列表。
+     *
      * Get the list of block types this item can be placed on in
      * Adventure mode.
      *
@@ -18118,16 +18565,25 @@ export class ItemStack {
     getCanPlaceOn(): string[];
     /**
      * @remarks
+     * 获取物品堆的某个组件（表示附加功能）。
+     *
      * Gets a component (that represents additional capabilities)
      * for an item stack.
      *
      * @param componentId
+     * 组件的标识符（例如 'minecraft:food'）。若未指定命名空间
+     * 前缀，则默认使用 'minecraft:'。可用的组件 ID 包括
+     * {@link ItemComponentTypes} 枚举中的组件，以及通过
+     * {@link ItemComponentRegistry} 注册的自定义组件 ID。
+     *
      * The identifier of the component (e.g., 'minecraft:food'). If
      * no namespace prefix is specified, 'minecraft:' is assumed.
      * Available component IDs are those in the {@link
      * ItemComponentTypes} enum and custom component IDs registered
      * with the {@link ItemComponentRegistry}.
      * @returns
+     * 若该组件存在于物品堆上则返回该组件，否则返回 undefined。
+     *
      * Returns the component if it exists on the item stack,
      * otherwise undefined.
      * @seeExample giveHurtDiamondSword.ts
@@ -18135,6 +18591,8 @@ export class ItemStack {
     getComponent<T extends string>(componentId: T): ItemComponentReturnType<T> | undefined;
     /**
      * @remarks
+     * 返回该物品堆上存在的所有脚本组件。
+     *
      * Returns all scripting components that are present on this
      * item stack.
      *
@@ -18142,26 +18600,41 @@ export class ItemStack {
     getComponents(): ItemComponent[];
     /**
      * @remarks
+     * 返回一个属性值。
+     *
      * Returns a property value.
      *
      * @param identifier
+     * 属性标识符。
+     *
      * The property identifier.
      * @returns
+     * 返回该属性的值，若属性尚未设置则返回 undefined。
+     *
      * Returns the value for the property, or undefined if the
      * property has not been set.
      */
     getDynamicProperty(identifier: string): boolean | number | string | Vector3 | undefined;
     /**
      * @remarks
+     * 返回已在该实体上使用的可用动态属性标识符集合。
+     *
      * Returns the available set of dynamic property identifiers
      * that have been used on this entity.
      *
      * @returns
+     * 一个字符串数组，包含该实体上已设置的动态属性。
+     *
      * A string array of the dynamic properties set on this entity.
      */
     getDynamicPropertyIds(): string[];
     /**
      * @remarks
+     * 返回当前为该实体存储的所有动态属性的总大小（以字节为
+     * 单位）。这包括键和值两者的大小。该值可用于诊断性能警告
+     * 迹象——例如，若某个实体关联了数兆字节的动态属性，它在
+     * 各种设备上加载时可能会很慢。
+     *
      * Returns the total size, in bytes, of all the dynamic
      * properties that are currently stored for this entity. This
      * includes the size of both the key and the value.  This can
@@ -18173,37 +18646,54 @@ export class ItemStack {
     getDynamicPropertyTotalByteCount(): number;
     /**
      * @remarks
+     * 返回物品堆的 lore 值——一个次要显示字符串。
+     *
      * Returns the lore value - a secondary display string - for an
      * ItemStack.
      *
      * @returns
+     * lore 行的数组。若该物品没有 lore，则返回空数组。
+     *
      * An array of lore lines. If the item does not have lore,
      * returns an empty array.
      */
     getLore(): string[];
     /**
      * @remarks
+     * 返回物品堆的 lore 值——一个次要显示字符串。字符串类型的
+     * lore 行会被转换为 {@link RawMessage} 并置于 {@link
+     * RawMessage.text} 之下。
+     *
      * Returns the lore value - a secondary display string - for an
      * ItemStack. String lore lines will be converted to a {@link
      * RawMessage} and put under {@link RawMessage.text}.
      *
      * @returns
+     * lore 行的数组。若该物品没有 lore，则返回空数组。
+     *
      * An array of lore lines. If the item does not have lore,
      * returns an empty array.
      */
     getRawLore(): RawMessage[];
     /**
      * @remarks
+     * 返回与该物品堆关联的标签集合。
+     *
      * Returns a set of tags associated with this item stack.
      *
      */
     getTags(): string[];
     /**
      * @remarks
+     * 若指定组件存在于该物品堆上，则返回 true。
+     *
      * Returns true if the specified component is present on this
      * item stack.
      *
      * @param componentId
+     * 要获取的组件的标识符（例如 'minecraft:food'）。若未指定
+     * 命名空间前缀，则默认使用 'minecraft:'。
+     *
      * The identifier of the component (e.g., 'minecraft:food') to
      * retrieve. If no namespace prefix is specified, 'minecraft:'
      * is assumed.
@@ -18211,18 +18701,29 @@ export class ItemStack {
     hasComponent(componentId: string): boolean;
     /**
      * @remarks
+     * 检查该物品堆是否关联了特定标签。
+     *
      * Checks whether this item stack has a particular tag
      * associated with it.
      *
      * @param tag
+     * 要搜索的标签。
+     *
      * Tag to search for.
      * @returns
+     * 若该物品堆关联了此标签则返回 true，否则返回 false。
+     *
      * True if the Item Stack has the tag associated with it, else
      * false.
      */
     hasTag(tag: string): boolean;
     /**
      * @remarks
+     * 返回该物品堆是否可与给定的 `itemStack` 堆叠。这通过比较
+     * 物品类型以及与物品堆关联的任何自定义数据和属性来确定。
+     * 每个物品堆的数量不在考虑范围内，但对于不可堆叠的物品，
+     * 此方法始终返回 false。
+     *
      * Returns whether this item stack can be stacked with the
      * given `itemStack`. This is determined by comparing the item
      * type and any custom data and properties associated with the
@@ -18231,28 +18732,45 @@ export class ItemStack {
      * return false.
      *
      * @param itemStack
+     * 用于检查堆叠兼容性的物品堆。
+     *
      * ItemStack to check stacking compatibility with.
      * @returns
+     * 若该物品堆可与传入的 itemStack 堆叠则返回 true。对于不可
+     * 堆叠的物品返回 false。
+     *
      * True if the Item Stack is stackable with the itemStack
      * passed in. False for non-stackable items.
      */
     isStackableWith(itemStack: ItemStack): boolean;
     /**
      * @remarks
+     * 版本安全的物品匹配检查方式。
+     *
      * Version safe way of checking if an item matches.
      *
      * @param itemName
+     * 物品的标识符。
+     *
      * Identifier of the item.
      * @param states
+     * 仅适用于方块。可选的一组状态用于比较。若未指定 states，
+     * 则匹配将在更宽泛的类型集合上进行检查。
+     *
      *  Applicable only for blocks. An optional set of states to
      * compare against. If states is not specified, matches checks
      * against the set of types more broadly.
      * @returns
+     * 返回一个布尔值，表示指定物品是否匹配。
+     *
      * Returns a boolean whether the specified item matches.
      */
     matches(itemName: string, states?: Record<string, boolean | number | string>): boolean;
     /**
      * @remarks
+     * 该物品在冒险模式下可破坏的方块类型列表。方块名称会显示
+     * 在物品的提示信息中。将值设置为 undefined 会清空该列表。
+     *
      * The list of block types this item can break in Adventure
      * mode. The block names are displayed in the item's tooltip.
      * Setting the value to undefined will clear the list.
@@ -18260,6 +18778,8 @@ export class ItemStack {
      * @worldMutation
      *
      * @param blockIdentifiers
+     * 该物品可破坏的方块类型的字符串列表。
+     *
      * String list of block types that the item can destroy.
      * @throws
      * Throws if any of the provided block identifiers are invalid.
@@ -18268,6 +18788,10 @@ export class ItemStack {
     setCanDestroy(blockIdentifiers?: string[]): void;
     /**
      * @remarks
+     * 该物品在冒险模式下可放置于其上的方块类型列表。这仅适用于
+     * 方块物品。方块名称会显示在物品的提示信息中。将值设置为
+     * undefined 会清空该列表。
+     *
      * The list of block types this item can be placed on in
      * Adventure mode. This is only applicable to block items. The
      * block names are displayed in the item's tooltip. Setting the
@@ -18276,6 +18800,8 @@ export class ItemStack {
      * @worldMutation
      *
      * @param blockIdentifiers
+     * 该物品可放置于其上的方块类型的字符串列表。
+     *
      * String list of block types that the item can be placed on.
      * @throws
      * Throws if any of the provided block identifiers are invalid.
@@ -18284,9 +18810,14 @@ export class ItemStack {
     setCanPlaceOn(blockIdentifiers?: string[]): void;
     /**
      * @remarks
+     * 一次性设置多个动态属性及其对应的值。
+     *
      * Sets multiple dynamic properties with specific values.
      *
      * @param values
+     * 要设置的动态属性的键值对 Record。若数据值为 null，则会
+     * 移除该属性。
+     *
      * A Record of key value pairs of the dynamic properties to
      * set. If the data value is null, it will remove that property
      * instead.
@@ -18299,12 +18830,19 @@ export class ItemStack {
     setDynamicProperties(values: Record<string, boolean | number | string | Vector3 | undefined>): void;
     /**
      * @remarks
+     * 将指定属性设置为某个值。注意：此函数仅对不可堆叠的物品
+     * 有效。
+     *
      * Sets a specified property to a value. Note: This function
      * only works with non-stackable items.
      *
      * @param identifier
+     * 属性标识符。
+     *
      * The property identifier.
      * @param value
+     * 要设置的属性的数据值。若值为 null，则会移除该属性。
+     *
      * Data value of the property to set. If the value is null, it
      * will remove the property instead.
      * @throws
@@ -18317,6 +18855,9 @@ export class ItemStack {
     setDynamicProperty(identifier: string, value?: boolean | number | string | Vector3): void;
     /**
      * @remarks
+     * 设置物品堆的 lore 值——一个次要显示字符串。若设置为空
+     * 字符串或 undefined，则会清空 lore 列表。
+     *
      * Sets the lore value - a secondary display string - for an
      * ItemStack. The lore list is cleared if set to an empty
      * string or undefined.
@@ -18324,6 +18865,9 @@ export class ItemStack {
      * @worldMutation
      *
      * @param loreList
+     * lore 行的列表。列表中每个元素代表新的一行。lore 行的最大
+     * 数量为 20。lore 行的最大长度为 50 个字符。
+     *
      * List of lore lines. Each element in the list represents a
      * new line. The maximum lore line count is 20. The maximum
      * lore line length is 50 characters.
@@ -18338,6 +18882,8 @@ export class ItemStack {
 }
 
 /**
+ * 包含与可蓄力物品开始蓄力相关的信息。
+ *
  * Contains information related to a chargeable item starting
  * to be charged.
  */
@@ -18345,18 +18891,24 @@ export class ItemStartUseAfterEvent {
     private constructor();
     /**
      * @remarks
+     * 正在开始蓄力的受影响的物品堆。
+     *
      * The impacted item stack that is starting to be charged.
      *
      */
     readonly itemStack: ItemStack;
     /**
      * @remarks
+     * 返回触发此物品事件的源实体。
+     *
      * Returns the source entity that triggered this item event.
      *
      */
     readonly source: Player;
     /**
      * @remarks
+     * 返回距蓄力完成周期还剩余的时长（以刻为单位）。
+     *
      * Returns the time, in ticks, for the remaining duration left
      * before the charge completes its cycle.
      *
@@ -18365,6 +18917,8 @@ export class ItemStartUseAfterEvent {
 }
 
 /**
+ * 管理与可蓄力物品开始蓄力事件相关联的回调。
+ *
  * Manages callbacks that are connected to the start of
  * charging for a chargeable item.
  */
@@ -18372,6 +18926,8 @@ export class ItemStartUseAfterEventSignal {
     private constructor();
     /**
      * @remarks
+     * 添加一个回调，当可蓄力物品开始蓄力时将被调用。
+     *
      * Adds a callback that will be called when a chargeable item
      * starts charging.
      *
@@ -18383,6 +18939,8 @@ export class ItemStartUseAfterEventSignal {
     subscribe(callback: (arg0: ItemStartUseAfterEvent) => void): (arg0: ItemStartUseAfterEvent) => void;
     /**
      * @remarks
+     * 移除一个回调，使可蓄力物品开始蓄力时不再被调用。
+     *
      * Removes a callback from being called when a chargeable item
      * starts charging.
      *
@@ -18395,6 +18953,8 @@ export class ItemStartUseAfterEventSignal {
 }
 
 /**
+ * 包含有关在方块上使用物品的信息。玩家按下“使用物品/放置方块”按钮并成功使用物品或放置方块时触发此事件。在执行建造操作时，仅对交互的第一个方块触发。注意：此事件不能与锄头或斧头物品一起使用。
+ *
  * Contains information related to an item being used on a
  * block. This event fires when a player presses the the Use
  * Item / Place Block button to successfully use an item or
@@ -18406,18 +18966,24 @@ export class ItemStartUseOnAfterEvent {
     private constructor();
     /**
      * @remarks
+     * 使用物品的方块。
+     *
      * The block that the item is used on.
      *
      */
     readonly block: Block;
     /**
      * @remarks
+     * 正在使用物品的方块面。
+     *
      * The face of the block that an item is being used on.
      *
      */
     readonly blockFace: Direction;
     /**
      * @remarks
+     * 开始使用的受影响物品堆。在某些游戏场景中可能为 `undefined`，例如空手按下按钮时。
+     *
      * The impacted item stack that is starting to be used. Can be
      * undefined in some gameplay scenarios like pushing a button
      * with an empty hand.
@@ -18426,6 +18992,8 @@ export class ItemStartUseOnAfterEvent {
     readonly itemStack?: ItemStack;
     /**
      * @remarks
+     * 返回触发此物品事件的来源实体。
+     *
      * Returns the source entity that triggered this item event.
      *
      */
@@ -18433,6 +19001,8 @@ export class ItemStartUseOnAfterEvent {
 }
 
 /**
+ * 管理与物品开始被用于方块事件相关联的回调。
+ *
  * Manages callbacks that are connected to an item starting
  * being used on a block event.
  */
@@ -18440,6 +19010,8 @@ export class ItemStartUseOnAfterEventSignal {
     private constructor();
     /**
      * @remarks
+     * 添加一个回调，当物品被用于方块时将被调用。
+     *
      * Adds a callback that will be called when an item is used on
      * a block.
      *
@@ -18451,6 +19023,8 @@ export class ItemStartUseOnAfterEventSignal {
     subscribe(callback: (arg0: ItemStartUseOnAfterEvent) => void): (arg0: ItemStartUseOnAfterEvent) => void;
     /**
      * @remarks
+     * 移除一个回调，使物品被用于方块时不再被调用。
+     *
      * Removes a callback from being called when an item is used on
      * a block.
      *
@@ -18463,6 +19037,8 @@ export class ItemStartUseOnAfterEventSignal {
 }
 
 /**
+ * 包含与可蓄力物品结束使用周期、或玩家释放该物品的使用动作相关的信息。
+ *
  * Contains information related to a chargeable item has
  * finished an items use cycle, or when the player has released
  * the use action with the item.
@@ -18471,6 +19047,10 @@ export class ItemStopUseAfterEvent {
     private constructor();
     /**
      * @remarks
+     * 正在停止蓄力的受影响的物品堆。
+     * 当传送到不同维度时 ItemStopUseAfterEvent 也可能被触发，
+     * 此时该值可能为 undefined。
+     *
      * The impacted item stack that is stopping being charged.
      * ItemStopUseAfterEvent can be called when teleporting to a
      * different dimension and this can be undefined.
@@ -18479,12 +19059,16 @@ export class ItemStopUseAfterEvent {
     readonly itemStack?: ItemStack;
     /**
      * @remarks
+     * 返回触发此物品事件的源实体。
+     *
      * Returns the source entity that triggered this item event.
      *
      */
     readonly source: Player;
     /**
      * @remarks
+     * 返回距蓄力完成周期还剩余的时长（以刻为单位）。
+     *
      * Returns the time, in ticks, for the remaining duration left
      * before the charge completes its cycle.
      *
@@ -18493,6 +19077,8 @@ export class ItemStopUseAfterEvent {
 }
 
 /**
+ * 管理与带有已注册的 minecraft:chargeable 组件的物品停止蓄力事件相关联的回调。
+ *
  * Manages callbacks that are connected to the stopping of
  * charging for an item that has a registered
  * minecraft:chargeable component.
@@ -18501,6 +19087,8 @@ export class ItemStopUseAfterEventSignal {
     private constructor();
     /**
      * @remarks
+     * 添加一个回调，当可蓄力物品停止蓄力时将被调用。
+     *
      * Adds a callback that will be called when a chargeable item
      * stops charging.
      *
@@ -18512,6 +19100,8 @@ export class ItemStopUseAfterEventSignal {
     subscribe(callback: (arg0: ItemStopUseAfterEvent) => void): (arg0: ItemStopUseAfterEvent) => void;
     /**
      * @remarks
+     * 移除一个回调，使可蓄力物品停止蓄力时不再被调用。
+     *
      * Removes a callback from being called when a chargeable item
      * stops charging.
      *
@@ -18524,6 +19114,11 @@ export class ItemStopUseAfterEventSignal {
 }
 
 /**
+ * 包含与已停止对某方块使用的物品相关的信息。当玩家按
+ * 下「使用物品/放置方块」按钮成功使用物品或放置方块时，
+ * 会触发此事件。如果放置了多个方块，则此事件仅在放置
+ * 开始的瞬间触发一次。注意：此事件不能与锄或斧物品一起使用。
+ *
  * Contains information related to an item that has stopped
  * being used on a block. This event fires when a player
  * successfully uses an item or places a block by pressing the
@@ -18536,18 +19131,24 @@ export class ItemStopUseOnAfterEvent {
     private constructor();
     /**
      * @remarks
+     * 物品所作用的目标方块。
+     *
      * The block that the item is used on.
      *
      */
     readonly block: Block;
     /**
      * @remarks
+     * 正在作用于方块的受影响的物品堆。
+     *
      * The impacted item stack that is being used on a block.
      *
      */
     readonly itemStack?: ItemStack;
     /**
      * @remarks
+     * 返回触发此物品事件的源实体。
+     *
      * Returns the source entity that triggered this item event.
      *
      */
@@ -18555,6 +19156,8 @@ export class ItemStopUseOnAfterEvent {
 }
 
 /**
+ * 管理与物品停止对方块使用事件相关联的回调。
+ *
  * Manages callbacks that are connected to an item stops used
  * on a block event.
  */
@@ -18562,6 +19165,8 @@ export class ItemStopUseOnAfterEventSignal {
     private constructor();
     /**
      * @remarks
+     * 添加一个回调，当物品停止对某方块使用时将被调用。
+     *
      * Adds a callback that will be called when an item stops being
      * used on a block.
      *
@@ -18573,6 +19178,8 @@ export class ItemStopUseOnAfterEventSignal {
     subscribe(callback: (arg0: ItemStopUseOnAfterEvent) => void): (arg0: ItemStopUseOnAfterEvent) => void;
     /**
      * @remarks
+     * 移除一个回调，使物品被用于方块时不再被调用。
+     *
      * Removes a callback from being called when an item is used on
      * a block.
      *
@@ -18585,12 +19192,16 @@ export class ItemStopUseOnAfterEventSignal {
 }
 
 /**
+ * 表示物品的类型，例如 Wool。
+ *
  * Represents the type of an item - for example, Wool.
  */
 export class ItemType {
     private constructor();
     /**
      * @remarks
+     * 返回该物品类型的标识符，例如 'minecraft:apple'。
+     *
      * Returns the identifier of the item type - for example,
      * 'minecraft:apple'.
      *
@@ -18598,6 +19209,8 @@ export class ItemType {
     readonly id: string;
     /**
      * @remarks
+     * 用于 .lang 文件中对该 ItemType 名称进行本地化的键。
+     *
      * Key for the localization of this ItemType's name used in
      * .lang files.
      *
@@ -18606,18 +19219,24 @@ export class ItemType {
 }
 
 /**
+ * 返回在 Minecraft 中注册的物品类型集合。
+ *
  * Returns the set of item types registered within Minecraft.
  */
 export class ItemTypes {
     private constructor();
     /**
      * @remarks
+     * 若 Minecraft 中存在相应物品类型，则返回该物品类型。
+     *
      * Returns a specific item type, if available within Minecraft.
      *
      */
     static get(itemId: string): ItemType | undefined;
     /**
      * @remarks
+     * 获取 Minecraft 中注册的所有可用物品类型。
+     *
      * Retrieves all available item types registered within
      * Minecraft.
      *
@@ -18626,6 +19245,8 @@ export class ItemTypes {
 }
 
 /**
+ * 包含与物品被用于方块相关的信息。该事件在玩家使用的物品成功触发实体交互时触发。
+ *
  * Contains information related to an item being used on a
  * block. This event fires when an item used by a player
  * successfully triggers an entity interaction.
@@ -18634,12 +19255,16 @@ export class ItemUseAfterEvent {
     private constructor();
     /**
      * @remarks
+     * 被使用的受影响物品堆。
+     *
      * The impacted item stack that is being used.
      *
      */
     itemStack: ItemStack;
     /**
      * @remarks
+     * 返回触发该物品事件的源实体。
+     *
      * Returns the source entity that triggered this item event.
      *
      */
@@ -18647,12 +19272,16 @@ export class ItemUseAfterEvent {
 }
 
 /**
+ * 管理与物品使用事件相关联的回调。
+ *
  * Manages callbacks that are connected to an item use event.
  */
 export class ItemUseAfterEventSignal {
     private constructor();
     /**
      * @remarks
+     * 添加一个回调，当物品被使用时将被调用。
+     *
      * Adds a callback that will be called when an item is used.
      *
      * @worldMutation
@@ -18663,6 +19292,8 @@ export class ItemUseAfterEventSignal {
     subscribe(callback: (arg0: ItemUseAfterEvent) => void): (arg0: ItemUseAfterEvent) => void;
     /**
      * @remarks
+     * 移除一个回调，使物品被使用时不再被调用。
+     *
      * Removes a callback from being called when an item is used.
      *
      * @worldMutation
@@ -18674,6 +19305,8 @@ export class ItemUseAfterEventSignal {
 }
 
 /**
+ * 包含与某次物品使用相关的信息。
+ *
  * Contains information related to an item being used.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
@@ -18681,6 +19314,8 @@ export class ItemUseBeforeEvent extends ItemUseAfterEvent {
     private constructor();
     /**
      * @remarks
+     * 若设置为 true，则会取消该物品的使用行为。
+     *
      * If set to true, this will cancel the item use behavior.
      *
      */
@@ -18688,12 +19323,16 @@ export class ItemUseBeforeEvent extends ItemUseAfterEvent {
 }
 
 /**
+ * 管理物品使用前触发的回调。
+ *
  * Manages callbacks that fire before an item is used.
  */
 export class ItemUseBeforeEventSignal {
     private constructor();
     /**
      * @remarks
+     * 添加一个回调，在物品被使用之前将被调用。
+     *
      * Adds a callback that will be called before an item is used.
      *
      * @worldMutation
@@ -18708,6 +19347,8 @@ export class ItemUseBeforeEventSignal {
     subscribe(callback: (arg0: ItemUseBeforeEvent) => void): (arg0: ItemUseBeforeEvent) => void;
     /**
      * @remarks
+     * 移除一个回调，使物品被使用之前不再被调用。
+     *
      * Removes a callback from being called before an item is used.
      *
      * @worldMutation
@@ -18721,6 +19362,8 @@ export class ItemUseBeforeEventSignal {
 }
 
 /**
+ * 包含有关在方块上使用物品的信息。
+ *
  * Contains information regarding the use of an item on a
  * block.
  */
@@ -18728,18 +19371,24 @@ export class ItemUseOnEvent {
     private constructor();
     /**
      * @remarks
+     * 此事件影响的方块。
+     *
      * The block impacted by this event.
      *
      */
     readonly block: Block;
     /**
      * @remarks
+     * 使用物品所在的方块面。
+     *
      * The face of the block that the item was used on.
      *
      */
     readonly blockFace: Direction;
     /**
      * @remarks
+     * 相对于使用物品的方块西北底角的位置。
+     *
      * Location relative to the bottom north-west corner of the
      * block that the item was used on.
      *
@@ -18747,6 +19396,8 @@ export class ItemUseOnEvent {
     readonly faceLocation: Vector3;
     /**
      * @remarks
+     * 在方块上使用的物品堆。
+     *
      * The item stack used on the block.
      *
      */
@@ -19338,6 +19989,8 @@ export class LootTableEntry extends LootPoolEntry {
 }
 
 /**
+ * 战利品表相关 API 的管理器。可根据方块和实体的战利品表生成掉落物。
+ *
  * Manager for Loot Table related APIs. Allows for generation
  * of drops from blocks and entities according to their loot
  * tables.
@@ -19346,17 +19999,27 @@ export class LootTableManager {
     private constructor();
     /**
      * @remarks
+     * 模拟挖掘行为，根据给定的方块生成战利品。
+     *
      * Generates loot from a given block as if it had been mined.
      *
      * @param block
+     * 要生成战利品的方块。
+     *
      * The block to generate loot from.
      * @param tool
+     * 可选。用于挖掘的工具。
+     *
      * Optional. The tool to use in the looting operation.
      * @returns
+     * 战利品掉落事件中掉落的物品堆数组。若没有掉落物则为空数组；若所提供的工具不足以挖掘该方块，则返回 undefined。
+     *
      * An array of item stacks dropped from the loot drop event.
      * Can be empty if no loot dropped, or undefined if the
      * provided tool is insufficient to mine the block.
      * @throws
+     * 当方块位于未加载的区块中，或方块位置超出世界边界时抛出。
+     *
      * Throws if the block is in an unloaded chunk, or if the
      * block's position is outside of world bounds.
      *
@@ -19369,12 +20032,18 @@ export class LootTableManager {
     generateLootFromBlock(block: Block, tool?: ItemStack): ItemStack[] | undefined;
     /**
      * @remarks
+     * 模拟挖掘行为，根据给定的方块状态（BlockPermutation）生成战利品。
+     *
      * Generates loot from a given block permutation as if it had
      * been mined.
      *
      * @param tool
+     * 可选。用于挖掘的工具。
+     *
      * Optional. The tool to use in the looting operation.
      * @returns
+     * 战利品掉落事件中掉落的物品堆数组。若没有掉落物则为空数组；若所提供的工具不足以挖掘该方块，则返回 undefined。
+     *
      * An array of item stacks dropped from the loot drop event.
      * Can be empty if no loot dropped, or undefined if the
      * provided tool is insufficient to mine the block.
@@ -19382,12 +20051,18 @@ export class LootTableManager {
     generateLootFromBlockPermutation(blockPermutation: BlockPermutation, tool?: ItemStack): ItemStack[] | undefined;
     /**
      * @remarks
+     * 模拟挖掘行为，根据给定的方块类型生成战利品。
+     *
      * Generates loot from a given block type as if it had been
      * mined.
      *
      * @param tool
+     * 可选。用于挖掘的工具。
+     *
      * Optional. The tool to use in the looting operation.
      * @returns
+     * 战利品掉落事件中掉落的物品堆数组。若没有掉落物则为空数组；若所提供的工具不足以挖掘该方块，则返回 undefined。
+     *
      * An array of item stacks dropped from the loot drop event.
      * Can be empty if no loot dropped, or undefined if the
      * provided tool is insufficient to mine the block.
@@ -19395,11 +20070,17 @@ export class LootTableManager {
     generateLootFromBlockType(scriptBlockType: BlockType, tool?: ItemStack): ItemStack[] | undefined;
     /**
      * @remarks
+     * 模拟击杀行为，根据给定的实体生成战利品。
+     *
      * Generates loot from given a entity as if it had been killed.
      *
      * @param tool
+     * 可选。用于击杀的工具。
+     *
      * Optional. The tool to use in the looting operation.
      * @returns
+     * 战利品掉落事件中掉落的物品堆数组。若没有掉落物则为空数组；若实体无效则返回 undefined。
+     *
      * An array of item stacks dropped from the loot drop event.
      * Can be empty if no loot dropped, or undefined if the entity
      * was invalid.
@@ -19410,23 +20091,35 @@ export class LootTableManager {
     generateLootFromEntity(entity: Entity, tool?: ItemStack): ItemStack[] | undefined;
     /**
      * @remarks
+     * 模拟击杀行为，根据给定的实体类型生成战利品。
+     *
      * Generates loot from given a entity type as if it had been
      * killed.
      *
      * @param tool
+     * 可选。用于击杀的工具。
+     *
      * Optional. The tool to use in the looting operation.
      * @returns
+     * 战利品掉落事件中掉落的物品堆数组。若没有掉落物则为空数组。
+     *
      * An array of item stacks dropped from the loot drop event.
      * Can be empty if no loot dropped.
      */
     generateLootFromEntityType(entityType: EntityType, tool?: ItemStack): ItemStack[] | undefined;
     /**
      * @remarks
+     * 根据给定的战利品表（LootTable）生成战利品。
+     *
      * Generates loot from a given LootTable.
      *
      * @param tool
+     * 可选。用于挖掘的工具。
+     *
      * Optional. The tool to use in the looting operation.
      * @returns
+     * 战利品掉落事件中掉落的物品堆数组。若没有掉落物则为空数组；若所提供的工具不足以挖掘该方块，则返回 undefined。
+     *
      * An array of item stacks dropped from the loot drop event.
      * Can be empty if no loot dropped, or undefined if the
      * provided tool is insufficient to mine the block.
@@ -19434,14 +20127,20 @@ export class LootTableManager {
     generateLootFromTable(lootTable: LootTable, tool?: ItemStack): ItemStack[] | undefined;
     /**
      * @remarks
+     * 从当前关卡的注册表中获取单个战利品表。
+     *
      * Retrieves a single loot table from the level's current
      * registry.
      *
      * @param path
+     * 要获取的战利品表路径。不含文件扩展名，也不含 `loot_tables/` 前缀。例如：`entities/creeper`。
+     *
      * Path to the table to retrieve. Does not include file
      * extension, or 'loot_tables/' folder prefix. Example:
      * `entities/creeper`.
      * @returns
+     * 若找到对应的战利品表则返回该 LootTable，若所提供的路径不存在对应战利品表则返回 `undefined`。
+     *
      * Returns a LootTable if one is found, or `undefined` if the
      * provided path does not correspond to an existing loot table.
      */
@@ -26219,6 +26918,8 @@ export class World {
     private constructor();
     /**
      * @remarks
+     * 包含适用于整个世界的一组事件。事件回调以延迟方式调用，且以读写模式执行。
+     *
      * Contains a set of events that are applicable to the entirety
      * of the world.  Event callbacks are called in a deferred
      * manner. Event callbacks are executed in read-write mode.
@@ -26230,6 +26931,8 @@ export class World {
     /**
      * @beta
      * @remarks
+     * 启用或禁用作弊功能。
+     *
      * Enables or disables cheats.
      *
      * @worldMutation
@@ -26238,6 +26941,8 @@ export class World {
     allowCheats: boolean;
     /**
      * @remarks
+     * 包含适用于整个世界的一组事件。事件回调以立即方式调用，且以只读模式执行。
+     *
      * Contains a set of events that are applicable to the entirety
      * of the world. Event callbacks are called immediately. Event
      * callbacks are executed in read-only mode.
@@ -26249,6 +26954,8 @@ export class World {
     readonly beforeEvents: WorldBeforeEvents;
     /**
      * @remarks
+     * 适用于该世界的游戏规则。
+     *
      * The game rules that apply to the world.
      *
      */
@@ -26256,6 +26963,8 @@ export class World {
     readonly isHardcore: boolean;
     /**
      * @remarks
+     * 用于在世界中添加和移除原始文本对象的管理器。
+     *
      * Manager for adding and removing primitive text objects in
      * the world.
      *
@@ -26272,6 +26981,8 @@ export class World {
     readonly scoreboard: Scoreboard;
     /**
      * @remarks
+     * 世界的种子。
+     *
      * The world seed.
      *
      */
@@ -26279,6 +26990,8 @@ export class World {
     /**
      * @beta
      * @remarks
+     * 提供对当前世界已加载的声音定义的只读访问。
+     *
      * Provides read-only access to the sound definitions loaded
      * for this world.
      *
@@ -26286,12 +26999,16 @@ export class World {
     readonly soundDefinitionRegistry: SoundDefinitionRegistry;
     /**
      * @remarks
+     * 返回与 {@link Structure} 相关 API 的管理器。
+     *
      * Returns the manager for {@link Structure} related APIs.
      *
      */
     readonly structureManager: StructureManager;
     /**
      * @remarks
+     * 用于添加、移除和查询资源包专用的常加载区域的管理器。
+     *
      * Manager for adding, removing and querying pack specific
      * ticking areas.
      *
@@ -26300,19 +27017,27 @@ export class World {
     /**
      * @beta
      * @remarks
+     * 一个仅供内部使用的方法，用于在客户端与服务端之间广播特定消息。
+     *
      * A method that is internal-only, used for broadcasting
      * specific messages between client and server.
      *
      * @worldMutation
      *
      * @param id
+     * 消息的标识符。
+     *
      * The message identifier.
      * @param value
+     * 消息内容。
+     *
      * The message.
      */
     broadcastClientMessage(id: string, value: string): void;
     /**
      * @remarks
+     * 清除该行为包在世界中所声明的一组动态属性。
+     *
      * Clears the set of dynamic properties declared for this
      * behavior pack within the world.
      *
@@ -26330,6 +27055,8 @@ export class World {
     getAbsoluteTime(): number;
     /**
      * @remarks
+     * 该世界中可用的瞄准辅助预设与类别。
+     *
      * The aim-assist presets and categories that can be used in
      * the world.
      *
@@ -26350,18 +27077,26 @@ export class World {
     getAllPlayers(): Player[];
     /**
      * @remarks
+     * 返回当前天数。
+     *
      * Returns the current day.
      *
      * @returns
+     * 当前天数，由世界时间除以每天的刻数得出。新世界的天数为 0。
+     *
      * The current day, determined by the world time divided by the
      * number of ticks per day. New worlds start at day 0.
      */
     getDay(): number;
     /**
      * @remarks
+     * 返回主世界默认的出生点位置。
+     *
      * Returns the default Overworld spawn location.
      *
      * @returns
+     * 主世界默认的出生点位置。默认情况下 Y 坐标为 32767，表示玩家出生高度不固定，将由周围方块决定。
+     *
      * The default Overworld spawn location. By default, the Y
      * coordinate is 32767, indicating a player's spawn height is
      * not fixed and will be determined by surrounding blocks.
@@ -26369,9 +27104,13 @@ export class World {
     getDefaultSpawnLocation(): Vector3;
     /**
      * @remarks
+     * 从世界中获取难度。
+     *
      * Gets the difficulty from the world.
      *
      * @returns
+     * 返回世界难度。
+     *
      * Returns the world difficulty.
      */
     getDifficulty(): Difficulty;
@@ -26422,15 +27161,21 @@ export class World {
     getDynamicProperty(identifier: string): boolean | number | string | Vector3 | undefined;
     /**
      * @remarks
+     * 获取在世界中已设置的动态属性标识符集合。
+     *
      * Gets a set of dynamic property identifiers that have been
      * set in this world.
      *
      * @returns
+     * 处于活跃状态的动态属性标识符的字符串数组。
+     *
      * A string array of active dynamic property identifiers.
      */
     getDynamicPropertyIds(): string[];
     /**
      * @remarks
+     * 获取动态属性的总字节数。可用于自行分析，确保不会存储过大的动态属性集合。
+     *
      * Gets the total byte count of dynamic properties. This could
      * potentially be used for your own analytics to ensure you're
      * not storing gigantic sets of dynamic properties.
@@ -26439,34 +27184,50 @@ export class World {
     getDynamicPropertyTotalByteCount(): number;
     /**
      * @remarks
+     * 根据提供的 id 获取实体。
+     *
      * Returns an entity based on the provided id.
      *
      * @param id
+     * 实体的 id。
+     *
      * The id of the entity.
      * @returns
+     * 所请求的实体对象。
+     *
      * The requested entity object.
      * @throws
+     * 若提供的实体 id 无效，则抛出错误。
+     *
      * Throws if the given entity id is invalid.
      */
     getEntity(id: string): Entity | undefined;
     /**
      * @remarks
+     * 返回一个可从各种来源生成战利品的管理器。
+     *
      * Returns a manager capable of generating loot from an
      * assortment of sources.
      *
      * @returns
+     * 一个包含多种战利品生成方法的战利品表管理器。
+     *
      * A loot table manager with a variety of loot generation
      * methods.
      */
     getLootTableManager(): LootTableManager;
     /**
      * @remarks
+     * 返回当前时间的月相（MoonPhase）。
+     *
      * Returns the MoonPhase for the current time.
      *
      */
     getMoonPhase(): MoonPhase;
     /**
      * @remarks
+     * 返回由资源包设置项的名称和值构成的映射。
+     *
      * Returns a map of pack setting name and value pairs.
      *
      * @earlyExecution
@@ -26575,24 +27336,34 @@ export class World {
     sendMessage(message: (RawMessage | string)[] | RawMessage | string): void;
     /**
      * @remarks
+     * 设置世界时间。
+     *
      * Sets the world time.
      *
      * @worldMutation
      *
      * @param absoluteTime
+     * 世界时间，以刻为单位。
+     *
      * The world time, in ticks.
      */
     setAbsoluteTime(absoluteTime: number): void;
     /**
      * @remarks
+     * 为所有玩家设置一个默认出生点位置。
+     *
      * Sets a default spawn location for all players.
      *
      * @worldMutation
      *
      * @param spawnLocation
+     * 出生点的位置。注意假定其位于主世界（overworld）中。
+     *
      * Location of the spawn point. Note that this is assumed to be
      * within the overworld dimension.
      * @throws
+     * 若提供的出生点位置超出世界边界，则抛出错误。
+     *
      * Throws if the provided spawn location is out of bounds.
      *
      * {@link Error}
@@ -26602,19 +27373,27 @@ export class World {
     setDefaultSpawnLocation(spawnLocation: Vector3): void;
     /**
      * @remarks
+     * 设置世界难度。
+     *
      * Sets the worlds difficulty.
      *
      * @worldMutation
      *
      * @param difficulty
+     * 想要设置的世界难度。
+     *
      * The difficulty we want to set the world to.
      */
     setDifficulty(difficulty: Difficulty): void;
     /**
      * @remarks
+     * 同时设置多个动态属性为指定值。
+     *
      * Sets multiple dynamic properties with specific values.
      *
      * @param values
+     * 由键值对组成的记录，每个条目对应一个动态属性。若数据值为 null，则会移除该属性。
+     *
      * A Record of key value pairs of the dynamic properties to
      * set. If the data value is null, it will remove that property
      * instead.
@@ -26655,13 +27434,19 @@ export class World {
     setDynamicProperty(identifier: string, value?: boolean | number | string | Vector3): void;
     /**
      * @remarks
+     * 设置一天内的时间。
+     *
      * Sets the time of day.
      *
      * @worldMutation
      *
      * @param timeOfDay
+     * 一天内的时间，以刻为单位，介于 0 至 24000 之间。
+     *
      * The time of day, in ticks, between 0 and 24000.
      * @throws
+     * 若提供的一天内的时间不在有效范围内，则抛出错误。
+     *
      * Throws if the provided time of day is not within the valid
      * range.
      */
@@ -26669,7 +27454,7 @@ export class World {
     /**
      * @remarks
      * 停止客户端中正在播放的所有音乐曲目（需要更多测试）。
-     * 
+     *
      * Stops any music tracks from playing.
      *
      * @worldMutation
@@ -27369,6 +28154,8 @@ export class WorldBeforeEvents {
     /**
      * @beta
      * @remarks
+     * 此事件在聊天消息被广播或发送给玩家之后触发。
+     *
      * This event is triggered after a chat message has been
      * broadcast or sent to players.
      *
@@ -27379,6 +28166,8 @@ export class WorldBeforeEvents {
     readonly chatSend: ChatSendBeforeEventSignal;
     /**
      * @remarks
+     * 此事件在某个效果被添加到实体之后触发。
+     *
      * This event is triggered after an event has been added to an
      * entity.
      *
@@ -27400,6 +28189,8 @@ export class WorldBeforeEvents {
     readonly entityHurt: EntityHurtBeforeEventSignal;
     /**
      * @remarks
+     * 此事件在实体被拾取物品之前触发。
+     *
      * This event fires before an entity picks up an item.
      *
      * @earlyExecution
@@ -27408,6 +28199,9 @@ export class WorldBeforeEvents {
     readonly entityItemPickup: EntityItemPickupBeforeEventSignal;
     /**
      * @remarks
+     * 在实体从世界中被移除之前触发（例如，被卸载或在被杀死后被
+     * 移除）。
+     *
      * Fires before an entity is removed from the world (for
      * example, unloaded or removed after being killed.)
      *
@@ -27418,6 +28212,8 @@ export class WorldBeforeEvents {
     /**
      * @beta
      * @remarks
+     * 在实体被驯服之前触发。
+     *
      * Fires before an entity is tamed.
      *
      * @earlyExecution
@@ -27426,6 +28222,8 @@ export class WorldBeforeEvents {
     readonly entityTamed: EntityTamedBeforeEventSignal;
     /**
      * @remarks
+     * 此事件在爆炸发生之后触发。
+     *
      * This event is fired after an explosion occurs.
      *
      * @earlyExecution
@@ -27434,6 +28232,8 @@ export class WorldBeforeEvents {
     readonly explosion: ExplosionBeforeEventSignal;
     /**
      * @remarks
+     * 此事件在物品被玩家成功使用时触发。
+     *
      * This event fires when an item is successfully used by a
      * player.
      *
@@ -27443,6 +28243,8 @@ export class WorldBeforeEvents {
     readonly itemUse: ItemUseBeforeEventSignal;
     /**
      * @remarks
+     * 此事件在方块被玩家破坏之前触发。
+     *
      * This event fires before a block is broken by a player.
      *
      * @earlyExecution
@@ -27457,6 +28259,8 @@ export class WorldBeforeEvents {
     readonly playerGameModeChange: PlayerGameModeChangeBeforeEventSignal;
     /**
      * @remarks
+     * 在玩家与方块交互之前触发。
+     *
      * Fires before a player interacts with a block.
      *
      * @earlyExecution
@@ -27465,6 +28269,8 @@ export class WorldBeforeEvents {
     readonly playerInteractWithBlock: PlayerInteractWithBlockBeforeEventSignal;
     /**
      * @remarks
+     * 在玩家与实体交互之前触发。
+     *
      * Fires before a player interacts with an entity.
      *
      * @earlyExecution
@@ -27473,6 +28279,8 @@ export class WorldBeforeEvents {
     readonly playerInteractWithEntity: PlayerInteractWithEntityBeforeEventSignal;
     /**
      * @remarks
+     * 在玩家离开游戏时触发。
+     *
      * Fires when a player leaves the game.
      *
      * @earlyExecution
@@ -27482,6 +28290,8 @@ export class WorldBeforeEvents {
     /**
      * @beta
      * @remarks
+     * 此事件在方块被玩家放置之前触发。
+     *
      * This event fires before a block is placed by a player.
      *
      * @earlyExecution
@@ -31462,6 +32272,8 @@ export class EntitySpawnError extends Error {
 
 /**
  * @beta
+ * 当超出雾效栈上限或提供了无效的雾效标识符时，由 {@link FogSettings} 操作抛出的错误。
+ *
  * Error thrown by {@link FogSettings} operations when the fog
  * stack limit is exceeded or an invalid fog identifier is
  * provided.
@@ -31472,6 +32284,8 @@ export class FogSettingsError extends Error {
 }
 
 /**
+ * 当方块无效时会抛出此错误。在访问不具备相应组件的方块上的组件时，也会抛出此错误。
+ *
  * The error can occur when a block is invalid. This can also
  * occur when accessing components on a block that doesn't have
  * them.
@@ -31482,6 +32296,8 @@ export class InvalidBlockComponentError extends Error {
 }
 
 /**
+ * 容器无效。当容器缺失或被删除时会抛出此错误。
+ *
  * The container is invalid. This can occur if the container is
  * missing or deleted.
  */
@@ -31491,6 +32307,8 @@ export class InvalidContainerError extends Error {
 }
 
 /**
+ * 容器槽位无效。当所属容器被销毁或卸载时会抛出此错误。
+ *
  * The container slot is invalid. This can occur when the
  * owning container is destroyed or unloaded.
  */
@@ -31500,6 +32318,8 @@ export class InvalidContainerSlotError extends Error {
 }
 
 /**
+ * 在访问不具备相应组件的实体上的组件时会抛出此错误。
+ *
  * This error can occur when accessing components on an entity
  * that doesn't have them.
  */
@@ -31509,6 +32329,8 @@ export class InvalidEntityComponentError extends Error {
 }
 
 /**
+ * 当实体无效时抛出的错误。可能发生在访问已移除实体的组件时。
+ *
  * The error called when an entity is invalid. This can occur
  * when accessing components on a removed entity.
  */
@@ -31517,6 +32339,8 @@ export class InvalidEntityError extends Error {
     private constructor();
     /**
      * @remarks
+     * 当前无效实体的 id。
+     *
      * The id of the entity that is now invalid.
      *
      * @earlyExecution
@@ -31525,6 +32349,8 @@ export class InvalidEntityError extends Error {
     readonly id: string;
     /**
      * @remarks
+     * 当前无效实体的类型。
+     *
      * The type of the entity that is now invalid.
      *
      * @earlyExecution
@@ -31534,6 +32360,8 @@ export class InvalidEntityError extends Error {
 }
 
 /**
+ * 当某个物品无效时抛出的错误。例如访问已移除物品的组件时可能会发生此错误。
+ *
  * The error called when an item is invalid. This can occur
  * when accessing components on a removed item.
  */
@@ -31542,6 +32370,8 @@ export class InvalidItemStackError extends Error {
     private constructor();
     /**
      * @remarks
+     * 该物品现已无效时的物品类型。
+     *
      * The type of the item that is now invalid.
      *
      * @earlyExecution
@@ -31566,6 +32396,8 @@ export class InvalidPotionEffectTypeError extends Error {
 }
 
 /**
+ * 当结构无效时抛出。结构在被删除后将变为无效。
+ *
  * Thrown when a Structure is invalid. A structure becomes
  * invalid when it is deleted.
  */
@@ -31575,6 +32407,8 @@ export class InvalidStructureError extends Error {
 }
 
 /**
+ * 在对无效的路径点执行操作时抛出。当路径点被移除或其追踪的实体不再有效时，路径点将变为无效。
+ *
  * Error thrown when attempting to perform operations on an
  * invalid waypoint. A waypoint becomes invalid when it is
  * removed or when the entity it tracks is no longer valid.
@@ -31590,6 +32424,8 @@ export class InvalidWaypointTextureSelectorError extends Error {
 }
 
 /**
+ * 在尝试使用已注册过的名称注册物品自定义组件时抛出。
+ *
  * Thrown when trying to register an item custom component with
  * a name that has already been registered.
  */
@@ -31599,6 +32435,8 @@ export class ItemCustomComponentAlreadyRegisteredError extends Error {
 }
 
 /**
+ * 在使用 /reload 命令后，尝试注册此前未注册过的物品自定义组件时抛出。
+ *
  * Thrown after using the /reload command when trying to
  * register a previously unregistered item custom component.
  */

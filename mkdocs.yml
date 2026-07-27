@@ -10,6 +10,7 @@ site_dir: site
 # 翻译源变更时触发 live reload（默认只监听 docs/）
 watch:
   - translated
+  - includes
 
 theme:
   logo: logo.png
@@ -49,6 +50,7 @@ theme:
     - search.highlight
     - search.share
     - content.code.copy
+    - content.tooltips
     - toc.follow
   icon:
     repo: fontawesome/brands/github
@@ -61,9 +63,11 @@ plugins:
       lang:
         - zh
         - en
+  - tags
   - awesome-pages
 
 markdown_extensions:
+  - abbr
   - admonition
   - attr_list
   - def_list
@@ -78,6 +82,13 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.superfences
+  - pymdownx.snippets:
+      # 路径相对 mkdocs 工作目录（仓根）；前导 / 会被当成文件系统绝对路径导致 abbr 静默失效
+      base_path:
+        - .
+      check_paths: true
+      auto_append:
+        - includes/abbreviations.md
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.emoji:

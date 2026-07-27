@@ -5,6 +5,8 @@ import type { Vector3 } from '@minecraft/server';
 import type { VectorXZ } from '@minecraft/server';
 
 /**
+ * 在 AABBUtils 操作中使用无效 AABB 时抛出的错误。
+ *
  * An error that is thrown when using an invalid AABB with AABBUtils operations.
  *
  * @public
@@ -14,6 +16,8 @@ export declare class AABBInvalidExtentError extends Error {
 }
 
 /**
+ * 对 AABB 对象执行操作的实用工具类。所有方法均为静态方法，且不会修改输入对象。
+ *
  * Utilities operating on AABB objects. All methods are static and do not modify the input objects.
  *
  * @public
@@ -23,34 +27,54 @@ export declare class AABBUtils {
     /**
      * EPSILON
      *
+     * 内部 epsilon 值，用于确定有效性以及设置方块体积容差。
+     *
      * The internal epsilon value that determines validity and used for block volume tolerance.
      */
     static EPSILON: number;
     /**
      * createFromCornerPoints
      *
+     * 根据定义其角点的点获取 AABB，点的顺序不限。
+     *
      * Gets an AABB from points defining it's corners, the order doesn't matter.
-     * @param pointA - The first corner point.
-     * @param pointB - The second corner point.
+     * @param pointA - 第一个角点。
+     *
+     * The first corner point.
+     * @param pointB - 第二个角点。
+     *
+     * The second corner point.
      * @throws {@link AABBInvalidExtentError}
      * This exception is thrown if the resulting AABB is invalid.
      *
-     * @returns - The resulting AABB.
+     * @returns - 生成的 AABB。
+     *
+     * The resulting AABB.
      */
     static createFromCornerPoints(pointA: Vector3, pointB: Vector3): AABB;
     /**
      * isValid
      *
+     * 确定 AABB 是否在所有轴上都具有非零范围。
+     *
      * Determines if the AABB has non-zero extent on all axes.
-     * @param aabb - The AABB to test for validity.
-     * @returns - True if all extent axes are non-zero, otherwise false.
+     * @param aabb - 要测试有效性的 AABB。
+     *
+     * The AABB to test for validity.
+     * @returns - 如果所有范围轴均非零，则为 true；否则为 false。
+     *
+     * True if all extent axes are non-zero, otherwise false.
      */
     static isValid(aabb: AABB): boolean;
     /**
      * throwErrorIfInvalid
      *
+     * 如果 AABB 无效，则抛出错误。
+     *
      * Throws an error if the AABB is invalid.
-     * @param aabb - The AABB to test for validity.
+     * @param aabb - 要测试有效性的 AABB。
+     *
+     * The AABB to test for validity.
      * @throws {@link AABBInvalidExtentError}
      * This exception is thrown if the input AABB is invalid.
      */
@@ -58,129 +82,209 @@ export declare class AABBUtils {
     /**
      * equals
      *
+     * 比较两个 AABB 是否相等。
+     *
      * Compares the equality of two AABBs.
-     * @param aabb - The first AABB in the comparison.
-     * @param other - The second AABB in the comparison.
+     * @param aabb - 用于比较的第一个 AABB。
+     *
+     * The first AABB in the comparison.
+     * @param other - 用于比较的第二个 AABB。
+     *
+     * The second AABB in the comparison.
      * @throws {@link AABBInvalidExtentError}
      * This exception is thrown if either of the input AABBs are invalid.
      *
-     * @returns - True if the center and extent of both AABBs are equal.
+     * @returns - 如果两个 AABB 的中心点和范围均相等，则为 true。
+     *
+     * True if the center and extent of both AABBs are equal.
      */
     static equals(aabb: AABB, other: AABB): boolean;
     /**
      * getMin
      *
+     * 获取 AABB 的最小角点。
+     *
      * Gets the minimum corner of an AABB.
-     * @param aabb - The AABB to retrieve the minimum corner of.
+     * @param aabb - 要获取最小角点的 AABB。
+     *
+     * The AABB to retrieve the minimum corner of.
      * @throws {@link AABBInvalidExtentError}
      * This exception is thrown if the input AABB is invalid.
      *
-     * @returns - The minimum corner of the AABB.
+     * @returns - AABB 的最小角点。
+     *
+     * The minimum corner of the AABB.
      */
     static getMin(aabb: AABB): Vector3;
     /**
      * getMax
      *
+     * 获取 AABB 的最大角点。
+     *
      * Gets the maximum corner of an AABB.
-     * @param aabb - The AABB to retrieve the maximum corner of.
+     * @param aabb - 要获取最大角点的 AABB。
+     *
+     * The AABB to retrieve the maximum corner of.
      * @throws {@link AABBInvalidExtentError}
      * This exception is thrown if the input AABB is invalid.
      *
-     * @returns - The maximum corner of the AABB.
+     * @returns - AABB 的最大角点。
+     *
+     * The maximum corner of the AABB.
      */
     static getMax(aabb: AABB): Vector3;
     /**
      * getSpan
      *
+     * 获取 AABB 的跨度。
+     *
      * Gets the span of an AABB.
-     * @param aabb - The AABB to retrieve the span of.
+     * @param aabb - 要获取跨度的 AABB。
+     *
+     * The AABB to retrieve the span of.
      * @throws {@link AABBInvalidExtentError}
      * This exception is thrown if the input AABB is invalid.
      *
-     * @returns - The span of the AABB.
+     * @returns - AABB 的跨度。
+     *
+     * The span of the AABB.
      */
     static getSpan(aabb: AABB): Vector3;
     /**
      * getBlockVolume
      *
+     * 创建包含源 AABB 全部范围的最小 BlockVolume。
+     *
      * Creates the smallest BlockVolume that includes all of a source AABB.
-     * @param aabb - The source AABB.
+     * @param aabb - 源 AABB。
+     *
+     * The source AABB.
      * @throws {@link AABBInvalidExtentError}
      * This exception is thrown if the input AABB is invalid.
      *
-     * @returns - The BlockVolume containing the source AABB.
+     * @returns - 包含源 AABB 的 BlockVolume。
+     *
+     * The BlockVolume containing the source AABB.
      */
     static getBlockVolume(aabb: AABB): BlockVolume;
     /**
      * translate
      *
+     * 根据源 AABB 和平移向量创建平移后的 AABB。
+     *
      * Creates a translated AABB given a source AABB and translation vector.
-     * @param aabb - The source AABB.
-     * @param delta - The translation vector to add to the AABBs center.
+     * @param aabb - 源 AABB。
+     *
+     * The source AABB.
+     * @param delta - 要加到 AABB 中心点上的平移向量。
+     *
+     * The translation vector to add to the AABBs center.
      * @throws {@link AABBInvalidExtentError}
      * This exception is thrown if the input AABB is invalid.
      *
-     * @returns - The resulting translated AABB.
+     * @returns - 平移后的 AABB。
+     *
+     * The resulting translated AABB.
      */
     static translate(aabb: AABB, delta: Vector3): AABB;
     /**
      * dilate
      *
+     * 根据源 AABB 和膨胀向量创建膨胀后的 AABB。
+     *
      * Creates a dilated AABB given a source AABB and dilation vector.
-     * @param aabb - The source AABB.
-     * @param size - The dilation vector to add to the AABBs extent.
+     * @param aabb - 源 AABB。
+     *
+     * The source AABB.
+     * @param size - 要加到 AABB 范围上的膨胀向量。
+     *
+     * The dilation vector to add to the AABBs extent.
      * @throws {@link AABBInvalidExtentError}
      * This exception is thrown if the input AABB is invalid.
      *
-     * @returns - The resulting dilated AABB.
+     * @returns - 膨胀后的 AABB。
+     *
+     * The resulting dilated AABB.
      */
     static dilate(aabb: AABB, size: Vector3): AABB;
     /**
      * expand
      *
+     * 根据两个源 AABB 创建扩展后的 AABB。
+     *
      * Creates an expanded AABB given two source AABBs.
-     * @param aabb - The first source AABB.
-     * @param other - The second source AABB.
+     * @param aabb - 第一个源 AABB。
+     *
+     * The first source AABB.
+     * @param other - 第二个源 AABB。
+     *
+     * The second source AABB.
      * @throws {@link AABBInvalidExtentError}
      * This exception is thrown if either of the input AABBs are invalid.
      *
-     * @returns - The resulting expanded AABB.
+     * @returns - 扩展后的 AABB。
+     *
+     * The resulting expanded AABB.
      */
     static expand(aabb: AABB, other: AABB): AABB;
     /**
      * getIntersection
      *
+     * 创建两个源 AABB 相交区域的 AABB。
+     *
      * Creates an AABB of the intersecting area of two source AABBs.
-     * @param aabb - The first source AABB.
-     * @param other - The second source AABB.
+     * @param aabb - 第一个源 AABB。
+     *
+     * The first source AABB.
+     * @param other - 第二个源 AABB。
+     *
+     * The second source AABB.
      * @throws {@link AABBInvalidExtentError}
      * This exception is thrown if either of the input AABBs are invalid.
      *
-     * @returns - The resulting intersecting AABB if they intersect, otherwise returns undefined.
+     * @returns - 如果两个 AABB 相交，则返回相交区域的 AABB；否则返回 undefined。
+     *
+     * The resulting intersecting AABB if they intersect, otherwise returns undefined.
      */
     static getIntersection(aabb: AABB, other: AABB): AABB | undefined;
     /**
      * intersects
      *
+     * 计算两个 AABB 是否相交。
+     *
      * Calculates if two AABBs are intersecting.
-     * @param aabb - The first AABB.
-     * @param other - The second AABB.
+     * @param aabb - 第一个 AABB。
+     *
+     * The first AABB.
+     * @param other - 第二个 AABB。
+     *
+     * The second AABB.
      * @throws {@link AABBInvalidExtentError}
      * This exception is thrown if either of the input AABBs are invalid.
      *
-     * @returns - True if the AABBs are intersecting, otherwise false.
+     * @returns - 如果两个 AABB 相交，则为 true；否则为 false。
+     *
+     * True if the AABBs are intersecting, otherwise false.
      */
     static intersects(aabb: AABB, other: AABB): boolean;
     /**
      * isInside
      *
+     * 计算某个位置是否位于 AABB 内部。
+     *
      * Calculates if a position is inside of an AABB.
-     * @param aabb - The AABB to test against.
-     * @param pos - The position to test.
+     * @param aabb - 用于测试的 AABB。
+     *
+     * The AABB to test against.
+     * @param pos - 要测试的位置。
+     *
+     * The position to test.
      * @throws {@link AABBInvalidExtentError}
      * This exception is thrown if the input AABB is invalid.
      *
-     * @returns True if the position is inside of the AABB, otherwise returns false.
+     * @returns 如果位置位于 AABB 内部，则为 true；否则返回 false。
+     *
+     * True if the position is inside of the AABB, otherwise returns false.
      */
     static isInside(aabb: AABB, pos: Vector3): boolean;
 }
@@ -195,6 +299,8 @@ export declare class AABBUtils {
 export declare function clampNumber(val: number, min: number, max: number): number;
 
 /**
+ * 一组常用的颜色常量值。
+ *
  * A set of commonly used color constant values.
  *
  * @public
@@ -335,7 +441,11 @@ export declare const Colors: {
 };
 
 /**
+ * 零向量
+ *
  * zero
+ *
+ * 表示在所有方向上取值为 0 的向量 (0,0)。
  *
  * A vector representing the value of 0 in all directions (0,0)
  *
@@ -360,11 +470,15 @@ export declare class Vector2Builder implements Vector2 {
         delimiter?: string;
     }): string;
     /**
+     * 将传入向量的各分量值赋值给本向量，返回自身。
+     *
      * Assigns the values of the passed in vector to this vector. Returns itself.
      */
     assign(vec: Vector2): this;
     /**
      * equals
+     *
+     * 判断两个向量是否相等。
      *
      * Check the equality of two vectors
      */
@@ -372,16 +486,22 @@ export declare class Vector2Builder implements Vector2 {
     /**
      * add
      *
+     * 将向量 v 加到本向量上，返回自身。
+     *
      * Adds the vector v to this, returning itself.
      */
     add(v: Partial<Vector2>): this;
     /**
      * subtract
      *
+     * 从本向量中减去向量 v，返回自身。
+     *
      * Subtracts the vector v from this, returning itself.
      */
     subtract(v: Partial<Vector2>): this;
     /** scale
+     *
+     * 将本向量按传入的数值进行缩放，返回自身。
      *
      * Scales this by the passed in value, returning itself.
      */
@@ -389,11 +509,15 @@ export declare class Vector2Builder implements Vector2 {
     /**
      * dot
      *
+     * 计算本向量与传入向量的点积。
+     *
      * Computes the dot product of this and the passed in vector.
      */
     dot(vec: Vector2): number;
     /**
      * magnitude
+     *
+     * 向量的模长。
      *
      * The magnitude of the vector
      */
@@ -401,11 +525,15 @@ export declare class Vector2Builder implements Vector2 {
     /**
      * distance
      *
+     * 计算两个向量之间的距离。
+     *
      * Calculate the distance between two vectors
      */
     distance(vec: Vector2): number;
     /**
      * normalize
+     *
+     * 将本向量归一化，返回自身。
      *
      * Normalizes this vector, returning itself.
      */
@@ -413,11 +541,15 @@ export declare class Vector2Builder implements Vector2 {
     /**
      * floor
      *
+     * 将向量的各分量向下取整，返回自身。
+     *
      * Floor the components of a vector to produce a new vector
      */
     floor(): this;
     /**
      * clamp
+     *
+     * 将向量的各分量限制在指定的上下限范围内，返回自身。
      *
      * Clamps the components of a vector to limits to produce a new vector
      */
@@ -428,17 +560,24 @@ export declare class Vector2Builder implements Vector2 {
     /**
      * lerp
      *
+     * 使用两个向量各分量的线性插值构造一个新向量，返回自身。
+     *
      * Constructs a new vector using linear interpolation on each component from two vectors.
      */
     lerp(vec: Vector2, t: number): this;
     /**
      * slerp
      *
+     * 使用两个向量各分量的球面线性插值构造一个新向量，返回自身。
+     *
      * Constructs a new vector using spherical linear interpolation on each component from two vectors.
      */
     slerp(vec: Vector2, t: number): this;
     /**
      * multiply
+     *
+     * 对两个向量进行逐分量相乘。
+     * 注意不要与 {@link Vector2Builder.dot}（点积）混淆。
      *
      * Element-wise multiplication of two vectors together.
      * Not to be confused with {@link Vector2Builder.dot} product
@@ -457,11 +596,15 @@ export declare class Vector2Utils {
     /**
      * equals
      *
+     * 判断两个向量是否相等。
+     *
      * Check the equality of two vectors
      */
     static equals(v1: Vector2, v2: Vector2): boolean;
     /**
      * add
+     *
+     * 将两个向量相加，生成一个新向量。
      *
      * Add two vectors to produce a new vector
      */
@@ -469,10 +612,14 @@ export declare class Vector2Utils {
     /**
      * subtract
      *
+     * 将两个向量相减，生成一个新向量 (v1-v2)。
+     *
      * Subtract two vectors to produce a new vector (v1-v2)
      */
     static subtract(v1: Vector2, v2: Partial<Vector2>): Vector2;
     /** scale
+     *
+     * 将向量中的所有分量乘以一个标量值，生成一个新向量。
      *
      * Multiple all entries in a vector by a single scalar value producing a new vector
      */
@@ -480,11 +627,15 @@ export declare class Vector2Utils {
     /**
      * dot
      *
+     * 计算两个向量的点积。
+     *
      * Calculate the dot product of two vectors
      */
     static dot(a: Vector2, b: Vector2): number;
     /**
      * magnitude
+     *
+     * 向量的模长。
      *
      * The magnitude of a vector
      */
@@ -492,11 +643,15 @@ export declare class Vector2Utils {
     /**
      * distance
      *
+     * 计算两个向量之间的距离。
+     *
      * Calculate the distance between two vectors
      */
     static distance(a: Vector2, b: Vector2): number;
     /**
      * normalize
+     *
+     * 将一个二维向量归一化为单位向量。
      *
      * Takes a vector 3 and normalizes it to a unit vector
      */
@@ -504,11 +659,15 @@ export declare class Vector2Utils {
     /**
      * floor
      *
+     * 将向量的各分量向下取整，生成一个新向量。
+     *
      * Floor the components of a vector to produce a new vector
      */
     static floor(v: Vector2): Vector2;
     /**
      * toString
+     *
+     * 创建 Vector2 的字符串表示形式。
      *
      * Create a string representation of a vector2
      *
@@ -521,14 +680,23 @@ export declare class Vector2Utils {
     /**
      * fromString
      *
+     * 从 {@link Vector2Utils.toString} 生成的字符串形式中解析出一个 Vector2。
+     * 如果任何数值不是数字或格式无效，则返回 undefined。
+     *
      * Gets a Vector2 from the string representation produced by {@link Vector2Utils.toString}. If any numeric value is not a number
      * or the format is invalid, undefined is returned.
-     * @param str - The string to parse
-     * @param delimiter - The delimiter used to separate the components. Defaults to the same as the default for {@link Vector2Utils.toString}
+     * @param str - 要解析的字符串
+     *
+     * The string to parse
+     * @param delimiter - 用于分隔各分量的分隔符。默认与 {@link Vector2Utils.toString} 的默认值相同。
+     *
+     * The delimiter used to separate the components. Defaults to the same as the default for {@link Vector2Utils.toString}
      */
     static fromString(str: string, delimiter?: string): Vector2 | undefined;
     /**
      * clamp
+     *
+     * 将向量的各分量限制在指定的上下限范围内，生成一个新向量。
      *
      * Clamps the components of a vector to limits to produce a new vector
      */
@@ -539,17 +707,24 @@ export declare class Vector2Utils {
     /**
      * lerp
      *
+     * 使用两个向量各分量的线性插值构造一个新向量。
+     *
      * Constructs a new vector using linear interpolation on each component from two vectors.
      */
     static lerp(a: Vector2, b: Vector2, t: number): Vector2;
     /**
      * slerp
      *
+     * 使用两个向量各分量的球面线性插值构造一个新向量。
+     *
      * Constructs a new vector using spherical linear interpolation on each component from two vectors.
      */
     static slerp(a: Vector2, b: Vector2, t: number): Vector2;
     /**
      * multiply
+     *
+     * 对两个向量进行逐分量相乘。
+     * 注意不要与 {@link Vector2Utils.dot}（点积）混淆。
      *
      * Element-wise multiplication of two vectors together.
      * Not to be confused with {@link Vector2Utils.dot} product
@@ -603,7 +778,11 @@ export declare const VECTOR3_EAST: Vector3;
 export declare const VECTOR3_FORWARD: Vector3;
 
 /**
+ * 半向量
+ *
  * half
+ *
+ * 表示在所有方向上取值为 0.5 的单位向量 (0.5,0.5,0.5)。
  *
  * A unit vector representing the value of 0.5 in all directions (0.5,0.5,0.5)
  *
@@ -623,7 +802,11 @@ export declare const VECTOR3_HALF: Vector3;
 export declare const VECTOR3_LEFT: Vector3;
 
 /**
+ * 负一向量
+ *
  * negative
+ *
+ * 表示在所有方向上取值为 -1 的单位向量 (-1,-1,-1)。
  *
  * A unit vector representing the value of -1 in all directions (-1,-1,-1)
  *
@@ -823,18 +1006,24 @@ export declare class Vector3Builder implements Vector3 {
      * ceil
      *
      * Ceil the components of a vector to produce a new vector
+     *
+     * 对向量的各个分量向上取整，生成新的向量。
      */
     ceil(): this;
     /**
      * min
      *
      * Min the components of two vectors to produce a new vector
+     *
+     * 取两个向量各分量中的较小值，生成新的向量。
      */
     min(vec: Vector3): this;
     /**
      * max
      *
      * Max the components of two vectors to produce a new vector
+     *
+     * 取两个向量各分量中的较大值，生成新的向量。
      */
     max(vec: Vector3): this;
     /**
@@ -878,12 +1067,17 @@ export declare class Vector3Builder implements Vector3 {
     /**
      * multiply
      *
+     * 对两个向量进行逐元素相乘。
+     * 不要与 {@link Vector3Builder.dot} 点积或 {@link Vector3Builder.cross} 叉积混淆。
+     *
      * Element-wise multiplication of two vectors together.
      * Not to be confused with {@link Vector3Builder.dot} product or {@link Vector3Builder.cross} product
      */
     multiply(vec: Vector3): this;
     /**
      * rotateX
+     *
+     * 沿 x 轴逆时针（左手法则）旋转该向量。
      *
      * Rotates the vector around the x axis counterclockwise (left hand rule)
      * @param a - Angle in radians
@@ -892,12 +1086,16 @@ export declare class Vector3Builder implements Vector3 {
     /**
      * rotateY
      *
+     * 沿 y 轴逆时针（左手法则）旋转该向量。
+     *
      * Rotates the vector around the y axis counterclockwise (left hand rule)
      * @param a - Angle in radians
      */
     rotateY(a: number): this;
     /**
      * rotateZ
+     *
+     * 沿 z 轴逆时针（左手法则）旋转该向量。
      *
      * Rotates the vector around the z axis counterclockwise (left hand rule)
      * @param a - Angle in radians
@@ -996,18 +1194,24 @@ export declare class Vector3Utils {
      * ceil
      *
      * Ceil the components of a vector to produce a new vector
+     *
+     * 对向量的各个分量向上取整，生成一个新的向量。
      */
     static ceil(v: Vector3): Vector3;
     /**
      * min
      *
      * Min the components of two vectors to produce a new vector
+     *
+     * 取两个向量各分量中的较小值，生成一个新的向量。
      */
     static min(a: Vector3, b: Vector3): Vector3;
     /**
      * max
      *
      * Max the components of two vectors to produce a new vector
+     *
+     * 取两个向量各分量中的较大值，生成一个新的向量。
      */
     static max(a: Vector3, b: Vector3): Vector3;
     /**
@@ -1023,6 +1227,8 @@ export declare class Vector3Utils {
     }): string;
     /**
      * fromString
+     *
+     * 从 {@link Vector3Utils.toString} 产生的字符串表示中解析出 Vector3。若任一数值不是数字或格式无效，则返回 undefined。
      *
      * Gets a Vector3 from the string representation produced by {@link Vector3Utils.toString}. If any numeric value is not a number
      * or the format is invalid, undefined is returned.
@@ -1060,12 +1266,17 @@ export declare class Vector3Utils {
     /**
      * multiply
      *
+     * 对两个向量进行逐元素相乘。
+     * 不要与 {@link Vector3Utils.dot} 点积或 {@link Vector3Utils.cross} 叉积混淆。
+     *
      * Element-wise multiplication of two vectors together.
      * Not to be confused with {@link Vector3Utils.dot} product or {@link Vector3Utils.cross} product
      */
     static multiply(a: Vector3, b: Vector3): Vector3;
     /**
      * rotateX
+     *
+     * 沿 x 轴逆时针（左手法则）旋转该向量。
      *
      * Rotates the vector around the x axis counterclockwise (left hand rule)
      * @param a - Angle in radians
@@ -1074,12 +1285,16 @@ export declare class Vector3Utils {
     /**
      * rotateY
      *
+     * 沿 y 轴逆时针（左手法则）旋转该向量。
+     *
      * Rotates the vector around the y axis counterclockwise (left hand rule)
      * @param a - Angle in radians
      */
     static rotateY(v: Vector3, a: number): Vector3;
     /**
      * rotateZ
+     *
+     * 沿 z 轴逆时针（左手法则）旋转该向量。
      *
      * Rotates the vector around the z axis counterclockwise (left hand rule)
      * @param a - Angle in radians
@@ -1088,7 +1303,11 @@ export declare class Vector3Utils {
 }
 
 /**
+ * 零向量
+ *
  * zero
+ *
+ * 表示在所有方向上取值为 0 的向量 (0,0)。
  *
  * A vector representing the value of 0 in all directions (0,0)
  *
@@ -1097,6 +1316,8 @@ export declare class Vector3Utils {
 export declare const VECTORXZ_ZERO: VectorXZ;
 
 /**
+ * VectorXZ 包装类，可在需要 VectorXZ 的 \@minecraft/server API 中用作 VectorXZ。
+ *
  * VectorXZ wrapper class which can be used as a VectorXZ for APIs on \@minecraft/server which require a VectorXZ.
  * @public
  */
@@ -1111,11 +1332,15 @@ export declare class VectorXZBuilder implements VectorXZ {
         delimiter?: string;
     }): string;
     /**
+     * 将传入向量的值赋给当前向量，并返回自身。
+     *
      * Assigns the values of the passed in vector to this vector. Returns itself.
      */
     assign(vec: VectorXZ): this;
     /**
      * equals
+     *
+     * 检查两个向量是否相等。
      *
      * Check the equality of two vectors
      */
@@ -1123,16 +1348,22 @@ export declare class VectorXZBuilder implements VectorXZ {
     /**
      * add
      *
+     * 将向量 v 与当前向量相加，并返回自身。
+     *
      * Adds the vector v to this, returning itself.
      */
     add(v: Partial<VectorXZ>): this;
     /**
      * subtract
      *
+     * 从当前向量中减去向量 v，并返回自身。
+     *
      * Subtracts the vector v from this, returning itself.
      */
     subtract(v: Partial<VectorXZ>): this;
     /** scale
+     *
+     * 将当前向量按传入的标量进行缩放，并返回自身。
      *
      * Scales this by the passed in value, returning itself.
      */
@@ -1140,11 +1371,15 @@ export declare class VectorXZBuilder implements VectorXZ {
     /**
      * dot
      *
+     * 计算当前向量与传入向量的点积。
+     *
      * Computes the dot product of this and the passed in vector.
      */
     dot(vec: VectorXZ): number;
     /**
      * magnitude
+     *
+     * 向量的模长。
      *
      * The magnitude of the vector
      */
@@ -1152,11 +1387,15 @@ export declare class VectorXZBuilder implements VectorXZ {
     /**
      * distance
      *
+     * 计算两个向量之间的距离。
+     *
      * Calculate the distance between two vectors
      */
     distance(vec: VectorXZ): number;
     /**
      * normalize
+     *
+     * 将当前向量归一化，并返回自身。
      *
      * Normalizes this vector, returning itself.
      */
@@ -1164,11 +1403,15 @@ export declare class VectorXZBuilder implements VectorXZ {
     /**
      * floor
      *
+     * 对向量的各个分量向下取整，并返回自身。
+     *
      * Floor the components of a vector to produce a new vector
      */
     floor(): this;
     /**
      * clamp
+     *
+     * 将当前向量的各分量限制在给定范围内，并返回自身。
      *
      * Clamps the components of a vector to limits to produce a new vector
      */
@@ -1179,17 +1422,24 @@ export declare class VectorXZBuilder implements VectorXZ {
     /**
      * lerp
      *
+     * 使用两个向量之间各分量的线性插值构造一个新向量，并返回自身。
+     *
      * Constructs a new vector using linear interpolation on each component from two vectors.
      */
     lerp(vec: VectorXZ, t: number): this;
     /**
      * slerp
      *
+     * 使用两个向量之间各分量的球面线性插值构造一个新向量，并返回自身。
+     *
      * Constructs a new vector using spherical linear interpolation on each component from two vectors.
      */
     slerp(vec: VectorXZ, t: number): this;
     /**
      * multiply
+     *
+     * 当前向量与传入向量按元素相乘，并返回自身。
+     * 不要与 {@link VectorXZBuilder.dot} 乘积混淆。
      *
      * Element-wise multiplication of two vectors together.
      * Not to be confused with {@link VectorXZBuilder.dot} product
@@ -1198,6 +1448,8 @@ export declare class VectorXZBuilder implements VectorXZ {
 }
 
 /**
+ * 对 VectorXZ 对象执行操作的实用工具类。所有方法均为静态方法，且不会修改输入对象。
+ *
  * Utilities operating on VectorXZ objects. All methods are static and do not modify the input objects.
  *
  * @public
@@ -1206,11 +1458,15 @@ export declare class VectorXZUtils {
     /**
      * equals
      *
+     * 检查两个向量是否相等。
+     *
      * Check the equality of two vectors
      */
     static equals(v1: VectorXZ, v2: VectorXZ): boolean;
     /**
      * add
+     *
+     * 将两个向量相加，生成一个新向量。
      *
      * Add two vectors to produce a new vector
      */
@@ -1218,10 +1474,14 @@ export declare class VectorXZUtils {
     /**
      * subtract
      *
+     * 将第二个向量从第一个向量中减去，生成一个新向量（v1-v2）。
+     *
      * Subtract two vectors to produce a new vector (v1-v2)
      */
     static subtract(v1: VectorXZ, v2: Partial<VectorXZ>): VectorXZ;
     /** scale
+     *
+     * 将向量的所有分量乘以一个标量，生成一个新向量。
      *
      * Multiple all entries in a vector by a single scalar value producing a new vector
      */
@@ -1229,11 +1489,15 @@ export declare class VectorXZUtils {
     /**
      * dot
      *
+     * 计算两个向量的点积。
+     *
      * Calculate the dot product of two vectors
      */
     static dot(a: VectorXZ, b: VectorXZ): number;
     /**
      * magnitude
+     *
+     * 向量的模长。
      *
      * The magnitude of a vector
      */
@@ -1241,11 +1505,15 @@ export declare class VectorXZUtils {
     /**
      * distance
      *
+     * 计算两个向量之间的距离。
+     *
      * Calculate the distance between two vectors
      */
     static distance(a: VectorXZ, b: VectorXZ): number;
     /**
      * normalize
+     *
+     * 将向量归一化为单位向量。
      *
      * Takes a vector 3 and normalizes it to a unit vector
      */
@@ -1253,11 +1521,15 @@ export declare class VectorXZUtils {
     /**
      * floor
      *
+     * 对向量的各个分量向下取整，生成一个新向量。
+     *
      * Floor the components of a vector to produce a new vector
      */
     static floor(v: VectorXZ): VectorXZ;
     /**
      * toString
+     *
+     * 创建向量的字符串表示形式。
      *
      * Create a string representation of a vectorxz
      */
@@ -1268,14 +1540,22 @@ export declare class VectorXZUtils {
     /**
      * fromString
      *
+     * 从 {@link VectorXZUtils.toString} 生成的字符串表示形式中获取 VectorXZ。如果任何数值不是数字，或格式无效，则返回 undefined。
+     *
      * Gets a VectorXZ from the string representation produced by {@link VectorXZUtils.toString}. If any numeric value is not a number
      * or the format is invalid, undefined is returned.
-     * @param str - The string to parse
-     * @param delimiter - The delimiter used to separate the components. Defaults to the same as the default for {@link VectorXZUtils.toString}
+     * @param str - 要解析的字符串。
+     *
+     * The string to parse
+     * @param delimiter - 用于分隔各分量的分隔符。默认为 {@link VectorXZUtils.toString} 的默认值。
+     *
+     * The delimiter used to separate the components. Defaults to the same as the default for {@link VectorXZUtils.toString}
      */
     static fromString(str: string, delimiter?: string): VectorXZ | undefined;
     /**
      * clamp
+     *
+     * 将向量的各个分量限制在给定范围内，生成一个新向量。
      *
      * Clamps the components of a vector to limits to produce a new vector
      */
@@ -1286,17 +1566,24 @@ export declare class VectorXZUtils {
     /**
      * lerp
      *
+     * 使用两个向量之间各分量的线性插值构造一个新向量。
+     *
      * Constructs a new vector using linear interpolation on each component from two vectors.
      */
     static lerp(a: VectorXZ, b: VectorXZ, t: number): VectorXZ;
     /**
      * slerp
      *
+     * 使用两个向量之间各分量的球面线性插值构造一个新向量。
+     *
      * Constructs a new vector using spherical linear interpolation on each component from two vectors.
      */
     static slerp(a: VectorXZ, b: VectorXZ, t: number): VectorXZ;
     /**
      * multiply
+     *
+     * 两个向量按元素相乘。
+     * 不要与 {@link VectorXZUtils.dot} 乘积混淆。
      *
      * Element-wise multiplication of two vectors together.
      * Not to be confused with {@link VectorXZUtils.dot} product

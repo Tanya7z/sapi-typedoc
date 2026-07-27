@@ -17,11 +17,15 @@ export declare class Vector2Builder implements Vector2 {
         delimiter?: string;
     }): string;
     /**
+     * 将传入向量的各分量值赋值给本向量，返回自身。
+     *
      * Assigns the values of the passed in vector to this vector. Returns itself.
      */
     assign(vec: Vector2): this;
     /**
      * equals
+     *
+     * 判断两个向量是否相等。
      *
      * Check the equality of two vectors
      */
@@ -29,16 +33,22 @@ export declare class Vector2Builder implements Vector2 {
     /**
      * add
      *
+     * 将向量 v 加到本向量上，返回自身。
+     *
      * Adds the vector v to this, returning itself.
      */
     add(v: Partial<Vector2>): this;
     /**
      * subtract
      *
+     * 从本向量中减去向量 v，返回自身。
+     *
      * Subtracts the vector v from this, returning itself.
      */
     subtract(v: Partial<Vector2>): this;
     /** scale
+     *
+     * 将本向量按传入的数值进行缩放，返回自身。
      *
      * Scales this by the passed in value, returning itself.
      */
@@ -46,11 +56,15 @@ export declare class Vector2Builder implements Vector2 {
     /**
      * dot
      *
+     * 计算本向量与传入向量的点积。
+     *
      * Computes the dot product of this and the passed in vector.
      */
     dot(vec: Vector2): number;
     /**
      * magnitude
+     *
+     * 向量的模长。
      *
      * The magnitude of the vector
      */
@@ -58,11 +72,15 @@ export declare class Vector2Builder implements Vector2 {
     /**
      * distance
      *
+     * 计算两个向量之间的距离。
+     *
      * Calculate the distance between two vectors
      */
     distance(vec: Vector2): number;
     /**
      * normalize
+     *
+     * 将本向量归一化，返回自身。
      *
      * Normalizes this vector, returning itself.
      */
@@ -70,11 +88,15 @@ export declare class Vector2Builder implements Vector2 {
     /**
      * floor
      *
+     * 将向量的各分量向下取整，返回自身。
+     *
      * Floor the components of a vector to produce a new vector
      */
     floor(): this;
     /**
      * clamp
+     *
+     * 将向量的各分量限制在指定的上下限范围内，返回自身。
      *
      * Clamps the components of a vector to limits to produce a new vector
      */
@@ -85,17 +107,24 @@ export declare class Vector2Builder implements Vector2 {
     /**
      * lerp
      *
+     * 使用两个向量各分量的线性插值构造一个新向量，返回自身。
+     *
      * Constructs a new vector using linear interpolation on each component from two vectors.
      */
     lerp(vec: Vector2, t: number): this;
     /**
      * slerp
      *
+     * 使用两个向量各分量的球面线性插值构造一个新向量，返回自身。
+     *
      * Constructs a new vector using spherical linear interpolation on each component from two vectors.
      */
     slerp(vec: Vector2, t: number): this;
     /**
      * multiply
+     *
+     * 对两个向量进行逐分量相乘。
+     * 注意不要与 {@link Vector2Builder.dot}（点积）混淆。
      *
      * Element-wise multiplication of two vectors together.
      * Not to be confused with {@link Vector2Builder.dot} product

@@ -11,6 +11,8 @@ export class World {
     private constructor();
     /**
      * @remarks
+     * 包含适用于整个世界的一组事件。事件回调以延迟方式调用，且以读写模式执行。
+     *
      * Contains a set of events that are applicable to the entirety
      * of the world.  Event callbacks are called in a deferred
      * manner. Event callbacks are executed in read-write mode.
@@ -22,6 +24,8 @@ export class World {
     /**
      * @beta
      * @remarks
+     * 启用或禁用作弊功能。
+     *
      * Enables or disables cheats.
      *
      * @worldMutation
@@ -30,6 +34,8 @@ export class World {
     allowCheats: boolean;
     /**
      * @remarks
+     * 包含适用于整个世界的一组事件。事件回调以立即方式调用，且以只读模式执行。
+     *
      * Contains a set of events that are applicable to the entirety
      * of the world. Event callbacks are called immediately. Event
      * callbacks are executed in read-only mode.
@@ -41,6 +47,8 @@ export class World {
     readonly beforeEvents: WorldBeforeEvents;
     /**
      * @remarks
+     * 适用于该世界的游戏规则。
+     *
      * The game rules that apply to the world.
      *
      */
@@ -48,6 +56,8 @@ export class World {
     readonly isHardcore: boolean;
     /**
      * @remarks
+     * 用于在世界中添加和移除原始文本对象的管理器。
+     *
      * Manager for adding and removing primitive text objects in
      * the world.
      *
@@ -64,6 +74,8 @@ export class World {
     readonly scoreboard: Scoreboard;
     /**
      * @remarks
+     * 世界的种子。
+     *
      * The world seed.
      *
      */
@@ -71,6 +83,8 @@ export class World {
     /**
      * @beta
      * @remarks
+     * 提供对当前世界已加载的声音定义的只读访问。
+     *
      * Provides read-only access to the sound definitions loaded
      * for this world.
      *
@@ -78,12 +92,16 @@ export class World {
     readonly soundDefinitionRegistry: SoundDefinitionRegistry;
     /**
      * @remarks
+     * 返回与 {@link Structure} 相关 API 的管理器。
+     *
      * Returns the manager for {@link Structure} related APIs.
      *
      */
     readonly structureManager: StructureManager;
     /**
      * @remarks
+     * 用于添加、移除和查询资源包专用的常加载区域的管理器。
+     *
      * Manager for adding, removing and querying pack specific
      * ticking areas.
      *
@@ -92,19 +110,27 @@ export class World {
     /**
      * @beta
      * @remarks
+     * 一个仅供内部使用的方法，用于在客户端与服务端之间广播特定消息。
+     *
      * A method that is internal-only, used for broadcasting
      * specific messages between client and server.
      *
      * @worldMutation
      *
      * @param id
+     * 消息的标识符。
+     *
      * The message identifier.
      * @param value
+     * 消息内容。
+     *
      * The message.
      */
     broadcastClientMessage(id: string, value: string): void;
     /**
      * @remarks
+     * 清除该行为包在世界中所声明的一组动态属性。
+     *
      * Clears the set of dynamic properties declared for this
      * behavior pack within the world.
      *
@@ -122,6 +148,8 @@ export class World {
     getAbsoluteTime(): number;
     /**
      * @remarks
+     * 该世界中可用的瞄准辅助预设与类别。
+     *
      * The aim-assist presets and categories that can be used in
      * the world.
      *
@@ -142,18 +170,26 @@ export class World {
     getAllPlayers(): Player[];
     /**
      * @remarks
+     * 返回当前天数。
+     *
      * Returns the current day.
      *
      * @returns
+     * 当前天数，由世界时间除以每天的刻数得出。新世界的天数为 0。
+     *
      * The current day, determined by the world time divided by the
      * number of ticks per day. New worlds start at day 0.
      */
     getDay(): number;
     /**
      * @remarks
+     * 返回主世界默认的出生点位置。
+     *
      * Returns the default Overworld spawn location.
      *
      * @returns
+     * 主世界默认的出生点位置。默认情况下 Y 坐标为 32767，表示玩家出生高度不固定，将由周围方块决定。
+     *
      * The default Overworld spawn location. By default, the Y
      * coordinate is 32767, indicating a player's spawn height is
      * not fixed and will be determined by surrounding blocks.
@@ -161,9 +197,13 @@ export class World {
     getDefaultSpawnLocation(): Vector3;
     /**
      * @remarks
+     * 从世界中获取难度。
+     *
      * Gets the difficulty from the world.
      *
      * @returns
+     * 返回世界难度。
+     *
      * Returns the world difficulty.
      */
     getDifficulty(): Difficulty;
@@ -214,15 +254,21 @@ export class World {
     getDynamicProperty(identifier: string): boolean | number | string | Vector3 | undefined;
     /**
      * @remarks
+     * 获取在世界中已设置的动态属性标识符集合。
+     *
      * Gets a set of dynamic property identifiers that have been
      * set in this world.
      *
      * @returns
+     * 处于活跃状态的动态属性标识符的字符串数组。
+     *
      * A string array of active dynamic property identifiers.
      */
     getDynamicPropertyIds(): string[];
     /**
      * @remarks
+     * 获取动态属性的总字节数。可用于自行分析，确保不会存储过大的动态属性集合。
+     *
      * Gets the total byte count of dynamic properties. This could
      * potentially be used for your own analytics to ensure you're
      * not storing gigantic sets of dynamic properties.
@@ -231,34 +277,50 @@ export class World {
     getDynamicPropertyTotalByteCount(): number;
     /**
      * @remarks
+     * 根据提供的 id 获取实体。
+     *
      * Returns an entity based on the provided id.
      *
      * @param id
+     * 实体的 id。
+     *
      * The id of the entity.
      * @returns
+     * 所请求的实体对象。
+     *
      * The requested entity object.
      * @throws
+     * 若提供的实体 id 无效，则抛出错误。
+     *
      * Throws if the given entity id is invalid.
      */
     getEntity(id: string): Entity | undefined;
     /**
      * @remarks
+     * 返回一个可从各种来源生成战利品的管理器。
+     *
      * Returns a manager capable of generating loot from an
      * assortment of sources.
      *
      * @returns
+     * 一个包含多种战利品生成方法的战利品表管理器。
+     *
      * A loot table manager with a variety of loot generation
      * methods.
      */
     getLootTableManager(): LootTableManager;
     /**
      * @remarks
+     * 返回当前时间的月相（MoonPhase）。
+     *
      * Returns the MoonPhase for the current time.
      *
      */
     getMoonPhase(): MoonPhase;
     /**
      * @remarks
+     * 返回由资源包设置项的名称和值构成的映射。
+     *
      * Returns a map of pack setting name and value pairs.
      *
      * @earlyExecution
@@ -367,24 +429,34 @@ export class World {
     sendMessage(message: (RawMessage | string)[] | RawMessage | string): void;
     /**
      * @remarks
+     * 设置世界时间。
+     *
      * Sets the world time.
      *
      * @worldMutation
      *
      * @param absoluteTime
+     * 世界时间，以刻为单位。
+     *
      * The world time, in ticks.
      */
     setAbsoluteTime(absoluteTime: number): void;
     /**
      * @remarks
+     * 为所有玩家设置一个默认出生点位置。
+     *
      * Sets a default spawn location for all players.
      *
      * @worldMutation
      *
      * @param spawnLocation
+     * 出生点的位置。注意假定其位于主世界（overworld）中。
+     *
      * Location of the spawn point. Note that this is assumed to be
      * within the overworld dimension.
      * @throws
+     * 若提供的出生点位置超出世界边界，则抛出错误。
+     *
      * Throws if the provided spawn location is out of bounds.
      *
      * {@link Error}
@@ -394,19 +466,27 @@ export class World {
     setDefaultSpawnLocation(spawnLocation: Vector3): void;
     /**
      * @remarks
+     * 设置世界难度。
+     *
      * Sets the worlds difficulty.
      *
      * @worldMutation
      *
      * @param difficulty
+     * 想要设置的世界难度。
+     *
      * The difficulty we want to set the world to.
      */
     setDifficulty(difficulty: Difficulty): void;
     /**
      * @remarks
+     * 同时设置多个动态属性为指定值。
+     *
      * Sets multiple dynamic properties with specific values.
      *
      * @param values
+     * 由键值对组成的记录，每个条目对应一个动态属性。若数据值为 null，则会移除该属性。
+     *
      * A Record of key value pairs of the dynamic properties to
      * set. If the data value is null, it will remove that property
      * instead.
@@ -447,13 +527,19 @@ export class World {
     setDynamicProperty(identifier: string, value?: boolean | number | string | Vector3): void;
     /**
      * @remarks
+     * 设置一天内的时间。
+     *
      * Sets the time of day.
      *
      * @worldMutation
      *
      * @param timeOfDay
+     * 一天内的时间，以刻为单位，介于 0 至 24000 之间。
+     *
      * The time of day, in ticks, between 0 and 24000.
      * @throws
+     * 若提供的一天内的时间不在有效范围内，则抛出错误。
+     *
      * Throws if the provided time of day is not within the valid
      * range.
      */
@@ -461,7 +547,7 @@ export class World {
     /**
      * @remarks
      * 停止客户端中正在播放的所有音乐曲目（需要更多测试）。
-     * 
+     *
      * Stops any music tracks from playing.
      *
      * @worldMutation

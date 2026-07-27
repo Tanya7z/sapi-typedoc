@@ -13,4 +13,5 @@ nav:
   - server-editor
   - debug-utilities
   - diagnostics
+  - 标签: tags.md
   - 同步: sync.md

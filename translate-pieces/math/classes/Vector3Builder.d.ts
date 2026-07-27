@@ -112,18 +112,24 @@ export declare class Vector3Builder implements Vector3 {
      * ceil
      *
      * Ceil the components of a vector to produce a new vector
+     *
+     * 对向量的各个分量向上取整，生成新的向量。
      */
     ceil(): this;
     /**
      * min
      *
      * Min the components of two vectors to produce a new vector
+     *
+     * 取两个向量各分量中的较小值，生成新的向量。
      */
     min(vec: Vector3): this;
     /**
      * max
      *
      * Max the components of two vectors to produce a new vector
+     *
+     * 取两个向量各分量中的较大值，生成新的向量。
      */
     max(vec: Vector3): this;
     /**
@@ -167,12 +173,17 @@ export declare class Vector3Builder implements Vector3 {
     /**
      * multiply
      *
+     * 对两个向量进行逐元素相乘。
+     * 不要与 {@link Vector3Builder.dot} 点积或 {@link Vector3Builder.cross} 叉积混淆。
+     *
      * Element-wise multiplication of two vectors together.
      * Not to be confused with {@link Vector3Builder.dot} product or {@link Vector3Builder.cross} product
      */
     multiply(vec: Vector3): this;
     /**
      * rotateX
+     *
+     * 沿 x 轴逆时针（左手法则）旋转该向量。
      *
      * Rotates the vector around the x axis counterclockwise (left hand rule)
      * @param a - Angle in radians
@@ -181,12 +192,16 @@ export declare class Vector3Builder implements Vector3 {
     /**
      * rotateY
      *
+     * 沿 y 轴逆时针（左手法则）旋转该向量。
+     *
      * Rotates the vector around the y axis counterclockwise (left hand rule)
      * @param a - Angle in radians
      */
     rotateY(a: number): this;
     /**
      * rotateZ
+     *
+     * 沿 z 轴逆时针（左手法则）旋转该向量。
      *
      * Rotates the vector around the z axis counterclockwise (left hand rule)
      * @param a - Angle in radians

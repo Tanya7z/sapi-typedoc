@@ -3,6 +3,8 @@
 
 /**
  * @remarks
+ * 获取 BiomeWater 组件，用于在「生动视觉」中控制水的效果。
+ *
  * Retrieves the BiomeWater component to control water for
  * Vibrant Visuals
  *
