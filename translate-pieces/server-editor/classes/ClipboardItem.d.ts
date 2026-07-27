@@ -1,5 +1,5 @@
 /* IMPORT */ import { BlockVolumeBase, Vector3 } from '../../server';
-/* IMPORT */ import { ClipboardWriteOptions, EditorStructure, PendingTransaction, RelativeVolumeListBlockVolume } from '..';
+/* IMPORT */ import { ClipboardWriteOptions, EditorStructure, RelativeVolumeListBlockVolume } from '..';
 
 /**
  * A ClipboardItem is a handle to an object which represents a
@@ -74,9 +74,5 @@ export class ClipboardItem {
      * Success or Failure
      * @throws This function can throw errors.
      */
-    writeToWorld(
-        location: Vector3,
-        options?: ClipboardWriteOptions,
-        transaction?: PendingTransaction,
-    ): boolean;
+    writeToWorld(location: Vector3, options?: ClipboardWriteOptions): boolean;
 }

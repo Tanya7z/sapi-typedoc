@@ -1,24 +1,12 @@
 /* IMPORT */ import { Entity, EntityInitializationCause } from '..';
 
 /**
- * Contains data related to an entity spawning within the
- * world.
- * @seeExample logEntitySpawnEvent.ts
+ * 包含实体生成后的相关数据。
+ *
+ * Contains data related to an entity after it is spawned.
  */
 export class EntitySpawnAfterEvent {
     private constructor();
-    /**
-     * @remarks
-     * Initialization cause (Spawned, Born ...).
-     *
-     */
     readonly cause: EntityInitializationCause;
-    /**
-     * @remarks
-     * Entity that was spawned.
-     *
-     * @worldMutation
-     *
-     */
-    entity: Entity;
+    readonly entity: Entity;
 }

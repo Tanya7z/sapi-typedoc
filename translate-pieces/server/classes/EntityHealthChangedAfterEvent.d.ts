@@ -1,28 +1,13 @@
 /* IMPORT */ import { Entity } from '..';
 
 /**
- * Contains information related to an entity when its health
- * changes. Warning: don't change the health of an entity in
- * this event, or it will cause an infinite loop!
+ * 包含与实体生命值变化相关的数据。
+ *
+ * Contains data related to an entity's health change.
  */
 export class EntityHealthChangedAfterEvent {
     private constructor();
-    /**
-     * @remarks
-     * Entity whose health changed.
-     *
-     */
     readonly entity: Entity;
-    /**
-     * @remarks
-     * New health value of the entity.
-     *
-     */
-    readonly newValue: number;
-    /**
-     * @remarks
-     * Old health value of the entity.
-     *
-     */
-    readonly oldValue: number;
+    readonly newHealth: number;
+    readonly oldHealth: number;
 }

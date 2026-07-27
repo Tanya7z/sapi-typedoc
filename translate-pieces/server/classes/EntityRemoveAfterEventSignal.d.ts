@@ -1,37 +1,29 @@
-/* IMPORT */ import { EntityEventOptions, EntityRemoveAfterEvent } from '..';
+/* IMPORT */ import { EntityRemoveAfterEvent, EntityEventOptions } from '..';
 
 /**
- * Allows registration for an event that fires when an entity
- * is removed from  the game (for example, unloaded, or a few
- * seconds after they are dead.)
+ * 管理与实体被移除后相关的回调。
+ *
+ * Manages callbacks that are connected to after an entity is removed.
  */
 export class EntityRemoveAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * Will call your function every time an entity is removed from
-     * the game.
+     * 添加一个回调，将在实体被移除后被调用。
+     *
+     * Adds a callback that will be called after an entity is removed.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
-     * @param callback
-     * Function to call.
-     * @param options
-     * Additional filtering options for this event.
-     * @returns
-     * Returns a closure that can be used in subsequent unsubscribe
-     * operations.
      */
-    subscribe(
-        callback: (arg0: EntityRemoveAfterEvent) => void,
-        options?: EntityEventOptions,
-    ): (arg0: EntityRemoveAfterEvent) => void;
+    subscribe(callback: (arg0: EntityRemoveAfterEvent) => void, options?: EntityEventOptions): (arg0: EntityRemoveAfterEvent) => void;
     /**
      * @remarks
-     * Unsubscribes your function from subsequent calls when an
-     * entity is removed.
+     * 移除一个回调，使其在实体被移除后不再被调用。
+     *
+     * Removes a callback from being called after an entity is removed.
      *
      * @worldMutation
      *

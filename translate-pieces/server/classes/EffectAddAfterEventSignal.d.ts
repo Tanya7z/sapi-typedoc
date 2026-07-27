@@ -1,6 +1,8 @@
 /* IMPORT */ import { EffectAddAfterEvent, EntityEventOptions } from '..';
 
 /**
+ * 管理与将效果添加到实体时相关的回调。
+ *
  * Manages callbacks that are connected to when an effect is
  * added to an entity.
  */
@@ -8,6 +10,8 @@ export class EffectAddAfterEventSignal {
     private constructor();
     /**
      * @remarks
+     * 添加一个回调，当效果被添加到实体时将被调用。
+     *
      * Adds a callback that will be called when an effect is added
      * to an entity.
      *
@@ -22,6 +26,8 @@ export class EffectAddAfterEventSignal {
     ): (arg0: EffectAddAfterEvent) => void;
     /**
      * @remarks
+     * 移除一个回调，使其在效果被添加到实体时不再被调用。
+     *
      * Removes a callback from being called when an effect is added
      * to an entity.
      *

@@ -1,7 +1,9 @@
 /* IMPORT */ import { EntityBaseMovementComponent } from '..';
 
 /**
- * When added, this move control causes the mob to fly.
+ * 允许该实体在空中飞行移动。
+ *
+ * Allows this entity to move by flying through the air.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityMovementFlyComponent extends EntityBaseMovementComponent {

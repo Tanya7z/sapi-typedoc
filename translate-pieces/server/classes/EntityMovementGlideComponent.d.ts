@@ -1,24 +1,12 @@
 /* IMPORT */ import { EntityBaseMovementComponent } from '..';
 
 /**
- * When added, this movement control allows the mob to glide.
+ * 允许该实体滑翔移动。
+ *
+ * Allows this entity to move by gliding.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityMovementGlideComponent extends EntityBaseMovementComponent {
     private constructor();
-    /**
-     * @remarks
-     * Speed in effect when the entity is turning.
-     *
-     * @throws This property can throw when used.
-     */
-    readonly speedWhenTurning: number;
-    /**
-     * @remarks
-     * Start speed during a glide.
-     *
-     * @throws This property can throw when used.
-     */
-    readonly startSpeed: number;
     static readonly componentId = 'minecraft:movement.glide';
 }

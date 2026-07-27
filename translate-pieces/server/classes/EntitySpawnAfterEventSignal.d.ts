@@ -1,37 +1,34 @@
-/* IMPORT */ import { EntitySpawnAfterEvent } from '..';
+/* IMPORT */ import { EntitySpawnAfterEvent, EntityEventOptions } from '..';
 
 /**
- * Registers a script-based event handler for handling what
- * happens when an entity spawns.
+ * 管理与实体生成后相关的回调。
+ *
+ * Manages callbacks that are connected to after an entity is spawned.
  */
 export class EntitySpawnAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * Method to register an event handler for what happens when an
-     * entity spawns.
+     * 添加一个回调，将在实体生成后被调用。
+     *
+     * Adds a callback that will be called after an entity is spawned.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
-     * @param callback
-     * Function that handles the spawn event.
-     * @seeExample logEntitySpawnEvent.ts
      */
-    subscribe(callback: (arg0: EntitySpawnAfterEvent) => void): (arg0: EntitySpawnAfterEvent) => void;
+    subscribe(callback: (arg0: EntitySpawnAfterEvent) => void, options?: EntityEventOptions): (arg0: EntitySpawnAfterEvent) => void;
     /**
      * @remarks
-     * Unregisters a method that was previously subscribed to the
-     * subscription event.
+     * 移除一个回调，使其在实体生成后不再被调用。
+     *
+     * Removes a callback from being called after an entity is spawned.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
-     * @param callback
-     * Original function that was passed into the subscribe event,
-     * that is to be unregistered.
      */
     unsubscribe(callback: (arg0: EntitySpawnAfterEvent) => void): void;
 }

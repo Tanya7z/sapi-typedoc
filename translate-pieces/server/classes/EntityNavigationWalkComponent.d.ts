@@ -1,8 +1,9 @@
 /* IMPORT */ import { EntityNavigationComponent } from '..';
 
 /**
- * Allows this entity to generate paths by walking around and
- * jumping up and down a block like regular mobs.
+ * 允许该实体像生物走动一样进行导航。
+ *
+ * Allows this entity to navigate like a walking mob.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityNavigationWalkComponent extends EntityNavigationComponent {

@@ -1,6 +1,8 @@
 /* IMPORT */ import { PlayerWaypointsMode } from '..';
 
 /**
+ * 表示一个世界体验的规则集合。
+ *
  * Represents the game rules for a world experience.
  */
 export class GameRules {

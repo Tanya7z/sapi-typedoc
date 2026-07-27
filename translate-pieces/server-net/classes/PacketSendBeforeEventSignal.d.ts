@@ -9,8 +9,12 @@ export class PacketSendBeforeEventSignal {
      * @earlyExecution
      *
      * @param callback
+     * 此闭包以受限执行权限调用。
+     *
      * This closure is called with restricted-execution privilege.
      * @returns
+     * 以受限执行权限调用的闭包。
+     *
      * Closure that is called with restricted-execution privilege.
      */
     subscribe(
@@ -24,6 +28,8 @@ export class PacketSendBeforeEventSignal {
      * @earlyExecution
      *
      * @param callback
+     * 此闭包以受限执行权限调用。
+     *
      * This closure is called with restricted-execution privilege.
      */
     unsubscribe(callback: (arg0: PacketSendBeforeEvent) => void): void;

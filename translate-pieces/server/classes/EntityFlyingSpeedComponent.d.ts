@@ -1,18 +1,21 @@
 /* IMPORT */ import { EntityComponent } from '..';
 
 /**
- * Represents the flying speed of an entity.
+ * 定义实体的飞行速度。
+ *
+ * Defines the flying speed of an entity.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityFlyingSpeedComponent extends EntityComponent {
     private constructor();
     /**
      * @remarks
-     * Current value of the flying speed of the associated entity.
+     * 当前飞行速度值。
      *
-     * @worldMutation
+     * Current flying speed value.
      *
+     * @throws This property can throw when used.
      */
-    value: number;
+    readonly value: number;
     static readonly componentId = 'minecraft:flying_speed';
 }

@@ -1,29 +1,29 @@
-/* IMPORT */ import { EntityHealAfterEvent, EntityHealEventOptions } from '..';
+/* IMPORT */ import { EntityHealAfterEvent, EntityEventOptions } from '..';
 
 /**
- * Manages callbacks that are connected to when an entity is
- * healed.
+ * 管理与实体被治愈后相关的回调。
+ *
+ * Manages callbacks that are connected to after an entity is healed.
  */
 export class EntityHealAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * Adds a callback that will be called when an entity is
-     * healed.
+     * 添加一个回调，将在实体被治愈后调用。
+     *
+     * Adds a callback that will be called after an entity is healed.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
      */
-    subscribe(
-        callback: (arg0: EntityHealAfterEvent) => void,
-        options?: EntityHealEventOptions,
-    ): (arg0: EntityHealAfterEvent) => void;
+    subscribe(callback: (arg0: EntityHealAfterEvent) => void, options?: EntityEventOptions): (arg0: EntityHealAfterEvent) => void;
     /**
      * @remarks
-     * Removes a callback from being called when an entity is
-     * healed.
+     * 移除一个回调，使其在实体被治愈后不再被调用。
+     *
+     * Removes a callback from being called after an entity is healed.
      *
      * @worldMutation
      *

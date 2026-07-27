@@ -1,6 +1,6 @@
 import { execSync } from 'child_process';
-import { existsSync, readFileSync, rmSync, writeFileSync } from 'fs';
-import { resolve as resolvePath } from 'path';
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
+import { basename, dirname, relative, resolve as resolvePath } from 'path';
 import type { PackageJson } from 'type-fest';
 import { build } from './build.js';
 import runHooks from './hooks.js';
@@ -14,6 +14,18 @@ import {
     translatingPath,
     type PackageVersion
 } from './utils.js';
+
+/** 在备份树中查找与目标 piece 对应的旧译文（精确路径，或同目录大小写不敏感） */
+function findBackupPiece(backupRoot: string, piecePath: string): string | undefined {
+    const rel = relative(translatingPath, piecePath);
+    const exact = resolvePath(backupRoot, rel);
+    if (existsSync(exact)) return exact;
+    const dir = resolvePath(backupRoot, dirname(rel));
+    if (!existsSync(dir)) return undefined;
+    const want = basename(rel).toLowerCase();
+    const hit = readdirSync(dir).find((f) => f.toLowerCase() === want);
+    return hit ? resolvePath(dir, hit) : undefined;
+}
 
 const excludedPackages = ['@minecraft/dummy-package', '@minecraft/core-build-tasks', '@minecraft/creator-tools'];
 
@@ -117,15 +129,38 @@ export async function update(
         }
     }
 
-    // 按类切分文件
+    // 先备份已有译文，再按最新官方 d.ts 重切；切完后把旧中文写回同路径 piece，
+    // 避免周更 CI 用英文原文覆盖 translate-pieces 导致站点中文消失。
+    const translatingBackupPath = resolvePath(basePath, 'cache', 'translate-pieces-backup');
+    if (existsSync(translatingBackupPath)) {
+        rmSync(translatingBackupPath, { recursive: true, force: true });
+    }
+    if (existsSync(translatingPath)) {
+        mkdirSync(resolvePath(translatingBackupPath, '..'), { recursive: true });
+        cpSync(translatingPath, translatingBackupPath, { recursive: true });
+        console.log('[update] 已备份 translate-pieces，切分后将恢复已有译文');
+    }
+
     rmSync(translatingPath, { recursive: true, force: true });
     await runHooks('beforeUpdate', buildResult);
+    let restoredCount = 0;
+    let freshCount = 0;
     sourceFiles.forEach((sourceFile) => {
         const pieces = split(sourceFile);
         pieces.forEach((piece) => {
             writePiece(sourceFile, piece);
+            // 生成的 index/export 片始终用最新原文；其余优先恢复备份中的中文
+            if (piece.generated) return;
+            const backupFile = findBackupPiece(translatingBackupPath, piece.path);
+            if (backupFile) {
+                writeFileSync(piece.path, readFileSync(backupFile));
+                restoredCount++;
+            } else {
+                freshCount++;
+            }
         });
     });
+    console.log(`[update] 已恢复译文 ${restoredCount} 个 piece，新增待译 ${freshCount} 个`);
     await runHooks('afterUpdate', buildResult);
 
     // 生成 package.json 快照

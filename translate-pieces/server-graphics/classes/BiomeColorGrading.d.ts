@@ -2,12 +2,16 @@
 /* IMPORT */ import { Vector3 } from '../../server';
 
 /**
+ * 用于影响 Vibrant Visuals（灵动视效）的颜色分级。
+ *
  * Used to affect color grading for Vibrant Visuals
  */
 export class BiomeColorGrading {
     private constructor();
     /**
      * @remarks
+     * 将高光的对比度重置为资源包设定的值。
+     *
      * Resets the contrast of highlights to the value set by
      * resource packs
      *
@@ -20,6 +24,8 @@ export class BiomeColorGrading {
     resetHighlightsContrast(): void;
     /**
      * @remarks
+     * 将高光的增益重置为资源包设定的值。
+     *
      * Resets the gain of highlights to the value set by resource
      * packs
      *
@@ -32,6 +38,8 @@ export class BiomeColorGrading {
     resetHighlightsGain(): void;
     /**
      * @remarks
+     * 将高光的伽马值重置为资源包设定的值。
+     *
      * Resets the gamma of highlights to the value set by resource
      * packs
      *
@@ -44,6 +52,8 @@ export class BiomeColorGrading {
     resetHighlightsGamma(): void;
     /**
      * @remarks
+     * 将高光下限重置为资源包设定的值。
+     *
      * Resets the highlights min to the value set by resource packs
      *
      * @worldMutation
@@ -55,6 +65,8 @@ export class BiomeColorGrading {
     resetHighlightsMin(): void;
     /**
      * @remarks
+     * 将高光的偏移量重置为资源包设定的值。
+     *
      * Resets the offset of highlights to the value set by resource
      * packs
      *
@@ -67,6 +79,8 @@ export class BiomeColorGrading {
     resetHighlightsOffset(): void;
     /**
      * @remarks
+     * 将高光的饱和度重置为资源包设定的值。
+     *
      * Resets the saturation of highlights to the value set by
      * resource packs
      *
@@ -79,6 +93,8 @@ export class BiomeColorGrading {
     resetHighlightsSaturation(): void;
     /**
      * @remarks
+     * 将中间调的对比度重置为资源包设定的值。
+     *
      * Resets the contrast of midtones to the value set by resource
      * packs
      *
@@ -91,6 +107,8 @@ export class BiomeColorGrading {
     resetMidtonesContrast(): void;
     /**
      * @remarks
+     * 将中间调的增益重置为资源包设定的值。
+     *
      * Resets the gain of midtones to the value set by resource
      * packs
      *
@@ -103,6 +121,8 @@ export class BiomeColorGrading {
     resetMidtonesGain(): void;
     /**
      * @remarks
+     * 将中间调的伽马值重置为资源包设定的值。
+     *
      * Resets the gamma of midtones to the value set by resource
      * packs
      *
@@ -115,6 +135,8 @@ export class BiomeColorGrading {
     resetMidtonesGamma(): void;
     /**
      * @remarks
+     * 将中间调的偏移量重置为资源包设定的值。
+     *
      * Resets the offset of midtones to the value set by resource
      * packs
      *
@@ -127,6 +149,8 @@ export class BiomeColorGrading {
     resetMidtonesOffset(): void;
     /**
      * @remarks
+     * 将中间调的饱和度重置为资源包设定的值。
+     *
      * Resets the saturation of midtones to the value set by
      * resource packs
      *
@@ -139,6 +163,8 @@ export class BiomeColorGrading {
     resetMidtonesSaturation(): void;
     /**
      * @remarks
+     * 将阴影的对比度重置为资源包设定的值。
+     *
      * Resets the contrast of shadows to the value set by resource
      * packs
      *
@@ -151,6 +177,8 @@ export class BiomeColorGrading {
     resetShadowsContrast(): void;
     /**
      * @remarks
+     * 将阴影的增益重置为资源包设定的值。
+     *
      * Resets the gain of shadows to the value set by resource
      * packs
      *
@@ -163,6 +191,8 @@ export class BiomeColorGrading {
     resetShadowsGain(): void;
     /**
      * @remarks
+     * 将阴影的伽马值重置为资源包设定的值。
+     *
      * Resets the gamma of shadows to the value set by resource
      * packs
      *
@@ -175,6 +205,8 @@ export class BiomeColorGrading {
     resetShadowsGamma(): void;
     /**
      * @remarks
+     * 将阴影上限重置为资源包设定的值。
+     *
      * Resets the shadows max to the value set by resource packs
      *
      * @worldMutation
@@ -186,6 +218,8 @@ export class BiomeColorGrading {
     resetShadowsMax(): void;
     /**
      * @remarks
+     * 将阴影的偏移量重置为资源包设定的值。
+     *
      * Resets the offset of shadows to the value set by resource
      * packs
      *
@@ -198,6 +232,8 @@ export class BiomeColorGrading {
     resetShadowsOffset(): void;
     /**
      * @remarks
+     * 将阴影的饱和度重置为资源包设定的值。
+     *
      * Resets the saturation of shadows to the value set by
      * resource packs
      *
@@ -210,6 +246,8 @@ export class BiomeColorGrading {
     resetShadowsSaturation(): void;
     /**
      * @remarks
+     * 将色温重置为资源包设定的值。
+     *
      * Resets the temperature to the value set by resource packs
      *
      * @worldMutation
@@ -221,12 +259,21 @@ export class BiomeColorGrading {
     resetTemperature(): void;
     /**
      * @remarks
+     * 设置 Vibrant Visuals 中颜色分级的高光对比度。
+     *
      * Sets the contrast of highlights for color grading in Vibrant
      * Visuals
      *
      * @worldMutation
      *
      * @param highlightsContrast
+     * 一个 Vector3（取值范围 [0.0f, 4.0f]）。用于设置高光的对比度。
+     * 对比度描述色调范围，即图像中亮像素与暗像素之间的亮度差异。
+     * 高对比度的图像其像素亮度值分布范围很广，而低对比度的图像
+     * 其像素亮度值分布范围相对较窄。值为 1.0 时不改变原图像的对比度。
+     * 值为 0.0 时会得到一张完全褪色的灰色图像。大于 1.0 的值会在
+     * 最终图像中提高高光亮度并加深阴影。
+     *
      * A Vector3 (range [0.0f, 4.0f]). Used to set the contrast of
      * highlights. Describes the tonal range, the difference in
      * luminance between the bright and dark pixels in an image. An
@@ -244,12 +291,20 @@ export class BiomeColorGrading {
     setHighlightsContrast(highlightsContrast: Vector3): void;
     /**
      * @remarks
+     * 设置 Vibrant Visuals 中颜色分级的高光增益。
+     *
      * Sets the gain of highlights for color grading in Vibrant
      * Visuals
      *
      * @worldMutation
      *
      * @param highlightsGain
+     * 一个 Vector3（取值范围 [0.0f, 10.0f]）。用于设置高光的增益。
+     * 增益是应用于各颜色通道的乘法因子，用于调整高光范围的整体亮度强度。
+     * 值为 1.0 时不改变原图像。值 < 1.0 会使图像变暗，值 > 1.0 会使其变亮。
+     * 值为 0.0 时会完全抵消该颜色通道。增益是乘法性的，因此对较亮像素的
+     * 影响比对较暗像素更强。
+     *
      * A Vector3 (range [0.0f, 10.0f]). Used to set the gain of
      * highlights. A multiplication factor applied to each color
      * channel to adjust the overall luminance intensity of the
@@ -265,12 +320,20 @@ export class BiomeColorGrading {
     setHighlightsGain(highlightsGain: Vector3): void;
     /**
      * @remarks
+     * 设置 Vibrant Visuals 中颜色分级的高光伽马值。
+     *
      * Sets the gamma of highlights for color grading in Vibrant
      * Visuals
      *
      * @worldMutation
      *
      * @param highlightsGamma
+     * 一个 Vector3（取值范围 [0.0f, 4.0f]）。用于设置高光的伽马值。
+     * 伽马值是在颜色分级和色调映射之后应用于最终颜色的指数因子，
+     * 用于调整图像的整体亮度强度。伽马值的标准值为 2.2。较低的值会
+     * 加深最终图像，较高的值则会使其变亮。伽马值过高会使最终图像
+     * 显得褪色。
+     *
      * A Vector3 (range [0.0f, 4.0f]). Used to set the gamma of
      * highlights. An exponential factor applied to the final color
      * after both color grading and tone mapping to adjust the
@@ -285,11 +348,20 @@ export class BiomeColorGrading {
     setHighlightsGamma(highlightsGamma: Vector3): void;
     /**
      * @remarks
+     * 设置 Vibrant Visuals 中颜色分级的高光下限。
+     *
      * Sets the highlights min for color grading in Vibrant Visuals
      *
      * @worldMutation
      *
      * @param highlightsMin
+     * 一个数字（取值范围 [1.0f, 20.0f]）。用于设置高光下限。
+     * 该因子与场景的平均亮度相乘，用于确定哪些像素被视为高光。
+     * 亮度大于 HighlightsMin * AverageLuminance 的像素将应用高光组的
+     * 颜色分级值。值为 1.0 表示高光占据平均亮度及以上的整个取值范围。
+     * 更高的值会提高像素被视为高光所需的最低亮度值。此值不应等于
+     * ShadowsMax。
+     *
      * A number (range [1.0f, 20.0f]). Used to set the highlights
      * min. A factor multiplied by the average luminance of the
      * scene to determine which pixels are considered highlights.
@@ -308,12 +380,20 @@ export class BiomeColorGrading {
     setHighlightsMin(highlightsMin: number): void;
     /**
      * @remarks
+     * 设置 Vibrant Visuals 中颜色分级的高光偏移量。
+     *
      * Sets the offset of highlights for color grading in Vibrant
      * Visuals
      *
      * @worldMutation
      *
      * @param highlightsOffset
+     * 一个 Vector3（取值范围 [-1.0f, 1.0f]）。用于设置高光的偏移量。
+     * 偏移量是一个加法因子，它先与场景的平均亮度相乘，再加到指定的
+     * 颜色通道上，用于调整图像的整体亮度强度。值为 0.0 时不产生变化。
+     * 值 > 0.0 会使图像变亮，值 < 0.0 会使其变暗。偏移量是加法性的，
+     * 因此对较暗像素的影响比对较亮像素更强。
+     *
      * A Vector3 (range [-1.0f, 1.0f]). Used to set the offset of
      * highlights. An additive factor that is multiplied by the
      * average luminance of the scene and then added to a given
@@ -329,12 +409,18 @@ export class BiomeColorGrading {
     setHighlightsOffset(highlightsOffset: Vector3): void;
     /**
      * @remarks
+     * 设置 Vibrant Visuals 中颜色分级的高光饱和度。
+     *
      * Sets the saturation of highlights for color grading in
      * Vibrant Visuals
      *
      * @worldMutation
      *
      * @param highlightsSaturation
+     * 一个 Vector3（取值范围 [0.0f, 10.0f]）。用于设置高光的饱和度。
+     * 饱和度决定颜色的色相强度。值为 1.0 时不改变原图像的饱和度。
+     * 值为 0.0 时会得到一张灰度图像。值 > 1.0 会增强颜色的强度。
+     *
      * A Vector3 (range [0.0f, 10.0f]). Used to set the saturation
      * of highlights. Determines the hue intensity of colors. A
      * value of 1.0 results in no change in saturation to the
@@ -347,12 +433,21 @@ export class BiomeColorGrading {
     setHighlightsSaturation(highlightsSaturation: Vector3): void;
     /**
      * @remarks
+     * 设置 Vibrant Visuals 中颜色分级的中间调对比度。
+     *
      * Sets the contrast of midtones for color grading in Vibrant
      * Visuals
      *
      * @worldMutation
      *
      * @param midtonesContrast
+     * 一个 Vector3（取值范围 [0.0f, 4.0f]）。用于设置中间调的对比度。
+     * 对比度描述色调范围，即图像中亮像素与暗像素之间的亮度差异。
+     * 高对比度的图像其像素亮度值分布范围很广，而低对比度的图像
+     * 其像素亮度值分布范围相对较窄。值为 1.0 时不改变原图像的对比度。
+     * 值为 0.0 时会得到一张完全褪色的灰色图像。大于 1.0 的值会在
+     * 最终图像中提高高光亮度并加深阴影。
+     *
      * A Vector3 (range [0.0f, 4.0f]). Used to set the contrast of
      * midtones. Describes the tonal range, the difference in
      * luminance between the bright and dark pixels in an image. An
@@ -370,12 +465,20 @@ export class BiomeColorGrading {
     setMidtonesContrast(midtonesContrast: Vector3): void;
     /**
      * @remarks
+     * 设置 Vibrant Visuals 中颜色分级的中间调增益。
+     *
      * Sets the gain of midtones for color grading in Vibrant
      * Visuals
      *
      * @worldMutation
      *
      * @param midtonesGain
+     * 一个 Vector3（取值范围 [0.0f, 10.0f]）。用于设置中间调的增益。
+     * 增益是应用于各颜色通道的乘法因子，用于调整中间调范围的整体亮度强度。
+     * 值为 1.0 时不改变原图像。值 < 1.0 会使图像变暗，值 > 1.0 会使其变亮。
+     * 值为 0.0 时会完全抵消该颜色通道。增益是乘法性的，因此对较亮像素的
+     * 影响比对较暗像素更强。
+     *
      * A Vector3 (range [0.0f, 10.0f]). Used to set the gain of
      * midtones. A multiplication factor applied to each color
      * channel to adjust the overall luminance intensity of the
@@ -391,12 +494,20 @@ export class BiomeColorGrading {
     setMidtonesGain(midtonesGain: Vector3): void;
     /**
      * @remarks
+     * 设置 Vibrant Visuals 中颜色分级的中间调伽马值。
+     *
      * Sets the gamma of midtones for color grading in Vibrant
      * Visuals
      *
      * @worldMutation
      *
      * @param midtonesGamma
+     * 一个 Vector3（取值范围 [0.0f, 4.0f]）。用于设置中间调的伽马值。
+     * 伽马值是在颜色分级和色调映射之后应用于最终颜色的指数因子，
+     * 用于调整图像的整体亮度强度。伽马值的标准值为 2.2。较低的值会
+     * 加深最终图像，较高的值则会使其变亮。伽马值过高会使最终图像
+     * 显得褪色。
+     *
      * A Vector3 (range [0.0f, 4.0f]). Used to set the gamma of
      * midtones. An exponential factor applied to the final color
      * after both color grading and tone mapping to adjust the
@@ -411,12 +522,20 @@ export class BiomeColorGrading {
     setMidtonesGamma(midtonesGamma: Vector3): void;
     /**
      * @remarks
+     * 设置 Vibrant Visuals 中颜色分级的中间调偏移量。
+     *
      * Sets the offset of midtones for color grading in Vibrant
      * Visuals
      *
      * @worldMutation
      *
      * @param midtonesOffset
+     * 一个 Vector3（取值范围 [-1.0f, 1.0f]）。用于设置中间调的偏移量。
+     * 偏移量是一个加法因子，它先与场景的平均亮度相乘，再加到指定的
+     * 颜色通道上，用于调整图像的整体亮度强度。值为 0.0 时不产生变化。
+     * 值 > 0.0 会使图像变亮，值 < 0.0 会使其变暗。偏移量是加法性的，
+     * 因此对较暗像素的影响比对较亮像素更强。
+     *
      * A Vector3 (range [-1.0f, 1.0f]). Used to set the offset of
      * midtones. An additive factor that is multiplied by the
      * average luminance of the scene and then added to a given
@@ -432,12 +551,18 @@ export class BiomeColorGrading {
     setMidtonesOffset(midtonesOffset: Vector3): void;
     /**
      * @remarks
+     * 设置 Vibrant Visuals 中颜色分级的中间调饱和度。
+     *
      * Sets the saturation of midtones for color grading in Vibrant
      * Visuals
      *
      * @worldMutation
      *
      * @param midtonesSaturation
+     * 一个 Vector3（取值范围 [0.0f, 10.0f]）。用于设置中间调的饱和度。
+     * 饱和度决定颜色的色相强度。值为 1.0 时不改变原图像的饱和度。
+     * 值为 0.0 时会得到一张灰度图像。值 > 1.0 会增强颜色的强度。
+     *
      * A Vector3 (range [0.0f, 10.0f]). Used to set the saturation
      * of midtones. Determines the hue intensity of colors. A value
      * of 1.0 results in no change in saturation to the original
@@ -450,12 +575,21 @@ export class BiomeColorGrading {
     setMidtonesSaturation(midtonesSaturation: Vector3): void;
     /**
      * @remarks
+     * 设置 Vibrant Visuals 中颜色分级的阴影对比度。
+     *
      * Sets the contrast of shadows for color grading in Vibrant
      * Visuals
      *
      * @worldMutation
      *
      * @param shadowsContrast
+     * 一个 Vector3（取值范围 [0.0f, 4.0f]）。用于设置阴影的对比度。
+     * 对比度描述色调范围，即图像中亮像素与暗像素之间的亮度差异。
+     * 高对比度的图像其像素亮度值分布范围很广，而低对比度的图像
+     * 其像素亮度值分布范围相对较窄。值为 1.0 时不改变原图像的对比度。
+     * 值为 0.0 时会得到一张完全褪色的灰色图像。大于 1.0 的值会在
+     * 最终图像中提高高光亮度并加深阴影。
+     *
      * A Vector3 (range [0.0f, 4.0f]). Used to set the contrast of
      * shadows. Describes the tonal range, the difference in
      * luminance between the bright and dark pixels in an image. An
@@ -473,12 +607,20 @@ export class BiomeColorGrading {
     setShadowsContrast(shadowsContrast: Vector3): void;
     /**
      * @remarks
+     * 设置 Vibrant Visuals 中颜色分级的阴影增益。
+     *
      * Sets the gain of shadows for color grading in Vibrant
      * Visuals
      *
      * @worldMutation
      *
      * @param shadowsGain
+     * 一个 Vector3（取值范围 [0.0f, 10.0f]）。用于设置阴影的增益。
+     * 增益是应用于各颜色通道的乘法因子，用于调整阴影范围的整体亮度强度。
+     * 值为 1.0 时不改变原图像。值 < 1.0 会使图像变暗，值 > 1.0 会使其变亮。
+     * 值为 0.0 时会完全抵消该颜色通道。增益是乘法性的，因此对较亮像素的
+     * 影响比对较暗像素更强。
+     *
      * A Vector3 (range [0.0f, 10.0f]). Used to set the gain of
      * shadows. A multiplication factor applied to each color
      * channel to adjust the overall luminance intensity of the
@@ -494,12 +636,20 @@ export class BiomeColorGrading {
     setShadowsGain(shadowsGain: Vector3): void;
     /**
      * @remarks
+     * 设置 Vibrant Visuals 中颜色分级的阴影伽马值。
+     *
      * Sets the gamma of shadows for color grading in Vibrant
      * Visuals
      *
      * @worldMutation
      *
      * @param shadowsGamma
+     * 一个 Vector3（取值范围 [0.0f, 4.0f]）。用于设置阴影的伽马值。
+     * 伽马值是在颜色分级和色调映射之后应用于最终颜色的指数因子，
+     * 用于调整图像的整体亮度强度。伽马值的标准值为 2.2。较低的值会
+     * 加深最终图像，较高的值则会使其变亮。伽马值过高会使最终图像
+     * 显得褪色。
+     *
      * A Vector3 (range [0.0f, 4.0f]). Used to set the gamma of
      * shadows. An exponential factor applied to the final color
      * after both color grading and tone mapping to adjust the
@@ -514,11 +664,20 @@ export class BiomeColorGrading {
     setShadowsGamma(shadowsGamma: Vector3): void;
     /**
      * @remarks
+     * 设置 Vibrant Visuals 中颜色分级的阴影上限。
+     *
      * Sets the shadows max for color grading in Vibrant Visuals
      *
      * @worldMutation
      *
      * @param shadowsMax
+     * 一个数字（取值范围 [0.0f, 1.0f]）。用于设置阴影上限。
+     * 该因子与场景的平均亮度相乘，用于确定哪些像素被视为阴影。
+     * 亮度小于 ShadowsMax * AverageLuminance 的像素将应用阴影组的
+     * 颜色分级值。值为 1.0 表示阴影占据平均亮度及以下的整个取值范围。
+     * 更低的值会降低像素被视为阴影所需的最高亮度值。此值不应等于
+     * HighlightsMin。
+     *
      * A number (range [0.0f, 1.0f]). Used to set the shadows max.
      * A factor multiplied by the average luminance of the scene to
      * determine which pixels are considered shadows. Pixels with
@@ -536,12 +695,20 @@ export class BiomeColorGrading {
     setShadowsMax(shadowsMax: number): void;
     /**
      * @remarks
+     * 设置 Vibrant Visuals 中颜色分级的阴影偏移量。
+     *
      * Sets the offset of shadows for color grading in Vibrant
      * Visuals
      *
      * @worldMutation
      *
      * @param shadowsOffset
+     * 一个 Vector3（取值范围 [-1.0f, 1.0f]）。用于设置阴影的偏移量。
+     * 偏移量是一个加法因子，它先与场景的平均亮度相乘，再加到指定的
+     * 颜色通道上，用于调整图像的整体亮度强度。值为 0.0 时不产生变化。
+     * 值 > 0.0 会使图像变亮，值 < 0.0 会使其变暗。偏移量是加法性的，
+     * 因此对较暗像素的影响比对较亮像素更强。
+     *
      * A Vector3 (range [-1.0f, 1.0f]). Used to set the offset of
      * shadows. An additive factor that is multiplied by the
      * average luminance of the scene and then added to a given
@@ -557,12 +724,18 @@ export class BiomeColorGrading {
     setShadowsOffset(shadowsOffset: Vector3): void;
     /**
      * @remarks
+     * 设置 Vibrant Visuals 中颜色分级的阴影饱和度。
+     *
      * Sets the saturation of shadows for color grading in Vibrant
      * Visuals
      *
      * @worldMutation
      *
      * @param shadowsSaturation
+     * 一个 Vector3（取值范围 [0.0f, 10.0f]）。用于设置阴影的饱和度。
+     * 饱和度决定颜色的色相强度。值为 1.0 时不改变原图像的饱和度。
+     * 值为 0.0 时会得到一张灰度图像。值 > 1.0 会增强颜色的强度。
+     *
      * A Vector3 (range [0.0f, 10.0f]). Used to set the saturation
      * of shadows. Determines the hue intensity of colors. A value
      * of 1.0 results in no change in saturation to the original
@@ -575,11 +748,17 @@ export class BiomeColorGrading {
     setShadowsSaturation(shadowsSaturation: Vector3): void;
     /**
      * @remarks
+     * 设置 Vibrant Visuals 中颜色分级的色温。
+     *
      * Sets the temperature for color grading in Vibrant Visuals
      *
      * @worldMutation
      *
      * @param temperature
+     * 一个数字（取值范围 [1000.0f, 15000.0f]）。用于设置色温。
+     * 即以开尔文（Kelvin）为单位测量的整体图像色温。默认值为 6500.0，
+     * 即标准的「日光」照明。
+     *
      * A number (range [1000.0f, 15000.0f]). Used to set the
      * temperature. The overall image temperature measured in
      * Kelvin. The default value is 6500.0, the standard "daylight"
