@@ -1,12 +1,17 @@
 /* IMPORT */ import { LootItemCondition } from '..';
 
 /**
- * 战利品物品条件，检查战利品来源是否具有特定的标记变体。
- *
- * Loot item condition to check that the loot source has a specific mark variant.
+ * Loot item condition that checks the value of the mark
+ * variant of a mob as it drops its loot.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityHasMarkVariantCondition extends LootItemCondition {
     private constructor();
-    readonly markVariant: number;
+    /**
+     * @remarks
+     * The mark variant value the mob must have for this condition
+     * to pass.
+     *
+     */
+    readonly value: number;
 }

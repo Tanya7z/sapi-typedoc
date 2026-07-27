@@ -1,12 +1,11 @@
-/* IMPORT */ import { EntityComponent } from '..';
+/* IMPORT */ import { EntityNavigationComponent } from '..';
 
 /**
- * 允许该实体在方块上攀爬。
- *
- * Allows this entity to climb blocks.
+ * Allows this entity to generate paths that include vertical
+ * walls (for example, like Minecraft spiders do.)
  */
 // @ts-ignore Class inheritance allowed for native defined classes
-export class EntityNavigationClimbComponent extends EntityComponent {
+export class EntityNavigationClimbComponent extends EntityNavigationComponent {
     private constructor();
     static readonly componentId = 'minecraft:navigation.climb';
 }

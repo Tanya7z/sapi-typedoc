@@ -1,13 +1,16 @@
 /* IMPORT */ import { Entity } from '..';
 
 /**
- * 包含实体被移除前的相关数据。
- *
- * Contains data related to an entity before it is removed.
+ * Data for an event that happens when an entity is being
+ * removed from the world (for example, the entity is unloaded
+ * because it is not close to players.)
  */
 export class EntityRemoveBeforeEvent {
     private constructor();
+    /**
+     * @remarks
+     * Reference to an entity that is being removed.
+     *
+     */
     readonly removedEntity: Entity;
-    readonly removedEntityId: string;
-    readonly removedEntityTypeId: string;
 }

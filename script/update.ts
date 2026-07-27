@@ -27,6 +27,17 @@ function findBackupPiece(backupRoot: string, piecePath: string): string | undefi
     return hit ? resolvePath(dir, hit) : undefined;
 }
 
+/** 去掉注释/字符串后的代码指纹，用于判断能否安全回填旧译文（避免过时签名破坏构建） */
+function codeFingerprint(src: string): string {
+    let s = src
+        .replace(/\/\* IMPORT \*\/.*$/gm, '')
+        .replace(/\/\* EXPORT \*\/.*$/gm, '')
+        .replace(/\/\*[\s\S]*?\*\//g, '')
+        .replace(/\/\/.*$/gm, '');
+    s = s.replace(/'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"|`(?:\\.|[^`\\])*`/g, '');
+    return s.replace(/\s+/g, ' ').trim();
+}
+
 const excludedPackages = ['@minecraft/dummy-package', '@minecraft/core-build-tasks', '@minecraft/creator-tools'];
 
 export async function update(
@@ -144,23 +155,32 @@ export async function update(
     rmSync(translatingPath, { recursive: true, force: true });
     await runHooks('beforeUpdate', buildResult);
     let restoredCount = 0;
+    let skippedStaleCount = 0;
     let freshCount = 0;
     sourceFiles.forEach((sourceFile) => {
         const pieces = split(sourceFile);
         pieces.forEach((piece) => {
             writePiece(sourceFile, piece);
-            // 生成的 index/export 片始终用最新原文；其余优先恢复备份中的中文
+            // 生成的 index/export 片始终用最新原文；其余仅在签名未变时恢复中文
             if (piece.generated) return;
             const backupFile = findBackupPiece(translatingBackupPath, piece.path);
-            if (backupFile) {
-                writeFileSync(piece.path, readFileSync(backupFile));
+            if (!backupFile) {
+                freshCount++;
+                return;
+            }
+            const freshText = readFileSync(piece.path, 'utf-8');
+            const backupText = readFileSync(backupFile, 'utf-8');
+            if (codeFingerprint(freshText) === codeFingerprint(backupText) && /[\u4e00-\u9fff]/.test(backupText)) {
+                writeFileSync(piece.path, backupText);
                 restoredCount++;
             } else {
-                freshCount++;
+                skippedStaleCount++;
             }
         });
     });
-    console.log(`[update] 已恢复译文 ${restoredCount} 个 piece，新增待译 ${freshCount} 个`);
+    console.log(
+        `[update] 已恢复译文 ${restoredCount} 个，签名已变保留英文 ${skippedStaleCount} 个，新增待译 ${freshCount} 个`
+    );
     await runHooks('afterUpdate', buildResult);
 
     // 生成 package.json 快照

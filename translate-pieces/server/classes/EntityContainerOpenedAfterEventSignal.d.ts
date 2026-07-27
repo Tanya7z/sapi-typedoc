@@ -1,29 +1,29 @@
-/* IMPORT */ import { EntityContainerOpenedAfterEvent } from '..';
+/* IMPORT */ import { EntityContainerAccessEventOptions, EntityContainerOpenedAfterEvent } from '..';
 
 /**
- * 管理与实体容器被打开后相关的回调。
- *
- * Manages callbacks that are connected to after an entity container is opened.
+ * Manages callbacks that are connected to when an entity
+ * container is opened.
  */
 export class EntityContainerOpenedAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * 添加一个回调，将在实体容器被打开后调用。
-     *
-     * Adds a callback that will be called after an entity container is opened.
+     * Adds a callback that will be called when an entity container
+     * is opened.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
      */
-    subscribe(callback: (arg0: EntityContainerOpenedAfterEvent) => void): (arg0: EntityContainerOpenedAfterEvent) => void;
+    subscribe(
+        callback: (arg0: EntityContainerOpenedAfterEvent) => void,
+        options?: EntityContainerAccessEventOptions,
+    ): (arg0: EntityContainerOpenedAfterEvent) => void;
     /**
      * @remarks
-     * 移除一个回调，使其在实体容器被打开后不再被调用。
-     *
-     * Removes a callback from being called after an entity container is opened.
+     * Removes a callback from being called when an entity
+     * container is opened.
      *
      * @worldMutation
      *
