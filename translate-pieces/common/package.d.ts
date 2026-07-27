@@ -1,8 +1,6 @@
 /**
  * @packageDocumentation
  *
- * 清单详情
- *
  * Manifest Details
  * ```json
  * {

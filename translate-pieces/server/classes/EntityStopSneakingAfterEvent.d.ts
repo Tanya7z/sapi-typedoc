@@ -1,11 +1,15 @@
 /* IMPORT */ import { Entity } from '..';
 
 /**
- * 包含实体停止潜行后的相关数据。
- *
- * Contains data related to an entity after it stops sneaking.
+ * @beta
+ * Contains data related to an entity stopping sneaking.
  */
 export class EntityStopSneakingAfterEvent {
     private constructor();
+    /**
+     * @remarks
+     * Entity that has stopped sneaking.
+     *
+     */
     readonly entity: Entity;
 }

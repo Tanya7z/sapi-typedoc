@@ -1,34 +1,27 @@
 /* IMPORT */ import { Entity, EntityHealSource } from '..';
 
 /**
- * 包含实体在被治愈后的相关数据。
- *
- * Contains data related to an entity after it has been healed.
+ * Contains information related to an entity having been
+ * healed.
  */
 export class EntityHealAfterEvent {
     private constructor();
     /**
      * @remarks
-     * 被治愈的实体。
-     *
-     * The entity that was healed.
+     * Entity that was healed.
      *
      */
-    readonly entity: Entity;
+    readonly healedEntity: Entity;
     /**
      * @remarks
-     * 治愈的来源。
+     * Describes the amount of healing.
      *
-     * The source of the healing.
+     */
+    readonly healing: number;
+    /**
+     * @remarks
+     * Information on the source of healing.
      *
      */
     readonly healSource: EntityHealSource;
-    /**
-     * @remarks
-     * 实体恢复的生命值量。
-     *
-     * The amount of health the entity regained.
-     *
-     */
-    readonly healAmount: number;
 }

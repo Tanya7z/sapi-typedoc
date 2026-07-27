@@ -1,9 +1,8 @@
 /* IMPORT */ import { EntityBaseMovementComponent } from '..';
 
 /**
- * 允许该实体跳跃式移动。
- *
- * Allows this entity to move by skipping.
+ * When added, this move control causes the mob to hop as it
+ * moves.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityMovementSkipComponent extends EntityBaseMovementComponent {

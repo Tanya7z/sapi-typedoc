@@ -1,6 +1,4 @@
 /**
- * 当指定位置或边界区域所在的区块未加载时抛出。
- *
  * Thrown when the chunk for provided location or bounding area
  * is not loaded.
  */

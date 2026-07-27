@@ -1,9 +1,8 @@
 /* IMPORT */ import { EntityBaseMovementComponent } from '..';
 
 /**
- * 允许该实体在两栖环境中移动。
- *
- * Allows this entity to move in amphibious environments.
+ * When added, this movement control allows the mob to swim in
+ * water and walk on land.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityMovementAmphibiousComponent extends EntityBaseMovementComponent {

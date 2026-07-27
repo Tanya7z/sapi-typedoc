@@ -1,6 +1,4 @@
 /**
- * 修改允许列表失败时抛出的错误。
- *
  * An error which is thrown when modifying the allow list has
  * failed.
  */

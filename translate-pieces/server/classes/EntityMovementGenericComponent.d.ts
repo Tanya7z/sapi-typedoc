@@ -1,9 +1,8 @@
 /* IMPORT */ import { EntityBaseMovementComponent } from '..';
 
 /**
- * 允许该实体通用移动。
- *
- * Allows this entity to move generically.
+ * When added, this move control allows a mob to fly, swim,
+ * climb, etc.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityMovementGenericComponent extends EntityBaseMovementComponent {

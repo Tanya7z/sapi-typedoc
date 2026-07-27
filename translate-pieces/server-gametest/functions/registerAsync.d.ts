@@ -2,10 +2,6 @@
 
 /**
  * @remarks
- * 注册一个为异步执行而设计的新 GameTest 函数。此 GameTest
- * 将可以在 Minecraft 中通过
- * `/gametest run [testClassName]:[testName]` 使用。
- *
  * Registers a new GameTest function that is designed for
  * asynchronous execution. This GameTest will become available
  * in Minecraft via `/gametest run [testClassName]:[testName]`.

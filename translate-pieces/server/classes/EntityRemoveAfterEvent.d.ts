@@ -1,13 +1,21 @@
-/* IMPORT */ import { Entity } from '..';
-
 /**
- * 包含实体被移除后的相关数据。
- *
- * Contains data related to an entity after it is removed.
+ * Data for an event that happens when an entity is removed
+ * from the world (for example, the entity is unloaded because
+ * it is not close to players.)
  */
 export class EntityRemoveAfterEvent {
     private constructor();
-    readonly removedEntity: Entity;
+    /**
+     * @remarks
+     * Id of the entity that was removed.
+     *
+     */
     readonly removedEntityId: string;
-    readonly removedEntityTypeId: string;
+    /**
+     * @remarks
+     * Identifier of the type of the entity removed - for example,
+     * 'minecraft:skeleton'.
+     *
+     */
+    readonly typeId: string;
 }

@@ -1,8 +1,6 @@
 /* IMPORT */ import { EntityAttributeComponent } from '..';
 
 /**
- * 定义实体的生命值属性。
- *
  * Defines the health properties of an entity.
  * @seeExample applyDamageThenHeal.ts
  */

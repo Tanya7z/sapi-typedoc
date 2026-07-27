@@ -1,19 +1,6 @@
 /* IMPORT */ import { BlockVolumeBase, BlockVolumeIntersection, Vector3 } from '..';
 
 /**
- * BlockVolume 是一个简单对象，描述世界中位于方块坐标处的给定大小（以方块计）的 3D 矩形区域。
- * 注意这些向量分量不保证按任何顺序排列，因此不等同于「min」与「max」值。
- * 此外，这些向量位置不可与 BlockLocation 互换。
- * 如需将此体积表示为 BlockLocation 范围，可使用 getBoundingBox 实用函数。
- *
- * 此体积类保留初始设置的角点索引顺序。
- * 类比编辑器中分配每个角点的场景——当你移动角点时（可能反转边界的 min/max 关系），
- * 原本位于顶部/左侧的角点就会变成底部/右侧。
- * 因此手动编辑此类体积时，需在编辑过程中维持角点的标识——BlockVolume 实用函数正是为此而设计。
- *
- * 另请注意：此处测量的是「方块大小」（端点到端点）。普通 AABB (0,0,0) 到 (0,0,0) 大小通常为 (0,0,0)；
- * 但因为按方块计数，BlockVolume 的大小或跨度实际为 (1,1,1)。
- *
  * A BlockVolume is a simple interface to an object which
  * represents a 3D rectangle of a given size (in blocks) at a
  * world block location.
@@ -47,8 +34,6 @@
 export class BlockVolume extends BlockVolumeBase {
     /**
      * @remarks
-     * 表示 3D 矩形中一个角点的世界方块位置。
-     * 
      * A world block location that represents a corner in a 3D
      * rectangle
      *
@@ -56,8 +41,6 @@ export class BlockVolume extends BlockVolumeBase {
     'from': Vector3;
     /**
      * @remarks
-     * 表示 3D 矩形中对角角点的世界方块位置。
-     * 
      * A world block location that represents the opposite corner
      * in a 3D rectangle
      *
@@ -66,20 +49,13 @@ export class BlockVolume extends BlockVolumeBase {
     constructor(from: Vector3, to: Vector3);
     /**
      * @remarks
-     * 检查给定位置是否直接与 BlockVolume 的外表面相邻。
-     * 
      * Check to see if the given location is directly adjacent to
      * the outer surface of a BlockVolume.
      *
      *
      * @param pos
-     * 要测试的世界方块位置。
-     * 
      * The world block location to test
      * @returns
-     * 如果该位置在内部或距离超过 0 个方块，则返回 `false`。
-     * 如果该位置直接接触 BlockVolume 的外表面，则返回 `true`。
-     * 
      * If the location is either inside or more than 0 blocks away,
      * the function will return false.
      * If the location is directly contacting the outer surface of
@@ -88,26 +64,18 @@ export class BlockVolume extends BlockVolumeBase {
     doesLocationTouchFaces(pos: Vector3): boolean;
     /**
      * @remarks
-     * 检查两个方块体积是否直接相邻且两个面接触。
-     * 
      * Check to see if a two block volumes are directly adjacent
      * and two faces touch.
      *
      * @param other
-     * 要测试的体积。
-     * 
      * The volume to test
      * @returns
-     * 如果两个方块体积的外表面在任何点接触且直接相邻，返回 `true`。
-     * 
      * If the outer faces of both block volumes touch and are
      * directly adjacent at any point, return true.
      */
     doesVolumeTouchFaces(other: BlockVolume): boolean;
     /**
      * @remarks
-     * 返回表示两个 BlockVolume 对象之间交集的枚举。
-     * 
      * Return an enumeration which represents the intersection
      * between two BlockVolume objects
      *

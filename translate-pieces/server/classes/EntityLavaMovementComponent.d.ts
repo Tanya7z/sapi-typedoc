@@ -1,16 +1,10 @@
-/* IMPORT */ import { EntityComponent } from '..';
+/* IMPORT */ import { EntityAttributeComponent } from '..';
 
 /**
- * 定义实体在熔岩中的移动速度。
- *
- * Defines the lava movement speed of an entity.
+ * Defines the base movement speed in lava of this entity.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
-export class EntityLavaMovementComponent extends EntityComponent {
+export class EntityLavaMovementComponent extends EntityAttributeComponent {
     private constructor();
-    /**
-     * @throws This property can throw when used.
-     */
-    readonly value: number;
     static readonly componentId = 'minecraft:lava_movement';
 }

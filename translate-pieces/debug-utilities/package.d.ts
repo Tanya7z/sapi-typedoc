@@ -1,8 +1,6 @@
 /**
  * @beta
  * @packageDocumentation
- * 包含调试实用工具相关函数。
- *
  * Contains debug utility functions.
  *
  * Manifest Details

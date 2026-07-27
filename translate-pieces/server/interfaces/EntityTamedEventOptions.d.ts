@@ -1,12 +1,10 @@
 /* IMPORT */ import { EntityFilter } from '..';
 
 /**
- * @beta
- * 包含过滤实体驯服事件的选项。
- *
+ * @rc
  * Contains options for filtering entity tamed events.
  */
-export interface EntityTamedEventFilter {
+export interface EntityTamedEventOptions {
     entityFilter?: EntityFilter;
     tamingEntityFilter?: EntityFilter;
 }

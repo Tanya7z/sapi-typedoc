@@ -1,10 +1,6 @@
 /* IMPORT */ import { ChatSendBeforeEventSignal, EffectAddBeforeEventSignal, EntityHealBeforeEventSignal, EntityHurtBeforeEventSignal, EntityItemPickupBeforeEventSignal, EntityRemoveBeforeEventSignal, EntityTamedBeforeEventSignal, ExplosionBeforeEventSignal, ItemUseBeforeEventSignal, PlayerBreakBlockBeforeEventSignal, PlayerGameModeChangeBeforeEventSignal, PlayerInteractWithBlockBeforeEventSignal, PlayerInteractWithEntityBeforeEventSignal, PlayerLeaveBeforeEventSignal, PlayerPlaceBlockBeforeEventSignal, WeatherChangeBeforeEventSignal } from '..';
 
 /**
- * 表示一系列触发于实际动作发生之前的事件。通常来说，即将触发的事件可被修改或取消。
- * 但请注意，在 before 类事件过程中，能够改变游戏状态的 API 将失效，试图调用将会抛出错误。
- * （例如：dimension.spawnEntity）
- * 
  * A set of events that fire before an actual action occurs. In
  * most cases, you can potentially cancel or modify the
  * impending event. Note that in before events any APIs that
@@ -16,8 +12,6 @@ export class WorldBeforeEvents {
     /**
      * @beta
      * @remarks
-     * 此事件在聊天消息被广播或发送给玩家之后触发。
-     *
      * This event is triggered after a chat message has been
      * broadcast or sent to players.
      *
@@ -28,8 +22,6 @@ export class WorldBeforeEvents {
     readonly chatSend: ChatSendBeforeEventSignal;
     /**
      * @remarks
-     * 此事件在某个效果被添加到实体之后触发。
-     *
      * This event is triggered after an event has been added to an
      * entity.
      *
@@ -51,8 +43,6 @@ export class WorldBeforeEvents {
     readonly entityHurt: EntityHurtBeforeEventSignal;
     /**
      * @remarks
-     * 此事件在实体被拾取物品之前触发。
-     *
      * This event fires before an entity picks up an item.
      *
      * @earlyExecution
@@ -61,9 +51,6 @@ export class WorldBeforeEvents {
     readonly entityItemPickup: EntityItemPickupBeforeEventSignal;
     /**
      * @remarks
-     * 在实体从世界中被移除之前触发（例如，被卸载或在被杀死后被
-     * 移除）。
-     *
      * Fires before an entity is removed from the world (for
      * example, unloaded or removed after being killed.)
      *
@@ -72,10 +59,8 @@ export class WorldBeforeEvents {
      */
     readonly entityRemove: EntityRemoveBeforeEventSignal;
     /**
-     * @beta
+     * @rc
      * @remarks
-     * 在实体被驯服之前触发。
-     *
      * Fires before an entity is tamed.
      *
      * @earlyExecution
@@ -84,8 +69,6 @@ export class WorldBeforeEvents {
     readonly entityTamed: EntityTamedBeforeEventSignal;
     /**
      * @remarks
-     * 此事件在爆炸发生之后触发。
-     *
      * This event is fired after an explosion occurs.
      *
      * @earlyExecution
@@ -94,8 +77,6 @@ export class WorldBeforeEvents {
     readonly explosion: ExplosionBeforeEventSignal;
     /**
      * @remarks
-     * 此事件在物品被玩家成功使用时触发。
-     *
      * This event fires when an item is successfully used by a
      * player.
      *
@@ -105,8 +86,6 @@ export class WorldBeforeEvents {
     readonly itemUse: ItemUseBeforeEventSignal;
     /**
      * @remarks
-     * 此事件在方块被玩家破坏之前触发。
-     *
      * This event fires before a block is broken by a player.
      *
      * @earlyExecution
@@ -121,8 +100,6 @@ export class WorldBeforeEvents {
     readonly playerGameModeChange: PlayerGameModeChangeBeforeEventSignal;
     /**
      * @remarks
-     * 在玩家与方块交互之前触发。
-     *
      * Fires before a player interacts with a block.
      *
      * @earlyExecution
@@ -131,8 +108,6 @@ export class WorldBeforeEvents {
     readonly playerInteractWithBlock: PlayerInteractWithBlockBeforeEventSignal;
     /**
      * @remarks
-     * 在玩家与实体交互之前触发。
-     *
      * Fires before a player interacts with an entity.
      *
      * @earlyExecution
@@ -141,8 +116,6 @@ export class WorldBeforeEvents {
     readonly playerInteractWithEntity: PlayerInteractWithEntityBeforeEventSignal;
     /**
      * @remarks
-     * 在玩家离开游戏时触发。
-     *
      * Fires when a player leaves the game.
      *
      * @earlyExecution
@@ -152,8 +125,6 @@ export class WorldBeforeEvents {
     /**
      * @beta
      * @remarks
-     * 此事件在方块被玩家放置之前触发。
-     *
      * This event fires before a block is placed by a player.
      *
      * @earlyExecution

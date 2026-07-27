@@ -1,16 +1,11 @@
-/* IMPORT */ import { EntityComponent } from '..';
+/* IMPORT */ import { EntityAttributeComponent } from '..';
 
 /**
- * 定义实体在水下的移动速度。
- *
- * Defines the underwater movement speed of an entity.
+ * Defines the general movement speed underwater of this
+ * entity.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
-export class EntityUnderwaterMovementComponent extends EntityComponent {
+export class EntityUnderwaterMovementComponent extends EntityAttributeComponent {
     private constructor();
-    /**
-     * @throws This property can throw when used.
-     */
-    readonly value: number;
     static readonly componentId = 'minecraft:underwater_movement';
 }

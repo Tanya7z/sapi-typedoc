@@ -1,13 +1,28 @@
-/* IMPORT */ import { Entity, Player } from '..';
+/* IMPORT */ import { Entity } from '..';
 
 /**
- * 包含实体被驯服前的相关数据。
- *
- * Contains data related to an entity before it is tamed.
+ * @rc
+ * Contains information regarding an event before an entity is
+ * tamed.
  */
 export class EntityTamedBeforeEvent {
     private constructor();
+    /**
+     * @remarks
+     * When set to true will cancel the event.
+     *
+     */
     cancel: boolean;
+    /**
+     * @remarks
+     * The entity that is being tamed.
+     *
+     */
     readonly entity: Entity;
-    readonly player: Player;
+    /**
+     * @remarks
+     * The entity that is attempting to tame the entity.
+     *
+     */
+    readonly tamingEntity: Entity;
 }

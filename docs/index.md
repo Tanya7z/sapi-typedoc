@@ -6,20 +6,20 @@
 
 | 包名 | 当前文档版本 | 对应 MC 版本 | 本站更新日志 |
 | --- | --- | --- | --- |
-| [@minecraft/server](https://www.npmjs.com/package/@minecraft/server) | `2.10.0-beta` | `1.26.40.29` | [稳定/预览](./changelog/server.md) |
-| [@minecraft/server-ui](https://www.npmjs.com/package/@minecraft/server-ui) | `2.2.0-beta` | `1.26.40.29` | [稳定/预览](./changelog/server-ui.md) |
-| [@minecraft/server-net](https://www.npmjs.com/package/@minecraft/server-net) | `1.0.0-beta` | `1.26.40.29` | [稳定/预览](./changelog/server-net.md) |
+| [@minecraft/server](https://www.npmjs.com/package/@minecraft/server) | `2.11.0-beta` | `1.26.50.20` | [稳定/预览](./changelog/server.md) |
+| [@minecraft/server-ui](https://www.npmjs.com/package/@minecraft/server-ui) | `2.3.0-beta` | `1.26.50.20` | [稳定/预览](./changelog/server-ui.md) |
+| [@minecraft/server-net](https://www.npmjs.com/package/@minecraft/server-net) | `1.0.0-beta` | `1.26.50.20` | [稳定/预览](./changelog/server-net.md) |
 | [@minecraft/common](https://www.npmjs.com/package/@minecraft/common) | `1.3.0` | - | [稳定/预览](./changelog/common.md) |
-| [@minecraft/debug-utilities](https://www.npmjs.com/package/@minecraft/debug-utilities) | `1.0.0-beta` | `1.26.40.29` | [稳定/预览](./changelog/debug-utilities.md) |
-| [@minecraft/diagnostics](https://www.npmjs.com/package/@minecraft/diagnostics) | `1.0.0-beta` | `1.26.40.29` | [稳定/预览](./changelog/diagnostics.md) |
+| [@minecraft/debug-utilities](https://www.npmjs.com/package/@minecraft/debug-utilities) | `1.0.0-beta` | `1.26.50.20` | [稳定/预览](./changelog/debug-utilities.md) |
+| [@minecraft/diagnostics](https://www.npmjs.com/package/@minecraft/diagnostics) | `1.0.0-beta` | `1.26.50.20` | [稳定/预览](./changelog/diagnostics.md) |
 | [@minecraft/math](https://www.npmjs.com/package/@minecraft/math) | `2.4.0` | - | [模块文档](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/math/minecraft-math) |
-| [@minecraft/server-admin](https://www.npmjs.com/package/@minecraft/server-admin) | `1.0.0-beta` | `1.26.40.29` | [稳定/预览](./changelog/server-admin.md) |
-| [@minecraft/server-editor](https://www.npmjs.com/package/@minecraft/server-editor) | `0.1.0-beta` | `1.26.40.29` | [稳定/预览](./changelog/server-editor.md) |
-| [@minecraft/server-gametest](https://www.npmjs.com/package/@minecraft/server-gametest) | `1.0.0-beta` | `1.26.40.29` | [稳定/预览](./changelog/server-gametest.md) |
-| [@minecraft/server-graphics](https://www.npmjs.com/package/@minecraft/server-graphics) | `1.0.0-beta` | `1.26.40.29` | [稳定/预览](./changelog/server-graphics.md) |
-| [@minecraft/vanilla-data](https://www.npmjs.com/package/@minecraft/vanilla-data) | `1.26.40-preview.29` | - | [模块文档](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/vanilla-data/minecraft-vanilla-data) |
+| [@minecraft/server-admin](https://www.npmjs.com/package/@minecraft/server-admin) | `1.0.0-beta` | `1.26.50.20` | [稳定/预览](./changelog/server-admin.md) |
+| [@minecraft/server-editor](https://www.npmjs.com/package/@minecraft/server-editor) | `0.1.0-beta` | `1.26.50.20` | [稳定/预览](./changelog/server-editor.md) |
+| [@minecraft/server-gametest](https://www.npmjs.com/package/@minecraft/server-gametest) | `1.0.0-beta` | `1.26.50.20` | [稳定/预览](./changelog/server-gametest.md) |
+| [@minecraft/server-graphics](https://www.npmjs.com/package/@minecraft/server-graphics) | `1.0.0-beta` | `1.26.50.20` | [稳定/预览](./changelog/server-graphics.md) |
+| [@minecraft/vanilla-data](https://www.npmjs.com/package/@minecraft/vanilla-data) | `1.26.50-preview.20` | - | [模块文档](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/vanilla-data/minecraft-vanilla-data) |
 
-游戏版本号：`1.26.40.29`
+游戏版本号：`1.26.50.20`
 
 <!-- summary end -->
 

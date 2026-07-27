@@ -1,9 +1,8 @@
 /* IMPORT */ import { EntityBaseMovementComponent } from '..';
 
 /**
- * 允许该实体跳跃移动。
- *
- * Allows this entity to move by jumping.
+ * Move control that causes the mob to jump as it moves with a
+ * specified delay between jumps.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityMovementJumpComponent extends EntityBaseMovementComponent {

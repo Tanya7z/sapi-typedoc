@@ -4,14 +4,11 @@
 
 /**
  * @remarks
- * 返回玩家皮肤的相关数据。
- *
  * Returns data about a player's skin.
  *
  * @worldMutation
  *
  * @param player
- * 要获取皮肤数据的玩家。
  * The player who's skin is returned.
  * @throws This function can throw errors.
  *

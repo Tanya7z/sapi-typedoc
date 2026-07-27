@@ -1,29 +1,29 @@
-/* IMPORT */ import { EntityHealthChangedAfterEvent, EntityEventOptions } from '..';
+/* IMPORT */ import { EntityEventOptions, EntityHealthChangedAfterEvent } from '..';
 
 /**
- * 管理与实体生命值变化时相关的回调。
- *
- * Manages callbacks that are connected to when an entity's health changes.
+ * Manages callbacks that are connected to when the health of
+ * an entity changes.
  */
 export class EntityHealthChangedAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * 添加一个回调，将在实体生命值变化时被调用。
-     *
-     * Adds a callback that will be called when an entity's health changes.
+     * Adds a callback that will be called when the health of an
+     * entity changes.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
      */
-    subscribe(callback: (arg0: EntityHealthChangedAfterEvent) => void, options?: EntityEventOptions): (arg0: EntityHealthChangedAfterEvent) => void;
+    subscribe(
+        callback: (arg0: EntityHealthChangedAfterEvent) => void,
+        options?: EntityEventOptions,
+    ): (arg0: EntityHealthChangedAfterEvent) => void;
     /**
      * @remarks
-     * 移除一个回调，使其在实体生命值变化时不再被调用。
-     *
-     * Removes a callback from being called when an entity's health changes.
+     * Removes a callback from being called when the health of an
+     * entity changes.
      *
      * @worldMutation
      *

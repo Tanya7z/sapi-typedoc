@@ -1,12 +1,10 @@
-/* IMPORT */ import { EntityComponent } from '..';
+/* IMPORT */ import { EntityAttributeComponent } from '..';
 
 /**
- * 定义实体的移动属性。
- *
- * Defines the movement properties of an entity.
+ * Defines the general movement speed of this entity.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
-export class EntityMovementComponent extends EntityComponent {
+export class EntityMovementComponent extends EntityAttributeComponent {
     private constructor();
     static readonly componentId = 'minecraft:movement';
 }

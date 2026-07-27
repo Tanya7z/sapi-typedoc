@@ -1,8 +1,6 @@
 /**
  * @beta
  * @packageDocumentation
- * `@minecraft/server-gametest` 为脚本API在脚手架与内容测试方面提供支持。
- * 
  * The @minecraft/server-gametest module provides scriptable
  * APIs for scaffolding and testing content experiences in
  * Minecraft.
