@@ -2,7 +2,7 @@
 
 /**
  * @rc
- * 包含玩家取消破坏方块后的事件相关信息。
+ * 包含玩家取消方块破坏时触发事件的相关信息。
  *
  * Contains information regarding an event after a player
  * cancels breaking a block.

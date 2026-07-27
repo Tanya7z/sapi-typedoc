@@ -22,7 +22,7 @@ export enum BlockPistonState {
     Expanding = 'Expanding',
     /**
      * @remarks
-     * 活塞是否完全收回。
+     * 活塞是否完全缩回。
      *
      * Whether the piston is fully retracted.
      *
@@ -30,7 +30,7 @@ export enum BlockPistonState {
     Retracted = 'Retracted',
     /**
      * @remarks
-     * 活塞是否正在收回过程中。
+     * 活塞是否正在缩回过程中。
      *
      * Whether the piston is in the process of retracting.
      *

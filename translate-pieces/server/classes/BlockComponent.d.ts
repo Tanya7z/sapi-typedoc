@@ -10,7 +10,7 @@ export class BlockComponent extends Component {
     private constructor();
     /**
      * @remarks
-     * 此组件所属的方块实例。
+     * 此组件所属的方块。
      * 
      * Block instance that this component pertains to.
      *

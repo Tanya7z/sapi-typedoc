@@ -1,5 +1,5 @@
 /**
- * 表示方块实例的可配置状态值。例如，楼梯的朝向方向可以作为方块状态访问。
+ * 表示方块的可配置状态值。例如，楼梯的朝向方向可以作为方块状态访问。
  * 
  * Represents a configurable state value of a block instance.
  * For example, the facing direction of stairs is accessible as

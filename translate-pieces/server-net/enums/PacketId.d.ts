@@ -17,6 +17,8 @@ export enum PacketId {
      */
     ActorPickRequestPacket = 'ActorPickRequestPacket',
     /**
+     * 向客户端添加新实体（Actor）的数据包。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/AddActorPacket.html
      */
     AddActorPacket = 'AddActorPacket',
@@ -27,6 +29,8 @@ export enum PacketId {
      */
     AddBehaviorTreePacket = 'AddBehaviorTreePacket',
     /**
+     * 向客户端添加物品实体的数据包（用于掉落物）。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/AddItemActorPacket.html
      */
     AddItemActorPacket = 'AddItemActorPacket',
@@ -37,6 +41,8 @@ export enum PacketId {
      */
     AddPaintingPacket = 'AddPaintingPacket',
     /**
+     * 向客户端添加玩家实体的数据包。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/AddPlayerPacket.html
      */
     AddPlayerPacket = 'AddPlayerPacket',
@@ -251,6 +257,8 @@ export enum PacketId {
      */
     ClientboundDebugRendererPacket = 'ClientboundDebugRendererPacket',
     /**
+     * 服务端→客户端的地图物品数据包（MapItemDataPacket）。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/ClientboundMapItemDataPacket.html
      */
     ClientboundMapItemDataPacket = 'ClientboundMapItemDataPacket',
@@ -371,6 +379,8 @@ export enum PacketId {
      */
     CorrectPlayerMovePredictionPacket = 'CorrectPlayerMovePredictionPacket',
     /**
+     * 客户端向服务端发送的合成数据包（含配方、容器类型等）。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/CraftingDataPacket.html
      */
     CraftingDataPacket = 'CraftingDataPacket',
@@ -381,6 +391,8 @@ export enum PacketId {
      */
     CreatePhotoPacket = 'CreatePhotoPacket',
     /**
+     * 发送给客户端以同步创造模式物品栏内容的数据包。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/CreativeContentPacket.html
      */
     CreativeContentPacket = 'CreativeContentPacket',
@@ -403,6 +415,8 @@ export enum PacketId {
      */
     DebugInfoPacket = 'DebugInfoPacket',
     /**
+     * 用于同步世界维度（Dimension）数据的数据包。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/DimensionDataPacket.html
      */
     DimensionDataPacket = 'DimensionDataPacket',
@@ -517,10 +531,14 @@ export enum PacketId {
      */
     ItemRegistryPacket = 'ItemRegistryPacket',
     /**
+     * 客户端→服务端：物品栈请求数据包。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/ItemStackRequestPacket.html
      */
     ItemStackRequestPacket = 'ItemStackRequestPacket',
     /**
+     * 服务端→客户端：物品栈响应数据包。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/ItemStackResponsePacket.html
      */
     ItemStackResponsePacket = 'ItemStackResponsePacket',
@@ -555,6 +573,8 @@ export enum PacketId {
      */
     LessonProgressPacket = 'LessonProgressPacket',
     /**
+     * 用于向客户端发送世界区块数据的数据包（LevelChunkPacket）。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/LevelChunkPacket.html
      */
     LevelChunkPacket = 'LevelChunkPacket',
@@ -643,6 +663,8 @@ export enum PacketId {
      */
     MoveActorAbsolutePacket = 'MoveActorAbsolutePacket',
     /**
+     * 向客户端发送实体增量移动信息的数据包（MoveActorDeltaPacket）。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/MoveActorDeltaPacket.html
      */
     MoveActorDeltaPacket = 'MoveActorDeltaPacket',
@@ -653,6 +675,8 @@ export enum PacketId {
      */
     MovementEffectPacket = 'MovementEffectPacket',
     /**
+     * 向客户端发送玩家移动信息的数据包（MovePlayerPacket）。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/MovePlayerPacket.html
      */
     MovePlayerPacket = 'MovePlayerPacket',
@@ -741,6 +765,8 @@ export enum PacketId {
      */
     PlayerArmorDamagePacket = 'PlayerArmorDamagePacket',
     /**
+     * 客户端→服务端：玩家权威输入数据包（PlayerAuthInputPacket）。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/PlayerAuthInputPacket.html
      */
     PlayerAuthInputPacket = 'PlayerAuthInputPacket',
@@ -763,10 +789,14 @@ export enum PacketId {
      */
     PlayerHotbarPacket = 'PlayerHotbarPacket',
     /**
+     * 用于同步玩家在线列表的数据包（PlayerListPacket）。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/PlayerListPacket.html
      */
     PlayerListPacket = 'PlayerListPacket',
     /**
+     * 用于上报玩家位置的数据包（PlayerLocationPacket）。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/PlayerLocationPacket.html
      */
     PlayerLocationPacket = 'PlayerLocationPacket',
@@ -791,6 +821,8 @@ export enum PacketId {
      */
     PlayerToggleCrafterSlotRequestPacket = 'PlayerToggleCrafterSlotRequestPacket',
     /**
+     * 用于更新实体覆盖（overrides）的玩家相关数据包。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/PlayerUpdateEntityOverridesPacket.html
      */
     PlayerUpdateEntityOverridesPacket = 'PlayerUpdateEntityOverridesPacket',
@@ -891,6 +923,8 @@ export enum PacketId {
      */
     ResourcePackChunkRequestPacket = 'ResourcePackChunkRequestPacket',
     /**
+     * 客户端→服务端：资源包响应数据包。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/ResourcePackClientResponsePacket.html
      */
     ResourcePackClientResponsePacket = 'ResourcePackClientResponsePacket',
@@ -901,6 +935,8 @@ export enum PacketId {
      */
     ResourcePackDataInfoPacket = 'ResourcePackDataInfoPacket',
     /**
+     * 用于向客户端发送资源包清单信息的数据包。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/ResourcePacksInfoPacket.html
      */
     ResourcePacksInfoPacket = 'ResourcePacksInfoPacket',
@@ -1007,6 +1043,8 @@ export enum PacketId {
      */
     ServerToClientHandshakePacket = 'ServerToClientHandshakePacket',
     /**
+     * 用于设置实体数据（SetActorData）的服务端→客户端数据包。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/SetActorDataPacket.html
      */
     SetActorDataPacket = 'SetActorDataPacket',
@@ -1083,10 +1121,14 @@ export enum PacketId {
      */
     SetPlayerInventoryOptionsPacket = 'SetPlayerInventoryOptionsPacket',
     /**
+     * 用于设置计分板上身份信息的数据包（SetScoreboardIdentityPacket）。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/SetScoreboardIdentityPacket.html
      */
     SetScoreboardIdentityPacket = 'SetScoreboardIdentityPacket',
     /**
+     * 用于设置计分板分数的数据包（SetScorePacket）。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/SetScorePacket.html
      */
     SetScorePacket = 'SetScorePacket',
@@ -1157,6 +1199,8 @@ export enum PacketId {
      */
     SpawnParticleEffectPacket = 'SpawnParticleEffectPacket',
     /**
+     * 游戏开始时服务端→客户端的世界初始化数据包。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/StartGamePacket.html
      */
     StartGamePacket = 'StartGamePacket',
@@ -1167,6 +1211,8 @@ export enum PacketId {
      */
     StopSoundPacket = 'StopSoundPacket',
     /**
+     * 用于同步结构方块（Structure Block）更新的数据包。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/StructureBlockUpdatePacket.html
      */
     StructureBlockUpdatePacket = 'StructureBlockUpdatePacket',
@@ -1183,6 +1229,8 @@ export enum PacketId {
      */
     StructureTemplateDataResponsePacket = 'StructureTemplateDataResponsePacket',
     /**
+     * 服务端→客户端：子区块数据传输数据包。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/SubChunkPacket.html
      */
     SubChunkPacket = 'SubChunkPacket',
@@ -1193,6 +1241,8 @@ export enum PacketId {
      */
     SubChunkRequestPacket = 'SubChunkRequestPacket',
     /**
+     * 子客户端（split-screen）登录数据包。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/SubClientLoginPacket.html
      */
     SubClientLoginPacket = 'SubClientLoginPacket',
@@ -1239,6 +1289,8 @@ export enum PacketId {
      */
     TransferPacket = 'TransferPacket',
     /**
+     * 盔甲纹饰（Trim）数据包。
+     *
      * @see https://mojang.github.io/bedrock-protocol-docs/html/TrimDataPacket.html
      */
     TrimDataPacket = 'TrimDataPacket',

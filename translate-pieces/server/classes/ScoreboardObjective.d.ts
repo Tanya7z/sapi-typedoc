@@ -30,6 +30,8 @@ export class ScoreboardObjective {
     readonly id: string;
     /**
      * @remarks
+     * 如果此 ScoreboardObjective 引用仍然有效，则返回 true。
+     *
      * Returns true if the ScoreboardObjective reference is still
      * valid.
      *
@@ -37,11 +39,15 @@ export class ScoreboardObjective {
     readonly isValid: boolean;
     /**
      * @remarks
+     * 为给定分数持有者和记分项添加分数。
+     *
      * Adds a score to the given participant and objective.
      *
      * @worldMutation
      *
      * @param participant
+     * 要对其应用记分项分数增加的分数持有者。
+     *
      * Participant to apply the scoreboard value addition to.
      * @throws This function can throw errors.
      */
@@ -85,6 +91,8 @@ export class ScoreboardObjective {
     getScores(): ScoreboardScoreInfo[];
     /**
      * @remarks
+     * 返回指定身份是否是该记分项的分数持有者。
+     *
      * Returns if the specified identity is a participant of the
      * scoreboard objective.
      *
@@ -93,11 +101,15 @@ export class ScoreboardObjective {
     hasParticipant(participant: Entity | ScoreboardIdentity | string): boolean;
     /**
      * @remarks
+     * 从该记分项中移除一个分数持有者。
+     *
      * Removes a participant from this scoreboard objective.
      *
      * @worldMutation
      *
      * @param participant
+     * 要从该记分项追踪中移除的分数持有者。
+     *
      * Participant to remove from being tracked with this
      * objective.
      * @throws This function can throw errors.
@@ -105,13 +117,19 @@ export class ScoreboardObjective {
     removeParticipant(participant: Entity | ScoreboardIdentity | string): boolean;
     /**
      * @remarks
+     * 为分数持有者设置分数。
+     *
      * Sets a score for a participant.
      *
      * @worldMutation
      *
      * @param participant
+     * 分数持有者的身份。
+     *
      * Identity of the participant.
      * @param score
+     * 新的分数。
+     *
      * New value of the score.
      * @throws This function can throw errors.
      */

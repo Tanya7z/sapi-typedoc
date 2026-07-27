@@ -1,7 +1,7 @@
 /* IMPORT */ import { Entity } from '..';
 
 /**
- * 包含实体撞击另一个实体后的相关信息。
+ * 包含实体击中另一个实体后的相关信息。
  *
  * Contains information related to an entity hitting another entity.
  */

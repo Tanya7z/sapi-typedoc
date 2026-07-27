@@ -116,7 +116,7 @@ export enum GameRule {
     DrowningDamage = 'drowningDamage',
     /**
      * @remarks
-     * 控制实体是否因坠落而受到伤害。
+     * 控制实体是否因摔落而受到伤害。
      *
      * Controls whether entities take damage from falling.
      *

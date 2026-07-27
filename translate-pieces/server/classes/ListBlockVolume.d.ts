@@ -28,7 +28,7 @@ export class ListBlockVolume extends BlockVolumeBase {
      * Insert block locations into container.
      *
      * @param locations
-     * 要插入容器的方块位置数组。
+     * 要添加到容器中的方块位置数组。
      *
      * Array of block locations to be inserted into container.
      */

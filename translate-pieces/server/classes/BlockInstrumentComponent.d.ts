@@ -3,8 +3,8 @@
 
 /**
  * @beta
- * 表示方块可以分配在其上表面和下表面的乐器。
- * 
+ * 表示方块可在上表面与下表面分别设置的乐器。
+ *
  * Represents the instruments a block can have assigned to it's
  * up and down faces.
  */

@@ -50,7 +50,7 @@ export class Entity {
     readonly isClimbing: boolean;
     /**
      * @remarks
-     * 实体是否具有大于 0 的坠落距离，或在滑翔时大于 1。
+     * 实体是否具有大于 0 的摔落距离，或在滑翔时大于 1。
      *
      * Whether the entity has a fall distance greater than 0, or
      * greater than 1 while gliding.

@@ -2,7 +2,7 @@
 /* IMPORT */ import { RGB } from '../../server';
 
 /**
- * 用于在「生动视觉」(Vibrant Visuals) 中按生物群系影响大气散射。
+ * 用于在「灵动视效」(Vibrant Visuals) 中按生物群系影响大气散射。
  *
  * Used to affect atmospheric scattering per biome for Vibrant
  * Visuals
@@ -153,7 +153,7 @@ export class BiomeAtmospherics {
     resetSunMieStrength(): void;
     /**
      * @remarks
-     * 为「生动视觉」中的大气散射设置地平线混合上限。
+     * 为「灵动视效」中的大气散射设置地平线混合上限。
      *
      * Sets the horizon blend max for atmospheric scattering in
      * Vibrant Visuals
@@ -169,7 +169,7 @@ export class BiomeAtmospherics {
     setHorizonBlendMax(blendMax: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的大气散射设置地平线混合 Mie 起始值。
+     * 为「灵动视效」中的大气散射设置地平线混合 Mie 起始值。
      *
      * Sets the horizon blend mie start for atmospheric scattering
      * in Vibrant Visuals
@@ -185,7 +185,7 @@ export class BiomeAtmospherics {
     setHorizonBlendMieStart(blendMieStart: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的大气散射设置地平线混合下限。
+     * 为「灵动视效」中的大气散射设置地平线混合下限。
      *
      * Sets the horizon blend min for atmospheric scattering in
      * Vibrant Visuals
@@ -201,7 +201,7 @@ export class BiomeAtmospherics {
     setHorizonBlendMin(blendMin: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的大气散射设置地平线混合起始值。
+     * 为「灵动视效」中的大气散射设置地平线混合起始值。
      *
      * Sets the horizon blend start for atmospheric scattering in
      * Vibrant Visuals
@@ -217,7 +217,7 @@ export class BiomeAtmospherics {
     setHorizonBlendStart(blendStart: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的大气散射设置月亮 Mie 强度。
+     * 为「灵动视效」中的大气散射设置月亮 Mie 强度。
      *
      * Sets the moon mie strength for atmospheric scattering in
      * Vibrant Visuals
@@ -233,7 +233,7 @@ export class BiomeAtmospherics {
     setMoonMieStrength(moonMieStrength: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的大气散射设置瑞利散射强度。
+     * 为「灵动视效」中的大气散射设置瑞利散射强度。
      *
      * Sets the rayleigh strength for atmospheric scattering in
      * Vibrant Visuals
@@ -249,7 +249,7 @@ export class BiomeAtmospherics {
     setRayleighStrength(rayleighStrength: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的大气散射设置天空地平线颜色。
+     * 为「灵动视效」中的大气散射设置天空地平线颜色。
      *
      * Sets the sky horizon color for atmospheric scattering in
      * Vibrant Visuals
@@ -265,7 +265,7 @@ export class BiomeAtmospherics {
     setSkyHorizonColor(color: Record<number, RGB> | RGB): void;
     /**
      * @remarks
-     * 为「生动视觉」中的大气散射设置天空天顶颜色。
+     * 为「灵动视效」中的大气散射设置天空天顶颜色。
      *
      * Sets the sky zenith color for atmospheric scattering in
      * Vibrant Visuals
@@ -281,7 +281,7 @@ export class BiomeAtmospherics {
     setSkyZenithColor(color: Record<number, RGB> | RGB): void;
     /**
      * @remarks
-     * 为「生动视觉」中的大气散射设置太阳眩光形状。
+     * 为「灵动视效」中的大气散射设置太阳眩光形状。
      *
      * Sets the sun glare shape for atmospheric scattering in
      * Vibrant Visuals
@@ -297,7 +297,7 @@ export class BiomeAtmospherics {
     setSunGlareShape(sunGlareShape: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的大气散射设置太阳 Mie 强度。
+     * 为「灵动视效」中的大气散射设置太阳 Mie 强度。
      *
      * Sets the sun mie strength for atmospheric scattering in
      * Vibrant Visuals

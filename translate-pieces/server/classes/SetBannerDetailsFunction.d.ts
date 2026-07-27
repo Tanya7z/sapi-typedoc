@@ -12,7 +12,7 @@ export class SetBannerDetailsFunction extends LootItemFunction {
     /**
      * @beta
      * @remarks
-     * 掉落旗帜的基础颜色。
+     * 掉落旗帜的底色。
      *
      * The base color for the dropped banner.
      *

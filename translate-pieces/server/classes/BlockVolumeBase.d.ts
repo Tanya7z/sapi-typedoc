@@ -82,7 +82,7 @@ export class BlockVolumeBase {
     getFarthest(count: number, location: Vector3): Vector3[];
     /**
      * @remarks
-     * 获取体积的最大角落位置（保证 >= min）。
+     * 获取体积的最大角点位置（保证 >= min）。
      * 
      * Get the largest corner position of the volume (guaranteed to
      * be >= min)
@@ -92,7 +92,7 @@ export class BlockVolumeBase {
     getMax(): Vector3;
     /**
      * @remarks
-     * 获取体积的最小角落位置（保证 <= max）。
+     * 获取体积的最小角点位置（保证 <= max）。
      * 
      * Get the smallest corner position of the volume (guaranteed
      * to be <= max)

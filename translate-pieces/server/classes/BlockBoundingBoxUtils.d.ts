@@ -22,11 +22,11 @@ export class BlockBoundingBoxUtils {
      * @worldMutation
      *
      * @param min
-     * 一个角落的世界坐标位置。
+     * 一个角点的世界坐标位置。
      * 
      * A corner world location
      * @param max
-     * 对角线相对的另一个角落的世界坐标位置。
+     * 对角线相对的另一个角点的世界坐标位置。
      * 
      * A corner world location diametrically opposite
      */
@@ -35,7 +35,7 @@ export class BlockBoundingBoxUtils {
      * @remarks
      * 沿各轴按给定大小扩展一个 {@link BlockBoundingBox}。
      * 大小可以为负数以实现收缩。
-     * 注意：如果收缩大小大于跨度，角落可能被反转，但 min/max 关系将保持正确。
+     * 注意：如果收缩大小大于跨度，角点可能被反转，但 min/max 关系将保持正确。
      * 
      * Expand a {@link BlockBoundingBox} by a given amount along
      * each axis.

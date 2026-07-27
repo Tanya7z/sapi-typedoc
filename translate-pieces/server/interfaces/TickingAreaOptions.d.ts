@@ -17,7 +17,7 @@ export interface TickingAreaOptions {
     dimension: Dimension;
     /**
      * @remarks
-     * 边界框的一个角落方块位置。
+     * 边界框的一个角点方块位置。
      *
      * Corner block location of the bounding box.
      *
@@ -25,7 +25,7 @@ export interface TickingAreaOptions {
     from: Vector3;
     /**
      * @remarks
-     * 边界框的对角角落方块位置。
+     * 边界框的对角角点方块位置。
      *
      * Opposite corner block location of the bounding box.
      *

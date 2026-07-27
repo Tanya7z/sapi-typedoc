@@ -97,7 +97,7 @@ export class FogSettings {
      * stack, allowing it to be targeted by pop or remove. If
      * omitted, the entry is stored with the tag 'untagged'.
      * @returns
-     * 返回雾设置插入堆栈位置的从零开始索引。
+     * 雾设置被插入到堆栈后所在位置的从零开始索引。
      *
      * Returns the zero-based index at which the fog definition was
      * inserted into the stack.

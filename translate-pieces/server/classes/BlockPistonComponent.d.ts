@@ -11,7 +11,7 @@ export class BlockPistonComponent extends BlockComponent {
     private constructor();
     /**
      * @remarks
-     * 活塞是否正在伸出或收回的过程中。
+     * 活塞是否正在伸出或缩回的过程中。
      * 
      * Whether the piston is in the process of expanding or
      * retracting.

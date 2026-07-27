@@ -2,7 +2,7 @@
 
 /**
  * @beta
- * 在体积中查询方块的选项。扩展了 `BlockFilter`，增加了基于距离位置的额外排序和限制选项。
+ * 在体积中查询方块的选项。扩展了 `BlockFilter`，增加了基于距离坐标的额外排序和限制选项。
  *
  * Options for querying blocks in a volume. Extends BlockFilter
  * with additional sorting and limiting options based on
@@ -12,7 +12,7 @@
 export interface BlockQueryOptions extends BlockFilter {
     /**
      * @remarks
-     * 如果指定，则返回距离位置最近的 N 个方块。必须大于 0。不能与 `farthest` 同时使用。需要设置 `location`。
+     * 如果指定，则返回距离坐标最近的 N 个方块。必须大于 0。不能与 `farthest` 同时使用。需要设置 `location`。
      *
      * If specified, returns the closest N blocks to the location.
      * Must be greater than 0. Cannot be used with farthest.
@@ -22,7 +22,7 @@ export interface BlockQueryOptions extends BlockFilter {
     closest?: number;
     /**
      * @remarks
-     * 如果指定，则返回距离位置最远的 N 个方块。必须大于 0。不能与 `closest` 同时使用。需要设置 `location`。
+     * 如果指定，则返回距离坐标最远的 N 个方块。必须大于 0。不能与 `closest` 同时使用。需要设置 `location`。
      *
      * If specified, returns the farthest N blocks from the
      * location. Must be greater than 0. Cannot be used with

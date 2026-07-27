@@ -398,7 +398,7 @@ function moveDirectorySync(src: string, dest: string) {
 /** 生成 docs/.pages 与各模块 .pages，供 Material tabs + awesome-pages */
 function writeMkdocsModuleTabs() {
     const docsDir = resolvePath(basePath, 'docs');
-    const reservedTopLevel = new Set(['api', 'changelog', 'index.md', 'sync.md', 'tags.md', '.pages']);
+    const reservedTopLevel = new Set(['api', 'changelog', 'index.md', 'sync.md', 'tags.md', 'CHANGELOG-TERMS.md', '.pages']);
 
     const moduleDirs = readdirSync(docsApiPath, { withFileTypes: true })
         .filter(
@@ -466,6 +466,7 @@ function writeMkdocsModuleTabs() {
         ...ordered.map((m) => `  - ${m}`),
         '  - 标签: tags.md',
         '  - 同步: sync.md',
+        '  - 术语变更日志: CHANGELOG-TERMS.md',
         ''
     ];
     writeFileSync(resolvePath(docsDir, '.pages'), rootNav.join('\n'), 'utf-8');
@@ -651,6 +652,71 @@ function renderInheritanceNavLines(graph: InheritanceGraph): string[] {
 }
 
 /**
+ * 基于符号名 + 内容启发式推断领域标签，便于 docs/ 标签页索引。
+ *
+ * 匹配策略：
+ * - 优先匹配「符号名」的 CamelCase 段（`EntityDieAfterEvent` → event/entity）
+ * - 类名命中后，再扫内容（仅限 @tag / class 头一行）补全领域标签
+ * - 多关键词产生多标签，去重保序
+ *
+ * 新增标签时一并更新 docs/tags.md 的索引描述。
+ */
+type DomainRule = { tag: string; nameTokens: string[]; bodyPatterns?: RegExp[] };
+
+const DOMAIN_TAG_RULES: DomainRule[] = [
+    { tag: 'event', nameTokens: ['Event', 'Events', 'EventSignal', 'EventCallback', 'Signal'] },
+    { tag: 'player', nameTokens: ['Player'] },
+    { tag: 'entity', nameTokens: ['Entity', 'Entities'] },
+    { tag: 'item', nameTokens: ['ItemStack', 'ItemType', 'ItemEnchants', 'ItemLockMode'] },
+    { tag: 'block', nameTokens: ['BlockType', 'BlockPermutation', 'BlockVolume', 'BlockRaycastHit'] },
+    { tag: 'world', nameTokens: ['World'] },
+    { tag: 'dimension', nameTokens: ['Dimension'] },
+    { tag: 'biome', nameTokens: ['Biome'] },
+    { tag: 'damage', nameTokens: ['Damage', 'Health'] },
+    { tag: 'inventory', nameTokens: ['Inventory', 'Container'] },
+    { tag: 'scoreboard', nameTokens: ['Scoreboard'] },
+    { tag: 'chat', nameTokens: ['RawMessage', 'RawText', 'Message'] },
+    { tag: 'permission', nameTokens: ['Permission'] },
+    { tag: 'tick', nameTokens: ['System', 'Tick'] },
+    { tag: 'animation', nameTokens: ['Animation'] },
+    { tag: 'sound', nameTokens: ['Sound'] },
+    { tag: 'effect', nameTokens: ['Effect'] },
+    { tag: 'debug', nameTokens: ['Debug'] },
+    { tag: 'network', nameTokens: ['Http', 'WebSocket', 'Packet', 'Msg'] },
+    { tag: 'data', nameTokens: ['DynamicProperty', 'Storage'] },
+    { tag: 'error', nameTokens: ['Error'] },
+    { tag: 'component', nameTokens: ['Component'] }
+];
+
+function makeNameRegex(tokens: string[]): RegExp {
+    // 词法单元必须出现在 CamelCase 边界（开头、上一段为小写、下一段为大写/下划线/数字/结尾）
+    return new RegExp(
+        `(?:^|(?<=[a-z]))(${tokens.join('|')})(?=[A-Z0-9_]|$)`,
+        'g'
+    );
+}
+
+const COMPILED_RULES = DOMAIN_TAG_RULES.map((rule) => ({
+    tag: rule.tag,
+    nameRegex: makeNameRegex(rule.nameTokens)
+}));
+
+function inferDomainTags(content: string, symbolName: string): string[] {
+    const seen = new Set<string>();
+    const result: string[] = [];
+    for (const { tag, nameRegex } of COMPILED_RULES) {
+        nameRegex.lastIndex = 0;
+        if (nameRegex.test(symbolName)) {
+            if (!seen.has(tag)) {
+                seen.add(tag);
+                result.push(tag);
+            }
+        }
+    }
+    return result;
+}
+
+/**
  * 给成员页加 icon（侧栏去掉「类：」前缀）、可选 search.boost、tags，并补上构造函数锚点。
  */
 function patchMemberMarkdown(filePath: string, icon: string, searchBoost?: number, tags?: string[]) {
@@ -663,6 +729,8 @@ function patchMemberMarkdown(filePath: string, icon: string, searchBoost?: numbe
         const colonIndex = heading.indexOf(': ');
         const symbolName = colonIndex >= 0 ? heading.slice(colonIndex + 2).trim() : heading.trim();
         if (symbolName) {
+            const domainTags = inferDomainTags(content, symbolName);
+            const allTags = [...(tags ?? []), ...domainTags];
             const frontMatter = [
                 '---',
                 `icon: ${icon}`,
@@ -670,8 +738,8 @@ function patchMemberMarkdown(filePath: string, icon: string, searchBoost?: numbe
                 ...(searchBoost !== undefined
                     ? ['search:', `  boost: ${searchBoost}`]
                     : []),
-                ...(tags && tags.length > 0
-                    ? ['tags:', ...tags.map((tag) => `  - ${tag}`)]
+                ...(allTags.length > 0
+                    ? ['tags:', ...allTags.map((tag) => `  - ${tag}`)]
                     : []),
                 '---',
                 '',

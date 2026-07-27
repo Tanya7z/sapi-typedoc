@@ -2,7 +2,7 @@
 /* IMPORT */ import { Vector3 } from '../../server';
 
 /**
- * 用于影响 Vibrant Visuals（绚丽视界）的颜色分级。
+ * 用于影响 Vibrant Visuals（灵动视效）的颜色分级。
  *
  * Used to affect color grading for Vibrant Visuals
  */

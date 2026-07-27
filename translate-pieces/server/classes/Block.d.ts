@@ -519,14 +519,14 @@ export class Block {
     getParts(): Block[] | undefined;
     /**
      * @remarks
-     * 返回该方块的净红石能量强度。
-     * 考虑了所有输入和输出后的总红石能量强度。
-     * 表示了一个方块与周围环境中所有红石元件的相互作用后的红石能量状态。
+     * 返回该方块的净红石信号强度。
+     * 考虑了所有输入和输出后的总红石信号强度。
+     * 表示了一个方块与周围环境中所有红石元件的相互作用后的红石信号状态。
      *
      * Returns the net redstone power of this block.
      *
      * @returns
-     * 如果这个方块不适用红石能量，返回 undefined。
+     * 如果这个方块不适用红石信号强度，返回 undefined。
      *
      * Returns undefined if redstone power is not applicable to
      * this block.

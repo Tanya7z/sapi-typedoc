@@ -389,7 +389,7 @@ export class WorldAfterEvents {
      * @remarks
      * This event fires when a piston expands or retracts.
      *
-     * 此事件在活塞伸出或收回时触发。
+     * 此事件在活塞伸出或缩回时触发。
      *
      * @earlyExecution
      *

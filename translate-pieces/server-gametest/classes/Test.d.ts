@@ -566,7 +566,7 @@ export class Test {
     ): void;
     /**
      * @remarks
-     * 断言某位置上的红石能量等级与特定值匹配。否则抛出异常。
+     * 断言某位置上的红石信号强度等级与特定值匹配。否则抛出异常。
      *
      * Tests that Redstone power at a particular location matches a
      * particular value. If not, an exception is thrown.

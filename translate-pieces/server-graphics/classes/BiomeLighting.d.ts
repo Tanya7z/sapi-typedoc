@@ -2,7 +2,7 @@
 /* IMPORT */ import { RGB } from '../../server';
 
 /**
- * 用于在「生动视觉」(Vibrant Visuals) 中影响光照。
+ * 用于在「灵动视效」(Vibrant Visuals) 中影响光照。
  *
  * Used to affect lighting for Vibrant Visuals
  */
@@ -158,7 +158,7 @@ export class BiomeLighting {
     resetSunIlluminance(): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置环境光颜色。
+     * 为「灵动视效」中的光照设置环境光颜色。
      *
      * Sets the ambient color for lighting in Vibrant Visuals
      *
@@ -171,7 +171,7 @@ export class BiomeLighting {
     setAmbientColor(color: Record<number, RGB> | RGB): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置环境光照度。
+     * 为「灵动视效」中的光照设置环境光照度。
      *
      * Sets the ambient illuminance for lighting in Vibrant Visuals
      *
@@ -184,7 +184,7 @@ export class BiomeLighting {
     setAmbientIlluminance(illuminance: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置自发光去饱和度。
+     * 为「灵动视效」中的光照设置自发光去饱和度。
      *
      * Sets the emissive desaturation for lighting in Vibrant
      * Visuals
@@ -198,7 +198,7 @@ export class BiomeLighting {
     setEmissiveDesaturation(value: number): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置闪光颜色。
+     * 为「灵动视效」中的光照设置闪光颜色。
      *
      * Sets the flash color for lighting in Vibrant Visuals
      *
@@ -211,7 +211,7 @@ export class BiomeLighting {
     setFlashColor(color: Record<number, RGB> | RGB): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置闪光照度。
+     * 为「灵动视效」中的光照设置闪光照度。
      *
      * Sets the flash illuminance for lighting in Vibrant Visuals
      *
@@ -224,7 +224,7 @@ export class BiomeLighting {
     setFlashIlluminance(illuminance: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置月亮颜色。
+     * 为「灵动视效」中的光照设置月亮颜色。
      *
      * Sets the moon color for lighting in Vibrant Visuals
      *
@@ -237,7 +237,7 @@ export class BiomeLighting {
     setMoonColor(color: Record<number, RGB> | RGB): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置月亮照度。
+     * 为「灵动视效」中的光照设置月亮照度。
      *
      * Sets the moon illuminance for lighting in Vibrant Visuals
      *
@@ -250,7 +250,7 @@ export class BiomeLighting {
     setMoonIlluminance(illuminance: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置轨道偏移。
+     * 为「灵动视效」中的光照设置轨道偏移。
      *
      * Sets the orbital offset for lighting in Vibrant Visuals
      *
@@ -263,7 +263,7 @@ export class BiomeLighting {
     setOrbitalOffsetDegrees(degrees: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置天空强度。
+     * 为「灵动视效」中的光照设置天空强度。
      *
      * Sets the sky intensity for lighting in Vibrant Visuals
      *
@@ -276,7 +276,7 @@ export class BiomeLighting {
     setSkyIntensity(intensity: number | Record<number, number>): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置太阳颜色。
+     * 为「灵动视效」中的光照设置太阳颜色。
      *
      * Sets the sun color for lighting in Vibrant Visuals
      *
@@ -289,7 +289,7 @@ export class BiomeLighting {
     setSunColor(color: Record<number, RGB> | RGB): void;
     /**
      * @remarks
-     * 为「生动视觉」中的光照设置太阳照度。
+     * 为「灵动视效」中的光照设置太阳照度。
      *
      * Sets the sun illuminance for lighting in Vibrant Visuals
      *

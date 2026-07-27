@@ -1,7 +1,7 @@
 /* IMPORT */ import { BlockEvent } from '..';
 
 /**
- * 包含与压力板弹起变化相关的信息。
+ * 包含与压力板复位相关的信息。
  *
  * Contains information related to changes to a pressure plate
  * pop.
@@ -10,7 +10,7 @@
 export class PressurePlatePopAfterEvent extends BlockEvent {
     private constructor();
     /**
-     * 压力板弹起之前的红石能量。
+     * 压力板复位之前的红石信号强度。
      *
      * @remarks
      * The redstone power of the pressure plate before it was
@@ -19,7 +19,7 @@ export class PressurePlatePopAfterEvent extends BlockEvent {
      */
     readonly previousRedstonePower: number;
     /**
-     * 弹起时压力板的红石能量。
+     * 弹起时压力板的红石信号强度。
      *
      * @remarks
      * The redstone power of the pressure plate at the time of the

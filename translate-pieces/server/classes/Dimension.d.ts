@@ -264,7 +264,7 @@ export class Dimension {
     getBiome(location: Vector3): BiomeType;
     /**
      * @remarks
-     * 返回给定位置的方块实例。
+     * 返回给定位置的方块。
      *
      * Returns a block instance at the given location.
      *

@@ -1,7 +1,7 @@
 /* IMPORT */ import { Block, BlockHitInformation, Dimension, Direction, Entity, Vector3 } from '..';
 
 /**
- * 包含实体撞击方块后的相关信息。
+ * 包含实体击中方块后的相关信息。
  *
  * Contains information related to an entity hitting a block.
  */

@@ -40,21 +40,29 @@ export class ItemCooldownComponent extends ItemComponent {
     getCooldownTicksRemaining(player: Player): number;
     /**
      * @remarks
+     * 如果物品属于传入的冷却类别则返回 true，否则返回 false。
+     *
      * Will return true if the item is the cooldown category passed
      * in and false otherwise.
      *
      * @worldMutation
      *
      * @param cooldownCategory
+     * 可能与此物品关联的冷却类别。
+     *
      * The cooldown category that might be associated with this
      * item.
      * @returns
+     * 如果物品属于给定的冷却类别则返回 true。
+     *
      * True if the item is the given cooldown category.
      * @throws This function can throw errors.
      */
     isCooldownCategory(cooldownCategory: string): boolean;
     /**
      * @remarks
+     * 此函数无法在只读模式下调用。
+     *
      * This function can't be called in read-only mode.
      *
      * @throws This function can throw errors.
@@ -62,15 +70,23 @@ export class ItemCooldownComponent extends ItemComponent {
     getCooldownTicksRemaining(player: Player): number;
     /**
      * @remarks
+     * 如果物品属于传入的冷却类别则返回 true，否则返回 false。
+     *
      * Will return true if the item is the cooldown category passed
      * in and false otherwise.
+     *
+     * 此函数无法在只读模式下调用。
      *
      * This function can't be called in read-only mode.
      *
      * @param cooldownCategory
+     * 可能与此物品关联的冷却类别。
+     *
      * The cooldown category that might be associated with this
      * item.
      * @returns
+     * 如果物品属于给定的冷却类别则返回 true。
+     *
      * True if the item is the given cooldown category.
      * @throws This function can throw errors.
      */

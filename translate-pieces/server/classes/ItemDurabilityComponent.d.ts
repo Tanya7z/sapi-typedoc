@@ -2,9 +2,9 @@
 /* IMPORT */ import { ItemComponent } from '..';
 
 /**
- * 表示物品耐久组件。当出现在物品上时，表示该物品可以在使用中受到损坏。
- * 注意，只能在数驱物品上获取和使用该组件。
- * 
+ * 表示物品耐久组件。当出现在物品上时，表示该物品在使用过程中会损耗耐久。
+ * 注意，此组件仅对数驱物品生效。
+ *
  * When present on an item, this item can take damage in the
  * process of being used. Note that this component only applies
  * to data-driven items.
@@ -37,6 +37,8 @@ export class ItemDurabilityComponent extends ItemComponent {
     readonly maxDurability: number;
     /**
      * @remarks
+     * 表示物品是否会损坏或损失耐久度。将其设置为 true 会暂时移除物品的耐久度 HUD，并暂停该物品的耐久度损失。
+     *
      * Whether an item breaks or loses durability. Setting to true
      * temporarily removes item's durability HUD, and freezes
      * durability loss on item.

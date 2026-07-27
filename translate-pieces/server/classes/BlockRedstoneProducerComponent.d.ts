@@ -10,7 +10,7 @@ export class BlockRedstoneProducerComponent extends BlockComponent {
     private constructor();
     /**
      * @remarks
-     * 获取此方块向电路系统输出的功率。如果方块不再有效或不具有 `minecraft:redstone_producer` 组件，则返回错误。
+     * 获取此方块向电路系统输出的红石信号强度。如果方块不再有效或不具有 `minecraft:redstone_producer` 组件，则返回错误。
      * 
      * Gets the power that this block outputs to circuit system.
      * Returns error if block is no longer valid or if block
@@ -24,7 +24,7 @@ export class BlockRedstoneProducerComponent extends BlockComponent {
     static readonly componentId = 'minecraft:redstone_producer';
     /**
      * @remarks
-     * 获取此方块可以连接到电路并输出功率的面。如果方块不再有效或不具有 `minecraft:redstone_producer` 组件，则返回错误。
+     * 获取此方块可以连接到电路并输出红石信号强度的面。如果方块不再有效或不具有 `minecraft:redstone_producer` 组件，则返回错误。
      * 
      * Gets the faces of this block that can connect to the circuit
      * and output power. Returns error if block is no longer valid

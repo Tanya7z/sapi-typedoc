@@ -1,17 +1,19 @@
 /* IMPORT */ import { BlockVolumeBase, BlockVolumeIntersection, Vector3 } from '..';
 
 /**
- * BlockVolume 是一个简单的接口对象，表示在方块世界位置处给定大小的 3D 矩形（以方块计）。
- * 注意这些并不等同于"min"和"max"值，因为向量分量不保证按任何顺序排列。
+ * BlockVolume 是一个简单对象，描述世界中位于方块坐标处的给定大小（以方块计）的 3D 矩形区域。
+ * 注意这些向量分量不保证按任何顺序排列，因此不等同于「min」与「max」值。
  * 此外，这些向量位置不可与 BlockLocation 互换。
- * 如果您想将此体积表示为 BlockLocation 范围，可以使用 getBoundingBox 实用函数。
- * 此体积类将保持最初设置的角落索引的顺序。想象一下，每个角落都在编辑器中分配——当您移动角落时（可能会反转边界的 min/max 关系）——
- * 您最初选择为顶部/左侧的角落通常会变成底部/右侧。
- * 在手动编辑这些类型的体积时，您需要在编辑时保持角落的标识——BlockVolume 实用函数正是这样做的。
- * 
- * 需要注意的是，这是测量方块大小（从/到）——一个普通的 AABB (0,0,0) 到 (0,0,0) 传统上大小为 (0,0,0)，
- * 但是，因为我们测量的是方块，BlockVolume 的大小或跨度实际上将是 (1,1,1)。
- * 
+ * 如需将此体积表示为 BlockLocation 范围，可使用 getBoundingBox 实用函数。
+ *
+ * 此体积类保留初始设置的角点索引顺序。
+ * 类比编辑器中分配每个角点的场景——当你移动角点时（可能反转边界的 min/max 关系），
+ * 原本位于顶部/左侧的角点就会变成底部/右侧。
+ * 因此手动编辑此类体积时，需在编辑过程中维持角点的标识——BlockVolume 实用函数正是为此而设计。
+ *
+ * 另请注意：此处测量的是「方块大小」（端点到端点）。普通 AABB (0,0,0) 到 (0,0,0) 大小通常为 (0,0,0)；
+ * 但因为按方块计数，BlockVolume 的大小或跨度实际为 (1,1,1)。
+ *
  * A BlockVolume is a simple interface to an object which
  * represents a 3D rectangle of a given size (in blocks) at a
  * world block location.
@@ -45,7 +47,7 @@
 export class BlockVolume extends BlockVolumeBase {
     /**
      * @remarks
-     * 表示 3D 矩形中一个角落的世界方块位置。
+     * 表示 3D 矩形中一个角点的世界方块位置。
      * 
      * A world block location that represents a corner in a 3D
      * rectangle
@@ -54,7 +56,7 @@ export class BlockVolume extends BlockVolumeBase {
     'from': Vector3;
     /**
      * @remarks
-     * 表示 3D 矩形中对角角落的世界方块位置。
+     * 表示 3D 矩形中对角角点的世界方块位置。
      * 
      * A world block location that represents the opposite corner
      * in a 3D rectangle

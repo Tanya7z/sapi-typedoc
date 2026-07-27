@@ -1,7 +1,7 @@
 /* IMPORT */ import { BlockEvent, Player } from '..';
 
 /**
- * 包含与拉杆激活或停用变化相关的信息。
+ * 包含与拉杆激活或停用相关的信息。
  *
  * Contains information related to changes to a lever
  * activating or deactivating.

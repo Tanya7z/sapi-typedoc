@@ -1,7 +1,7 @@
 /* IMPORT */ import { BlockEvent, BlockPistonComponent } from '..';
 
 /**
- * 包含与活塞扩展或收缩变化相关的信息。
+ * 包含与活塞伸出或缩回相关的信息。
  *
  * Contains information related to changes to a piston
  * expanding or retracting.
@@ -11,7 +11,7 @@
 export class PistonActivateAfterEvent extends BlockEvent {
     private constructor();
     /**
-     * 如果活塞正在扩展过程中，则为 `true`。
+     * 如果活塞正在伸出过程中，则为 `true`。
      *
      * @remarks
      * True if the piston is the process of expanding.

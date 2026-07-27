@@ -17,7 +17,7 @@ export class PistonActivateAfterEventSignal {
      */
     subscribe(callback: (arg0: PistonActivateAfterEvent) => void): (arg0: PistonActivateAfterEvent) => void;
     /**
-     * 移除在活塞扩展或收缩时调用的回调。
+     * 移除在活塞伸出或缩回时调用的回调。
      *
      * @remarks
      * Removes a callback from being called when a piston expands

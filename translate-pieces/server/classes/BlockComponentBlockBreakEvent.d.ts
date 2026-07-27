@@ -28,7 +28,7 @@ export class BlockComponentBlockBreakEvent extends BlockEvent {
     readonly brokenBlockPermutation: BlockPermutation;
     /**
      * @remarks
-     * 导致破坏的 Actor。
+     * 导致破坏的 Actor（引擎对象）。
      * 
      * The Actor that caused destruction.
      *

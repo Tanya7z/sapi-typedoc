@@ -9,7 +9,7 @@ export class BlockPermutation {
     private constructor();
     /**
      * @remarks
-     * 此 BlockPermutation 名称在 .lang 文件中使用的本地化键。
+     * 此方块排列的名称在 .lang 文件中使用的本地化键。
      * 
      * Key for the localization of this BlockPermutation's name
      * used in .lang files.
@@ -83,7 +83,7 @@ export class BlockPermutation {
      * Container/ContainerSlot APIs.
      *
      * @param amount
-     * 要放入原型物品堆中的此方块实例数量。
+     * 要放入原型物品堆中的此方块排列的数量。
      * 默认为：1
      * 范围：[1, 255]
      * 
@@ -188,7 +188,7 @@ export class BlockPermutation {
     ): boolean;
     /**
      * @remarks
-     * 返回一个设置了特定属性的派生 BlockPermutation。
+     * 返回一个设置了特定属性的派生方块排列。
      * 
      * Returns a derived BlockPermutation with a specific property
      * set.
@@ -209,7 +209,7 @@ export class BlockPermutation {
     ): BlockPermutation;
     /**
      * @remarks
-     * 给定类型标识符和可选的属性集合，将返回一个可在其他方块 API 中使用的 BlockPermutation 对象（例如 block.setPermutation）。
+     * 给定类型标识符和可选的属性集合，将返回一个可在其他方块 API 中使用的方块排列对象（例如 block.setPermutation）。
      * 
      * Given a type identifier and an optional set of properties,
      * will return a BlockPermutation object that is usable in

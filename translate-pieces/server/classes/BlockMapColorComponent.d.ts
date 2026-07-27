@@ -10,8 +10,8 @@ export class BlockMapColorComponent extends BlockComponent {
     private constructor();
     /**
      * @remarks
-     * 为该方块定义的基础地图颜色。
-     * 
+     * 为该方块定义的底色（地图显示色）。
+     *
      * Base map color defined for that block.
      *
      * @throws This property can throw when used.
@@ -19,7 +19,7 @@ export class BlockMapColorComponent extends BlockComponent {
     readonly color: RGBA;
     /**
      * @remarks
-     * 返回基色乘以在给定位置评估的着色值的结果。
+     * 返回底色乘以在给定位置评估的着色值的结果。
      * 
      * Returns the base color multiplied to the evaluated tint at
      * the given position.

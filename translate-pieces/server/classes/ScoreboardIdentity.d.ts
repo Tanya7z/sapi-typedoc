@@ -25,6 +25,8 @@ export class ScoreboardIdentity {
     readonly id: number;
     /**
      * @remarks
+     * 如果 ScoreboardIdentity 引用仍然有效，则返回 true。
+     *
      * Returns true if the ScoreboardIdentity reference is still
      * valid.
      *

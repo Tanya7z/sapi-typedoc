@@ -18,7 +18,7 @@ export class BlockEvent {
     readonly block: Block;
     /**
      * @remarks
-     * 包含此事件主题方块的维度。
+     * 包含此事件主体方块的维度。
      * 
      * Dimension that contains the block that is the subject of
      * this event.
