@@ -14,7 +14,7 @@ import { basePath, parsePackageVersion, translatedPath } from './utils.js';
  * 首页自动区块：
  * - 版本表：translated/package.json（当前文档站锁定的 npm 版本）
  * - 更新日志：npm latest/rc|preview|beta + MicrosoftDocs 官方全文
- * - 侧栏：docs/changelog/<模块>.md
+ * - changelog 侧栏：docs/changelog/_meta.json（顶栏由 write-nav 负责）
  */
 const moduleOrder = ['server', 'server-ui', 'server-net'];
 const docsDir = resolvePath(basePath, 'docs');
@@ -203,37 +203,11 @@ function writeChangelogPages(bundles: ModuleChangelogBundle[]) {
     indexLines.push('');
     writeFileSync(resolvePath(changelogDir, 'index.md'), indexLines.join('\n'), 'utf-8');
 
-    // rspress 导航文件
+    // changelog 目录侧栏（顶栏「更新日志」由 write-nav 写入 _nav.json）
     writeFileSync(resolvePath(changelogDir, '_meta.json'), JSON.stringify(metaEntries, null, 2), 'utf-8');
 }
 
-/** 确保根 _meta.json 包含 changelog 条目 */
-function ensureChangelogNav() {
-    const metaPath = resolvePath(docsDir, '_meta.json');
-    if (!existsSync(metaPath)) return;
-    try {
-        const meta = JSON.parse(readFileSync(metaPath, 'utf-8')) as Array<string | { text: string; link?: string }>;
-        const hasChangelog = meta.some((item) =>
-            typeof item === 'string' ? item === 'changelog' : item.link === '/changelog/' || item.link === '/changelog'
-        );
-        if (hasChangelog) return;
-        // 在 api 条目之前插入 changelog
-        const apiIndex = meta.findIndex((item) =>
-            typeof item === 'string' ? item === 'api' : item.link === '/api/' || item.link === '/api'
-        );
-        const entry = { text: '更新日志', link: '/changelog/' };
-        if (apiIndex >= 0) {
-            meta.splice(apiIndex, 0, entry);
-        } else {
-            meta.push(entry);
-        }
-        writeFileSync(metaPath, JSON.stringify(meta, null, 2), 'utf-8');
-    } catch {
-        // _meta.json 格式不符，跳过
-    }
-}
-
-/** 从官方数据源同步首页版本表，并生成侧栏完整更新日志。 */
+/** 从官方数据源同步首页版本表，并生成 changelog 页面。 */
 export async function syncDocsHome(providedDependencies?: Partial<Record<string, string>>) {
     const dependencies = providedDependencies ?? loadDependencies();
     const homePath = resolvePath(docsDir, 'index.md');
@@ -246,7 +220,6 @@ export async function syncDocsHome(providedDependencies?: Partial<Record<string,
     console.log(`[docs-home] 拉取官方更新日志：${orderedNames.length} 个包（稳定 + 预览）`);
     const bundles = await fetchOfficialChangelogBundles(orderedNames);
     writeChangelogPages(bundles);
-    ensureChangelogNav();
 
     const original = readFileSync(homePath, 'utf-8');
     let home = original;
