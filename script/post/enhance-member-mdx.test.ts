@@ -12,6 +12,7 @@ import {
   enhanceMemberContent,
   enhanceMemberPages,
   escapeBadgeChildren,
+  escapeMdxProse,
   escapeTabLabel,
   insertDomainChips,
   isEnhanceableMember,
@@ -69,6 +70,21 @@ describe('wrapPrivilegeParagraphs / wrapLongCodeBlocks', () => {
   });
 });
 
+
+describe('escapeMdxProse', () => {
+  it('escapes braces and angles, keeps fences', () => {
+    const input = ['size {x:1} and <= max, see <x, y>', '', '```', 'const a = {x:1};', '```', ''].join(String.fromCharCode(10));
+    const out = escapeMdxProse(input);
+    assert.match(out, /size \\{x:1\\}/);
+    assert.match(out, /\\<= max/);
+    assert.match(out, /\\<x, y>/);
+    assert.match(out, /const a = \{x:1\};/);
+  });
+  it('is idempotent', () => {
+    const once = escapeMdxProse('guarantee <= max');
+    assert.equal(escapeMdxProse(once), once);
+  });
+});
 describe('escapeBadgeChildren / insertDomainChips', () => {
   it('转义 Badge 子文本中的 & < >', () => {
     assert.equal(escapeBadgeChildren('a&b<c>'), 'a&amp;b&lt;c&gt;');

@@ -117,6 +117,23 @@ export function escapeTabLabel(text: string): string {
   return text.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 }
 
+/** 转义 MDX 会误解析的散文字符；保留围栏代码与行内代码。须在注入 JSX / {#锚点} 之前调用。 */
+export function escapeMdxProse(content: string): string {
+  return content
+    .split(/(```[\s\S]*?```)/g)
+    .map((part, i) => {
+      if (i % 2 === 1) return part;
+      return part
+        .split(/(`[^`]*`)/g)
+        .map((seg, j) => {
+          if (j % 2 === 1) return seg;
+          return seg.replace(/(?<!\\)\{/g, '\\{').replace(/(?<!\\)\}/g, '\\}').replace(/(?<!\\)</g, '\\<');
+        })
+        .join('');
+    })
+    .join('');
+}
+
 /** 模块名 → npm 包（如 server → @minecraft/server） */
 export function npmPackageForModule(moduleName: string): string {
   return `@minecraft/${moduleName}`;
@@ -354,6 +371,7 @@ export function enhanceMemberContent(
   body = stripExampleTabs(body);
   body = stripSourceCode(body);
   body = stripRelatedSection(body);
+  body = escapeMdxProse(body);
 
   const symbolName = options.symbolName?.trim() || parseSymbolFromTitle(body) || 'unknown';
   const domainTags = inferDomainTags(symbolName);

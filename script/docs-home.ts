@@ -183,14 +183,16 @@ function writeChangelogPages(bundles: ModuleChangelogBundle[]) {
         '| --- | --- | --- |'
     ];
 
-    // rspress _meta.json: 导航顺序
-    const metaEntries: (string | { text: string; link: string })[] = ['index'];
+    // rspress _meta.json: 侧栏顺序（file 条目）
+    const metaEntries: { type: 'file'; name: string; label?: string }[] = [
+        { type: 'file', name: 'index', label: '概览' }
+    ];
 
     for (const bundle of usable) {
         const short = shortName(bundle.moduleName);
         const fileName = `${short}.md`;
         writeFileSync(resolvePath(changelogDir, fileName), renderModuleChangelogPage(bundle), 'utf-8');
-        metaEntries.push({ text: bundle.moduleName, link: `/changelog/${short}` });
+        metaEntries.push({ type: 'file', name: short, label: bundle.moduleName });
 
         const stable = bundle.tracks.find((item) => item.track === 'stable');
         const preview = bundle.tracks.find((item) => item.track === 'preview');

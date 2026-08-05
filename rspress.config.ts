@@ -21,7 +21,7 @@ export default defineConfig({
     remarkPlugins: [remarkAbbrGlossary()],
   },
   route: {
-    exclude: ['superpowers/**/*', 'components/**/*'],
+    exclude: ['superpowers/**/*', 'components/**/*', '**/*.test.ts', 'searchHooks.ts', 'api/**/*'],
   },
   search: {
     searchHooks: path.join(__dirname, 'docs', 'searchHooks.ts'),
