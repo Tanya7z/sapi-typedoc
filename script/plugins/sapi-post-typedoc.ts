@@ -1,4 +1,5 @@
 import type { RspressPlugin } from '@rspress/core';
+import { writeModuleMeta } from '../post/inheritance-meta.js';
 import { restructureModules } from '../post/restructure-modules.js';
 import { writeRootNav } from '../post/write-nav.js';
 
@@ -15,6 +16,12 @@ export function pluginSapiPostTypeDoc(): RspressPlugin {
       }
       const modules = [...new Set(refs.map((r) => r.module))];
       writeRootNav(modules);
+      for (const mod of modules) {
+        writeModuleMeta(
+          mod,
+          refs.filter((r) => r.module === mod),
+        );
+      }
       console.log(
         `[sapi-post-typedoc] restructured ${refs.length} members across ${modules.length} modules`,
       );
