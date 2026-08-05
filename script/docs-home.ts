@@ -86,7 +86,7 @@ function renderSummary(dependencies: Partial<Record<string, string>>) {
 
 function renderHomeChangelogIndex(bundles: ModuleChangelogBundle[]) {
     const lines = [
-        '每个 npm 包的**稳定版（latest）**与**预览版（rc / preview / beta）**完整更新日志已生成到侧栏「更新日志」分组。',
+        '每个 npm 包的**稳定版（latest）**与**预览版（rc / preview / beta）**完整更新日志已生成，见顶栏「更新日志」入口。',
         '',
         '| 模块 | 稳定版 | 预览版 |',
         '| --- | --- | --- |'
