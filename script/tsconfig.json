@@ -1,0 +1,22 @@
+{
+  "include": [
+    "./**/*.ts",
+    "eslint.config.mjs"
+  ],
+  "compilerOptions": {
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "types": ["node"],
+    "noEmit": true,
+    "allowJs": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "verbatimModuleSyntax": true,
+  }
+}
