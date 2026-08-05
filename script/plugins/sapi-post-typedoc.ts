@@ -5,10 +5,10 @@ import { restructureModules } from '../post/restructure-modules.js';
 import { writeTagsIndex } from '../post/tags-index.js';
 import { writeUntaggedReport } from '../post/untagged-report.js';
 import { writeVanillaDataIndex } from '../post/vanilla-data-index.js';
-import { listPresentModulesFromDocs, writeRootNav } from '../post/write-nav.js';
+import { ensureVanillaDataNav, writeRootNav } from '../post/write-nav.js';
 
 /**
- * empty refs 策略：仍尝试 vanilla-data 索引；成功则用现有 docs 模块目录 + vanilla-data 重写导航。
+ * empty refs 策略：仍尝试 vanilla-data 索引；成功则补丁现有 `_nav.json`「更多」项，不整表重写。
  * 非空 refs：完整流水线结束后再写索引，并把 vanilla-data 并入 presentModules 后重写导航。
  */
 export function pluginSapiPostTypeDoc(): RspressPlugin {
@@ -22,10 +22,7 @@ export function pluginSapiPostTypeDoc(): RspressPlugin {
         );
         const ok = writeVanillaDataIndex();
         if (ok) {
-          const modules = [
-            ...new Set([...listPresentModulesFromDocs(), 'vanilla-data']),
-          ];
-          writeRootNav(modules);
+          ensureVanillaDataNav();
         }
         return;
       }
