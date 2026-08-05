@@ -3,6 +3,7 @@ import { basename } from 'node:path';
 import { boostForInheritanceDepth, inferDomainTags } from '../domain-tags.js';
 import { moveFileSync } from './fs-utils.js';
 import { buildInheritanceGraph, TREE_KINDS } from './inheritance-meta.js';
+import { applyRelatedSection, pickRelated, type MemberWithTags } from './related.js';
 import type { MemberRef } from './restructure-modules.js';
 
 const BADGE_IMPORT = "import { Badge } from '@rspress/core/theme';";
@@ -200,7 +201,9 @@ export function enhanceMemberContent(
   } = {},
 ): EnhanceContentResult {
   const strippedFm = stripFrontmatter(raw);
+  // 去掉旧 Badge / 同领域相关，保证幂等；相关节在 enhanceMemberPages 第二遍再追加
   let body = stripBadgeArtifacts(strippedFm.body);
+  body = applyRelatedSection(body, []);
 
   const symbolName = options.symbolName?.trim() || parseSymbolFromTitle(body) || 'unknown';
   const domainTags = inferDomainTags(symbolName);
@@ -263,11 +266,13 @@ export function buildInheritanceDepthByAbsPath(refs: MemberRef[]): Map<string, n
 
 /**
  * 增强成员页：frontmatter / Badge / 锚点 / 容器 / 权重；.md → .mdx。
+ * 两遍：先增强并收集 domainTags，再追加「同领域相关」。
  * 就地更新 refs 的 fileName/absPath，供同一次 build 后续任务使用。
  */
 export function enhanceMemberPages(refs: MemberRef[]): MemberRef[] {
   const depthByAbsPath = buildInheritanceDepthByAbsPath(refs);
   let enhanced = 0;
+  const tagged: MemberWithTags[] = [];
 
   for (const ref of refs) {
     if (!isEnhanceableMember(ref)) continue;
@@ -293,9 +298,32 @@ export function enhanceMemberPages(refs: MemberRef[]): MemberRef[] {
 
     ref.fileName = basename(destPath);
     ref.absPath = destPath;
+    tagged.push({
+      module: ref.module,
+      kind: ref.kind,
+      symbolName: ref.symbolName,
+      fileName: ref.fileName,
+      absPath: ref.absPath,
+      domainTags: result.domainTags,
+    });
     enhanced += 1;
   }
 
-  console.log(`[enhance-member-mdx] enhanced ${enhanced} member page(s)`);
+  let relatedPages = 0;
+  for (const item of tagged) {
+    if (item.domainTags.length === 0) continue;
+    const related = pickRelated(item, tagged);
+    if (related.length === 0) continue;
+
+    const raw = readFileSync(item.absPath, 'utf-8');
+    const { frontmatter, body } = stripFrontmatter(raw);
+    const nextBody = applyRelatedSection(body, related);
+    writeFileSync(item.absPath, `${frontmatter ?? ''}${nextBody}`, 'utf-8');
+    relatedPages += 1;
+  }
+
+  console.log(
+    `[enhance-member-mdx] enhanced ${enhanced} member page(s); related on ${relatedPages}`,
+  );
   return refs;
 }

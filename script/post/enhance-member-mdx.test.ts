@@ -236,4 +236,60 @@ describe('enhanceMemberPages', () => {
     assert.equal(countMatches(entityAgain, /import \{ Badge \}/g), 1);
     assert.equal(countMatches(playerAgain, /import \{ Badge \}/g), 1);
   });
+
+  it('第二遍追加同领域相关且幂等', () => {
+    const root = mkdtempSync(join(tmpdir(), 'sapi-enhance-related-'));
+    const classDir = join(root, 'server', 'classes');
+    mkdirSync(classDir, { recursive: true });
+
+    const entityPath = join(classDir, 'Entity.md');
+    const eventPath = join(classDir, 'EntityDieAfterEvent.md');
+    const worldPath = join(classDir, 'World.md');
+    writeFileSync(entityPath, ['# Class: Entity', '', '实体。', ''].join('\n'), 'utf-8');
+    writeFileSync(
+      eventPath,
+      ['# Class: EntityDieAfterEvent', '', '实体死亡事件。', ''].join('\n'),
+      'utf-8',
+    );
+    writeFileSync(worldPath, ['# Class: World', '', '世界。', ''].join('\n'), 'utf-8');
+
+    const refs: MemberRef[] = [
+      {
+        module: 'server',
+        kind: 'classes',
+        symbolName: 'Entity',
+        fileName: 'Entity.md',
+        absPath: entityPath,
+      },
+      {
+        module: 'server',
+        kind: 'classes',
+        symbolName: 'EntityDieAfterEvent',
+        fileName: 'EntityDieAfterEvent.md',
+        absPath: eventPath,
+      },
+      {
+        module: 'server',
+        kind: 'classes',
+        symbolName: 'World',
+        fileName: 'World.md',
+        absPath: worldPath,
+      },
+    ];
+
+    enhanceMemberPages(refs);
+
+    const eventOut = readFileSync(refs[1]!.absPath, 'utf-8');
+    assert.match(eventOut, /## 同领域相关\n\n- \[Entity\]\(\/server\/classes\/Entity\)\n/);
+    assert.doesNotMatch(eventOut, /World/);
+
+    const worldOut = readFileSync(refs[2]!.absPath, 'utf-8');
+    // World 仅 world tag，池中无其他共享 → 无相关节
+    assert.doesNotMatch(worldOut, /## 同领域相关/);
+
+    enhanceMemberPages(refs);
+    const eventAgain = readFileSync(refs[1]!.absPath, 'utf-8');
+    assert.equal(countMatches(eventAgain, /## 同领域相关/g), 1);
+    assert.equal(countMatches(eventAgain, /\[Entity\]\(\/server\/classes\/Entity\)/g), 1);
+  });
 });
