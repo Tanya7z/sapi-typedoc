@@ -1,4 +1,4 @@
-﻿import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import type { MemberRef } from './restructure-modules.js';
 
 /** module.symbol → 成员引用 */
