@@ -12,7 +12,7 @@ describe('collectUntaggedSymbols / writeUntaggedReport', () => {
     const tagged = join(dir, 'Player.mdx');
     const untagged = join(dir, 'Foo.mdx');
     writeFileSync(tagged, '---\ntitle: "Player"\ndomainTags:\n  - player\n---\n', 'utf-8');
-    writeFileSync(untagged, '---\ntitle: "Foo"\n---\n', 'utf-8');
+    writeFileSync(untagged, '---\ntitle: "Foo"\ndomainTags: []\n---\n', 'utf-8');
 
     const refs: MemberRef[] = [
       {
@@ -43,14 +43,17 @@ describe('collectUntaggedSymbols / writeUntaggedReport', () => {
     assert.deepEqual(list[0], { module: 'server', kind: 'classes', name: 'Foo' });
   });
 
-  it('写 cache JSON 并在 refs 为空时跳过', () => {
-    assert.equal(writeUntaggedReport([]), undefined);
-
+  it('写 cache JSON；refs 为空时跳过并保留既有文件', () => {
     const dir = mkdtempSync(join(tmpdir(), 'untagged-out-'));
     mkdirSync(dir, { recursive: true });
     const outPath = join(dir, 'untagged-symbols.json');
+
+    writeFileSync(outPath, 'KEEP\n', 'utf-8');
+    assert.equal(writeUntaggedReport([], { outPath }), undefined);
+    assert.equal(readFileSync(outPath, 'utf-8'), 'KEEP\n');
+
     const member = join(dir, 'Bar.mdx');
-    writeFileSync(member, '---\ntitle: "Bar"\n---\n', 'utf-8');
+    writeFileSync(member, '---\ntitle: "Bar"\ndomainTags: []\n---\n', 'utf-8');
     const report = writeUntaggedReport(
       [
         {

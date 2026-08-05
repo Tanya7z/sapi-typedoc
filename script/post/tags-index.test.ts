@@ -13,17 +13,44 @@ import {
 import type { MemberRef } from './restructure-modules.js';
 
 describe('parseDomainTagsFromFrontmatter', () => {
-  it('解析 YAML 列表', () => {
+  it('解析 YAML 块式列表', () => {
     const fm = '---\ntitle: "X"\ndomainTags:\n  - event\n  - entity\n---';
     assert.deepEqual(parseDomainTagsFromFrontmatter(fm), ['event', 'entity']);
+  });
+
+  it('解析带引号的块式列表项', () => {
+    const fm = '---\ndomainTags:\n  - "player"\n  - \'entity\'\n---';
+    assert.deepEqual(parseDomainTagsFromFrontmatter(fm), ['player', 'entity']);
+  });
+
+  it('解析流式单元素列表', () => {
+    assert.deepEqual(
+      parseDomainTagsFromFrontmatter('---\ndomainTags: [player]\n---'),
+      ['player'],
+    );
+  });
+
+  it('解析流式多元素与引号', () => {
+    assert.deepEqual(
+      parseDomainTagsFromFrontmatter('---\ndomainTags: ["player", "entity"]\n---'),
+      ['player', 'entity'],
+    );
+    assert.deepEqual(
+      parseDomainTagsFromFrontmatter("---\ndomainTags: ['event', entity]\n---"),
+      ['event', 'entity'],
+    );
   });
 
   it('未出现 domainTags 返回 undefined', () => {
     assert.equal(parseDomainTagsFromFrontmatter('---\ntitle: "X"\n---'), undefined);
   });
 
-  it('空列表返回 []', () => {
+  it('显式空列表返回 []', () => {
     assert.deepEqual(parseDomainTagsFromFrontmatter('---\ndomainTags: []\n---'), []);
+  });
+
+  it('仅写出键无值返回 []', () => {
+    assert.deepEqual(parseDomainTagsFromFrontmatter('---\ndomainTags:\n---'), []);
   });
 });
 
@@ -78,6 +105,29 @@ describe('resolveMemberDomainTags / writeTagsIndex', () => {
     const noFm = join(dir, 'NoFm.mdx');
     writeFileSync(noFm, '# Class: EntityDieAfterEvent\n', 'utf-8');
     assert.deepEqual(resolveMemberDomainTags(noFm, 'EntityDieAfterEvent'), ['event', 'entity']);
+  });
+
+  it('显式空 domainTags 不重推断；缺省键可推断', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'tags-empty-fm-'));
+    const explicitEmpty = join(dir, 'Empty.mdx');
+    writeFileSync(
+      explicitEmpty,
+      '---\ntitle: "Player"\ndomainTags: []\n---\n\n# Player\n',
+      'utf-8',
+    );
+    assert.deepEqual(resolveMemberDomainTags(explicitEmpty, 'Player'), []);
+
+    const missing = join(dir, 'Missing.mdx');
+    writeFileSync(missing, '---\ntitle: "Player"\n---\n\n# Player\n', 'utf-8');
+    assert.deepEqual(resolveMemberDomainTags(missing, 'Player'), ['player']);
+
+    const flow = join(dir, 'Flow.mdx');
+    writeFileSync(
+      flow,
+      '---\ntitle: "X"\ndomainTags: [player, entity]\n---\n\n# X\n',
+      'utf-8',
+    );
+    assert.deepEqual(resolveMemberDomainTags(flow, 'X'), ['player', 'entity']);
   });
 
   it('refs 为空时跳过覆写', () => {

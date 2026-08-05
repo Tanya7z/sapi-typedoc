@@ -202,17 +202,21 @@ export function TagFilter({ items, legend = [] }: TagFilterProps) {
         {hasFilter ? `（筛选自 ${items.length}）` : null}
       </p>
 
-      <ul style={listStyle}>
-        {filtered.map((item) => (
-          <li key={`${item.module}/${item.kind}/${item.name}`}>
-            <a href={item.href}>{item.name}</a>
-            <span style={metaStyle}>
-              {item.module} · {kindLabel(item.kind)}
-              {item.tags.length > 0 ? ` · ${item.tags.join(', ')}` : ''}
-            </span>
-          </li>
-        ))}
-      </ul>
+      {filtered.length === 0 ? (
+        <p style={{ margin: 0, color: 'var(--rp-c-text-2, #666)' }}>无匹配项</p>
+      ) : (
+        <ul style={listStyle}>
+          {filtered.map((item) => (
+            <li key={`${item.module}/${item.kind}/${item.name}`}>
+              <a href={item.href}>{item.name}</a>
+              <span style={metaStyle}>
+                {item.module} · {kindLabel(item.kind)}
+                {item.tags.length > 0 ? ` · ${item.tags.join(', ')}` : ''}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

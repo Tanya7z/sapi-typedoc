@@ -1,7 +1,7 @@
-import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
-import { basename, join } from 'node:path';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { DOMAIN_TAG_LEGEND, inferDomainTags } from '../domain-tags.js';
-import { docsDir, KIND_DIRS, MODULE_ORDER } from './constants.js';
+import { docsDir } from './constants.js';
 import { isEnhanceableMember, stripFrontmatter } from './enhance-member-mdx.js';
 import { writeJson } from './fs-utils.js';
 import { memberDocHref } from './related.js';
@@ -20,31 +20,52 @@ export type TagsIndexData = {
   items: TagIndexItem[];
 };
 
+function unquoteYamlScalar(raw: string): string {
+  const value = raw.trim();
+  if (
+    (value.startsWith('"') && value.endsWith('"')) ||
+    (value.startsWith("'") && value.endsWith("'"))
+  ) {
+    return value.slice(1, -1);
+  }
+  return value;
+}
+
 /** 从 frontmatter 文本解析 domainTags 列表 */
 export function parseDomainTagsFromFrontmatter(frontmatter: string | undefined): string[] | undefined {
   if (!frontmatter) return undefined;
-  const match = /^domainTags:\s*\n((?:[ \t]+-[ \t]*.+\n?)*)/m.exec(frontmatter);
-  if (!match) {
-    // 显式空列表或未写出：用 undefined 表示「未出现」，由调用方决定是否推断
-    if (/^domainTags:\s*\[\s*\]\s*$/m.test(frontmatter) || /^domainTags:\s*$/m.test(frontmatter)) {
-      return [];
-    }
-    return undefined;
+
+  // 流式列表：domainTags: [] / domainTags: [player] / domainTags: ["player", "entity"]
+  const flow = /^domainTags:\s*\[([^\]]*)\][ \t]*$/m.exec(frontmatter);
+  if (flow) {
+    const inner = flow[1]!.trim();
+    if (!inner) return [];
+    return inner
+      .split(',')
+      .map((part) => unquoteYamlScalar(part))
+      .filter((tag) => tag.length > 0);
   }
-  const tags: string[] = [];
-  for (const line of match[1]!.split(/\r?\n/)) {
-    const item = /^[ \t]+-\s*(.+?)\s*$/.exec(line);
-    if (!item) continue;
-    let value = item[1]!.trim();
-    if (
-      (value.startsWith('"') && value.endsWith('"')) ||
-      (value.startsWith("'") && value.endsWith("'"))
-    ) {
-      value = value.slice(1, -1);
+
+  // 块式列表：domainTags:\n  - player\n  - entity
+  const block = /^domainTags:\s*\r?\n((?:[ \t]+-[ \t]*.+(?:\r?\n|$))*)/m.exec(frontmatter);
+  if (block) {
+    const tags: string[] = [];
+    for (const line of block[1]!.split(/\r?\n/)) {
+      const item = /^[ \t]+-\s*(.+?)\s*$/.exec(line);
+      if (!item) continue;
+      const value = unquoteYamlScalar(item[1]!);
+      if (value) tags.push(value);
     }
-    if (value) tags.push(value);
+    return tags;
   }
-  return tags;
+
+  // 仅写出键、无值：视为显式空列表（不重推断）
+  if (/^domainTags:\s*$/m.test(frontmatter)) {
+    return [];
+  }
+
+  // 未出现 domainTags → undefined，调用方可再推断
+  return undefined;
 }
 
 /** 读取成员页 domainTags；缺省则按符号名推断 */
@@ -74,48 +95,6 @@ export function buildTagsIndexDataFromRefs(refs: MemberRef[]): TagsIndexData {
     if (!isEnhanceableMember(ref)) continue;
     const tags = resolveMemberDomainTags(ref.absPath, ref.symbolName);
     items.push(buildTagIndexItem(ref, tags));
-  }
-  items.sort(
-    (a, b) =>
-      a.module.localeCompare(b.module) ||
-      a.kind.localeCompare(b.kind) ||
-      a.name.localeCompare(b.name),
-  );
-  return {
-    legend: DOMAIN_TAG_LEGEND.map((x) => ({ tag: x.tag, meaning: x.meaning })),
-    items,
-  };
-}
-
-/**
- * 扫描 docs/<mod>/<kind>/*.{md,mdx}（MODULE_ORDER，跳过保留目录语义由 MODULE_ORDER 限定）。
- * 主要用于无 refs 时的兜底；正常 build 走 refs。
- */
-export function scanTagsIndexDataFromDocs(root: string = docsDir): TagsIndexData {
-  const items: TagIndexItem[] = [];
-  for (const mod of MODULE_ORDER) {
-    const modDir = join(root, mod);
-    if (!existsSync(modDir) || !statSync(modDir).isDirectory()) continue;
-    for (const kind of KIND_DIRS) {
-      const kindDir = join(modDir, kind);
-      if (!existsSync(kindDir) || !statSync(kindDir).isDirectory()) continue;
-      for (const file of readdirSync(kindDir)) {
-        if (!/\.(md|mdx)$/i.test(file)) continue;
-        const symbolName = basename(file).replace(/\.(md|mdx)$/i, '');
-        if (symbolName === 'index') continue;
-        const absPath = join(kindDir, file);
-        const ref: MemberRef = {
-          module: mod,
-          kind,
-          symbolName,
-          fileName: file,
-          absPath,
-        };
-        if (!isEnhanceableMember(ref)) continue;
-        const tags = resolveMemberDomainTags(absPath, symbolName);
-        items.push(buildTagIndexItem(ref, tags));
-      }
-    }
   }
   items.sort(
     (a, b) =>
@@ -163,8 +142,7 @@ export function writeTagsIndex(refs: MemberRef[], options: WriteTagsIndexOptions
     return false;
   }
 
-  const data =
-    refs.length > 0 ? buildTagsIndexDataFromRefs(refs) : scanTagsIndexDataFromDocs(root);
+  const data = buildTagsIndexDataFromRefs(refs);
   const tagsDir = join(root, 'tags');
   writeJson(join(tagsDir, '_data.json'), data);
   writeFileSync(join(tagsDir, 'index.mdx'), renderTagsIndexMdx(), 'utf-8');
