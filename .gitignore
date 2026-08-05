@@ -3,12 +3,44 @@
 *.local
 *.log*
 
-# Dist
+# Dependencies
 node_modules
+
+# Build output
 dist/
 doc_build/
+
+# TypeDoc Markdown（@rspress/plugin-typedoc 生成）
+docs/api/**
+
+# Changelog（docs:sync 从 npm + MicrosoftDocs 生成）
+/docs/changelog/
+
+# Pre-build metadata
+translated/.build-meta.json
+
+# Script cache
+cache/
 
 # IDE
 .vscode/*
 !.vscode/extensions.json
 .idea
+
+# post 插件生成的模块目录与 mdx
+docs/server/
+docs/server-ui/
+docs/server-net/
+docs/server-admin/
+docs/server-editor/
+docs/server-gametest/
+docs/server-graphics/
+docs/common/
+docs/math/
+docs/debug-utilities/
+docs/diagnostics/
+docs/vanilla-data/
+docs/tags/**
+!docs/tags/.gitkeep
+docs/api/**/*.mdx
+cache/untagged-symbols.json
