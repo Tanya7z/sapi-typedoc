@@ -6,8 +6,6 @@ import { buildInheritanceGraph, TREE_KINDS } from './inheritance-meta.js';
 import { applyRelatedSection, pickRelated, stripRelatedSection, type MemberWithTags } from './related.js';
 import type { MemberRef } from './restructure-modules.js';
 
-const BADGE_IMPORT = "import { Badge } from '@rspress/core/theme';";
-
 const TIP_MARKERS = [
   '世界的执行权限',
   '只读模式',
@@ -114,9 +112,28 @@ export function escapeBadgeChildren(text: string): string {
   return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+/** 转义 Tab label 双引号属性 */
+export function escapeTabLabel(text: string): string {
+  return text.replace(/\\/g, '\\\\').replace(/"/g, '&quot;');
+}
+
+/** 模块名 → npm 包（如 server → @minecraft/server） */
+export function npmPackageForModule(moduleName: string): string {
+  return `@minecraft/${moduleName}`;
+}
+
+export function sourceCodeHref(moduleName: string): string {
+  return `https://www.npmjs.com/package/${npmPackageForModule(moduleName)}`;
+}
+
+/** 去掉 @rspress/core/theme 的 import 行 */
+export function stripThemeImport(body: string): string {
+  return body.replace(/^import\s+\{[^}]+\}\s+from\s+['"]@rspress\/core\/theme['"];\s*\r?\n+/gm, '');
+}
+
 /** 去掉已有 Badge import 与标题下 chips，便于幂等重跑 */
 export function stripBadgeArtifacts(body: string): string {
-  let next = body.replace(/^import\s+\{\s*Badge\s*\}\s+from\s+['"]@rspress\/core\/theme['"];\s*\r?\n+/gm, '');
+  let next = stripThemeImport(body);
   // 标题后连续的 Badge 行
   next = next.replace(
     /^(#\s+[^\r\n]+)\r?\n+(?:(?:<Badge\b[^>]*>[^<]*<\/Badge>\s*)+\r?\n+)*/m,
@@ -125,17 +142,127 @@ export function stripBadgeArtifacts(body: string): string {
   return next;
 }
 
+/** 去掉页尾 SourceCode，便于幂等重跑 */
+export function stripSourceCode(body: string): string {
+  const stripped = body.replace(/(?:\r?\n)*<SourceCode\b[^>]*\/>\s*/g, '\n');
+  return stripped.replace(/(?:\r?\n)*$/, '\n');
+}
+
+/** 页尾插入 SourceCode；module 为空则只剥离 */
+export function applySourceCode(body: string, moduleName: string | undefined): string {
+  const base = stripSourceCode(body).replace(/(?:\r?\n)*$/, '\n');
+  if (!moduleName) return base;
+  return `${base}\n<SourceCode href="${sourceCodeHref(moduleName)}" />\n`;
+}
+
+type ExampleTabItem = { label: string; content: string };
+
+/** 从 Examples 节正文收集「可选粗体标签 + 代码块（可含 details）」 */
+export function collectExampleTabItems(sectionBody: string): ExampleTabItem[] {
+  const items: ExampleTabItem[] = [];
+  const re =
+    /(?:\*\*([^*]+)\*\*[ \t]*\r?\n+)?((?:\:\:\:details[^\r\n]*\r?\n)?```[^\r\n]*\r?\n[\s\S]*?```(?:\r?\n\:\:\:)?)/g;
+  let match: RegExpExecArray | null;
+  let index = 0;
+  while ((match = re.exec(sectionBody)) !== null) {
+    index += 1;
+    const rawLabel = match[1]?.trim();
+    const content = match[2]!.trim();
+    const label = rawLabel || inferExampleLabel(content, index);
+    items.push({ label, content });
+  }
+  return items;
+}
+
+/** 标签回退：首行注释 → 语言 → 示例 N */
+export function inferExampleLabel(fenceOrDetails: string, index: number): string {
+  const fence = /```([^\r\n`]*)\r?\n([\s\S]*?)```/.exec(fenceOrDetails);
+  if (fence) {
+    const lang = fence[1]!.trim().split(/\s+/)[0] || '';
+    const code = fence[2] ?? '';
+    const comment =
+      /^\s*\/\/\s*(.+)$/m.exec(code)?.[1]?.trim() ||
+      /^\s*\/\*\s*(.+?)\s*\*\//m.exec(code)?.[1]?.trim() ||
+      /^\s*#\s*(.+)$/m.exec(code)?.[1]?.trim();
+    if (comment) return comment;
+    if (lang) return `${lang} · 示例 ${index}`;
+  }
+  return `示例 ${index}`;
+}
+
+function renderExampleTabs(items: ExampleTabItem[]): string {
+  const tabs = items
+    .map(
+      (item, i) =>
+        `<Tab label="${escapeTabLabel(item.label)}" value="ex-${i + 1}">\n\n${item.content}\n\n</Tab>`,
+    )
+    .join('\n');
+  return `<Tabs>\n${tabs}\n</Tabs>`;
+}
+
+/**
+ * 将 ## Examples / ## 示例 下 2+ 个示例围栏包成 Tabs。
+ * 单示例不生成；已是 Tabs 时先由 stripExampleTabs 还原。
+ */
+export function wrapExampleTabs(content: string): string {
+  // 不用 /m 下的 $：其会在行末提前命中，导致节正文被吞成空串
+  // 下一同级/更高级标题或真正文末（(?![\s\S])）结束本节
+  return content.replace(
+    /(^#{2,3}[ \t]+(?:Examples?|示例)[ \t]*\r?\n)([\s\S]*?)(?=^#{1,3}[ \t]+|(?![\s\S]))/gm,
+    (full, heading: string, sectionBody: string) => {
+      if (/<Tabs>/.test(sectionBody)) return full;
+      const items = collectExampleTabItems(sectionBody);
+      if (items.length < 2) return full;
+      // 保留节内 Tabs 以外的前导说明（若有且不含代码块则保留）
+      const firstFence = /(?:\*\*[^*]+\*\*[ \t]*\r?\n+)?(?:\:\:\:details[^\r\n]*\r?\n)?```/.exec(
+        sectionBody,
+      );
+      const preface = firstFence ? sectionBody.slice(0, firstFence.index).trimEnd() : '';
+      const prefaceBlock = preface ? `${preface}\n\n` : '';
+      return `${heading}${prefaceBlock}${renderExampleTabs(items)}\n`;
+    },
+  );
+}
+
+/** 拆掉增强器生成的 Tabs，还原为粗体标签 + 代码块，便于幂等 */
+export function stripExampleTabs(body: string): string {
+  return body.replace(/<Tabs>\s*([\s\S]*?)<\/Tabs>/g, (_full, inner: string) => {
+    const parts: string[] = [];
+    const tabRe = /<Tab\b([^>]*)>\s*([\s\S]*?)\s*<\/Tab>/g;
+    let match: RegExpExecArray | null;
+    while ((match = tabRe.exec(inner)) !== null) {
+      const attrs = match[1] ?? '';
+      const content = match[2]!.trim();
+      const labelMatch = /\blabel="([^"]*)"/.exec(attrs);
+      const label = labelMatch?.[1]?.replace(/&quot;/g, '"').replace(/\\\\/g, '\\');
+      if (label && !/^示例 \d+$/.test(label) && !/^[a-z0-9.+-]+ · 示例 \d+$/i.test(label)) {
+        parts.push(`**${label}**\n\n${content}`);
+      } else {
+        parts.push(content);
+      }
+    }
+    return parts.length > 0 ? `\n\n${parts.join('\n\n')}\n\n` : _full;
+  });
+}
+
+/** 在正文前插入 theme import（调用方保证 body 已无旧 import） */
+export function ensureThemeImport(body: string, names: string[]): string {
+  const unique = [...new Set(names.filter(Boolean))];
+  if (unique.length === 0) return body;
+  return `import { ${unique.join(', ')} } from '@rspress/core/theme';\n\n${body}`;
+}
+
 export function insertDomainChips(body: string, domainTags: string[]): string {
   if (domainTags.length === 0) return body;
   const chips = domainTags.map((t) => `<Badge type="info">${escapeBadgeChildren(t)}</Badge>`).join(' ');
   const heading = /^(#\s+[^\r\n]+)\r?\n+/m.exec(body);
   if (!heading || heading.index === undefined) {
-    return `${BADGE_IMPORT}\n\n${chips}\n\n${body}`;
+    return `${chips}\n\n${body}`;
   }
   const insertAt = heading.index + heading[0].length;
   const before = body.slice(0, insertAt);
   const after = body.slice(insertAt);
-  return `${BADGE_IMPORT}\n\n${before}${chips}\n\n${after}`;
+  return `${before}${chips}\n\n${after}`;
 }
 
 function paragraphLooksWrapped(para: string): boolean {
@@ -198,11 +325,14 @@ export function enhanceMemberContent(
   options: {
     symbolName?: string;
     inheritanceDepth?: number;
+    module?: string;
   } = {},
 ): EnhanceContentResult {
   const strippedFm = stripFrontmatter(raw);
-  // 去掉旧 Badge / 同领域相关，保证幂等；相关节在 enhanceMemberPages 第二遍再追加
+  // 去掉旧 Badge / Tabs / SourceCode / 同领域相关，保证幂等；相关节在第二遍再追加
   let body = stripBadgeArtifacts(strippedFm.body);
+  body = stripExampleTabs(body);
+  body = stripSourceCode(body);
   body = stripRelatedSection(body);
 
   const symbolName = options.symbolName?.trim() || parseSymbolFromTitle(body) || 'unknown';
@@ -215,8 +345,18 @@ export function enhanceMemberContent(
 
   body = addConstructorAnchors(body);
   body = wrapPrivilegeParagraphs(body);
+  body = wrapExampleTabs(body);
   body = wrapLongCodeBlocks(body);
   body = insertDomainChips(body, domainTags);
+  body = applySourceCode(body, options.module);
+
+  const importNames: string[] = [];
+  if (domainTags.length > 0) importNames.push('Badge');
+  if (body.includes('<Tabs>')) {
+    importNames.push('Tabs', 'Tab');
+  }
+  if (body.includes('<SourceCode')) importNames.push('SourceCode');
+  body = ensureThemeImport(body, importNames);
 
   const frontmatter = buildFrontmatter({
     title: symbolName,
@@ -286,6 +426,7 @@ export function enhanceMemberPages(refs: MemberRef[]): MemberRef[] {
     const result = enhanceMemberContent(raw, {
       symbolName: ref.symbolName,
       inheritanceDepth: depth,
+      module: ref.module,
     });
 
     const destPath = toMdxPath(ref.absPath);
@@ -311,18 +452,18 @@ export function enhanceMemberPages(refs: MemberRef[]): MemberRef[] {
 
   let relatedPages = 0;
   for (const item of tagged) {
-    if (item.domainTags.length === 0) continue;
-    const related = pickRelated(item, tagged);
-    if (related.length === 0) continue;
-
     const raw = readFileSync(item.absPath, 'utf-8');
     const { frontmatter, body } = stripFrontmatter(raw);
-    const nextBody = applyRelatedSection(body, related);
+    const related =
+      item.domainTags.length > 0 ? pickRelated(item, tagged) : [];
+    // 相关节在前，SourceCode 固定页尾，避免相关剥离误伤
+    let nextBody = applyRelatedSection(stripSourceCode(body), related);
+    nextBody = applySourceCode(nextBody, item.module);
     // stripFrontmatter 的 fence 不含尾换行，body 已剥掉该换行，写入时必须补回
     const fm = frontmatter ?? '';
     const sep = fm.length === 0 || fm.endsWith('\n') ? '' : '\n';
     writeFileSync(item.absPath, `${fm}${sep}${nextBody}`, 'utf-8');
-    relatedPages += 1;
+    if (related.length > 0) relatedPages += 1;
   }
 
   console.log(

@@ -5,14 +5,21 @@ import { join } from 'node:path';
 import { describe, it } from 'node:test';
 import {
   addConstructorAnchors,
+  applySourceCode,
   buildFrontmatter,
+  collectExampleTabItems,
   detectStatusTag,
   enhanceMemberContent,
   enhanceMemberPages,
   escapeBadgeChildren,
   insertDomainChips,
   isEnhanceableMember,
+  npmPackageForModule,
   parseSymbolFromTitle,
+  sourceCodeHref,
+  stripExampleTabs,
+  stripSourceCode,
+  wrapExampleTabs,
   wrapLongCodeBlocks,
   wrapPrivilegeParagraphs,
 } from './enhance-member-mdx.js';
@@ -70,8 +77,75 @@ describe('escapeBadgeChildren / insertDomainChips', () => {
   });
 });
 
+describe('wrapExampleTabs / SourceCode', () => {
+  it('Examples 下 2+ 围栏包 Tabs，单示例不包', () => {
+    const multi = [
+      '## Examples',
+      '',
+      '**addSign.ts**',
+      '',
+      '```ts',
+      'a()',
+      '```',
+      '',
+      '**addTwoSidedSign.ts**',
+      '',
+      '```ts',
+      'b()',
+      '```',
+      '',
+    ].join('\n');
+    const tabbed = wrapExampleTabs(multi);
+    assert.match(tabbed, /<Tabs>/);
+    assert.match(tabbed, /<Tab label="addSign\.ts" value="ex-1">/);
+    assert.match(tabbed, /<Tab label="addTwoSidedSign\.ts" value="ex-2">/);
+    assert.equal(collectExampleTabItems(multi.replace(/^## Examples\n/, '')).length, 2);
+
+    const single = ['## Example', '', '```ts', 'only()', '```', ''].join('\n');
+    assert.equal(wrapExampleTabs(single), single);
+  });
+
+  it('stripExampleTabs 还原标签且与 wrap 幂等', () => {
+    const multi = [
+      '## Examples',
+      '',
+      '**foo.ts**',
+      '',
+      '```ts',
+      '1',
+      '```',
+      '',
+      '**bar.ts**',
+      '',
+      '```ts',
+      '2',
+      '```',
+      '',
+    ].join('\n');
+    const once = wrapExampleTabs(multi);
+    const restored = stripExampleTabs(once);
+    assert.match(restored, /\*\*foo\.ts\*\*/);
+    assert.match(restored, /\*\*bar\.ts\*\*/);
+    assert.doesNotMatch(restored, /<Tabs>/);
+    const twice = wrapExampleTabs(restored);
+    assert.equal(countMatches(twice, /<Tabs>/g), 1);
+    assert.equal(countMatches(twice, /<Tab\b/g), 2);
+  });
+
+  it('SourceCode 按模块映射 npm 且幂等', () => {
+    assert.equal(npmPackageForModule('server-ui'), '@minecraft/server-ui');
+    assert.equal(npmPackageForModule('vanilla-data'), '@minecraft/vanilla-data');
+    assert.equal(sourceCodeHref('server'), 'https://www.npmjs.com/package/@minecraft/server');
+    const once = applySourceCode('# T\n\nbody\n', 'server');
+    assert.match(once, /<SourceCode href="https:\/\/www\.npmjs\.com\/package\/@minecraft\/server" \/>/);
+    assert.equal(applySourceCode(once, 'server'), once);
+    assert.equal(countMatches(applySourceCode(once, 'server'), /<SourceCode\b/g), 1);
+    assert.doesNotMatch(stripSourceCode(once), /SourceCode/);
+  });
+});
+
 describe('enhanceMemberContent', () => {
-  it('写入 frontmatter、Badge chips，并支持幂等', () => {
+  it('写入 frontmatter、Badge chips、SourceCode，并支持幂等', () => {
     const longLines = Array.from({ length: 85 }, (_, i) => `line${i}`);
     const raw = [
       '# Class: EntityDieAfterEvent',
@@ -81,6 +155,20 @@ describe('enhanceMemberContent', () => {
       '无法在只读模式下调用此函数。',
       '',
       '事件说明。',
+      '',
+      '## Examples',
+      '',
+      '**one.ts**',
+      '',
+      '```ts',
+      'a()',
+      '```',
+      '',
+      '**two.ts**',
+      '',
+      '```ts',
+      'b()',
+      '```',
       '',
       '## Constructors',
       '',
@@ -92,29 +180,42 @@ describe('enhanceMemberContent', () => {
       '',
     ].join('\n');
 
-    const first = enhanceMemberContent(raw, { symbolName: 'EntityDieAfterEvent', inheritanceDepth: 1 });
+    const first = enhanceMemberContent(raw, {
+      symbolName: 'EntityDieAfterEvent',
+      inheritanceDepth: 1,
+      module: 'server',
+    });
     assert.match(first.content, /^---\n/);
     assert.match(first.content, /title: "EntityDieAfterEvent"/);
     assert.match(first.content, /tag: experimental/);
     assert.match(first.content, /domainTags:\n {2}- event\n {2}- entity/);
     assert.match(first.content, /searchBoost: 1\.1/);
-    assert.match(first.content, /import \{ Badge \} from '@rspress\/core\/theme';/);
+    assert.match(
+      first.content,
+      /import \{ Badge, Tabs, Tab, SourceCode \} from '@rspress\/core\/theme';/,
+    );
     assert.match(first.content, /<Badge type="info">event<\/Badge> <Badge type="info">entity<\/Badge>/);
     assert.match(first.content, /## Constructors \{#constructors\}/);
     assert.match(first.content, /:::tip\n无法在只读模式下调用此函数。\n:::/);
     assert.match(first.content, /:::details 示例\n```ts\n/);
+    assert.match(first.content, /<Tabs>/);
+    assert.match(first.content, /<Tab label="one\.ts"/);
+    assert.match(first.content, /<SourceCode href="https:\/\/www\.npmjs\.com\/package\/@minecraft\/server" \/>/);
 
     const second = enhanceMemberContent(first.content, {
       symbolName: 'EntityDieAfterEvent',
       inheritanceDepth: 1,
+      module: 'server',
     });
-    const badgeImports = second.content.match(/import \{ Badge \}/g) ?? [];
-    assert.equal(badgeImports.length, 1);
+    const themeImports = second.content.match(/import \{[^}]+\} from '@rspress\/core\/theme';/g) ?? [];
+    assert.equal(themeImports.length, 1);
     assert.equal(countMatches(second.content, /^---$/gm), 2);
     assert.equal(countMatches(second.content, /<Badge\b/g), countMatches(first.content, /<Badge\b/g));
     assert.equal(countMatches(second.content, /:::tip\b/g), countMatches(first.content, /:::tip\b/g));
     assert.equal(countMatches(second.content, /:::details\b/g), countMatches(first.content, /:::details\b/g));
     assert.equal(countMatches(second.content, /:::warning\b/g), countMatches(first.content, /:::warning\b/g));
+    assert.equal(countMatches(second.content, /<Tabs>/g), 1);
+    assert.equal(countMatches(second.content, /<SourceCode\b/g), 1);
     assert.doesNotMatch(second.content, /:::tip\s*\n\s*:::tip/);
     assert.doesNotMatch(second.content, /:::details[^\n]*\n:::details/);
     assert.doesNotMatch(second.content, /:::warning\s*\n\s*:::warning/);
@@ -178,6 +279,8 @@ describe('enhanceMemberPages', () => {
     assert.match(out, /tag: experimental/);
     // 无本地父 Entity 时 Player 为 depth 0
     assert.match(out, /searchBoost: 1\.2/);
+    assert.match(out, /import \{ Badge, SourceCode \} from '@rspress\/core\/theme';/);
+    assert.match(out, /<SourceCode href="https:\/\/www\.npmjs\.com\/package\/@minecraft\/server" \/>/);
   });
 
   it('按继承深度写入 searchBoost；二次增强在 .mdx 上仍正确', () => {
@@ -233,8 +336,10 @@ describe('enhanceMemberPages', () => {
     assert.match(playerAgain, /searchBoost: 1\.1/);
     assert.equal(countMatches(entityAgain, /<Badge\b/g), entityBadges);
     assert.equal(countMatches(playerAgain, /<Badge\b/g), playerBadges);
-    assert.equal(countMatches(entityAgain, /import \{ Badge \}/g), 1);
-    assert.equal(countMatches(playerAgain, /import \{ Badge \}/g), 1);
+    assert.equal(countMatches(entityAgain, /import \{[^}]+\} from '@rspress\/core\/theme';/g), 1);
+    assert.equal(countMatches(playerAgain, /import \{[^}]+\} from '@rspress\/core\/theme';/g), 1);
+    assert.equal(countMatches(entityAgain, /<SourceCode\b/g), 1);
+    assert.equal(countMatches(playerAgain, /<SourceCode\b/g), 1);
   });
 
   it('第二遍追加同领域相关且幂等', () => {
@@ -295,7 +400,13 @@ describe('enhanceMemberPages', () => {
     const eventAgain = readFileSync(refs[1]!.absPath, 'utf-8');
     assert.equal(countMatches(eventAgain, /## 同领域相关/g), 1);
     assert.equal(countMatches(eventAgain, /\[Entity\]\(\/server\/classes\/Entity\)/g), 1);
+    assert.equal(countMatches(eventAgain, /<SourceCode\b/g), 1);
     assert.match(eventAgain, /^---\n[\s\S]*?\n---\n/);
     assert.doesNotMatch(eventAgain, /---(?:import|#)/);
+    // SourceCode 固定在相关节之后（页尾）
+    assert.match(
+      eventAgain,
+      /## 同领域相关\n\n- \[Entity\]\(\/server\/classes\/Entity\)\n\n<SourceCode href="https:\/\/www\.npmjs\.com\/package\/@minecraft\/server" \/>/,
+    );
   });
 });

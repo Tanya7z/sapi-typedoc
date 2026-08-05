@@ -1,6 +1,7 @@
 import * as path from 'node:path';
 import { defineConfig } from '@rspress/core';
 import { pluginTypeDoc } from '@rspress/plugin-typedoc';
+import { remarkAbbrGlossary } from './script/post/abbreviations.js';
 import { pluginSapiPostTypeDoc } from './script/plugins/sapi-post-typedoc.js';
 import { setupTypeDoc } from './script/rspress-setup.js';
 
@@ -15,6 +16,10 @@ export default defineConfig({
     dark: '/rspress-dark-logo.png',
   },
   llms: true,
+  markdown: {
+    // 外部词表缩写；不用过时的 remark-abbr（需页内定义且不适配 remark 13+ / MDX）
+    remarkPlugins: [remarkAbbrGlossary()],
+  },
   route: {
     exclude: ['superpowers/**/*', 'components/**/*'],
   },
