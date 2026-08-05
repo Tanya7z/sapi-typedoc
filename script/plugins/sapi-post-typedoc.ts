@@ -1,4 +1,5 @@
 import type { RspressPlugin } from '@rspress/core';
+import { enhanceMemberPages } from '../post/enhance-member-mdx.js';
 import { writeModuleMeta } from '../post/inheritance-meta.js';
 import { restructureModules } from '../post/restructure-modules.js';
 import { writeRootNav } from '../post/write-nav.js';
@@ -22,6 +23,7 @@ export function pluginSapiPostTypeDoc(): RspressPlugin {
           refs.filter((r) => r.module === mod),
         );
       }
+      enhanceMemberPages(refs);
       console.log(
         `[sapi-post-typedoc] restructured ${refs.length} members across ${modules.length} modules`,
       );

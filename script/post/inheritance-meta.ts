@@ -48,7 +48,8 @@ export type ModuleMetaPlan = {
   kindMetas: Record<string, SideMetaItem[]>;
 };
 
-const TREE_KINDS = new Set(['classes', 'interfaces']);
+/** 侧栏继承树适用的 kind（classes / interfaces） */
+export const TREE_KINDS = new Set(['classes', 'interfaces']);
 
 function symbolFromFileName(fileName: string): string {
   return fileName.replace(/\.(md|mdx)$/i, '');

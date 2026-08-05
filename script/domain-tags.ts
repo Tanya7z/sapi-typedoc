@@ -20,7 +20,7 @@ export const DOMAIN_TAG_LEGEND: { tag: string; meaning: string }[] = [
   { tag: 'scoreboard', meaning: '计分板相关' },
   { tag: 'chat', meaning: '原始消息 / 聊天相关' },
   { tag: 'permission', meaning: '权限 / OP 等级相关' },
-  { tag: 'tick', meaning: '时序 / Tick / System 相关' },
+  { tag: 'tick', meaning: '时序 / Tick 相关' },
   { tag: 'animation', meaning: '动画相关' },
   { tag: 'sound', meaning: '声音 / 音乐相关' },
   { tag: 'effect', meaning: '状态效果相关' },
