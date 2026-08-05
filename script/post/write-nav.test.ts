@@ -90,4 +90,11 @@ describe('ensureVanillaDataNav', () => {
       1,
     );
   });
+
+  it('损坏的 _nav.json 时跳过', () => {
+    const root = mkdtempSync(join(tmpdir(), 'write-nav-corrupt-'));
+    writeFileSync(join(root, '_nav.json'), '{ not valid json', 'utf-8');
+    assert.equal(ensureVanillaDataNav({ docsDir: root }), false);
+    assert.equal(readFileSync(join(root, '_nav.json'), 'utf-8'), '{ not valid json');
+  });
 });

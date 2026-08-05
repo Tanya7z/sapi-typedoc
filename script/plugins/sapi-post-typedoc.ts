@@ -28,7 +28,10 @@ export function pluginSapiPostTypeDoc(): RspressPlugin {
       }
 
       const modules = [...new Set(refs.map((r) => r.module))];
-      writeRootNav(modules);
+      const vanillaOk = writeVanillaDataIndex();
+      writeRootNav(
+        vanillaOk ? [...new Set([...modules, 'vanilla-data'])] : modules,
+      );
       for (const mod of modules) {
         writeModuleMeta(
           mod,
@@ -38,11 +41,6 @@ export function pluginSapiPostTypeDoc(): RspressPlugin {
       enhanceMemberPages(refs);
       writeTagsIndex(refs);
       writeUntaggedReport(refs);
-
-      const vanillaOk = writeVanillaDataIndex();
-      if (vanillaOk) {
-        writeRootNav([...new Set([...modules, 'vanilla-data'])]);
-      }
 
       console.log(
         `[sapi-post-typedoc] restructured ${refs.length} members across ${modules.length} modules`,

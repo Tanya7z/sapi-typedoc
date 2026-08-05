@@ -64,7 +64,13 @@ export function ensureVanillaDataNav(options: { docsDir?: string } = {}): boolea
     return false;
   }
 
-  const nav = readJson<NavItem[]>(navPath);
+  let nav: NavItem[] | undefined;
+  try {
+    nav = readJson<NavItem[]>(navPath);
+  } catch {
+    console.warn('[write-nav] docs/_nav.json 解析失败，跳过 vanilla-data 导航补丁');
+    return false;
+  }
   if (!Array.isArray(nav)) {
     console.warn('[write-nav] docs/_nav.json 格式无效，跳过 vanilla-data 导航补丁');
     return false;
@@ -82,7 +88,12 @@ export function ensureVanillaDataNav(options: { docsDir?: string } = {}): boolea
   }
 
   const items = more.items ?? (more.items = []);
-  if (items.some((item) => item.text === 'vanilla-data' || item.link === '/vanilla-data/')) {
+  if (
+    items.some(
+      (item) =>
+        item.text === VANILLA_NAV_ITEM.text || item.link === VANILLA_NAV_ITEM.link,
+    )
+  ) {
     return true;
   }
 
