@@ -1,0 +1,20 @@
+{
+  "include": ["*"],
+  "compilerOptions": {
+    "module": "commonjs",
+    "lib": ["es6"],
+    "target": "es6",
+    "noEmit": true,
+    "declaration": true,
+    "paths": {
+      "@minecraft/common": ["./common"],
+      "@minecraft/server": ["./server"],
+      "@minecraft/server-admin": ["./server-admin"],
+      "@minecraft/server-editor": ["./server-editor"],
+      "@minecraft/server-gametest": ["./server-gametest"],
+      "@minecraft/server-net": ["./server-net"],
+      "@minecraft/server-ui": ["./server-ui"],
+      "@minecraft/vanilla-data": ["./vanilla-data"]
+    }
+  }
+}

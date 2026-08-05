@@ -44,3 +44,8 @@ docs/tags/**
 !docs/tags/.gitkeep
 docs/api/**/*.mdx
 cache/untagged-symbols.json
+
+# Local junk
+*.bak
+*.code-workspace
+

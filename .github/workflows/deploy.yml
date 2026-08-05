@@ -1,0 +1,58 @@
+name: Deploy
+
+# 推送到 main 或手动触发时构建并部署站点
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build Rspress site
+        run: npm run build
+
+      - name: Setup GitHub Pages
+        id: pages_setup
+        uses: actions/configure-pages@v5
+        continue-on-error: true
+
+      - name: Upload Pages artifact
+        id: pages_upload
+        if: ${{ steps.pages_setup.outcome == 'success' }}
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ github.workspace }}/doc_build
+
+      - name: Deploy to GitHub Pages
+        if: ${{ steps.pages_setup.outcome == 'success' }}
+        id: deployment
+        uses: actions/deploy-pages@v4
