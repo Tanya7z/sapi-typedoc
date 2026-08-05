@@ -55,10 +55,17 @@ function symbolFromFileName(fileName: string): string {
 }
 
 /**
- * 将链接解析为本目录已知成员文件名。
- * 接受 Entity.md / Entity.mdx / ./Entity.md，以及 TypeDoc 未改写前的 server.Entity.md。
+ * 将链接解析为本目录已知成员文件名（模块感知）。
+ * - Bare `Symbol.md` / `./Symbol.md` → 本地（若在 knownFiles）
+ * - `currentModule.Symbol.md` → 本地 Symbol.md（若已知）
+ * - `otherModule.Symbol.md` → 永不视为本地
+ * 限定名按与 parseApiFileName 一致的「首个 `.`」拆分。
  */
-export function resolveLocalMemberHref(href: string, knownFiles: Set<string>): string | undefined {
+export function resolveLocalMemberHref(
+  href: string,
+  knownFiles: Set<string>,
+  currentModule: string,
+): string | undefined {
   let h = href.trim();
   if (h.startsWith('./')) h = h.slice(2);
   if (!h || h.includes('/')) return undefined;
@@ -72,13 +79,16 @@ export function resolveLocalMemberHref(href: string, knownFiles: Set<string>): s
     if (knownFiles.has(candidate)) return candidate;
   }
 
-  // TypeDoc 默认：server.Entity.md → Entity.md（同模块、扁平目录）
-  const dot = base.lastIndexOf('.');
+  // TypeDoc：currentModule.Symbol.md → Symbol.md；其它模块永不映射
+  const dot = base.indexOf('.');
   if (dot > 0) {
+    const hrefModule = base.slice(0, dot);
     const symbol = base.slice(dot + 1);
-    for (const ext of ['.md', '.mdx'] as const) {
-      const candidate = `${symbol}${ext}`;
-      if (knownFiles.has(candidate)) return candidate;
+    if (hrefModule === currentModule && symbol) {
+      for (const ext of ['.md', '.mdx'] as const) {
+        const candidate = `${symbol}${ext}`;
+        if (knownFiles.has(candidate)) return candidate;
+      }
     }
   }
   return undefined;
@@ -88,7 +98,11 @@ export function resolveLocalMemberHref(href: string, knownFiles: Set<string>): s
  * 从「## 继承」小节提取指向本目录的父页（忽略跨模块/跨目录链接）。
  * 同时识别尚未中文化的「## Extends」，便于对接当前 TypeDoc 输出。
  */
-export function parseLocalParents(content: string, knownFiles: Set<string>): string[] {
+export function parseLocalParents(
+  content: string,
+  knownFiles: Set<string>,
+  currentModule: string,
+): string[] {
   const heading = /^## (?:继承|Extends)\s*$/m.exec(content);
   if (!heading || heading.index === undefined) return [];
   const bodyStart = heading.index + heading[0].length;
@@ -97,7 +111,7 @@ export function parseLocalParents(content: string, knownFiles: Set<string>): str
   const section = nextHeading ? rest.slice(0, nextHeading.index) : rest;
   const parents: string[] = [];
   for (const match of section.matchAll(/\]\(([^)]+)\)/g)) {
-    const resolved = resolveLocalMemberHref(match[1], knownFiles);
+    const resolved = resolveLocalMemberHref(match[1], knownFiles, currentModule);
     if (resolved && !parents.includes(resolved)) {
       parents.push(resolved);
     }
@@ -120,12 +134,13 @@ function sortSiblingFileNames(files: string[], childrenOf: Map<string, string[]>
  */
 export function buildInheritanceGraph(
   members: Array<{ fileName: string; content: string }>,
+  currentModule: string,
 ): InheritanceGraph {
   const knownFiles = new Set(members.map((m) => m.fileName));
   const parentOf = new Map<string, string>();
 
   for (const m of members) {
-    const parents = parseLocalParents(m.content, knownFiles);
+    const parents = parseLocalParents(m.content, knownFiles, currentModule);
     if (parents.length === 0) continue;
     const chosen = [...parents].sort((a, b) => a.localeCompare(b))[0]!;
     parentOf.set(m.fileName, chosen);
@@ -200,7 +215,7 @@ export function renderInheritanceKindMeta(
   const renderCustomLink = (fileName: string): SideMetaItem => {
     const node = graph.nodes.get(fileName);
     if (!node) {
-      return { type: 'custom-link', label: symbolFromFileName(fileName), link: '#' };
+      throw new Error(`inheritance-meta: missing graph node for ${fileName}`);
     }
     const link = `/${module}/${kind}/${node.symbolName}`;
     if (node.children.length === 0) {
@@ -211,7 +226,7 @@ export function renderInheritanceKindMeta(
       label: node.symbolName,
       link,
       collapsible: true,
-      collapsed: false,
+      collapsed: true,
       items: node.children.map((child) => renderCustomLink(child)),
     };
   };
@@ -267,7 +282,7 @@ export function renderMetaForModule(
         fileName: r.fileName,
         content: readContent(r.absPath),
       }));
-      const graph = buildInheritanceGraph(members);
+      const graph = buildInheritanceGraph(members, mod);
       kindMetas[kind] = renderInheritanceKindMeta(mod, kind, graph);
     } else {
       kindMetas[kind] = renderFlatKindMeta(kindRefs);

@@ -73,28 +73,33 @@ const FIXTURE = {
 };
 
 describe('resolveLocalMemberHref', () => {
-  const known = new Set(['Entity.md', 'Player.mdx']);
+  const known = new Set(['Entity.md', 'Player.mdx', 'EngineError.md']);
+  const mod = 'server';
 
   it('接受同目录 .md / .mdx / ./ 前缀', () => {
-    assert.equal(resolveLocalMemberHref('Entity.md', known), 'Entity.md');
-    assert.equal(resolveLocalMemberHref('./Entity.md', known), 'Entity.md');
-    assert.equal(resolveLocalMemberHref('Player.md', known), 'Player.mdx');
+    assert.equal(resolveLocalMemberHref('Entity.md', known, mod), 'Entity.md');
+    assert.equal(resolveLocalMemberHref('./Entity.md', known, mod), 'Entity.md');
+    assert.equal(resolveLocalMemberHref('Player.md', known, mod), 'Player.mdx');
   });
 
-  it('接受 TypeDoc 的 mod.Symbol.md 并映射到本地文件', () => {
-    assert.equal(resolveLocalMemberHref('server.Entity.md', known), 'Entity.md');
+  it('接受当前模块的 mod.Symbol.md 并映射到本地文件', () => {
+    assert.equal(resolveLocalMemberHref('server.Entity.md', known, mod), 'Entity.md');
   });
 
   it('忽略跨目录链接', () => {
-    assert.equal(resolveLocalMemberHref('../interfaces/Foo.md', known), undefined);
-    assert.equal(resolveLocalMemberHref('common.EngineError.md', known), undefined);
+    assert.equal(resolveLocalMemberHref('../interfaces/Foo.md', known, mod), undefined);
+  });
+
+  it('跨模块 mod.Symbol.md 即使本地有同名文件也不解析', () => {
+    assert.equal(resolveLocalMemberHref('common.EngineError.md', known, mod), undefined);
+    assert.equal(resolveLocalMemberHref('common.Entity.md', known, mod), undefined);
   });
 });
 
 describe('parseLocalParents', () => {
   it('从「## 继承」提取本地父页', () => {
     const known = new Set(['Entity.md', 'Player.md']);
-    assert.deepEqual(parseLocalParents(FIXTURE.Player, known), ['Entity.md']);
+    assert.deepEqual(parseLocalParents(FIXTURE.Player, known, 'server'), ['Entity.md']);
   });
 
   it('忽略跨模块链接与非 md 链接', () => {
@@ -109,7 +114,7 @@ describe('parseLocalParents', () => {
 ## 其它
 `;
     const known = new Set(['Entity.md', 'Player.md']);
-    assert.deepEqual(parseLocalParents(content, known), ['Entity.md']);
+    assert.deepEqual(parseLocalParents(content, known, 'server'), ['Entity.md']);
   });
 
   it('识别英文 ## Extends（当前 TypeDoc 输出）', () => {
@@ -122,16 +127,36 @@ describe('parseLocalParents', () => {
 ## Properties
 `;
     const known = new Set(['Entity.md', 'Player.md']);
-    assert.deepEqual(parseLocalParents(content, known), ['Entity.md']);
+    assert.deepEqual(parseLocalParents(content, known, 'server'), ['Entity.md']);
+  });
+
+  it('不把「## Extended by」节内链接当作父类', () => {
+    const content = `# Foo
+
+## 继承
+
+- [\`Parent\`](Parent.md)
+
+## Extended by
+
+- [\`Child\`](Child.md)
+
+## 属性
+`;
+    const known = new Set(['Parent.md', 'Child.md', 'Foo.md']);
+    assert.deepEqual(parseLocalParents(content, known, 'server'), ['Parent.md']);
   });
 });
 
 describe('buildInheritanceGraph', () => {
   it('建立父子关系并分配 depth', () => {
-    const graph = buildInheritanceGraph([
-      { fileName: 'Entity.md', content: FIXTURE.Entity },
-      { fileName: 'Player.md', content: FIXTURE.Player },
-    ]);
+    const graph = buildInheritanceGraph(
+      [
+        { fileName: 'Entity.md', content: FIXTURE.Entity },
+        { fileName: 'Player.md', content: FIXTURE.Player },
+      ],
+      'server',
+    );
     assert.equal(graph.nodes.get('Player.md')?.parent, 'Entity.md');
     assert.equal(graph.nodes.get('Player.md')?.depth, 1);
     assert.equal(graph.nodes.get('Entity.md')?.depth, 0);
@@ -140,35 +165,64 @@ describe('buildInheritanceGraph', () => {
   });
 
   it('多父时取字母序第一个本地父', () => {
-    const graph = buildInheritanceGraph([
-      { fileName: 'ChildMulti.md', content: FIXTURE.ChildMulti },
-      { fileName: 'AlphaParent.md', content: FIXTURE.AlphaParent },
-      { fileName: 'BetaParent.md', content: FIXTURE.BetaParent },
-    ]);
+    const graph = buildInheritanceGraph(
+      [
+        { fileName: 'ChildMulti.md', content: FIXTURE.ChildMulti },
+        { fileName: 'AlphaParent.md', content: FIXTURE.AlphaParent },
+        { fileName: 'BetaParent.md', content: FIXTURE.BetaParent },
+      ],
+      'server',
+    );
     assert.equal(graph.nodes.get('ChildMulti.md')?.parent, 'AlphaParent.md');
   });
 
-  it('打断继承环', () => {
-    const graph = buildInheritanceGraph([
-      { fileName: 'CycleA.md', content: FIXTURE.CycleA },
-      { fileName: 'CycleB.md', content: FIXTURE.CycleB },
-      { fileName: 'CycleC.md', content: FIXTURE.CycleC },
-    ]);
+  it('打断继承环后形成无环森林', () => {
+    const graph = buildInheritanceGraph(
+      [
+        { fileName: 'CycleA.md', content: FIXTURE.CycleA },
+        { fileName: 'CycleB.md', content: FIXTURE.CycleB },
+        { fileName: 'CycleC.md', content: FIXTURE.CycleC },
+      ],
+      'server',
+    );
     const edges = [...graph.nodes.values()].filter((n) => n.parent).length;
-    assert.ok(edges < 3, 'cycle must drop at least one edge');
-    // 所有节点仍在图中且 depth 有限
-    for (const node of graph.nodes.values()) {
-      assert.ok(Number.isFinite(node.depth));
-    }
+    assert.equal(edges, 2, '3-cycle must drop exactly one edge');
     assert.ok(graph.roots.length >= 1);
+
+    // 沿任意父链不得重访（无环）
+    for (const start of graph.nodes.keys()) {
+      const seen = new Set<string>();
+      let cur: string | undefined = start;
+      while (cur) {
+        assert.ok(!seen.has(cur), `cycle remains at ${cur}`);
+        seen.add(cur);
+        cur = graph.nodes.get(cur)?.parent;
+      }
+    }
+
+    // 森林：每个非根最终可达某个 root
+    const rootSet = new Set(graph.roots);
+    for (const file of graph.nodes.keys()) {
+      let cur: string | undefined = file;
+      const seen = new Set<string>();
+      while (cur && !rootSet.has(cur)) {
+        assert.ok(!seen.has(cur));
+        seen.add(cur);
+        cur = graph.nodes.get(cur)?.parent;
+      }
+      assert.ok(cur && rootSet.has(cur), `${file} not reachable to a root`);
+    }
   });
 
   it('可展开节点排在同级字母序之前', () => {
-    const graph = buildInheritanceGraph([
-      { fileName: 'Zebra.md', content: '# Zebra\n' },
-      { fileName: 'Alpha.md', content: '# Alpha\n' },
-      { fileName: 'Child.md', content: '# Child\n\n## 继承\n\n- [`Zebra`](Zebra.md)\n' },
-    ]);
+    const graph = buildInheritanceGraph(
+      [
+        { fileName: 'Zebra.md', content: '# Zebra\n' },
+        { fileName: 'Alpha.md', content: '# Alpha\n' },
+        { fileName: 'Child.md', content: '# Child\n\n## 继承\n\n- [`Zebra`](Zebra.md)\n' },
+      ],
+      'server',
+    );
     // Zebra 有子，应排在 Alpha 前
     assert.deepEqual(graph.roots, ['Zebra.md', 'Alpha.md']);
   });
@@ -176,11 +230,14 @@ describe('buildInheritanceGraph', () => {
 
 describe('renderInheritanceKindMeta / writeModuleMeta', () => {
   it('父类渲染为可折叠 custom-link，叶子为 file', () => {
-    const graph = buildInheritanceGraph([
-      { fileName: 'Entity.md', content: FIXTURE.Entity },
-      { fileName: 'Player.md', content: FIXTURE.Player },
-      { fileName: 'Standalone.md', content: '# Standalone\n' },
-    ]);
+    const graph = buildInheritanceGraph(
+      [
+        { fileName: 'Entity.md', content: FIXTURE.Entity },
+        { fileName: 'Player.md', content: FIXTURE.Player },
+        { fileName: 'Standalone.md', content: '# Standalone\n' },
+      ],
+      'server',
+    );
     const meta = renderInheritanceKindMeta('server', 'classes', graph);
     const entity = meta.find(
       (item) => typeof item === 'object' && item.type === 'custom-link' && item.label === 'Entity',
@@ -188,6 +245,7 @@ describe('renderInheritanceKindMeta / writeModuleMeta', () => {
     assert.ok(entity && typeof entity === 'object' && entity.type === 'custom-link');
     assert.equal(entity.link, '/server/classes/Entity');
     assert.equal(entity.collapsible, true);
+    assert.equal(entity.collapsed, true);
     assert.ok(Array.isArray(entity.items));
     assert.ok(
       entity.items!.some(
