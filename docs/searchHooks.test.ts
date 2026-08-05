@@ -3,7 +3,9 @@ import { describe, it } from 'node:test';
 import type { DefaultMatchResult } from '@rspress/core/theme';
 import {
   buildBoostMetaByRoute,
+  clearBoostMetaCache,
   extractBoostMeta,
+  loadBoostMetaByRoute,
   normalizeRoutePath,
   parseDomainTags,
   parseSearchBoost,
@@ -29,9 +31,9 @@ describe('tokenizeQuery / parse helpers', () => {
     assert.equal(parseSearchBoost(undefined), 1);
   });
 
-  it('normalizeRoutePath 去 hash 与尾斜杠', () => {
-    assert.equal(normalizeRoutePath('/server/classes/Entity#ctor'), '/server/classes/Entity');
-    assert.equal(normalizeRoutePath('server/classes/Entity/'), '/server/classes/Entity');
+  it('normalizeRoutePath 去 hash、尾斜杠并小写', () => {
+    assert.equal(normalizeRoutePath('/server/classes/Entity#ctor'), '/server/classes/entity');
+    assert.equal(normalizeRoutePath('server/classes/Entity/'), '/server/classes/entity');
     assert.equal(normalizeRoutePath('/'), '/');
   });
 });
@@ -49,12 +51,19 @@ describe('extractBoostMeta / scoreSearchHit', () => {
 
   it('无 FM 时按 route 查表', () => {
     const map = new Map<string, SearchBoostMeta>([
-      ['/server/Entity', { domainTags: ['entity'], searchBoost: 1.2 }],
+      ['/server/entity', { domainTags: ['entity'], searchBoost: 1.2 }],
     ]);
     assert.deepEqual(extractBoostMeta({ link: '/server/Entity#x' }, map), {
       domainTags: ['entity'],
       searchBoost: 1.2,
     });
+  });
+
+  it('empty meta 不共享可变 domainTags', () => {
+    const a = extractBoostMeta({ link: '/x' });
+    const b = extractBoostMeta({ link: '/y' });
+    a.domainTags.push('mutated');
+    assert.deepEqual(b.domainTags, []);
   });
 
   it('tag 相交 ×2，再乘 searchBoost', () => {
@@ -160,5 +169,75 @@ describe('reorderDefaultSearchResults', () => {
     reorderDefaultSearchResults('entity', [group]);
     assert.equal(group.result[0]?.link, '/Entity');
     assert.equal(group.result[1]?.link, '/Player');
+  });
+
+  it('裸 link + metaByRoute 重排（生产路径：命中无 frontmatter）', () => {
+    const group = {
+      group: 'local',
+      renderType: 'default',
+      result: [
+        {
+          type: 'title',
+          title: 'Player',
+          header: 'Player',
+          link: '/server/Player#overview',
+          query: 'entity',
+          highlightInfoList: [],
+        },
+        {
+          type: 'title',
+          title: 'Entity',
+          header: 'Entity',
+          link: '/server/Entity',
+          query: 'entity',
+          highlightInfoList: [],
+        },
+        {
+          type: 'title',
+          title: 'Block',
+          header: 'Block',
+          link: '/server/Block/',
+          query: 'entity',
+          highlightInfoList: [],
+        },
+      ],
+    } as DefaultMatchResult;
+
+    const metaByRoute = buildBoostMetaByRoute([
+      {
+        routePath: '/server/Player',
+        frontmatter: { domainTags: ['player'], searchBoost: 1.1 },
+      },
+      {
+        routePath: '/server/Entity',
+        frontmatter: { domainTags: ['entity'], searchBoost: 1.2 },
+      },
+      {
+        routePath: '/server/Block',
+        frontmatter: { domainTags: ['block'], searchBoost: 1 },
+      },
+    ]);
+
+    reorderDefaultSearchResults('entity', [group], metaByRoute);
+    assert.deepEqual(
+      group.result.map((r) => r.link),
+      ['/server/Entity', '/server/Player#overview', '/server/Block/'],
+    );
+  });
+});
+
+describe('loadBoostMetaByRoute cache', () => {
+  it('import 失败不永久缓存空表，可重试', async () => {
+    clearBoostMetaCache();
+    const first = await loadBoostMetaByRoute();
+    assert.equal(first.size, 0);
+    // 失败路径未写入缓存：再次调用得到独立空 Map
+    const second = await loadBoostMetaByRoute();
+    assert.equal(second.size, 0);
+    assert.notEqual(first, second);
+    clearBoostMetaCache();
+    const third = await loadBoostMetaByRoute();
+    assert.equal(third.size, 0);
+    assert.notEqual(second, third);
   });
 });

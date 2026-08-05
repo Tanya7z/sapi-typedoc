@@ -31,7 +31,10 @@ type RankableHit = {
   searchBoost?: unknown;
 };
 
-const EMPTY_META: SearchBoostMeta = { domainTags: [], searchBoost: 1 };
+/** 每次返回新对象，避免共享可变 domainTags */
+function emptyBoostMeta(): SearchBoostMeta {
+  return { domainTags: [], searchBoost: 1 };
+}
 
 let cachedBoostMetaByRoute: Map<string, SearchBoostMeta> | undefined;
 
@@ -43,12 +46,13 @@ export function tokenizeQuery(query: string): string[] {
     .filter(Boolean);
 }
 
-/** 规范化路由：去 hash/query、统一前导斜杠、去掉末尾斜杠（根除外） */
+/** 规范化路由：去 hash/query、小写、统一前导斜杠、去掉末尾斜杠（根除外） */
 export function normalizeRoutePath(path: string): string {
   const bare = path.split(/[?#]/, 1)[0] ?? '';
   if (!bare || bare === '/') return '/';
   const withSlash = bare.startsWith('/') ? bare : `/${bare}`;
-  return withSlash.replace(/\/+$/, '') || '/';
+  const trimmed = withSlash.replace(/\/+$/, '') || '/';
+  return trimmed === '/' ? '/' : trimmed.toLowerCase();
 }
 
 export function parseDomainTags(value: unknown): string[] {
@@ -74,7 +78,7 @@ export function parseSearchBoost(value: unknown): number {
 }
 
 function metaFromFrontmatter(fm: Record<string, unknown> | undefined): SearchBoostMeta {
-  if (!fm) return { ...EMPTY_META };
+  if (!fm) return emptyBoostMeta();
   return {
     domainTags: parseDomainTags(fm.domainTags),
     searchBoost: parseSearchBoost(fm.searchBoost),
@@ -106,14 +110,14 @@ export function extractBoostMeta(
     if (lookedUp) return lookedUp;
   }
 
-  return { ...EMPTY_META };
+  return emptyBoostMeta();
 }
 
 /** 单条命中最终分 */
 export function scoreSearchHit(meta: SearchBoostMeta, queryTokens: string[]): number {
   const tagSet = new Set(meta.domainTags.map((t) => t.toLowerCase()));
   const tagBoost = queryTokens.some((token) => tagSet.has(token)) ? 2 : 1;
-  return 1 * tagBoost * meta.searchBoost;
+  return tagBoost * meta.searchBoost;
 }
 
 /**
@@ -163,18 +167,18 @@ export function buildBoostMetaByRoute(
   return map;
 }
 
-/** 加载（并缓存）页面 frontmatter 中的 domainTags / searchBoost */
+/** 加载（并缓存）页面 frontmatter 中的 domainTags / searchBoost；仅成功时写入缓存 */
 export async function loadBoostMetaByRoute(): Promise<ReadonlyMap<string, SearchBoostMeta>> {
   if (cachedBoostMetaByRoute) return cachedBoostMetaByRoute;
   try {
     const mod = await import('virtual-page-data');
     const pages = mod.pageData?.pages ?? [];
     cachedBoostMetaByRoute = buildBoostMetaByRoute(pages);
+    return cachedBoostMetaByRoute;
   } catch {
-    // Node 单测或无 virtual module 时跳过；重排退化为保持原序
-    cachedBoostMetaByRoute = new Map();
+    // Node 单测或无 virtual module 时跳过；不缓存空表，便于后续重试
+    return new Map();
   }
-  return cachedBoostMetaByRoute;
 }
 
 /** 测试用：清空页面 meta 缓存 */
