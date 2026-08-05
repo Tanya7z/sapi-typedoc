@@ -12,6 +12,7 @@ import {
   enhanceMemberContent,
   enhanceMemberPages,
   escapeBadgeChildren,
+  escapeTabLabel,
   insertDomainChips,
   isEnhanceableMember,
   npmPackageForModule,
@@ -103,6 +104,94 @@ describe('wrapExampleTabs / SourceCode', () => {
 
     const single = ['## Example', '', '```ts', 'only()', '```', ''].join('\n');
     assert.equal(wrapExampleTabs(single), single);
+  });
+
+  it('Examples 内 ### 小标题不截断节，仍包成 Tabs', () => {
+    const withSubheads = [
+      '## Examples',
+      '',
+      '### addSign.ts',
+      '',
+      '```ts',
+      'a()',
+      '```',
+      '',
+      '### addTwoSidedSign.ts',
+      '',
+      '```ts',
+      'b()',
+      '```',
+      '',
+      '## Constructors',
+      '',
+      'ctor',
+      '',
+    ].join('\n');
+    const tabbed = wrapExampleTabs(withSubheads);
+    assert.match(tabbed, /<Tabs>/);
+    assert.equal(countMatches(tabbed, /<Tab\b/g), 2);
+    assert.match(tabbed, /## Constructors\n\nctor/);
+    // ### 作为围栏前说明并入对应 Tab（首个 ### 在 Tabs 外 preface，第二个并入 Tab 2）
+    assert.match(tabbed, /### addSign\.ts/);
+    assert.match(tabbed, /<Tab[^>]*>\s*\n*### addTwoSidedSign\.ts/);
+  });
+
+  it('围栏之间的说明保留在后续 Tab 内', () => {
+    const withNote = [
+      '## Examples',
+      '',
+      '**one.ts**',
+      '',
+      '```ts',
+      'a()',
+      '```',
+      '',
+      ':::tip',
+      '注意：第二个示例需开启 beta。',
+      ':::',
+      '',
+      '**two.ts**',
+      '',
+      '```ts',
+      'b()',
+      '```',
+      '',
+    ].join('\n');
+    const tabbed = wrapExampleTabs(withNote);
+    assert.match(tabbed, /<Tabs>/);
+    assert.match(
+      tabbed,
+      /<Tab label="two\.ts" value="ex-2">\s*\n*:::tip\n注意：第二个示例需开启 beta。\n:::\s*\n*```ts\nb\(\)\n```/,
+    );
+    assert.doesNotMatch(tabbed, /<\/Tab>\s*\n*:::tip/);
+  });
+
+  it('escapeTabLabel 用反斜杠转义双引号，不用 HTML 实体', () => {
+    assert.equal(escapeTabLabel('say "hi"'), 'say \\"hi\\"');
+    assert.doesNotMatch(escapeTabLabel('say "hi"'), /&quot;/);
+
+    const quoted = [
+      '## Examples',
+      '',
+      '**say "hi".ts**',
+      '',
+      '```ts',
+      'a()',
+      '```',
+      '',
+      '**other.ts**',
+      '',
+      '```ts',
+      'b()',
+      '```',
+      '',
+    ].join('\n');
+    const tabbed = wrapExampleTabs(quoted);
+    assert.match(tabbed, /<Tab label="say \\"hi\\"\.ts" value="ex-1">/);
+    assert.doesNotMatch(tabbed, /&quot;/);
+
+    const restored = stripExampleTabs(tabbed);
+    assert.match(restored, /\*\*say "hi"\.ts\*\*/);
   });
 
   it('stripExampleTabs 还原标签且与 wrap 幂等', () => {

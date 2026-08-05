@@ -119,7 +119,7 @@ function transformChildren(
   for (let i = 0; i < children.length; i++) {
     const child = children[i]!;
     if (child.type === 'text') {
-      if (parentType === 'code' || parentType === 'inlineCode') continue;
+      // code / inlineCode 等已在入口经 SKIP_PARENT_TYPES 跳过
       const next = splitTextNode(child, pattern, glossary);
       if (next.length === 1 && next[0] === child) continue;
       (children as PhrasingContent[]).splice(i, 1, ...next);

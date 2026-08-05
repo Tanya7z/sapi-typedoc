@@ -112,9 +112,9 @@ export function escapeBadgeChildren(text: string): string {
   return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
-/** 转义 Tab label 双引号属性 */
+/** 转义 Tab label 供 JSX 双引号属性使用（用 \"，不用 HTML 实体） */
 export function escapeTabLabel(text: string): string {
-  return text.replace(/\\/g, '\\\\').replace(/"/g, '&quot;');
+  return text.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 }
 
 /** 模块名 → npm 包（如 server → @minecraft/server） */
@@ -157,19 +157,33 @@ export function applySourceCode(body: string, moduleName: string | undefined): s
 
 type ExampleTabItem = { label: string; content: string };
 
-/** 从 Examples 节正文收集「可选粗体标签 + 代码块（可含 details）」 */
+const EXAMPLE_FENCE_RE =
+  /((?:\:\:\:details[^\r\n]*\r?\n)?```[^\r\n]*\r?\n[\s\S]*?```(?:\r?\n\:\:\:)?)/g;
+
+/** 从 Examples 节正文收集「可选粗体标签 + 代码块（可含 details）」；围栏间说明并入下一 Tab */
 export function collectExampleTabItems(sectionBody: string): ExampleTabItem[] {
   const items: ExampleTabItem[] = [];
-  const re =
-    /(?:\*\*([^*]+)\*\*[ \t]*\r?\n+)?((?:\:\:\:details[^\r\n]*\r?\n)?```[^\r\n]*\r?\n[\s\S]*?```(?:\r?\n\:\:\:)?)/g;
+  const re = new RegExp(EXAMPLE_FENCE_RE.source, 'g');
   let match: RegExpExecArray | null;
   let index = 0;
+  let lastEnd = 0;
   while ((match = re.exec(sectionBody)) !== null) {
     index += 1;
-    const rawLabel = match[1]?.trim();
-    const content = match[2]!.trim();
-    const label = rawLabel || inferExampleLabel(content, index);
+    const fence = match[1]!.trim();
+    const before = sectionBody.slice(lastEnd, match.index);
+    const labelAtEnd = /\*\*([^*]+)\*\*[ \t]*\r?\n*$/.exec(before);
+    let rawLabel: string | undefined;
+    let proseRegion = before;
+    if (labelAtEnd) {
+      rawLabel = labelAtEnd[1]!.trim();
+      proseRegion = before.slice(0, labelAtEnd.index);
+    }
+    const prose = proseRegion.trim();
+    const label = rawLabel || inferExampleLabel(fence, index);
+    // 首个围栏前的说明由 wrapExampleTabs 作为 preface 保留在 Tabs 外，避免重复
+    const content = index > 1 && prose ? `${prose}\n\n${fence}` : fence;
     items.push({ label, content });
+    lastEnd = match.index + match[0].length;
   }
   return items;
 }
@@ -203,21 +217,27 @@ function renderExampleTabs(items: ExampleTabItem[]): string {
 /**
  * 将 ## Examples / ## 示例 下 2+ 个示例围栏包成 Tabs。
  * 单示例不生成；已是 Tabs 时先由 stripExampleTabs 还原。
+ * 节边界仅到下一 ##（h2）或文末，避免 ### 示例小标题截断。
  */
 export function wrapExampleTabs(content: string): string {
   // 不用 /m 下的 $：其会在行末提前命中，导致节正文被吞成空串
-  // 下一同级/更高级标题或真正文末（(?![\s\S])）结束本节
+  // 仅下一 h2 或真正文末（(?![\s\S])）结束本节，### 留在节内
   return content.replace(
-    /(^#{2,3}[ \t]+(?:Examples?|示例)[ \t]*\r?\n)([\s\S]*?)(?=^#{1,3}[ \t]+|(?![\s\S]))/gm,
+    /(^##[ \t]+(?:Examples?|示例)[ \t]*\r?\n)([\s\S]*?)(?=^##[ \t]+|(?![\s\S]))/gm,
     (full, heading: string, sectionBody: string) => {
       if (/<Tabs>/.test(sectionBody)) return full;
       const items = collectExampleTabItems(sectionBody);
       if (items.length < 2) return full;
-      // 保留节内 Tabs 以外的前导说明（若有且不含代码块则保留）
-      const firstFence = /(?:\*\*[^*]+\*\*[ \t]*\r?\n+)?(?:\:\:\:details[^\r\n]*\r?\n)?```/.exec(
-        sectionBody,
-      );
-      const preface = firstFence ? sectionBody.slice(0, firstFence.index).trimEnd() : '';
+      // 保留节内 Tabs 以外的前导说明
+      const firstFence = /(?:\:\:\:details[^\r\n]*\r?\n)?```/.exec(sectionBody);
+      let preface = '';
+      if (firstFence && firstFence.index !== undefined) {
+        const beforeFirst = sectionBody.slice(0, firstFence.index);
+        // 去掉紧贴首个围栏的 **label**，其余为 preface
+        const labelAtEnd = /\*\*([^*]+)\*\*[ \t]*\r?\n*$/.exec(beforeFirst);
+        const proseRegion = labelAtEnd ? beforeFirst.slice(0, labelAtEnd.index) : beforeFirst;
+        preface = proseRegion.trimEnd();
+      }
       const prefaceBlock = preface ? `${preface}\n\n` : '';
       return `${heading}${prefaceBlock}${renderExampleTabs(items)}\n`;
     },
@@ -233,8 +253,8 @@ export function stripExampleTabs(body: string): string {
     while ((match = tabRe.exec(inner)) !== null) {
       const attrs = match[1] ?? '';
       const content = match[2]!.trim();
-      const labelMatch = /\blabel="([^"]*)"/.exec(attrs);
-      const label = labelMatch?.[1]?.replace(/&quot;/g, '"').replace(/\\\\/g, '\\');
+      const labelMatch = /\blabel="((?:\\.|[^"\\])*)"/.exec(attrs);
+      const label = labelMatch?.[1]?.replace(/\\([\\"])/g, '$1');
       if (label && !/^示例 \d+$/.test(label) && !/^[a-z0-9.+-]+ · 示例 \d+$/i.test(label)) {
         parts.push(`**${label}**\n\n${content}`);
       } else {
