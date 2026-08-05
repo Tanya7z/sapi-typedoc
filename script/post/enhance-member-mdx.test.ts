@@ -282,14 +282,20 @@ describe('enhanceMemberPages', () => {
     const eventOut = readFileSync(refs[1]!.absPath, 'utf-8');
     assert.match(eventOut, /## 同领域相关\n\n- \[Entity\]\(\/server\/classes\/Entity\)\n/);
     assert.doesNotMatch(eventOut, /World/);
+    // 相关节重写后 frontmatter 与 body 之间须保留换行（不得出现 ---import / ---#）
+    assert.match(eventOut, /^---\n[\s\S]*?\n---\n/);
+    assert.doesNotMatch(eventOut, /---(?:import|#)/);
 
     const worldOut = readFileSync(refs[2]!.absPath, 'utf-8');
     // World 仅 world tag，池中无其他共享 → 无相关节
     assert.doesNotMatch(worldOut, /## 同领域相关/);
+    assert.match(worldOut, /^---\n[\s\S]*?\n---\n/);
 
     enhanceMemberPages(refs);
     const eventAgain = readFileSync(refs[1]!.absPath, 'utf-8');
     assert.equal(countMatches(eventAgain, /## 同领域相关/g), 1);
     assert.equal(countMatches(eventAgain, /\[Entity\]\(\/server\/classes\/Entity\)/g), 1);
+    assert.match(eventAgain, /^---\n[\s\S]*?\n---\n/);
+    assert.doesNotMatch(eventAgain, /---(?:import|#)/);
   });
 });

@@ -3,7 +3,7 @@ import { basename } from 'node:path';
 import { boostForInheritanceDepth, inferDomainTags } from '../domain-tags.js';
 import { moveFileSync } from './fs-utils.js';
 import { buildInheritanceGraph, TREE_KINDS } from './inheritance-meta.js';
-import { applyRelatedSection, pickRelated, type MemberWithTags } from './related.js';
+import { applyRelatedSection, pickRelated, stripRelatedSection, type MemberWithTags } from './related.js';
 import type { MemberRef } from './restructure-modules.js';
 
 const BADGE_IMPORT = "import { Badge } from '@rspress/core/theme';";
@@ -203,7 +203,7 @@ export function enhanceMemberContent(
   const strippedFm = stripFrontmatter(raw);
   // 去掉旧 Badge / 同领域相关，保证幂等；相关节在 enhanceMemberPages 第二遍再追加
   let body = stripBadgeArtifacts(strippedFm.body);
-  body = applyRelatedSection(body, []);
+  body = stripRelatedSection(body);
 
   const symbolName = options.symbolName?.trim() || parseSymbolFromTitle(body) || 'unknown';
   const domainTags = inferDomainTags(symbolName);
@@ -318,7 +318,10 @@ export function enhanceMemberPages(refs: MemberRef[]): MemberRef[] {
     const raw = readFileSync(item.absPath, 'utf-8');
     const { frontmatter, body } = stripFrontmatter(raw);
     const nextBody = applyRelatedSection(body, related);
-    writeFileSync(item.absPath, `${frontmatter ?? ''}${nextBody}`, 'utf-8');
+    // stripFrontmatter 的 fence 不含尾换行，body 已剥掉该换行，写入时必须补回
+    const fm = frontmatter ?? '';
+    const sep = fm.length === 0 || fm.endsWith('\n') ? '' : '\n';
+    writeFileSync(item.absPath, `${fm}${sep}${nextBody}`, 'utf-8');
     relatedPages += 1;
   }
 

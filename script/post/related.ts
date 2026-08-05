@@ -12,10 +12,14 @@ export function pickRelated(
   all: Array<MemberWithTags>,
   limit = 6,
 ): MemberRef[] {
+  const currentTags = new Set(current.domainTags);
   const scored = all
     .filter((x) => x.absPath !== current.absPath)
     .map((x) => {
-      const shared = x.domainTags.filter((t) => current.domainTags.includes(t)).length;
+      let shared = 0;
+      for (const t of x.domainTags) {
+        if (currentTags.has(t)) shared += 1;
+      }
       const sameMod = x.module === current.module ? 2 : 0;
       return { x, shared, score: shared * 3 + sameMod };
     })
