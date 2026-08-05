@@ -22,7 +22,7 @@ const TIP_MARKERS = [
 const WARN_MARKERS = ['@deprecated', '已弃用'];
 
 /** 模块概览不增强（仅真实成员页） */
-export function isEnhancableMember(ref: MemberRef): boolean {
+export function isEnhanceableMember(ref: MemberRef): boolean {
   if (ref.kind === 'modules') return false;
   if (ref.symbolName === 'index') return false;
   const base = basename(ref.fileName).replace(/\.(md|mdx)$/i, '');
@@ -108,9 +108,14 @@ export function stripFrontmatter(content: string): { frontmatter: string | undef
   return { frontmatter: content.slice(0, after), body };
 }
 
+/** 转义 Badge 子文本，避免 & < > 破坏 MDX */
+export function escapeBadgeChildren(text: string): string {
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
 /** 去掉已有 Badge import 与标题下 chips，便于幂等重跑 */
 export function stripBadgeArtifacts(body: string): string {
-  let next = body.replace(/^import\s+\{\s*Badge\s*\}\s+from\s+['"]@rspress\/core\/theme['"];\s*\r?\n+/m, '');
+  let next = body.replace(/^import\s+\{\s*Badge\s*\}\s+from\s+['"]@rspress\/core\/theme['"];\s*\r?\n+/gm, '');
   // 标题后连续的 Badge 行
   next = next.replace(
     /^(#\s+[^\r\n]+)\r?\n+(?:(?:<Badge\b[^>]*>[^<]*<\/Badge>\s*)+\r?\n+)*/m,
@@ -121,7 +126,7 @@ export function stripBadgeArtifacts(body: string): string {
 
 export function insertDomainChips(body: string, domainTags: string[]): string {
   if (domainTags.length === 0) return body;
-  const chips = domainTags.map((t) => `<Badge type="info">${t}</Badge>`).join(' ');
+  const chips = domainTags.map((t) => `<Badge type="info">${escapeBadgeChildren(t)}</Badge>`).join(' ');
   const heading = /^(#\s+[^\r\n]+)\r?\n+/m.exec(body);
   if (!heading || heading.index === undefined) {
     return `${BADGE_IMPORT}\n\n${chips}\n\n${body}`;
@@ -239,7 +244,7 @@ export function buildInheritanceDepthByAbsPath(refs: MemberRef[]): Map<string, n
   for (const mod of modules) {
     for (const kind of TREE_KINDS) {
       const kindRefs = refs.filter(
-        (r) => r.module === mod && r.kind === kind && isEnhancableMember(r) && existsSync(r.absPath),
+        (r) => r.module === mod && r.kind === kind && isEnhanceableMember(r) && existsSync(r.absPath),
       );
       if (kindRefs.length === 0) continue;
       const members = kindRefs.map((r) => ({
@@ -265,7 +270,7 @@ export function enhanceMemberPages(refs: MemberRef[]): MemberRef[] {
   let enhanced = 0;
 
   for (const ref of refs) {
-    if (!isEnhancableMember(ref)) continue;
+    if (!isEnhanceableMember(ref)) continue;
     if (!existsSync(ref.absPath)) {
       console.warn(`[enhance-member-mdx] missing file, skip: ${ref.absPath}`);
       continue;

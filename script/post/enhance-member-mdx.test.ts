@@ -9,12 +9,18 @@ import {
   detectStatusTag,
   enhanceMemberContent,
   enhanceMemberPages,
-  isEnhancableMember,
+  escapeBadgeChildren,
+  insertDomainChips,
+  isEnhanceableMember,
   parseSymbolFromTitle,
   wrapLongCodeBlocks,
   wrapPrivilegeParagraphs,
 } from './enhance-member-mdx.js';
 import type { MemberRef } from './restructure-modules.js';
+
+function countMatches(content: string, pattern: RegExp): number {
+  return (content.match(pattern) ?? []).length;
+}
 
 describe('parseSymbolFromTitle / detectStatusTag', () => {
   it('解析 Class: / 类: 标题', () => {
@@ -55,18 +61,34 @@ describe('wrapPrivilegeParagraphs / wrapLongCodeBlocks', () => {
   });
 });
 
+describe('escapeBadgeChildren / insertDomainChips', () => {
+  it('转义 Badge 子文本中的 & < >', () => {
+    assert.equal(escapeBadgeChildren('a&b<c>'), 'a&amp;b&lt;c&gt;');
+    const out = insertDomainChips('# T\n\n', ['a&b', 'x<y>']);
+    assert.match(out, /<Badge type="info">a&amp;b<\/Badge>/);
+    assert.match(out, /<Badge type="info">x&lt;y&gt;<\/Badge>/);
+  });
+});
+
 describe('enhanceMemberContent', () => {
   it('写入 frontmatter、Badge chips，并支持幂等', () => {
+    const longLines = Array.from({ length: 85 }, (_, i) => `line${i}`);
     const raw = [
       '# Class: EntityDieAfterEvent',
       '',
       '**`Beta`**',
+      '',
+      '无法在只读模式下调用此函数。',
       '',
       '事件说明。',
       '',
       '## Constructors',
       '',
       '### Constructor',
+      '',
+      '```ts',
+      ...longLines,
+      '```',
       '',
     ].join('\n');
 
@@ -79,6 +101,8 @@ describe('enhanceMemberContent', () => {
     assert.match(first.content, /import \{ Badge \} from '@rspress\/core\/theme';/);
     assert.match(first.content, /<Badge type="info">event<\/Badge> <Badge type="info">entity<\/Badge>/);
     assert.match(first.content, /## Constructors \{#constructors\}/);
+    assert.match(first.content, /:::tip\n无法在只读模式下调用此函数。\n:::/);
+    assert.match(first.content, /:::details 示例\n```ts\n/);
 
     const second = enhanceMemberContent(first.content, {
       symbolName: 'EntityDieAfterEvent',
@@ -86,7 +110,14 @@ describe('enhanceMemberContent', () => {
     });
     const badgeImports = second.content.match(/import \{ Badge \}/g) ?? [];
     assert.equal(badgeImports.length, 1);
-    assert.equal((second.content.match(/^---$/gm) ?? []).length, 2);
+    assert.equal(countMatches(second.content, /^---$/gm), 2);
+    assert.equal(countMatches(second.content, /<Badge\b/g), countMatches(first.content, /<Badge\b/g));
+    assert.equal(countMatches(second.content, /:::tip\b/g), countMatches(first.content, /:::tip\b/g));
+    assert.equal(countMatches(second.content, /:::details\b/g), countMatches(first.content, /:::details\b/g));
+    assert.equal(countMatches(second.content, /:::warning\b/g), countMatches(first.content, /:::warning\b/g));
+    assert.doesNotMatch(second.content, /:::tip\s*\n\s*:::tip/);
+    assert.doesNotMatch(second.content, /:::details[^\n]*\n:::details/);
+    assert.doesNotMatch(second.content, /:::warning\s*\n\s*:::warning/);
   });
 
   it('buildFrontmatter 省略空 tag / domainTags / boost', () => {
@@ -130,8 +161,8 @@ describe('enhanceMemberPages', () => {
       },
     ];
 
-    assert.equal(isEnhancableMember(refs[0]!), true);
-    assert.equal(isEnhancableMember(refs[1]!), false);
+    assert.equal(isEnhanceableMember(refs[0]!), true);
+    assert.equal(isEnhanceableMember(refs[1]!), false);
 
     enhanceMemberPages(refs);
 
@@ -145,6 +176,64 @@ describe('enhanceMemberPages', () => {
     assert.match(out, /title: "Player"/);
     assert.match(out, /<Badge type="info">player<\/Badge>/);
     assert.match(out, /tag: experimental/);
+    // 无本地父 Entity 时 Player 为 depth 0
     assert.match(out, /searchBoost: 1\.2/);
+  });
+
+  it('按继承深度写入 searchBoost；二次增强在 .mdx 上仍正确', () => {
+    const root = mkdtempSync(join(tmpdir(), 'sapi-enhance-depth-'));
+    const classDir = join(root, 'server', 'classes');
+    mkdirSync(classDir, { recursive: true });
+
+    const entityPath = join(classDir, 'Entity.md');
+    const playerPath = join(classDir, 'Player.md');
+    writeFileSync(entityPath, ['# Class: Entity', '', '实体基类。', ''].join('\n'), 'utf-8');
+    writeFileSync(
+      playerPath,
+      ['# Class: Player', '', '玩家。', '', '## Extends', '', '- [`Entity`](Entity.md)', ''].join('\n'),
+      'utf-8',
+    );
+
+    const refs: MemberRef[] = [
+      {
+        module: 'server',
+        kind: 'classes',
+        symbolName: 'Entity',
+        fileName: 'Entity.md',
+        absPath: entityPath,
+      },
+      {
+        module: 'server',
+        kind: 'classes',
+        symbolName: 'Player',
+        fileName: 'Player.md',
+        absPath: playerPath,
+      },
+    ];
+
+    enhanceMemberPages(refs);
+
+    assert.equal(refs[0]!.fileName, 'Entity.mdx');
+    assert.equal(refs[1]!.fileName, 'Player.mdx');
+
+    const entityOut = readFileSync(refs[0]!.absPath, 'utf-8');
+    const playerOut = readFileSync(refs[1]!.absPath, 'utf-8');
+    // Entity depth 0 → 1.2；Player depth 1 → 1.1
+    assert.match(entityOut, /searchBoost: 1\.2/);
+    assert.match(playerOut, /searchBoost: 1\.1/);
+
+    const entityBadges = countMatches(entityOut, /<Badge\b/g);
+    const playerBadges = countMatches(playerOut, /<Badge\b/g);
+
+    enhanceMemberPages(refs);
+
+    const entityAgain = readFileSync(refs[0]!.absPath, 'utf-8');
+    const playerAgain = readFileSync(refs[1]!.absPath, 'utf-8');
+    assert.match(entityAgain, /searchBoost: 1\.2/);
+    assert.match(playerAgain, /searchBoost: 1\.1/);
+    assert.equal(countMatches(entityAgain, /<Badge\b/g), entityBadges);
+    assert.equal(countMatches(playerAgain, /<Badge\b/g), playerBadges);
+    assert.equal(countMatches(entityAgain, /import \{ Badge \}/g), 1);
+    assert.equal(countMatches(playerAgain, /import \{ Badge \}/g), 1);
   });
 });
