@@ -9,9 +9,11 @@ export const originalPath = resolvePath(basePath, 'original');
 export const translatingPath = resolvePath(basePath, 'translate-pieces');
 export const translatedPath = resolvePath(basePath, 'translated');
 export const distPath = resolvePath(basePath, 'dist');
-/** TypeDoc Markdown 输出（供 MkDocs Material 挂载） */
+/** TypeDoc Markdown 输出（@rspress/plugin-typedoc 生成） */
 export const docsApiPath = resolvePath(basePath, 'docs', 'api');
-export const sitePath = resolvePath(basePath, 'site');
+export const docBuildPath = resolvePath(basePath, 'doc_build');
+/** 构建元数据（pre-build → setup 传递依赖与 examples 数据） */
+export const buildMetaPath = resolvePath(translatedPath, '.build-meta.json');
 
 export function git(args: string) {
     return execSync(`git ${args}`, { cwd: basePath });

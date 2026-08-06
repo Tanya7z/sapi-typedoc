@@ -1,6 +1,6 @@
 name: Deploy
 
-# 推送到 main 或手动触发时构建并部署站点（每周定时见 Weekly Update & Deploy）
+# 推送到 main 或手动触发时构建并部署站点
 on:
   push:
     branches: ["main"]
@@ -34,16 +34,11 @@ jobs:
           node-version: "22"
           cache: npm
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
+      - name: Install
+        run: npm ci
 
-      - name: Build MkDocs site
-        run: |
-          npm ci
-          pip install -r requirements-docs.txt
-          npm run docs:build
+      - name: Build Rspress site
+        run: npm run build
 
       - name: Setup GitHub Pages
         id: pages_setup
@@ -55,7 +50,7 @@ jobs:
         if: ${{ steps.pages_setup.outcome == 'success' }}
         uses: actions/upload-pages-artifact@v4
         with:
-          path: ${{ github.workspace }}/site
+          path: ${{ github.workspace }}/doc_build
 
       - name: Deploy to GitHub Pages
         if: ${{ steps.pages_setup.outcome == 'success' }}

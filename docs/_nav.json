@@ -1,0 +1,76 @@
+[
+  {
+    "text": "server",
+    "link": "/server/",
+    "activeMatch": "/server/"
+  },
+  {
+    "text": "server-ui",
+    "link": "/server-ui/",
+    "activeMatch": "/server-ui/"
+  },
+  {
+    "text": "math",
+    "link": "/math/",
+    "activeMatch": "/math/"
+  },
+  {
+    "text": "更多",
+    "items": [
+      {
+        "text": "common",
+        "link": "/common/"
+      },
+      {
+        "text": "server-net",
+        "link": "/server-net/"
+      },
+      {
+        "text": "server-admin",
+        "link": "/server-admin/"
+      },
+      {
+        "text": "server-gametest",
+        "link": "/server-gametest/"
+      },
+      {
+        "text": "server-graphics",
+        "link": "/server-graphics/"
+      },
+      {
+        "text": "server-editor",
+        "link": "/server-editor/"
+      },
+      {
+        "text": "debug-utilities",
+        "link": "/debug-utilities/"
+      },
+      {
+        "text": "diagnostics",
+        "link": "/diagnostics/"
+      },
+      {
+        "text": "vanilla-data",
+        "link": "/vanilla-data/"
+      },
+      {
+        "text": "标签索引",
+        "link": "/tags/"
+      }
+    ]
+  },
+  {
+    "text": "版本映射",
+    "link": "/versions/",
+    "activeMatch": "/versions/"
+  },
+  {
+    "text": "更新日志",
+    "link": "/changelog/",
+    "activeMatch": "/changelog/"
+  },
+  {
+    "text": "GitHub",
+    "link": "https://github.com/Tanya7z/sapi-typedoc"
+  }
+]

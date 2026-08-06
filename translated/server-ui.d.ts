@@ -754,21 +754,17 @@ export class FormResponse {
  * A simple message form with two buttons and a text body. Use
  * this class to show a basic dialog to a player and handle the
  * player's button selection.
- * 一个包含两个按钮和文本正文的简单消息表单。使用此类向玩家显示基本对话框并处理玩家的按钮选择。
  */
 export class MessageBox {
     /**
      * @remarks
      * Creates a new MessageBox for the specified player with the
      * given title.
-     * 为指定玩家创建一个具有给定标题的新 MessageBox。
      *
      * @param player
      * The player to show this message box to.
-     * 要向其展示此消息框的玩家。
      * @param title
      * The title text to display at the top of the message box.
-     * 要在消息框顶部显示的标题文本。
      * @throws This function can throw errors.
      *
      * {@link InvalidEntityError}
@@ -781,14 +777,12 @@ export class MessageBox {
      * @remarks
      * Sets the body text displayed in the message box. Returns the
      * message box instance to allow method chaining.
-     * 设置消息框中显示的正文文本。返回消息框实例以允许方法链式调用。
      *
      * @worldMutation
      *
      * @param body
      * The body text to display. Accepts either a plain string or
      * an ObservableString.
-     * 要显示的正文文本。接受普通字符串或 ObservableString。
      * @throws This function can throw errors.
      *
      * {@link InvalidFormModificationError}
@@ -798,17 +792,14 @@ export class MessageBox {
      * @remarks
      * Sets the label for the first button of the message box.
      * Returns the message box instance to allow method chaining.
-     * 设置消息框第一个按钮的标签。返回消息框实例以允许方法链式调用。
      *
      * @worldMutation
      *
      * @param label
      * The text label to display on the first button.
-     * 要在第一个按钮上显示的文本标签。
      * @param tooltip
      * Optional tooltip text shown when hovering over the first
      * button.
-     * 悬停在第一个按钮上时显示的可选工具提示文本。
      * @throws This function can throw errors.
      *
      * {@link InvalidFormModificationError}
@@ -818,20 +809,39 @@ export class MessageBox {
         tooltip?: ObservableString | ObservableUIRawMessage | string | UIRawMessage,
     ): MessageBox;
     /**
+     * @beta
+     * @remarks
+     * Sets the label and options for the first button of the
+     * message box. Returns the message box instance to allow
+     * method chaining.
+     *
+     * @worldMutation
+     *
+     * @param label
+     * The text label to display on the first button.
+     * @param options
+     * Optional configuration for the first button, such as tooltip
+     * and image.
+     * @throws This function can throw errors.
+     *
+     * {@link InvalidFormModificationError}
+     */
+    button1WithOptions(
+        label: ObservableString | ObservableUIRawMessage | string | UIRawMessage,
+        options?: MessageBoxButtonOptions,
+    ): MessageBox;
+    /**
      * @remarks
      * Sets the label for the second button of the message box.
      * Returns the message box instance to allow method chaining.
-     * 设置消息框第二个按钮的标签。返回消息框实例以允许方法链式调用。
      *
      * @worldMutation
      *
      * @param label
      * The text label to display on the second button.
-     * 要在第二个按钮上显示的文本标签。
      * @param tooltip
      * Optional tooltip text shown when hovering over the second
      * button.
-     * 悬停在第二个按钮上时显示的可选工具提示文本。
      * @throws This function can throw errors.
      *
      * {@link InvalidFormModificationError}
@@ -841,11 +851,32 @@ export class MessageBox {
         tooltip?: ObservableString | ObservableUIRawMessage | string | UIRawMessage,
     ): MessageBox;
     /**
+     * @beta
+     * @remarks
+     * Sets the label and options for the second button of the
+     * message box. Returns the message box instance to allow
+     * method chaining.
+     *
+     * @worldMutation
+     *
+     * @param label
+     * The text label to display on the second button.
+     * @param options
+     * Optional configuration for the second button, such as
+     * tooltip and image.
+     * @throws This function can throw errors.
+     *
+     * {@link InvalidFormModificationError}
+     */
+    button2WithOptions(
+        label: ObservableString | ObservableUIRawMessage | string | UIRawMessage,
+        options?: MessageBoxButtonOptions,
+    ): MessageBox;
+    /**
      * @remarks
      * Closes the message box if it is currently being shown to the
      * player. Throws a FormVisibilityError if the form is not
      * currently open.
-     * 如果消息框当前正在向玩家展示，则关闭它。如果表单当前未打开，则抛出 FormVisibilityError。
      *
      * @worldMutation
      *
@@ -862,7 +893,6 @@ export class MessageBox {
      * @remarks
      * Returns true if the message box is currently being shown to
      * the player, false otherwise.
-     * 如果消息框当前正在向玩家展示，则返回 true，否则返回 false。
      *
      * @worldMutation
      *
@@ -873,7 +903,6 @@ export class MessageBox {
      * Shows the message box to the player. Returns a promise that
      * resolves with a MessageBoxResult containing the close reason
      * and the player's button selection.
-     * 向玩家展示消息框。返回一个 Promise，该 Promise 解析为一个包含关闭原因和玩家按钮选择的 MessageBoxResult。
      *
      * @worldMutation
      *
@@ -1523,24 +1552,25 @@ export class UIManager {
 }
 
 /**
- * 用于配置按钮组件的选项。
- *
  * Options for configuring a button component.
  */
 export interface ButtonOptions {
     /**
      * @remarks
-     * 当为 `true` 或绑定到一个值为 `true` 的 `ObservableBoolean` 时，该按钮会显示但无法被按下。
-     *
      * When true or bound to a true ObservableBoolean, the button
      * is shown but cannot be pressed.
      *
      */
     disabled?: boolean | ObservableBoolean;
     /**
+     * @beta
      * @remarks
-     * 当玩家悬停在按钮上时，在工具提示中显示的文本。
+     * Details of an image to display alongside the button label.
      *
+     */
+    imageDetails?: ImageDetails;
+    /**
+     * @remarks
      * Text shown in a tooltip when the player hovers over the
      * button.
      *
@@ -1548,8 +1578,6 @@ export interface ButtonOptions {
     tooltip?: ObservableString | ObservableUIRawMessage | string | UIRawMessage;
     /**
      * @remarks
-     * 当为 `false` 或绑定到一个值为 `false` 的 `ObservableBoolean` 时，该按钮会被隐藏。
-     *
      * When false or bound to a false ObservableBoolean, the button
      * is hidden.
      *
@@ -1610,15 +1638,11 @@ export interface DropdownItemData {
 }
 
 /**
- * 用于配置下拉组件的选项。
- *
  * Options for configuring a dropdown component.
  */
 export interface DropdownOptions {
     /**
      * @remarks
-     * 显示在下拉框周围的描述文本，以提供额外的上下文。
-     *
      * Descriptive text shown around the dropdown to provide
      * additional context.
      *
@@ -1626,17 +1650,21 @@ export interface DropdownOptions {
     description?: ObservableString | ObservableUIRawMessage | string | UIRawMessage;
     /**
      * @remarks
-     * 当为 `true` 或绑定到一个值为 `true` 的 `ObservableBoolean` 时，下拉框会显示但无法被更改。
-     *
      * When true or bound to a true ObservableBoolean, the dropdown
      * is shown but cannot be changed.
      *
      */
     disabled?: boolean | ObservableBoolean;
     /**
+     * @beta
      * @remarks
-     * 当为 `false` 或绑定到一个值为 `false` 的 `ObservableBoolean` 时，下拉框会被隐藏。
+     * Text shown in a tooltip when the player hovers over the
+     * dropdown.
      *
+     */
+    tooltip?: ObservableString | ObservableUIRawMessage | string | UIRawMessage;
+    /**
+     * @remarks
      * When false or bound to a false ObservableBoolean, the
      * dropdown is hidden.
      *
@@ -1646,15 +1674,45 @@ export interface DropdownOptions {
 
 /**
  * @beta
- * 用于配置图像组件的选项。
- *
+ * Details of an image to display.
+ */
+export interface ImageDetails {
+    /**
+     * @remarks
+     * Identifier of the resource pack that provides the imageSrc
+     * asset.
+     *
+     */
+    imagePackId: ObservableString | string;
+    /**
+     * @remarks
+     * Path to an image displayed. Loads the image based on the
+     * resource pack defined by imagePack.
+     *
+     */
+    imageSrc: ObservableString | string;
+}
+
+/**
+ * @beta
  * Options for configuring an image component.
  */
 export interface ImageOptions {
     /**
      * @remarks
-     * 当为 `false` 或绑定到一个值为 `false` 的 `ObservableBoolean` 时，图像会被隐藏。
+     * Sets a callback to be executed when the image is clicked.
      *
+     */
+    onClick?: () => void;
+    /**
+     * @remarks
+     * Sets a tooltip to be displayed when the user hovers over the
+     * image.
+     *
+     */
+    tooltip?: ObservableString | ObservableUIRawMessage | string | UIRawMessage;
+    /**
+     * @remarks
      * When false or bound to a false ObservableBoolean, the image
      * is hidden.
      *
@@ -1662,8 +1720,6 @@ export interface ImageOptions {
     visible?: boolean | ObservableBoolean;
     /**
      * @remarks
-     * 将图像宽度设置为表单宽度的百分比。`1` 表示整个表单宽度，`0.5` 表示表单宽度的一半。大于 `1` 或小于等于 `0` 的值将变为 `1`。
-     *
      * Sets the width of the image as a percentage of the width of
      * the form. 1 is the entire form width, 0.5 is half of the
      * form width. Greater than 1 or less than/equal to 0 will
@@ -1671,6 +1727,26 @@ export interface ImageOptions {
      *
      */
     width?: number | ObservableNumber;
+}
+
+/**
+ * @beta
+ * Options for configuring a message box button.
+ */
+export interface MessageBoxButtonOptions {
+    /**
+     * @remarks
+     * Details of an image to display alongside the button label.
+     *
+     */
+    imageDetails?: ImageDetails;
+    /**
+     * @remarks
+     * Text shown in a tooltip when the player hovers over the
+     * button.
+     *
+     */
+    tooltip?: ObservableString | ObservableUIRawMessage | string | UIRawMessage;
 }
 
 /**
@@ -1839,15 +1915,11 @@ export interface ObservableOptions {
 }
 
 /**
- * 用于配置滑块组件的选项。
- *
  * Options for configuring a slider component.
  */
 export interface SliderOptions {
     /**
      * @remarks
-     * 显示在滑块周围的描述文本，以提供额外的上下文。
-     *
      * Descriptive text shown around the slider to provide
      * additional context.
      *
@@ -1855,26 +1927,37 @@ export interface SliderOptions {
     description?: ObservableString | ObservableUIRawMessage | string | UIRawMessage;
     /**
      * @remarks
-     * 当为 `true` 或绑定到一个值为 `true` 的 `ObservableBoolean` 时，滑块会显示但无法被移动。
-     *
      * When true or bound to a true ObservableBoolean, the slider
      * is shown but cannot be moved.
      *
      */
     disabled?: boolean | ObservableBoolean;
     /**
+     * @beta
      * @remarks
-     * 每个滑块步进之间的增量值。如果未指定，默认为 `1`。
+     * If set, displays the number of digits after the decimal
+     * point in fixed-point notation. For example, if set to 2, the
+     * value 3.14159 will be displayed as 3.14.
      *
+     */
+    fixedFormatDigits?: number | ObservableNumber;
+    /**
+     * @remarks
      * The increment amount between each slider step. Defaults to 1
      * if not specified.
      *
      */
     step?: number | ObservableNumber;
     /**
+     * @beta
      * @remarks
-     * 当为 `false` 或绑定到一个值为 `false` 的 `ObservableBoolean` 时，滑块会被隐藏。
+     * Text shown in a tooltip when the player hovers over the
+     * slider.
      *
+     */
+    tooltip?: ObservableString | ObservableUIRawMessage | string | UIRawMessage;
+    /**
+     * @remarks
      * When false or bound to a false ObservableBoolean, the slider
      * is hidden.
      *
@@ -1900,15 +1983,11 @@ export interface SpacingOptions {
 }
 
 /**
- * 用于配置文本输入框组件的选项。
- *
  * Options for configuring a text field component.
  */
 export interface TextFieldOptions {
     /**
      * @remarks
-     * 显示在文本输入框标签周围的描述文本，以提供额外的上下文。
-     *
      * Descriptive text shown around the text field label to
      * provide additional context.
      *
@@ -1916,17 +1995,21 @@ export interface TextFieldOptions {
     description?: ObservableString | ObservableUIRawMessage | string | UIRawMessage;
     /**
      * @remarks
-     * 当为 `true` 或绑定到一个值为 `true` 的 `ObservableBoolean` 时，文本输入框会显示但无法被编辑。
-     *
      * When true or bound to a true ObservableBoolean, the text
      * field is shown but cannot be edited.
      *
      */
     disabled?: boolean | ObservableBoolean;
     /**
+     * @beta
      * @remarks
-     * 当为 `false` 或绑定到一个值为 `false` 的 `ObservableBoolean` 时，文本输入框会被隐藏。
+     * Text shown in a tooltip when the player hovers over the text
+     * field.
      *
+     */
+    tooltip?: ObservableString | ObservableUIRawMessage | string | UIRawMessage;
+    /**
+     * @remarks
      * When false or bound to a false ObservableBoolean, the text
      * field is hidden.
      *
@@ -1935,15 +2018,15 @@ export interface TextFieldOptions {
 }
 
 /**
- * 用于配置文本组件（标签或标题）的选项。
- *
  * Options for configuring a text component (label or header).
  */
 export interface TextOptions {
     /**
+     * @beta
+     */
+    tooltip?: ObservableString | ObservableUIRawMessage | string | UIRawMessage;
+    /**
      * @remarks
-     * 当为 `false` 或绑定到一个值为 `false` 的 `ObservableBoolean` 时，文本组件会被隐藏。
-     *
      * When false or bound to a false ObservableBoolean, the text
      * component is hidden.
      *
@@ -1952,15 +2035,11 @@ export interface TextOptions {
 }
 
 /**
- * 用于配置开关组件的选项。
- *
  * Options for configuring a toggle component.
  */
 export interface ToggleOptions {
     /**
      * @remarks
-     * 显示在开关周围的描述文本，以提供额外的上下文。
-     *
      * Descriptive text shown around the toggle to provide
      * additional context.
      *
@@ -1968,17 +2047,21 @@ export interface ToggleOptions {
     description?: ObservableString | ObservableUIRawMessage | string | UIRawMessage;
     /**
      * @remarks
-     * 当为 `true` 或绑定到一个值为 `true` 的 `ObservableBoolean` 时，开关会显示但无法被交互。
-     *
      * When true or bound to a true ObservableBoolean, the toggle
      * is shown but cannot be interacted with.
      *
      */
     disabled?: boolean | ObservableBoolean;
     /**
+     * @beta
      * @remarks
-     * 当为 `false` 或绑定到一个值为 `false` 的 `ObservableBoolean` 时，开关会被隐藏。
+     * Text shown in a tooltip when the player hovers over the
+     * toggle.
      *
+     */
+    tooltip?: ObservableString | ObservableUIRawMessage | string | UIRawMessage;
+    /**
+     * @remarks
      * When false or bound to a false ObservableBoolean, the toggle
      * is hidden.
      *

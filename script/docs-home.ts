@@ -8,17 +8,23 @@ import {
     type ModuleChangelogBundle,
     type TrackChangelog
 } from './official-data.js';
+import {
+    buildExperimentalDiff,
+    type ExperimentalDiffResult,
+    type ModuleExperimentalDiff
+} from './post/experimental-diff.js';
 import { basePath, parsePackageVersion, translatedPath } from './utils.js';
 
 /**
- * 首页自动区块：
- * - 版本表：translated/package.json（当前文档站锁定的 npm 版本）
- * - 更新日志：npm latest/rc|preview|beta + MicrosoftDocs 官方全文
- * - 侧栏：docs/changelog/<模块>.md
+ * 文档站自动区块：
+ * - 版本映射页：translated/package.json（当前文档站锁定的 npm 版本）
+ * - 首页更新日志摘要：npm latest/rc|preview|beta + MicrosoftDocs
+ * - changelog / versions 侧栏：各自 _meta.json（顶栏由 write-nav 负责）
  */
 const moduleOrder = ['server', 'server-ui', 'server-net'];
 const docsDir = resolvePath(basePath, 'docs');
 const changelogDir = resolvePath(docsDir, 'changelog');
+const versionsDir = resolvePath(docsDir, 'versions');
 
 function replaceBlock(content: string, name: string, body: string) {
     const start = `<!-- ${name} start -->`;
@@ -60,8 +66,11 @@ function trackLabel(track: TrackChangelog['track']) {
     return track === 'stable' ? '稳定版' : '预览版';
 }
 
-function renderSummary(dependencies: Partial<Record<string, string>>) {
+/** 当前文档站锁定的 npm 包 ↔ MC 版本映射表正文 */
+function renderVersionMapBody(dependencies: Partial<Record<string, string>>) {
     const lines = [
+        '本页列出当前文档站锁定的 npm 包版本，以及由版本号推断的对应 Minecraft 版本。',
+        '',
         '数据来源：官方 npm [`@minecraft/*`](https://www.npmjs.com/search?q=scope%3Aminecraft)。',
         '',
         '| 包名 | 当前文档版本 | 对应 MC 版本 | 本站更新日志 |',
@@ -76,17 +85,43 @@ function renderSummary(dependencies: Partial<Record<string, string>>) {
         const npmUrl = `https://www.npmjs.com/package/${moduleName}`;
         const short = shortName(moduleName);
         const logLink = hasOfficialChangelog(moduleName)
-            ? `[稳定/预览](./changelog/${short}.md)`
+            ? `[稳定/预览](/changelog/${short})`
             : `[模块文档](${officialChangelogUrl(moduleName)})`;
         lines.push(`| [${moduleName}](${npmUrl}) | \`${displayVersion}\` | ${mcVersion} | ${logLink} |`);
     }
     if (gameVersion) lines.push('', `游戏版本号：\`${gameVersion}\``);
+    lines.push(
+        '',
+        '> `@minecraft/vanilla-data` 以[精简名称索引](/vanilla-data/)收录，不生成完整成员页。'
+    );
     return lines.join('\n');
+}
+
+/** 写出独立版本映射页 */
+function writeVersionsPage(dependencies: Partial<Record<string, string>>) {
+    mkdirSync(versionsDir, { recursive: true });
+    const body = [
+        '---',
+        'title: 版本映射',
+        'description: "当前文档站锁定的 @minecraft/* npm 包版本与对应 Minecraft 游戏版本对照表。"',
+        '---',
+        '',
+        '# 版本映射',
+        '',
+        renderVersionMapBody(dependencies),
+        ''
+    ].join('\n');
+    writeFileSync(resolvePath(versionsDir, 'index.md'), body, 'utf-8');
+    writeFileSync(
+        resolvePath(versionsDir, '_meta.json'),
+        `${JSON.stringify([{ type: 'file', name: 'index', label: '版本映射' }], null, 2)}\n`,
+        'utf-8'
+    );
 }
 
 function renderHomeChangelogIndex(bundles: ModuleChangelogBundle[]) {
     const lines = [
-        '每个 npm 包的**稳定版（latest）**与**预览版（rc / preview / beta）**完整更新日志已生成到侧栏「更新日志」分组。',
+        '每个 npm 包的**稳定版（latest）**与**预览版（rc / preview / beta）**完整更新日志已生成，见顶栏「更新日志」入口。',
         '',
         '| 模块 | 稳定版 | 预览版 |',
         '| --- | --- | --- |'
@@ -142,10 +177,67 @@ function renderVersionMapSection(bundle: ModuleChangelogBundle) {
     return lines;
 }
 
-function renderModuleChangelogPage(bundle: ModuleChangelogBundle) {
+/** 「相对稳定版的变更」：预览相对 latest 的新增符号/成员 */
+export function renderPreviewDiffSection(diff: ModuleExperimentalDiff | undefined): string[] {
+    const lines = ['## 相对稳定版的变更', ''];
+    if (!diff) {
+        lines.push('暂无稳定↔预览差异数据。', '');
+        return lines;
+    }
+
+    const stableLabel = diff.stableVersion ? `\`${diff.stableVersion}\`` : '无';
+    const previewLabel = diff.previewVersion ? `\`${diff.previewVersion}\`` : '无';
+    lines.push(`对比：稳定 ${stableLabel} ↔ 预览（当前文档） ${previewLabel}`, '');
+
+    if (diff.allExperimental) {
+        lines.push(
+            '该包无独立 npm `latest`；当前文档轨上的导出均视为预览增量。',
+            ''
+        );
+        if (diff.experimentalSymbols.length > 0) {
+            lines.push(`### 导出符号（${diff.experimentalSymbols.length}）`, '');
+            for (const name of diff.experimentalSymbols) {
+                lines.push(`- \`${name}\``);
+            }
+            lines.push('');
+        }
+        return lines;
+    }
+
+    const memberKeys = Object.keys(diff.experimentalMembers).sort((a, b) => a.localeCompare(b));
+    if (diff.experimentalSymbols.length === 0 && memberKeys.length === 0) {
+        lines.push('当前文档与 npm latest 一致，无预览增量。', '');
+        return lines;
+    }
+
+    if (diff.experimentalSymbols.length > 0) {
+        lines.push('### 新增导出符号', '');
+        for (const name of diff.experimentalSymbols) {
+            lines.push(`- \`${name}\``);
+        }
+        lines.push('');
+    }
+
+    if (memberKeys.length > 0) {
+        lines.push('### 既有符号的新增成员', '');
+        for (const sym of memberKeys) {
+            const members = diff.experimentalMembers[sym] ?? [];
+            lines.push(`- \`${sym}\`: ${members.map((m) => `\`${m}\``).join(', ')}`);
+        }
+        lines.push('');
+    }
+
+    return lines;
+}
+
+function renderModuleChangelogPage(
+    bundle: ModuleChangelogBundle,
+    diff?: ModuleExperimentalDiff
+) {
     const lines = [`# ${bundle.moduleName} 更新日志`, '', `官方原文：[Microsoft Learn](${bundle.learnUrl})`, ''];
 
     lines.push(...renderVersionMapSection(bundle));
+    lines.push(...renderPreviewDiffSection(diff));
 
     lines.push(`[查看官方完整更新日志](${bundle.learnUrl})`, '');
 
@@ -168,7 +260,8 @@ function renderModuleChangelogPage(bundle: ModuleChangelogBundle) {
     return lines.join('\n');
 }
 
-function writeChangelogPages(bundles: ModuleChangelogBundle[]) {
+/** 写 changelog 页面 + rspress _meta.json */
+function writeChangelogPages(bundles: ModuleChangelogBundle[], experimentalDiff?: ExperimentalDiffResult) {
     rmSync(changelogDir, { recursive: true, force: true });
     mkdirSync(changelogDir, { recursive: true });
 
@@ -176,50 +269,44 @@ function writeChangelogPages(bundles: ModuleChangelogBundle[]) {
     const indexLines = [
         '# 更新日志',
         '',
-        '按 npm 包分列稳定版与预览版完整官方变更。',
+        '按 npm 包分列稳定版与预览版完整官方变更；各模块页含相对 npm latest 的预览增量。',
         '',
         '| 模块 | 稳定版 | 预览版 |',
         '| --- | --- | --- |'
     ];
 
-    const nav = ['title: 更新日志', 'nav:', '  - index.md'];
+    // rspress _meta.json: 侧栏顺序（file 条目）
+    const metaEntries: { type: 'file'; name: string; label?: string }[] = [
+        { type: 'file', name: 'index', label: '概览' }
+    ];
+
     for (const bundle of usable) {
         const short = shortName(bundle.moduleName);
         const fileName = `${short}.md`;
-        writeFileSync(resolvePath(changelogDir, fileName), renderModuleChangelogPage(bundle), 'utf-8');
-        nav.push(`  - ${short}: ${fileName}`);
+        const modDiff = experimentalDiff?.modules[short];
+        writeFileSync(
+            resolvePath(changelogDir, fileName),
+            renderModuleChangelogPage(bundle, modDiff),
+            'utf-8'
+        );
+        metaEntries.push({ type: 'file', name: short, label: bundle.moduleName });
 
         const stable = bundle.tracks.find((item) => item.track === 'stable');
         const preview = bundle.tracks.find((item) => item.track === 'preview');
         indexLines.push(
-            `| [${bundle.moduleName}](./${fileName}) | ${
+            `| [${bundle.moduleName}](./${short}.md) | ${
                 stable ? `\`${stable.npmVersion}\`` : '-'
             } | ${preview ? `\`${preview.npmVersion}\`` : '-'} |`
         );
     }
-    nav.push('');
     indexLines.push('');
     writeFileSync(resolvePath(changelogDir, 'index.md'), indexLines.join('\n'), 'utf-8');
-    writeFileSync(resolvePath(changelogDir, '.pages'), nav.join('\n'), 'utf-8');
+
+    // changelog 目录侧栏（顶栏「更新日志」由 write-nav 写入 _nav.json）
+    writeFileSync(resolvePath(changelogDir, '_meta.json'), JSON.stringify(metaEntries, null, 2), 'utf-8');
 }
 
-/** 确保首页侧栏包含「更新日志」分组（仅首页 + 更新日志）。 */
-function ensureHomeChangelogNav() {
-    const pagesPath = resolvePath(docsDir, '.pages');
-    if (!existsSync(pagesPath)) return;
-    const original = readFileSync(pagesPath, 'utf-8');
-    if (/更新日志:\s*changelog/.test(original)) return;
-
-    const patched = original.replace(
-        /( {2}- 首页:\r?\n(?: {4}- .+\r?\n)*)/,
-        '$1    - 更新日志: changelog\n'
-    );
-    if (patched !== original) {
-        writeFileSync(pagesPath, patched, 'utf-8');
-    }
-}
-
-/** 从官方数据源同步首页版本表，并生成侧栏完整更新日志。 */
+/** 从官方数据源同步版本映射页、首页更新日志摘要，并生成 changelog 页面。 */
 export async function syncDocsHome(providedDependencies?: Partial<Record<string, string>>) {
     const dependencies = providedDependencies ?? loadDependencies();
     const homePath = resolvePath(docsDir, 'index.md');
@@ -228,30 +315,23 @@ export async function syncDocsHome(providedDependencies?: Partial<Record<string,
         return;
     }
 
+    writeVersionsPage(dependencies);
+
     const orderedNames = orderModules(dependencies).map(([name]) => name);
+    const moduleShorts = orderedNames.map((name) => shortName(name));
+    console.log(`[docs-home] 构建稳定↔预览 API 差异：${moduleShorts.length} 个包`);
+    const experimentalDiff = await buildExperimentalDiff({ modules: moduleShorts });
+
     console.log(`[docs-home] 拉取官方更新日志：${orderedNames.length} 个包（稳定 + 预览）`);
     const bundles = await fetchOfficialChangelogBundles(orderedNames);
-    writeChangelogPages(bundles);
-    ensureHomeChangelogNav();
+    writeChangelogPages(bundles, experimentalDiff);
 
     const original = readFileSync(homePath, 'utf-8');
-    let home = original;
-    const blocks = [
-        ['summary', renderSummary(dependencies)],
-        ['changelog', renderHomeChangelogIndex(bundles)]
-    ] as const;
-
-    for (const [name, body] of blocks) {
-        const next = replaceBlock(home, name, body);
-        if (!next) {
-            console.warn(`[docs-home] docs/index.md 缺少 <!-- ${name} start/end --> 标记，跳过`);
-            continue;
-        }
-        home = next;
+    const next = replaceBlock(original, 'changelog', renderHomeChangelogIndex(bundles));
+    if (!next) {
+        console.warn('[docs-home] docs/index.md 缺少 <!-- changelog start/end --> 标记，跳过');
+    } else if (next !== original) {
+        writeFileSync(homePath, next, 'utf-8');
     }
-
-    if (home !== original) {
-        writeFileSync(homePath, home, 'utf-8');
-    }
-    console.log('[docs-home] 首页侧栏更新日志已从官方 npm / MicrosoftDocs 同步');
+    console.log('[docs-home] 版本映射与首页更新日志已从官方 npm / MicrosoftDocs 同步');
 }

@@ -1,4 +1,4 @@
-/* IMPORT */ import { IPropertyPaneOptions, RootPaneLocation } from '..';
+/* IMPORT */ import { IPropertyPaneOptions, IRootPropertyPaneHeaderAction, RootPaneLocation } from '..';
 
 /**
  * The options to create a root pane.
@@ -14,6 +14,12 @@ export interface IRootPropertyPaneOptions extends IPropertyPaneOptions {
     contentBadgeId?: string;
     /**
      * @remarks
+     * Optional action button to be displayed on the header.
+     *
+     */
+    headerAction?: IRootPropertyPaneHeaderAction;
+    /**
+     * @remarks
      * Pane icon shown in front of the pane header
      *
      */
@@ -24,10 +30,4 @@ export interface IRootPropertyPaneOptions extends IPropertyPaneOptions {
      *
      */
     location?: RootPaneLocation;
-    /**
-     * @remarks
-     * Determines if the pane is scrollable
-     *
-     */
-    scrollable?: boolean;
 }

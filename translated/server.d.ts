@@ -281,6 +281,34 @@ export enum CameraShakeType {
 }
 
 /**
+ * @beta
+ * An enumeration for the clone modes used when cloning blocks.
+ */
+export enum CloneMode {
+    /**
+     * @remarks
+     * Clones the blocks from the source region to the destination,
+     * leaving the source intact.
+     *
+     */
+    Copy = 0,
+    /**
+     * @remarks
+     * Clones the blocks from the source region to the destination,
+     * allowing the source and destination regions to overlap.
+     *
+     */
+    ForceCopy = 1,
+    /**
+     * @remarks
+     * Clones the blocks from the source region to the destination
+     * and replaces the source region with air.
+     *
+     */
+    Move = 2,
+}
+
+/**
  * 执行自定义命令所需的权限等级。
  *
  * The required permission level to execute the custom command.
@@ -326,67 +354,6 @@ export enum CommandPermissionLevel {
      *
      */
     Owner = 4,
-}
-
-/**
- * @beta
- * Action 枚举决定了 CompoundBlockVolume 在执行内部/外部计算时如何关联 CompoundBlockVolumeItem。
- *
- * The Action enum determines how the CompoundBlockVolume
- * considers the associated CompoundBlockVolumeItem when
- * performing inside/outside calculations.
- */
-export enum CompoundBlockVolumeAction {
-    /**
-     * @remarks
-     * 关联的 BlockVolume 被视为正空间，任何相交测试均视为命中。
-     *
-     * The associated BlockVolume is considered a positive space,
-     * and any intersection tests are considered hits
-     *
-     */
-    Add = 0,
-    /**
-     * @remarks
-     * 关联的 BlockVolume 被视为负空间或空洞，任何相交测试均视为未命中。使用 Subtract 动作，可以在方块体积上"打孔"，使得相交测试可以通过这些空间。
-     *
-     * The associated BlockVolume is considered a negative or void
-     * space, and any intersection tests are considered misses.
-     * Using the Subtract action, it is possible to `punch holes`
-     * in block volumes so that any intersection tests may pass
-     * through such spaces
-     *
-     */
-    Subtract = 1,
-}
-
-/**
- * @beta
- * 描述 CompoundBlockVolumeItem 相对于父 CompoundVolume 的相对性枚举。
- *
- * An enum describing the relativity of the
- * CompoundBlockVolumeItem, relative to the parent
- * CompoundVolume.
- */
-export enum CompoundBlockVolumePositionRelativity {
-    /**
-     * @remarks
-     * 关联 BlockVolume 中的位置相对于它们被添加到的 CompoundBlockVolume。
-     *
-     * The locations within the associated BlockVolume are relative
-     * to the CompoundBlockVolume to which they were added
-     *
-     */
-    Relative = 0,
-    /**
-     * @remarks
-     * 关联 BlockVolume 中的位置处于绝对世界空间。
-     *
-     * The locations within the associated BlockVolume are in
-     * absolute world space
-     *
-     */
-    Absolute = 1,
 }
 
 /**
@@ -5147,10 +5114,6 @@ export class BiomeTypes {
 }
 
 /**
- * 表示世界维度中的特定位置的方块。
- * 方块对象对应了唯一的 X、Y、Z 与维度，可用于读取或修改此位置的方块状态。
- * 此类型在 1.17.10.21 有重大更新。
- * 
  * Represents a block in a dimension. A block represents a
  * unique X, Y, and Z within a dimension and get/sets the state
  * of the block at that location. This type was significantly
@@ -5160,19 +5123,12 @@ export class Block {
     private constructor();
     /**
      * @remarks
-     * 返回方块所在维度对象。
-     *
      * Returns the dimension that the block is within.
-     *
-     * @returns
-     * 方块所在维度对象。
      *
      */
     readonly dimension: Dimension;
     /**
      * @remarks
-     * 返回 true 如果这个方块是空气方块（例如，空的空间）
-     *
      * Returns true if this block is an air block (i.e., empty
      * space).
      *
@@ -5185,10 +5141,6 @@ export class Block {
     readonly isAir: boolean;
     /**
      * @remarks
-     * 如果这个方块是液体方块，例如水方块和熔岩方块等，则返回 true。
-     * 空气方块和石头方块等则不属于液体方块。
-     * 含水方块不算作液体方块。
-     *
      * Returns true if this block is a liquid block - (e.g., a
      * water block and a lava block are liquid, while an air block
      * and a stone block are not. Water logged blocks are not
@@ -5204,9 +5156,6 @@ export class Block {
     /**
      * @beta
      * @remarks
-     * 如果该块是实心且不可通行的，则返回 true
-     * -（例如，圆石和钻石块是实心方块，而梯子和栅栏则不是）。
-     *
      * Returns true if this block is solid and impassible - (e.g.,
      * a cobblestone block and a diamond block are solid, while a
      * ladder block and a fence block are not).
@@ -5220,8 +5169,6 @@ export class Block {
     readonly isSolid: boolean;
     /**
      * @remarks
-     * 如果对该方块的引用仍然有效则返回 true（例如，如果方块所在区块被卸载，对该方块的引用将不再有效）。
-     *
      * Returns true if this reference to a block is still valid
      * (for example, if the block is unloaded, references to that
      * block will no longer be valid.)
@@ -5230,8 +5177,6 @@ export class Block {
     readonly isValid: boolean;
     /**
      * @remarks
-     * 返回或设置该方块是否含水。
-     *
      * Returns or sets whether this block has water on it.
      *
      * @throws This property can throw when used.
@@ -5243,8 +5188,6 @@ export class Block {
     readonly isWaterlogged: boolean;
     /**
      * @remarks
-     * 该方块名称在 .lang 文件中用于本地化的键名。
-     *
      * Key for the localization of this block's name used in .lang
      * files.
      *
@@ -5257,8 +5200,6 @@ export class Block {
     readonly localizationKey: string;
     /**
      * @remarks
-     * 该方块的坐标。
-     *
      * Coordinates of the specified block.
      *
      * @throws This property can throw when used.
@@ -5266,9 +5207,6 @@ export class Block {
     readonly location: Vector3;
     /**
      * @remarks
-     * 描述该方块的附加配置数据。
-     * （常称为方块状态）
-     *
      * Additional block configuration data that describes the
      * block.
      *
@@ -5281,8 +5219,6 @@ export class Block {
     readonly permutation: BlockPermutation;
     /**
      * @remarks
-     * 获取方块的类型。
-     *
      * Gets the type of block.
      *
      * @throws This property can throw when used.
@@ -5294,8 +5230,6 @@ export class Block {
     readonly 'type': BlockType;
     /**
      * @remarks
-     * 该方块的类型标识符。
-     *
      * Identifier of the type of block for this block. Warning:
      * Vanilla block names can be changed in future releases, try
      * using 'Block.matches' instead for block comparison.
@@ -5309,40 +5243,28 @@ export class Block {
     readonly typeId: string;
     /**
      * @remarks
-     * 方块的 X 坐标。
-     *
      * X coordinate of the block.
      *
      */
     readonly x: number;
     /**
      * @remarks
-     * 方块的 Y 坐标。
-     *
      * Y coordinate of the block.
      *
      */
     readonly y: number;
     /**
      * @remarks
-     * 方块的 Z 坐标。
-     *
      * Z coordinate of the block.
      *
      */
     readonly z: number;
     /**
      * @remarks
-     * 返回该方块上方的 {@link Block}（Y 方向正方向）。
-     *
      * Returns the {@link Block} above this block (positive in the
      * Y direction).
      *
      * @param steps
-     * 返回之前要执行的步骤数。
-     * 留空默认为一。
-     * （返回的方块在原方块上方的距离）。
-     *
      * Number of steps above to step before returning.
      * Defaults to: 1
      * @throws This function can throw errors.
@@ -5354,15 +5276,10 @@ export class Block {
     above(steps?: number): Block | undefined;
     /**
      * @remarks
-     * 返回该方块下方的{@link Block}（Y 方向为负）。
-     *
      * Returns the {@link Block} below this block (negative in the
      * Y direction).
      *
      * @param steps
-     * 向下的步数。
-     * 留空默认为一。
-     *
      * Number of steps below to step before returning.
      * Defaults to: 1
      * @throws This function can throw errors.
@@ -5374,8 +5291,6 @@ export class Block {
     below(steps?: number): Block | undefined;
     /**
      * @remarks
-     * 返回该方块在 X 轴和 Z 轴上的中心的 {@link Vector3}。
-     *
      * Returns the {@link Vector3} of the center of this block on
      * the X and Z axis.
      *
@@ -5383,18 +5298,12 @@ export class Block {
     bottomCenter(): Vector3;
     /**
      * @remarks
-     * 返回当被液体接触时该方块是否会被移除。
-     *
      * Returns whether this block is removed when touched by
      * liquid.
      *
      * @param liquidType
-     * 此函数所针对的液体类型。
-     *
      * The type of liquid this function should be called for.
      * @returns
-     * 当被液体接触时该方块是否会被移除。
-     *
      * Whether this block is removed when touched by liquid.
      * @throws This function can throw errors.
      *
@@ -5407,18 +5316,12 @@ export class Block {
     canBeDestroyedByLiquidSpread(liquidType: LiquidType): boolean;
     /**
      * @remarks
-     * 返回该方块上是否可以放置液体，即能否被含水。
-     *
      * Returns whether this block can have a liquid placed over it,
      * i.e. be waterlogged.
      *
      * @param liquidType
-     * 此函数所针对的液体类型。
-     *
      * The type of liquid this function should be called for.
      * @returns
-     * 该方块上是否可以放置液体。
-     *
      * Whether this block can have a liquid placed over it.
      * @throws This function can throw errors.
      *
@@ -5432,74 +5335,16 @@ export class Block {
     /**
      * @beta
      * @remarks
-     * 返回当被液体接触时该方块是否会被移除。
-     *
-     * Returns whether this block is removed when touched by
-     * liquid.
-     *
-     * @param liquidType
-     * 此函数所针对的液体类型。
-     *
-     * The type of liquid this function should be called for.
-     * @returns
-     * 当被液体接触时该方块是否会被移除。
-     *
-     * Whether this block is removed when touched by liquid.
-     * @throws This function can throw errors.
-     *
-     * {@link Error}
-     *
-     * {@link LocationInUnloadedChunkError}
-     *
-     * {@link LocationOutOfWorldBoundariesError}
-     */
-    canBeDestroyedByLiquidSpread(liquidType: LiquidType): boolean;
-    /**
-     * @beta
-     * @remarks
-     * 返回该方块上是否可以放置液体，即能否被含水。
-     *
-     * Returns whether this block can have a liquid placed over it,
-     * i.e. be waterlogged.
-     *
-     * @param liquidType
-     * 此函数所针对的液体类型。
-     *
-     * The type of liquid this function should be called for.
-     * @returns
-     * 该方块上是否可以放置液体。
-     *
-     * Whether this block can have a liquid placed over it.
-     * @throws This function can throw errors.
-     *
-     * {@link Error}
-     *
-     * {@link LocationInUnloadedChunkError}
-     *
-     * {@link LocationOutOfWorldBoundariesError}
-     */
-    canContainLiquid(liquidType: LiquidType): boolean;
-    /**
-     * @beta
-     * @remarks
-     * 检查在该方块的指定面上放置{@link BlockPermutation}或{@link BlockType}或指定标识符的方块是否可行。
-     *
      * Checks to see whether it is valid to place the specified
      * block type or block permutation, on a specified face on this
      * block.
      *
      * @param blockToPlace
-     * 被检查放置可行性的{@link BlockPermutation}或{@link BlockType}或方块标识符。
-     *
      * Block type or block permutation to check placement for.
      * @param faceToPlaceOn
-     * 被检查放置的方向（可选）。
-     *
      * Optional specific face of this block to check placement
      * against.
      * @returns
-     * 如果在此面可以放置这样的方块则返回 `true` 。
-     *
      * Returns `true` if the block type or permutation can be
      * placed on this block, else `false`.
      * @throws This function can throw errors.
@@ -5513,8 +5358,6 @@ export class Block {
     canPlace(blockToPlace: BlockPermutation | BlockType | string, faceToPlaceOn?: Direction): boolean;
     /**
      * @remarks
-     * 返回该方块在 X、Y 和 Z 轴上中心的 {@link Vector3}。
-     *
      * Returns the {@link Vector3} of the center of this block on
      * the X, Y, and Z axis.
      *
@@ -5522,14 +5365,10 @@ export class Block {
     center(): Vector3;
     /**
      * @remarks
-     * 返回位于该方块东侧（X轴正方向）的 {@link Block}。
-     *
      * Returns the {@link Block} to the east of this block
      * (positive in the X direction).
      *
      * @param steps
-     * 向东的步数。
-     *
      * Number of steps to the east to step before returning.
      * Defaults to: 1
      * @throws This function can throw errors.
@@ -5541,26 +5380,17 @@ export class Block {
     east(steps?: number): Block | undefined;
     /**
      * @remarks
-     * 获取一个方块的组件（代表附加功能），例如，一个箱子方块的库存组件。
-     *
      * Gets a component (that represents additional capabilities)
      * for a block - for example, an inventory component of a chest
      * block.
      *
      * @param componentId
-     * 组件的标识符 （例如 'minecraft:inventory'）。
-     * 如果未指定命名空间前缀，将默认使用 'minecraft:'。
-     * 可用的组件标识符可以在 {@link BlockComponentTypes} 枚举中找到。
-     *
      * The identifier of the component (e.g.,
      * 'minecraft:inventory'). If no namespace prefix is specified,
      * 'minecraft:' is assumed. Available component IDs are those
      * in the {@link BlockComponentTypes} enum and custom component
      * IDs registered with the {@link BlockComponentRegistry}.
      * @returns
-     * 如果该组件存在于该方块，则返回该组件。
-     * 否则返回 undefined。
-     *
      * Returns the component if it exists on the block, otherwise
      * undefined.
      * @throws This function can throw errors.
@@ -5572,8 +5402,6 @@ export class Block {
     getComponent<T extends string>(componentId: T): BlockComponentReturnType<T> | undefined;
     /**
      * @remarks
-     * 返回该方块上存在的所有脚本组件。
-     *
      * Returns all scripting components that are present on this
      * block.
      *
@@ -5586,28 +5414,19 @@ export class Block {
     getComponents(): BlockComponent[];
     /**
      * @remarks
-     * 创建一个基于该方块的原型物品对象-{@link ItemStack}，可以与 {@link Container}/{@link ContainerSlot} 接口 一起使用。
-     *
      * Creates a prototype item stack based on this block that can
      * be used with Container/ContainerSlot APIs.
      *
      * @param amount
-     * 要设置在物品对象-{@link ItemStack}中的这个方块的数量。
-     *
      * Number of instances of this block to place in the item
      * stack.
      * Defaults to: 1
      * Bounds: [1, 255]
      * @param withData
-     * 是否包括物品对象的附加数据。
-     *
      * Whether additional data facets of the item stack are
      * included.
      * Defaults to: false
      * @returns
-     * 一个带有指定数量和数据的物品对象。
-     * 如果方块类型不兼容，则返回 undefined。
-     *
      * An itemStack with the specified amount of items and data.
      * Returns undefined if block type is incompatible.
      * @throws This function can throw errors.
@@ -5619,16 +5438,12 @@ export class Block {
     getItemStack(amount?: number, withData?: boolean): ItemStack | undefined;
     /**
      * @remarks
-     * 返回照射在某方块上的光照总亮度等级。
-     *
      * Returns the total brightness level of light shining on a
      * certain block.
      *
      * @worldMutation
      *
      * @returns
-     * 该方块上的亮度等级。
-     *
      * The brightness level on the block.
      * @throws This function can throw errors.
      *
@@ -5649,8 +5464,6 @@ export class Block {
     /**
      * @rc
      * @remarks
-     * 如果该方块具有 'minecraft:multi_block' 特性，则返回所有已加载方块部件的数组。如果不具有该特性，则返回 undefined。
-     *
      * Returns array of all loaded block parts if this block has
      * the 'minecraft:multi_block' trait. If it does not have the
      * trait returns undefined
@@ -5664,15 +5477,9 @@ export class Block {
     getParts(): Block[] | undefined;
     /**
      * @remarks
-     * 返回该方块的净红石信号强度。
-     * 考虑了所有输入和输出后的总红石信号强度。
-     * 表示了一个方块与周围环境中所有红石元件的相互作用后的红石信号状态。
-     *
      * Returns the net redstone power of this block.
      *
      * @returns
-     * 如果这个方块不适用红石信号强度，返回 undefined。
-     *
      * Returns undefined if redstone power is not applicable to
      * this block.
      * @throws This function can throw errors.
@@ -5684,16 +5491,12 @@ export class Block {
     getRedstonePower(): number | undefined;
     /**
      * @remarks
-     * 返回天空照射在某方块上的光照亮度等级。
-     *
      * Returns the brightness level of light shining from the sky
      * on a certain block.
      *
      * @worldMutation
      *
      * @returns
-     * 该方块上的亮度等级。
-     *
      * The brightness level on the block.
      * @throws This function can throw errors.
      *
@@ -5704,13 +5507,9 @@ export class Block {
     getSkyLightLevel(): number;
     /**
      * @remarks
-     * 返回方块被设置的标签的列表。
-     *
      * Returns a set of tags for a block.
      *
      * @returns
-     * 方块拥有的标签列表。
-     *
      * The list of tags that the block has.
      * @throws This function can throw errors.
      *
@@ -5721,14 +5520,10 @@ export class Block {
     getTags(): string[];
     /**
      * @remarks
-     * 如果该方块上存在指定的组件，则返回 true。
-     *
      * Returns true if the specified component is present on this
      * block.
      *
      * @param componentId
-     * 要检索的组件的标识符（例如 'minecraft:inventory'）。如果未指定命名空间前缀，将默认使用 'minecraft:'。
-     *
      * The identifier of the component (e.g.,
      * 'minecraft:inventory') to retrieve. If no namespace prefix
      * is specified, 'minecraft:' is assumed.
@@ -5741,18 +5536,12 @@ export class Block {
     hasComponent(componentId: string): boolean;
     /**
      * @remarks
-     * 检查该方块的{@link BlockPermutation}是否具有特定的标签。
-     *
      * Checks to see if the permutation of this block has a
      * specific tag.
      *
      * @param tag
-     * 要检查的标签。
-     *
      * Tag to check for.
      * @returns
-     * 如果该方块的{@link BlockPermutation}具有该标签，则返回 `true`，否则返回 `false`。
-     *
      * Returns `true` if the permutation of this block has the tag,
      * else `false`.
      * @throws This function can throw errors.
@@ -5765,17 +5554,11 @@ export class Block {
     hasTag(tag: string): boolean;
     /**
      * @remarks
-     * 返回该方块是否会阻止液体流动。
-     *
      * Returns whether this block stops liquid from flowing.
      *
      * @param liquidType
-     * 此函数所针对的液体类型。
-     *
      * The type of liquid this function should be called for.
      * @returns
-     * 该方块是否会阻止液体流动。
-     *
      * Whether this block stops liquid from flowing.
      * @throws This function can throw errors.
      *
@@ -5788,19 +5571,13 @@ export class Block {
     isLiquidBlocking(liquidType: LiquidType): boolean;
     /**
      * @remarks
-     * 返回液体能否从指定方向流入该方块，或当用桶将液体放入该方块时能否从指定方向流出。
-     *
      * Returns whether liquid can flow into the block from the
      * provided direction, or flow out from the provided direction
      * when liquid is placed into it with a bucket.
      *
      * @param liquidType
-     * 此函数所针对的液体类型。
-     *
      * The type of liquid this function should be called for.
      * @returns
-     * 液体能否从指定方向流入该方块，或当用桶将液体放入该方块时能否从指定方向流出。
-     *
      * Whether liquid can flow into the block from the provided
      * direction, or flow out from the provided direction when
      * liquid is placed into it with a bucket
@@ -5815,18 +5592,12 @@ export class Block {
     liquidCanFlowFromDirection(liquidType: LiquidType, flowDirection: Direction): boolean;
     /**
      * @remarks
-     * 返回当被液体接触时该方块是否会被移除并生成其掉落物。
-     *
      * Returns whether this block is removed and spawns its item
      * when touched by liquid.
      *
      * @param liquidType
-     * 此函数所针对的液体类型。
-     *
      * The type of liquid this function should be called for.
      * @returns
-     * 当被液体接触时该方块是否会被移除并生成其掉落物。
-     *
      * Whether this block is removed and spawns its item when
      * touched by liquid.
      * @throws This function can throw errors.
@@ -5840,21 +5611,13 @@ export class Block {
     liquidSpreadCausesSpawn(liquidType: LiquidType): boolean;
     /**
      * @remarks
-     * 测试该方块是否符合特定条件。
-     *
      * Tests whether this block matches a specific criteria.
      *
      * @param blockName
-     * 用于与此 API 匹配的方块类型标识符。
-     *
      * Block type identifier to match this API against.
      * @param states
-     * 可选的一组方块状态，用于测试该方块。
-     *
      * Optional set of block states to test this block against.
      * @returns
-     * 如果该方块符合指定条件则返回 true。
-     *
      * Returns true if the block matches the specified criteria.
      * @throws This function can throw errors.
      *
@@ -5865,14 +5628,10 @@ export class Block {
     matches(blockName: string, states?: Record<string, boolean | number | string>): boolean;
     /**
      * @remarks
-     * 返回位于该方块北侧（Z轴负方向）的 {@link Block}。
-     *
      * Returns the {@link Block} to the north of this block
      * (negative in the Z direction).
      *
      * @param steps
-     * 在返回之前，向北移动的步数。
-     *
      * Number of steps to the north to step before returning.
      * Defaults to: 1
      * @throws This function can throw errors.
@@ -5884,18 +5643,12 @@ export class Block {
     north(steps?: number): Block | undefined;
     /**
      * @remarks
-     * 返回相对于该方块偏移指定向量处的方块。
-     *
      * Returns a block at an offset relative vector to this block.
      *
      * @param offset
-     * 偏移向量。例如，偏移量为 0, 1, 0 将返回当前方块上方的方块。
-     *
      * The offset vector. For example, an offset of 0, 1, 0 will
      * return the block above the current block.
      * @returns
-     * 位于指定偏移处的方块；如果无法获取该方块（例如，该方块及其所在区块尚未加载），则返回 undefined。
-     *
      * Block at the specified offset, or undefined if that block
      * could not be retrieved (for example, the block and its
      * relative chunk is not loaded yet.)
@@ -5908,16 +5661,12 @@ export class Block {
     offset(offset: Vector3): Block | undefined;
     /**
      * @remarks
-     * 在维度中将方块设置为{@link BlockPermutation}的状态。
-     *
      * Sets the block in the dimension to the state of the
      * permutation.
      *
      * @worldMutation
      *
      * @param permutation
-     * 包含方块一组属性状态的{@link BlockPermutation}。
-     *
      * Permutation that contains a set of property states for the
      * Block.
      * @throws This function can throw errors.
@@ -5929,16 +5678,11 @@ export class Block {
     setPermutation(permutation: BlockPermutation): void;
     /**
      * @remarks
-     * 设置方块的类型。
-     *
      * Sets the type of block.
      *
      * @worldMutation
      *
      * @param blockType
-     * 要应用的方块类型的标识符或方块类型，
-     * 例如，`minecraft:powered_repeater`。
-     *
      * Identifier of the type of block to apply - for example,
      * minecraft:powered_repeater.
      * @throws This function can throw errors.
@@ -5952,16 +5696,12 @@ export class Block {
     setType(blockType: BlockType | string): void;
     /**
      * @remarks
-     * 设置该方块是否处于含水状态——例如，楼梯是否被浸没在水中。
-     *
      * Sets whether this block has a water logged state - for
      * example, whether stairs are submerged within water.
      *
      * @worldMutation
      *
      * @param isWaterlogged
-     * 如果方块应含水，则为 true。
-     *
      * true if the block should have water within it.
      * @throws This function can throw errors.
      *
@@ -5974,14 +5714,10 @@ export class Block {
     setWaterlogged(isWaterlogged: boolean): void;
     /**
      * @remarks
-     * 返回位于该方块南侧（Z轴正方向）的 {@link Block}。
-     *
      * Returns the {@link Block} to the south of this block
      * (positive in the Z direction).
      *
      * @param steps
-     * 在返回之前，向南移动的步数。
-     *
      * Number of steps to the south to step before returning.
      * Defaults to: 1
      * @throws This function can throw errors.
@@ -5994,24 +5730,15 @@ export class Block {
     /**
      * @beta
      * @remarks
-     * 首先检查放置是否有效，
-     * 如何尝试在维度中将方块设置为{@link BlockPermutation}的状态，
-     *
-     *
      * Tries to set the block in the dimension to the state of the
      * permutation by first checking if the placement is valid.
      *
      * @worldMutation
      *
      * @param permutation
-     * 包含一组方块属性状态的{@link BlockPermutation}。
-     *
      * Permutation that contains a set of property states for the
      * Block.
      * @returns
-     * 如果成功设置了方块的{@link BlockPermutation}，
-     * 则返回 `true`，否则返回 `false`。
-     *
      * Returns `true` if the block permutation data was
      * successfully set, else `false`.
      * @throws This function can throw errors.
@@ -6023,14 +5750,10 @@ export class Block {
     trySetPermutation(permutation: BlockPermutation): boolean;
     /**
      * @remarks
-     * 返回位于该方块西侧（X轴负方向）的 {@link Block}。
-     *
      * Returns the {@link Block} to the west of this block
      * (negative in the X direction).
      *
      * @param steps
-     * 在返回之前，向西移动的步数。
-     *
      * Number of steps to the west to step before returning.
      * Defaults to: 1
      * @throws This function can throw errors.
@@ -8695,324 +8418,6 @@ export class Component {
 }
 
 /**
- * @beta
- * Compound Block Volume 是单个方块体积定义的集合，这些定义共同定义一个更大的（有时是非连续的）不规则形状的体积。
- * 该类大致基于 CSG（计算实体几何）的概念，允许用户通过构建体积和空洞的堆栈来创建复杂的体积，形成一个更大的单一体积。
- * 例如——通常创建者会为每个面创建 6 个"墙壁"表面来制作一个空心立方体。
- * 使用 Compound Block Volume，创建者可以通过创建一个单独的外部实体立方体，然后在较大的立方体内部定义一个单独的"空洞"立方体来制作一个空心立方体。
- * 同样，Compound Block Volume 可以表示不规则的形状体积（例如，一棵树由树干和许多树叶方块组成，这些方块不一定连续放置）。
- * 添加到 CompoundBlockVolume 的每个体积（默认情况下）都是相对于设置的原点（在构造时或通过某个 set 函数设置）的。
- * 然而，也可以将绝对性质的体积推送到复合集合中，这些体积不受原点变化的影响。
- *
- * The Compound Block Volume is a collection of individual
- * block volume definitions which, as a collection, define a
- * larger volume of (sometimes non-contiguous) irregular
- * shapes.
- * This class is loosely based on the concept of CSG
- * (Computational Solid Geometry) and allows a user to create
- * complex volumes by building a stack of volumes and voids to
- * make a larger single volume.
- * For example - normally a creator would create a hollow cube
- * by creating 6 "wall" surfaces for each face.
- * With a Compound Block Volume, a creator can define a hollow
- * cube by creating a single outer solid cube, and then
- * defining a further single 'void' cube inside the larger one.
- * Similarly, the Compound Block Volume can represent irregular
- * shaped volumes (e.g. a tree consists of a trunk and lots of
- * leaf cubes which are not necessarily contiguously placed).
- * Each of the volumes added to the CompoundBlockVolume are (by
- * default) relative to the origin set (either at construction
- * or via one of the set functions).
- * However, it is also possible to push volumes to the compound
- * collection which are absolute in nature and are not affected
- * by origin changes.
- */
-export class CompoundBlockVolume {
-    /**
-     * @remarks
-     * 返回表示堆栈中体积集合的边界矩形的"容量"。
-     *
-     * Return the 'capacity' of the bounding rectangle which
-     * represents the collection of volumes in the stack
-     *
-     */
-    readonly capacity: number;
-    readonly items: CompoundBlockVolumeItem[];
-    readonly itemsAbsolute: CompoundBlockVolumeItem[];
-    /**
-     * @remarks
-     * 返回体积堆栈中体积（正向和负向）的数量。
-     *
-     * Return the number of volumes (positive and negative) in the
-     * volume stack
-     *
-     */
-    readonly volumeCount: number;
-    /**
-     * @remarks
-     * 创建一个 CompoundBlockVolume 对象。
-     *
-     * Create a CompoundBlockVolume object
-     *
-     * @param origin
-     * 一个可选的用于居中复合体积的世界空间原点。如果未指定，原点设置为 `(0,0,0)`。
-     *
-     * An optional world space origin on which to center the
-     * compound volume.
-     * If not specified, the origin is set to (0,0,0)
-     */
-    constructor(origin?: Vector3);
-    /**
-     * @remarks
-     * 清空体积堆栈的内容。
-     *
-     * Clear the contents of the volume stack
-     *
-     * @worldMutation
-     *
-     */
-    clear(): void;
-    /**
-     * @remarks
-     * 获取 Compound Block Volume 的方块位置迭代器。此迭代器将允许创建者遍历更大边界区域内所有选中的体积。已被减去体积覆盖的体积区域将不包含在迭代器步骤中（即，如果你向堆栈推送一个立方体，然后向同一位置推送一个减去体积，迭代器将跳过初始体积，因为它被视为负空间）。请注意，此迭代器返回的方块位置是绝对世界空间坐标（无论推送的复合体积项是绝对的还是相对的）。
-     *
-     * Fetch a Block Location Iterator for the Compound Block
-     * Volume.  This iterator will allow a creator to iterate
-     * across all of the selected volumes within the larger
-     * bounding area.
-     * Areas of a volume which have been overridden by a
-     * subtractive volume will not be included in the iterator
-     * step.
-     * (i.e. if you push a cube to the stack, and then push a
-     * subtractive volume to the same location, then the iterator
-     * will step over the initial volume because it is considered
-     * negative space)
-     * Note that the Block Locations returned by this iterator are
-     * in absolute world space (irrespective of whether the
-     * compound volume items pushed are absolute or relative)
-     *
-     * @worldMutation
-     *
-     */
-    getBlockLocationIterator(): BlockLocationIterator;
-    /**
-     * @remarks
-     * 获取表示堆栈上所有体积容器的最大的边界框。请注意，返回的边界框以绝对世界空间坐标表示（无论推送的复合体积项是绝对的还是相对的）。
-     *
-     * Get the largest bounding box that represents a container for
-     * all of the volumes on the stack
-     * Note that the bounding box returned is represented in
-     * absolute world space  (irrespective of whether the compound
-     * volume items pushed are absolute or relative)
-     *
-     * @worldMutation
-     *
-     */
-    getBoundingBox(): BlockBoundingBox;
-    /**
-     * @remarks
-     * 获取表示堆栈上体积的最外层边界矩形的最大方块位置。请注意，返回的最大位置以绝对世界空间坐标表示（无论推送的复合体积项是绝对的还是相对的）。
-     *
-     * Get the max block location of the outermost bounding
-     * rectangle which represents the volumes on the stack.
-     * Note that the max location returned is in absolute world
-     * space (irrespective of whether the compound volume items
-     * pushed are absolute or relative)
-     *
-     * @worldMutation
-     *
-     */
-    getMax(): Vector3;
-    /**
-     * @remarks
-     * 获取表示堆栈上体积的最外层边界矩形的最小方块位置。请注意，返回的最小位置以绝对世界空间坐标表示（无论推送的复合体积项是绝对的还是相对的）。
-     *
-     * Get the min block location of the outermost bounding
-     * rectangle which represents the volumes on the stack.
-     * Note that the min location returned is in absolute world
-     * space (irrespective of whether the compound volume items
-     * pushed are absolute or relative)
-     *
-     * @worldMutation
-     *
-     */
-    getMin(): Vector3;
-    /**
-     * @remarks
-     * 获取复合体积在世界空间中的原点。
-     *
-     * Fetch the origin in world space of the compound volume
-     *
-     * @worldMutation
-     *
-     */
-    getOrigin(): Vector3;
-    /**
-     * @remarks
-     * 返回一个布尔值，指示是否有体积项被推送到体积堆栈中。
-     *
-     * Return a boolean which signals if there are any volume items
-     * pushed to the volume
-     *
-     * @worldMutation
-     *
-     */
-    isEmpty(): boolean;
-    /**
-     * @remarks
-     * 返回一个布尔值，表示给定的绝对世界空间方块位置是否在正向方块体积内部。例如，如果堆栈包含一个大立方体后面跟着一个稍小的负立方体，并且测试位置在负立方体内部——该函数将返回 `false`，因为它不在体积"内部"（它在边界矩形内部，但不在正确定义的位置内部）。
-     *
-     * Return a boolean representing whether or not a given
-     * absolute world space block location is inside a positive
-     * block volume.
-     * E.g. if the stack contains a large cube followed by a
-     * slightly smaller negative cube, and the test location is
-     * within the negative cube - the function will return false
-     * because it's not 'inside' a volume (it IS inside the
-     * bounding rectangle, but it is not inside a positively
-     * defined location)
-     *
-     * @worldMutation
-     *
-     */
-    isInside(worldLocation: Vector3): boolean;
-    /**
-     * @remarks
-     * 检查推送到体积堆栈的最后一个条目，而不影响堆栈内容。
-     *
-     * Inspect the last entry pushed to the volume stack without
-     * affecting the stack contents.
-     *
-     * @worldMutation
-     *
-     * @param forceRelativity
-     * 确定函数是否返回强制为相对或绝对坐标系的 CompoundBlockVolumeItem。
-     * `true` = 强制返回的项相对于体积原点
-     * `false` = 强制返回的项为绝对世界空间位置
-     * 如果未指定标志，返回的项保留其推送时的相对性。
-     *
-     * Determine whether the function returns a
-     * CompoundBlockVolumeItem which is forced into either relative
-     * or absolute coordinate system.
-     * `true` = force returned item to be relative to volume origin
-     * `false` = force returned item to be absolute world space
-     * location
-     *
-     * If no flag is specified, the item returned retains whatever
-     * relativity it had when it was pushed
-     * @returns
-     * 如果堆栈为空则返回 `undefined`。
-     *
-     * Returns undefined if the stack is empty
-     */
-    peekLastVolume(forceRelativity?: CompoundBlockVolumePositionRelativity): CompoundBlockVolumeItem | undefined;
-    /**
-     * @remarks
-     * 从体积堆栈中移除最后一个条目。这将使堆栈大小减一。
-     *
-     * Remove the last entry from the volume stack.  This will
-     * reduce the stack size by one
-     *
-     * @worldMutation
-     *
-     */
-    popVolume(): boolean;
-    /**
-     * @remarks
-     * 将一个体积项推送到堆栈。该体积项包含一个 `action` 参数，用于确定该体积是正向空间还是负向空间。该项还包含一个 `locationRelativity`，用于确定它是相对于复合体积原点还是绝对的。
-     *
-     * Push a volume item to the stack.  The volume item contains
-     * an 'action' parameter which determines whether this volume
-     * is a positive or negative space.
-     * The item also contains a `locationRelativity` which
-     * determines whether it is relative or absolute to the
-     * compound volume origin
-     *
-     * @worldMutation
-     *
-     * @param item
-     * 要推送到堆栈末尾的项。
-     *
-     * Item to push to the end of the stack
-     */
-    pushVolume(item: CompoundBlockVolumeItem): void;
-    /**
-     * @remarks
-     * 如果体积堆栈为空，此函数将推送指定项到堆栈。如果体积堆栈不为空，此函数将用新项替换堆栈上的最后一个项。
-     *
-     * If the volume stack is empty, this function will push the
-     * specified item to the stack.
-     * If the volume stack is NOT empty, this function will replace
-     * the last item on the stack with the new item.
-     *
-     * @worldMutation
-     *
-     * @param item
-     * 要添加或替换的项。
-     *
-     * Item to add or replace
-     */
-    replaceOrAddLastVolume(item: CompoundBlockVolumeItem): boolean;
-    /**
-     * @remarks
-     * 将复合体积的原点设置为绝对世界空间位置。
-     *
-     * Set the origin of the compound volume to an absolute world
-     * space location
-     *
-     * @worldMutation
-     *
-     * @param preserveExistingVolumes
-     * 此可选的布尔标志确定相对的 `CompoundBlockVolumeItem` 是固定在原地，还是受新原点影响。
-     * 想象一个场景，你有一系列围绕原点的相对位置，构成一个球体；所有这些位置的范围在 -2 到 2 之间。
-     * 将这些位置作为相对项推送到复合体积中。
-     * 现在，移动原点，表示球体的所有位置也会随之移动。
-     * 然而，假设你想在第一个球体旁边添加第二个球体。
-     * 在这种情况下，将新原点设置在几个位置之外，但设置 `preserveExistingVolumes` = `true`。
-     * 这将设置一个新原点，但现有的球体位置将保持相对于原始原点。
-     * 现在，你可以再次推送相对的球体位置（这次它们将相对于新原点）——结果得到两个相邻的球体。
-     *
-     * This optional boolean flag determines whether the relative
-     * `CompoundBlockVolumeItem`'s are frozen in place, or are
-     * affected by the new origin.
-     * Imagine a scenario where you have a series of relative
-     * locations around an origin which make up a sphere; all of
-     * these locations are in the range of -2 to 2.
-     * Push each of these locations to the compound volume as
-     * relative items.
-     * Now, move the origin and all of the locations representing
-     * the sphere move accordingly.
-     * However, let's say you want to add a 2nd sphere next to the
-     * 1st.
-     * In this case, set the new origin a few locations over, but
-     * 'preserveExistingVolumes' = true.
-     * This will set a new origin, but the existing sphere
-     * locations will remain relative to the original origin.
-     * Now, you can push the relative sphere locations again (this
-     * time they will be relative to the new origin) - resulting in
-     * 2 spheres next to each other.
-     */
-    setOrigin(position: Vector3, preserveExistingVolumes?: boolean): void;
-    /**
-     * @remarks
-     * 类似于 {@link CompoundBlockVolume.setOrigin}——此函数会将原点按给定增量平移到一个新位置。
-     *
-     * Similar to {@link CompoundBlockVolume.setOrigin} - this
-     * function will translate the origin by a given delta to a new
-     * position
-     *
-     * @worldMutation
-     *
-     * @param preserveExistingVolumes
-     * 参见 {@link CompoundBlockVolume.setOrigin} 参数的描述。
-     *
-     * See the description for the arguments to {@link
-     * CompoundBlockVolume.setOrigin}
-     */
-    translateOrigin(delta: Vector3, preserveExistingVolumes?: boolean): void;
-}
-
-/**
  * 表示一个可以容纳多组物品的容器。用于诸如玩家、运输矿车、羊驼等实体。
  *
  * Represents a container that can hold sets of items. Used
@@ -10119,8 +9524,6 @@ export class DataDrivenEntityTriggerAfterEventSignal {
 }
 
 /**
- * 表示世界中特定维度（例如，末地）的类。
- *
  * A class that represents a particular dimension (e.g., The
  * End) within a world.
  */
@@ -10128,8 +9531,6 @@ export class Dimension {
     private constructor();
     /**
      * @remarks
-     * 维度的高度范围。
-     *
      * Height range of the dimension.
      *
      * @throws This property can throw when used.
@@ -10137,16 +9538,12 @@ export class Dimension {
     readonly heightRange: NumberRange;
     /**
      * @remarks
-     * 维度的标识符。
-     *
      * Identifier of the dimension.
      *
      */
     readonly id: string;
     /**
      * @remarks
-     * 用于语言文件本地化维度名称的键。
-     *
      * Key for the localization of a dimension's name used by
      * language files.
      *
@@ -10155,8 +9552,6 @@ export class Dimension {
     /**
      * @rc
      * @remarks
-     * 根据世界种子计算特定类型生物群系最近的位置。请注意，`calculateClosestBiomeFromSeed` 可能是一个开销较大的操作，因此在单个 tick 内避免多次调用。结果纯粹源自世界生成算法和世界种子，因此如果生物群系在生成后被修改，返回的位置可能不反映实际的当前地形。
-     *
      * Calculates the location of the closest biome of a particular
      * type from the world seed. Note that
      * calculateClosestBiomeFromSeed can be an expensive operation,
@@ -10167,20 +9562,12 @@ export class Dimension {
      * modified after generation.
      *
      * @param pos
-     * 要查找生物群系的起始位置。
-     *
      * Starting location to look for a biome to find.
      * @param biomeToFind
-     * 要查找的生物群系的标识符。
-     *
      * Identifier of the biome to look for.
      * @param options
-     * 生物群系搜索的其他选择条件。
-     *
      * Additional selection criteria for a biome search.
      * @returns
-     * 返回生物群系的位置，如果找不到则返回 `undefined`。
-     *
      * Returns a location of the biome, or undefined if a biome
      * could not be found.
      * @throws This function can throw errors.
@@ -10195,9 +9582,41 @@ export class Dimension {
         options?: BiomeSearchOptions,
     ): Vector3 | undefined;
     /**
+     * @beta
      * @remarks
-     * 检查一个区域是否包含指定的生物群系。如果该区域部分在世界边界之外，则只搜索边界内的部分。此操作的耗时与体积的面积和要检查的生物群系数量成正比。
+     * Clones a region of blocks from one area of the dimension to
+     * another.
      *
+     * @worldMutation
+     *
+     * @param beginLocation
+     * The lower northwest starting corner of the area to clone
+     * from.
+     * @param endLocation
+     * The upper southeast ending corner of the area to clone from.
+     * @param destination
+     * The lower northwest starting corner of the area to clone to.
+     * @param cloneMode
+     * Specifies how the cloned blocks should be placed at the
+     * destination.
+     * @param filter
+     * An optional block filter used to include only matching
+     * blocks from the source area.
+     * @throws This function can throw errors.
+     *
+     * {@link Error}
+     *
+     * {@link LocationOutOfWorldBoundariesError}
+     */
+    cloneBlocks(
+        beginLocation: Vector3,
+        endLocation: Vector3,
+        destination: Vector3,
+        cloneMode: CloneMode,
+        filter?: BlockFilter,
+    ): void;
+    /**
+     * @remarks
      * Checks if an area contains the specified biomes. If the area
      * is partially inside world boundaries, only the area that is
      * in bounds will be searched. This operation takes longer
@@ -10205,19 +9624,13 @@ export class Dimension {
      * of biomes to check.
      *
      * @param volume
-     * 要检查生物群系的区域。
-     *
      * Area to check biomes in.
      * @param biomeFilter
-     * 要包含和排除的生物群系列表。要包含和排除的标签列表。如果在区域中发现了排除列表中的生物群系或包含任何排除标签，则返回 `false`。
-     *
      * A list of biomes to include and exclude. A list of tags to
      * include and exclude. Will return false if a biome is found
      * in the area that is in the excluded list or contains any of
      * the excluded tags.
      * @param isSuperset
-     * Superset 用于确定过滤的严格程度。如果 superset 设置为 `true`，则区域必须包含一个或多个包含列表中的生物群系，或包含所有包含的标签。如果 superset 设置为 `false`，则区域必须仅包含包含列表中的生物群系，并且包含所有包含的标签。
-     *
      * Superset is used to determine the strictness of the filter.
      * If superset is set to true then the area must contain one or
      * more biomes in the included list or that contains all of the
@@ -10225,13 +9638,9 @@ export class Dimension {
      * must contain only biomes in the included list and that
      * contain all of the included tags
      * @returns
-     * 如果区域中的生物群系匹配传入的过滤设置则返回 `true`，否则返回 `false`。
-     *
      * Returns true if the biomes in the area match the filter
      * settings passed in. Otherwise, returns false.
      * @throws
-     * 如果提供的区域包含未加载的区块则会抛出错误。如果提供的区域完全在世界边界之外则会抛出错误。如果提供了未知的生物群系名称则会抛出错误。
-     *
      * An error will be thrown if the area provided includes
      * unloaded chunks.
      * An error will be thrown if the area provided is completely
@@ -10250,31 +9659,21 @@ export class Dimension {
     containsBiomes(volume: BlockVolumeBase, biomeFilter: BiomeFilter, isSuperset: boolean): boolean;
     /**
      * @remarks
-     * 在方块体积中搜索满足方块过滤条件的方块。
-     *
      * Searches the block volume for a block that satisfies the
      * block filter.
      *
      * @param volume
-     * 要被检查的方块体积。
-     *
      * Volume of blocks that will be checked.
      * @param filter
-     * 将要与体积中每个方块进行比对的方块过滤条件。
-     *
      * Block filter that will be checked against each block in the
      * volume.
      * @param allowUnloadedChunks
-     * 如果设置为 `true`，将抑制 UnloadedChunksError（如果部分或全部方块体积位于已加载区块之外）。将只检查体积中位于已加载区块内的方块位置。默认值：`false`。
-     *
      * If set to true will suppress the UnloadedChunksError if some
      * or all of the block volume is outside of the loaded chunks.
      * Will only check the block locations that are within the
      * loaded chunks in the volume.
      * Defaults to: false
      * @returns
-     * 如果体积中至少有一个方块满足过滤条件则返回 `true`，否则返回 `false`。
-     *
      * Returns true if at least one block in the volume satisfies
      * the filter, false otherwise.
      * @throws This function can throw errors.
@@ -10286,24 +9685,16 @@ export class Dimension {
     containsBlock(volume: BlockVolumeBase, filter: BlockFilter, allowUnloadedChunks?: boolean): boolean;
     /**
      * @remarks
-     * 在指定位置创建一次爆炸。
-     *
      * Creates an explosion at the specified location.
      *
      * @worldMutation
      *
      * @param location
-     * 爆炸的位置。
-     *
      * The location of the explosion.
      * @param radius
-     * 要创建的爆炸的半径（以方块为单位）。范围：[0, 1000]
-     *
      * Radius, in blocks, of the explosion to create.
      * Bounds: [0, 1000]
      * @param explosionOptions
-     * 爆炸的其他可配置选项。
-     *
      * Additional configurable options for the explosion.
      * @throws This function can throw errors.
      *
@@ -10317,29 +9708,19 @@ export class Dimension {
     createExplosion(location: Vector3, radius: number, explosionOptions?: ExplosionOptions): boolean;
     /**
      * @remarks
-     * 使用特定的方块类型填充一个区域的方块。
-     *
      * Fills an area of blocks with a specific block type.
      *
      * @worldMutation
      *
      * @param volume
-     * 要被填充的方块体积。
-     *
      * Volume of blocks to be filled.
      * @param block
-     * 用于填充体积的方块类型。
-     *
      * Type of block to fill the volume with.
      * @param options
-     * 一组附加选项，例如可用于包含/排除填充中特定方块的方块过滤器。
-     *
      * A set of additional options, such as a block filter which
      * can be used to include / exclude specific blocks in the
      * fill.
      * @returns
-     * 返回包含所有已放置方块的 ListBlockVolume。
-     *
      * Returns a ListBlockVolume which contains all the blocks that
      * were placed.
      * @throws This function can throw errors.
@@ -10357,17 +9738,11 @@ export class Dimension {
     ): ListBlockVolume;
     /**
      * @remarks
-     * 返回指定位置的生物群系类型。
-     *
      * Returns the biome type at the specified location.
      *
      * @param location
-     * 检查生物群系的位置。
-     *
      * Location at which to check the biome.
      * @throws
-     * 如果位置在世界边界之外则会抛出错误。如果位置在未加载的区块中则会抛出错误。
-     *
      * An error will be thrown if the location is out of world
      * bounds.
      * An error will be thrown if the location is in an unloaded
@@ -10380,23 +9755,14 @@ export class Dimension {
     getBiome(location: Vector3): BiomeType;
     /**
      * @remarks
-     * 返回给定位置的方块。
-     *
      * Returns a block instance at the given location.
      *
      * @param location
-     * 要返回方块的位置。
-     *
      * The location at which to return a block.
      * @returns
-     * 指定位置的方块，如果请求的方块位于未加载的区块中，则返回 `undefined`。
-     *
      * Block at the specified location, or 'undefined' if asking
      * for a block at an unloaded chunk.
      * @throws
-     * PositionInUnloadedChunkError：当尝试与不再位于已加载且正在运行的区块中的 Block 对象交互时抛出的异常。
-     * PositionOutOfWorldBoundariesError：当尝试与维度高度范围之外的位置交互时抛出的异常。
-     *
      * PositionInUnloadedChunkError: Exception thrown when trying
      * to interact with a Block object that isn't in a loaded and
      * ticking chunk anymore
@@ -10413,91 +9779,62 @@ export class Dimension {
     getBlock(location: Vector3): Block | undefined;
     /**
      * @remarks
-     * 根据给定的选项，获取给定方块位置上方的第一个方块（默认情况下，将找到上方的第一个实心方块）。
-     *
      * Gets the first block found above a given block location
      * based on the given options (by default will find the first
      * solid block above).
      *
      * @param location
-     * 要从中获取上方方块的位置。
-     *
      * Location to retrieve the block above from.
      * @param options
-     * 用于判断方块是否为有效结果的选项。
-     *
      * The options to decide if a block is a valid result.
      * @throws This function can throw errors.
      */
     getBlockAbove(location: Vector3, options?: BlockRaycastOptions): Block | undefined;
     /**
      * @remarks
-     * 根据给定的选项，获取给定方块位置下方的第一个方块（默认情况下，将找到下方的第一个实心方块）。
-     *
      * Gets the first block found below a given block location
      * based on the given options (by default will find the first
      * solid block below).
      *
      * @param location
-     * 要从中获取下方方块的位置。
-     *
      * Location to retrieve the block below from.
      * @param options
-     * 用于判断方块是否为有效结果的选项。
-     *
      * The options to decide if a block is a valid result.
      * @throws This function can throw errors.
      */
     getBlockBelow(location: Vector3, options?: BlockRaycastOptions): Block | undefined;
     /**
      * @remarks
-     * 获取从某个位置发射的向量相交的第一个方块。
-     *
      * Gets the first block that intersects with a vector emanating
      * from a location.
      *
      * @param location
-     * 发起射线检查的位置。
-     *
      * Location from where to initiate the ray check.
      * @param direction
-     * 发射射线的向量方向。
-     *
      * Vector direction to cast the ray.
      * @param options
-     * 处理此射线投射查询的附加选项。
-     *
      * Additional options for processing this raycast query.
      * @throws This function can throw errors.
      */
     getBlockFromRay(location: Vector3, direction: Vector3, options?: BlockRaycastOptions): BlockRaycastHit | undefined;
     /**
+     * @rc
      * @remarks
-     * 获取一个体积中满足方块查询选项的所有方块。
-     *
      * Gets all the blocks in a volume that satisfy the block query
      * options.
      *
      * @param volume
-     * 要被检查的方块体积。
-     *
      * Volume of blocks that will be checked.
      * @param options
-     * 方块查询选项，包括过滤条件和可选的最接近/最远距离排序（相对于某个位置）。
-     *
      * Block query options including filter criteria and optional
      * closest/farthest distance sorting from a location.
      * @param allowUnloadedChunks
-     * 如果设置为 `true`，将抑制 UnloadedChunksError（如果部分或全部方块体积位于已加载区块之外）。将只检查体积中位于已加载区块内的方块位置。默认值：`false`。
-     *
      * If set to true will suppress the UnloadedChunksError if some
      * or all of the block volume is outside of the loaded chunks.
      * Will only check the block locations that are within the
      * loaded chunks in the volume.
      * Defaults to: false
      * @returns
-     * 返回包含所有满足方块查询选项的方块位置的 ListBlockVolume。
-     *
      * Returns the ListBlockVolume that contains all the block
      * locations that satisfied the block query options.
      * @throws This function can throw errors.
@@ -10513,19 +9850,13 @@ export class Dimension {
     getBlocks(volume: BlockVolumeBase, options: BlockQueryOptions, allowUnloadedChunks?: boolean): ListBlockVolume;
     /**
      * @remarks
-     * 根据一组通过 EntityQueryOptions 过滤条件集定义的条件返回一组实体。
-     *
      * Returns a set of entities based on a set of conditions
      * defined via the EntityQueryOptions set of filter criteria.
      *
      * @param options
-     * 可用于过滤返回实体集合的附加选项。
-     *
      * Additional options that can be used to filter the set of
      * entities returned.
      * @returns
-     * 一个实体数组。
-     *
      * An entity array.
      * @throws This function can throw errors.
      *
@@ -10539,30 +9870,20 @@ export class Dimension {
     getEntities(options?: EntityQueryOptions): Entity[];
     /**
      * @remarks
-     * 返回特定位置的一组实体。
-     *
      * Returns a set of entities at a particular location.
      *
      * @param location
-     * 要返回实体的位置。
-     *
      * The location at which to return entities.
      * @returns
-     * 指定位置的零个或多个实体。
-     *
      * Zero or more entities at the specified location.
      */
     getEntitiesAtBlockLocation(location: Vector3): Entity[];
     /**
      * @remarks
-     * 获取与从某个位置发射的指定向量相交的实体。
-     *
      * Gets entities that intersect with a specified vector
      * emanating from a location.
      *
      * @param options
-     * 处理此射线投射查询的附加选项。
-     *
      * Additional options for processing this raycast query.
      * @throws This function can throw errors.
      *
@@ -10578,19 +9899,13 @@ export class Dimension {
     /**
      * @beta
      * @remarks
-     * 返回包含指定位置的已生成结构的向量（例如，掠夺者前哨站、废弃矿井等）。如果未找到任何结构，则向量为空。
-     *
      * Returns a vector of generated structures that contain the
      * specified location (ex: Pillager Outpost, Mineshaft, etc.).
      * The vector will be empty if no structures are found.
      *
      * @param location
-     * 检查结构的位置。
-     *
      * Location at which to check for structures.
      * @throws
-     * 如果位置在世界边界之外则会抛出错误。如果位置在未加载的区块中则会抛出错误。
-     *
      * An error will be thrown if the location is out of world
      * bounds.
      * An error will be thrown if the location is in an unloaded
@@ -10603,18 +9918,12 @@ export class Dimension {
     getGeneratedStructures(location: Vector3): (MinecraftFeatureTypes | string)[];
     /**
      * @remarks
-     * 返回照射在特定方块位置上的总亮度级别。
-     *
      * Returns the total brightness level of light shining on a
      * certain block position.
      *
      * @param location
-     * 我们要检查亮度的方块位置。
-     *
      * Location of the block we want to check the brightness of.
      * @returns
-     * 方块上的亮度级别。
-     *
      * The brightness level on the block.
      * @throws This function can throw errors.
      *
@@ -10625,19 +9934,13 @@ export class Dimension {
     getLightLevel(location: Vector3): number;
     /**
      * @remarks
-     * 根据一组通过 EntityQueryOptions 过滤条件集定义的条件返回一组玩家。
-     *
      * Returns a set of players based on a set of conditions
      * defined via the EntityQueryOptions set of filter criteria.
      *
      * @param options
-     * 可用于过滤返回玩家集合的附加选项。
-     *
      * Additional options that can be used to filter the set of
      * players returned.
      * @returns
-     * 一个玩家数组。
-     *
      * A player array.
      * @throws This function can throw errors.
      *
@@ -10648,18 +9951,12 @@ export class Dimension {
     getPlayers(options?: EntityQueryOptions): Player[];
     /**
      * @remarks
-     * 返回特定方块位置上从天空照射的光线的亮度级别。
-     *
      * Returns the brightness level of light shining from the sky
      * on a certain block position.
      *
      * @param location
-     * 我们要检查亮度的方块位置。
-     *
      * Position of the block we want to check the brightness of.
      * @returns
-     * 方块上的亮度级别。
-     *
      * The brightness level on the block.
      * @throws This function can throw errors.
      *
@@ -10670,17 +9967,11 @@ export class Dimension {
     getSkyLightLevel(location: Vector3): number;
     /**
      * @remarks
-     * 返回给定 XZ 位置处的最高方块。
-     *
      * Returns the highest block at the given XZ location.
      *
      * @param locationXZ
-     * 要获取最高方块的位置。
-     *
      * Location to retrieve the topmost block for.
      * @param minHeight
-     * 开始搜索的 Y 高度。默认值为最大维度高度。
-     *
      * The Y height to begin the search from. Defaults to the
      * maximum dimension height.
      * @throws This function can throw errors.
@@ -10689,52 +9980,34 @@ export class Dimension {
     /**
      * @beta
      * @remarks
-     * 返回当前的天气。
-     *
      * Returns the current weather.
      *
      * @returns
-     * 返回解释当前天气大类别的 WeatherType。
-     *
      * Returns a WeatherType that explains the broad category of
      * weather that is currently going on.
      */
     getWeather(): WeatherType;
     /**
      * @remarks
-     * 如果给定位置的区块已加载（且可用于脚本使用），则返回 `true`。
-     *
      * Returns true if the chunk at the given location is loaded
      * (and valid for use with scripting).
      *
      * @param location
-     * 检查区块是否已加载的位置。
-     *
      * Location to check if the chunk is loaded.
      */
     isChunkLoaded(location: Vector3): boolean;
     /**
      * @remarks
-     * 将给定的特性放置到维度中的指定位置。
-     *
      * Places the given feature into the dimension at the specified
      * location.
      *
      * @worldMutation
      *
      * @param featureName
-     * 特性的字符串标识符。
-     *
      * The string identifier for the feature.
      * @param location
-     * 放置特性的位置。
-     *
      * Location to place the feature.
      * @param shouldThrow
-     * 指定如果无法放置特性，函数调用是否会抛出错误。
-     * 注意：如果使用未知的特性名称或尝试在未加载的区块中放置，函数调用将始终抛出错误。
-     * 默认值：`false`
-     *
      * Specifies if the function call will throw an error if the
      * feature could not be placed.
      * Note: The function call will always throw an error if using
@@ -10742,8 +10015,6 @@ export class Dimension {
      * chunk.
      * Defaults to: false
      * @throws
-     * 如果特性名称无效则会抛出错误。如果位置在未加载的区块中则会抛出错误。
-     *
      * An error will be thrown if the feature name is invalid.
      * An error will be thrown if the location is in an unloaded
      * chunk.
@@ -10757,24 +10028,16 @@ export class Dimension {
     placeFeature(featureName: string, location: Vector3, shouldThrow?: boolean): boolean;
     /**
      * @remarks
-     * 将给定的特性规则放置到维度中的指定位置。
-     *
      * Places the given feature rule into the dimension at the
      * specified location.
      *
      * @worldMutation
      *
      * @param featureRuleName
-     * 特性规则的字符串标识符。
-     *
      * The string identifier for the feature rule.
      * @param location
-     * 放置特性规则的位置。
-     *
      * Location to place the feature rule.
      * @throws
-     * 如果特性规则名称无效则会抛出错误。如果位置在未加载的区块中则会抛出错误。
-     *
      * An error will be thrown if the feature rule name is invalid.
      * An error will be thrown if the location is in an unloaded
      * chunk.
@@ -10786,28 +10049,18 @@ export class Dimension {
     placeFeatureRule(featureRuleName: string, location: Vector3): boolean;
     /**
      * @remarks
-     * 为所有玩家播放声音。
-     *
      * Plays a sound for all players.
      *
      * @worldMutation
      *
      * @param soundId
-     * 声音的标识符。
-     *
      * Identifier of the sound.
      * @param location
-     * 声音的位置。
-     *
      * Location of the sound.
      * @param soundOptions
-     * 用于配置声音附加效果的选项。
-     *
      * Additional options for configuring additional effects for
      * the sound.
      * @throws
-     * 如果音量小于 0.0 则会抛出错误。如果淡入淡出小于 0.0 则会抛出错误。如果音调小于 0.01 则会抛出错误。如果音量小于 0.0 则会抛出错误。
-     *
      * An error will be thrown if volume is less than 0.0.
      * An error will be thrown if fade is less than 0.0.
      * An error will be thrown if pitch is less than 0.01.
@@ -10820,26 +10073,18 @@ export class Dimension {
     playSound(soundId: string, location: Vector3, soundOptions?: WorldSoundOptions): SoundInstance;
     /**
      * @remarks
-     * 使用更广泛维度的上下文同步运行一条命令。
-     *
      * Runs a command synchronously using the context of the
      * broader dimenion.
      *
      * @worldMutation
      *
      * @param commandString
-     * 要运行的命令。注意命令字符串不应以斜杠开头。
-     *
      * Command to run. Note that command strings should not start
      * with slash.
      * @returns
-     * 返回包含命令成功执行次数的命令结果。
-     *
      * Returns a command result with a count of successful values
      * from the command.
      * @throws
-     * 如果命令因参数不正确或命令语法错误而失败，或者在命令的错误情况下抛出异常。请注意，在许多情况下，如果命令没有执行（例如，目标选择器未找到任何匹配项），此方法将不会抛出异常。
-     *
      * Throws an exception if the command fails due to incorrect
      * parameters or command syntax, or in erroneous cases for the
      * command. Note that in many cases, if the command does not
@@ -10851,24 +10096,16 @@ export class Dimension {
     runCommand(commandString: string): CommandResult;
     /**
      * @remarks
-     * 使用 BlockPermutation 在世界中设置一个方块。BlockPermutation 是具有特定状态的方块。
-     *
      * Sets a block in the world using a BlockPermutation.
      * BlockPermutations are blocks with a particular state.
      *
      * @worldMutation
      *
      * @param location
-     * 维度内要设置方块的位置。
-     *
      * The location within the dimension to set the block.
      * @param permutation
-     * 要设置的方块置换。
-     *
      * The block permutation to set.
      * @throws
-     * 如果位置位于未加载的区块中或世界边界之外则抛出异常。
-     *
      * Throws if the location is within an unloaded chunk or
      * outside of the world bounds.
      *
@@ -10879,25 +10116,17 @@ export class Dimension {
     setBlockPermutation(location: Vector3, permutation: BlockPermutation): void;
     /**
      * @remarks
-     * 在维度内的给定位置设置一个方块。
-     *
      * Sets a block at a given location within the dimension.
      *
      * @worldMutation
      *
      * @param location
-     * 维度内要设置方块的位置。
-     *
      * The location within the dimension to set the block.
      * @param blockType
-     * 要设置的方块类型。可以是字符串标识符或 BlockType。使用默认的方块置换。
-     *
      * The type of block to set. This can be either a string
      * identifier or a BlockType. The default block permutation is
      * used.
      * @throws
-     * 如果位置位于未加载的区块中或世界边界之外则抛出异常。
-     *
      * Throws if the location is within an unloaded chunk or
      * outside of the world bounds.
      *
@@ -10910,19 +10139,13 @@ export class Dimension {
     setBlockType(location: Vector3, blockType: BlockType | string): void;
     /**
      * @remarks
-     * 设置维度内的当前天气。
-     *
      * Sets the current weather within the dimension
      *
      * @worldMutation
      *
      * @param weatherType
-     * 设置要应用的天气类型。
-     *
      * Set the type of weather to apply.
      * @param duration
-     * 设置天气的持续时间（以 tick 为单位）。如果未提供持续时间，则持续时间将设置为 300 到 900 秒之间的随机值。范围：[1, 1000000]
-     *
      * Sets the duration of the weather (in ticks). If no duration
      * is provided, the duration will be set to a random duration
      * between 300 and 900 seconds.
@@ -10932,25 +10155,17 @@ export class Dimension {
     setWeather(weatherType: WeatherType, duration?: number): void;
     /**
      * @remarks
-     * 在指定位置创建一个新实体（例如，一个生物）。
-     *
      * Creates a new entity (e.g., a mob) at the specified
      * location.
      *
      * @worldMutation
      *
      * @param identifier
-     * 要生成的实体类型的标识符。如果未指定命名空间，则默认为 `minecraft:`。
-     *
      * Identifier of the type of entity to spawn. If no namespace
      * is specified, 'minecraft:' is assumed.
      * @param location
-     * 创建实体的位置。
-     *
      * The location at which to create the entity.
      * @returns
-     * 在指定位置新创建的实体。
-     *
      * Newly created entity at the specified location.
      * @throws This function can throw errors.
      *
@@ -10974,20 +10189,14 @@ export class Dimension {
     ): Entity;
     /**
      * @remarks
-     * 在指定位置创建一个新的物品堆叠实体。
-     *
      * Creates a new item stack as an entity at the specified
      * location.
      *
      * @worldMutation
      *
      * @param location
-     * 创建物品堆叠的位置。
-     *
      * The location at which to create the item stack.
      * @returns
-     * 在指定位置新创建的物品堆叠实体。
-     *
      * Newly created item stack entity at the specified location.
      * @throws This function can throw errors.
      *
@@ -11000,24 +10209,16 @@ export class Dimension {
     spawnItem(itemStack: ItemStack, location: Vector3): Entity;
     /**
      * @remarks
-     * 在世界中的指定位置创建一个新的粒子发射器。
-     *
      * Creates a new particle emitter at a specified location in
      * the world.
      *
      * @worldMutation
      *
      * @param effectName
-     * 要创建的粒子的标识符。
-     *
      * Identifier of the particle to create.
      * @param location
-     * 创建粒子发射器的位置。
-     *
      * The location at which to create the particle emitter.
      * @param molangVariables
-     * 一组可选的、可自定义的变量，可以为此粒子进行调整。
-     *
      * A set of optional, customizable variables that can be
      * adjusted for this particle.
      * @throws This function can throw errors.
@@ -11031,20 +10232,14 @@ export class Dimension {
     /**
      * @beta
      * @remarks
-     * 在维度中的指定位置生成一个经验球。
-     *
      * Spawns an experience orb at a specified location in the
      * dimension.
      *
      * @worldMutation
      *
      * @param location
-     * 生成经验球的位置。
-     *
      * The location at which to spawn the experience orb.
      * @param amount
-     * 给予经验球的经验量。范围：[1, 12000]
-     *
      * The amount of experience to give the experience orb.
      * Bounds: [1, 12000]
      * @throws This function can throw errors.
@@ -11057,8 +10252,6 @@ export class Dimension {
     /**
      * @beta
      * @remarks
-     * 停止所有玩家播放的所有声音。
-     *
      * Stops all sounds from playing for all players.
      *
      * @worldMutation
@@ -11068,15 +10261,11 @@ export class Dimension {
     /**
      * @beta
      * @remarks
-     * 停止所有玩家播放的某个声音。
-     *
      * Stops a sound from playing for all players.
      *
      * @worldMutation
      *
      * @param soundId
-     * 声音的标识符。
-     *
      * Identifier of the sound.
      */
     stopSound(soundId: string): void;
@@ -13357,29 +12546,29 @@ export class EntityContainerClosedAfterEvent {
 }
 
 /**
- * 管理与实体容器被关闭后相关的回调。
- *
- * Manages callbacks that are connected to after an entity container is closed.
+ * Manages callbacks that are connected to when an entity
+ * container is closed.
  */
 export class EntityContainerClosedAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * 添加一个回调，将在实体容器被关闭后调用。
-     *
-     * Adds a callback that will be called after an entity container is closed.
+     * Adds a callback that will be called when an entity container
+     * is closed.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
      */
-    subscribe(callback: (arg0: EntityContainerClosedAfterEvent) => void): (arg0: EntityContainerClosedAfterEvent) => void;
+    subscribe(
+        callback: (arg0: EntityContainerClosedAfterEvent) => void,
+        options?: EntityContainerAccessEventOptions,
+    ): (arg0: EntityContainerClosedAfterEvent) => void;
     /**
      * @remarks
-     * 移除一个回调，使其在实体容器被关闭后不再被调用。
-     *
-     * Removes a callback from being called after an entity container is closed.
+     * Removes a callback from being called when an entity
+     * container is closed.
      *
      * @worldMutation
      *
@@ -13390,48 +12579,44 @@ export class EntityContainerClosedAfterEventSignal {
 }
 
 /**
- * 包含关于特定实体容器被打开的信息。
- *
  * Contains information regarding a specific entity container
  * being opened.
  */
 export class EntityContainerOpenedAfterEvent {
     private constructor();
+    readonly entity: Entity;
     /**
      * @remarks
-     * 实体容器被打开的来源。
-     *
      * The source of the entity container being opened.
      *
      */
     readonly openSource: ContainerAccessSource;
-    readonly entity: Entity;
 }
 
 /**
- * 管理与实体容器被打开后相关的回调。
- *
- * Manages callbacks that are connected to after an entity container is opened.
+ * Manages callbacks that are connected to when an entity
+ * container is opened.
  */
 export class EntityContainerOpenedAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * 添加一个回调，将在实体容器被打开后调用。
-     *
-     * Adds a callback that will be called after an entity container is opened.
+     * Adds a callback that will be called when an entity container
+     * is opened.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
      */
-    subscribe(callback: (arg0: EntityContainerOpenedAfterEvent) => void): (arg0: EntityContainerOpenedAfterEvent) => void;
+    subscribe(
+        callback: (arg0: EntityContainerOpenedAfterEvent) => void,
+        options?: EntityContainerAccessEventOptions,
+    ): (arg0: EntityContainerOpenedAfterEvent) => void;
     /**
      * @remarks
-     * 移除一个回调，使其在实体容器被打开后不再被调用。
-     *
-     * Removes a callback from being called after an entity container is opened.
+     * Removes a callback from being called when an entity
+     * container is opened.
      *
      * @worldMutation
      *
@@ -13509,29 +12694,36 @@ export class EntityDieAfterEvent {
 }
 
 /**
- * 管理与实体死亡后相关的回调。
- *
- * Manages callbacks that are connected to after an entity dies.
+ * Supports registering for an event that fires after an entity
+ * has died.
  */
 export class EntityDieAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * 添加一个回调，将在实体死亡后被调用。
-     *
-     * Adds a callback that will be called after an entity dies.
+     * Subscribes to an event that fires when an entity dies.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
+     * @param callback
+     * Function to call when an entity dies.
+     * @param options
+     * Additional filtering options for when the subscription
+     * fires.
+     * @returns
+     * Returns the closure that can be used in future downstream
+     * calls to unsubscribe.
      */
-    subscribe(callback: (arg0: EntityDieAfterEvent) => void, options?: EntityEventOptions): (arg0: EntityDieAfterEvent) => void;
+    subscribe(
+        callback: (arg0: EntityDieAfterEvent) => void,
+        options?: EntityEventOptions,
+    ): (arg0: EntityDieAfterEvent) => void;
     /**
      * @remarks
-     * 移除一个回调，使其在实体死亡后不再被调用。
-     *
-     * Removes a callback from being called after an entity dies.
+     * Stops this event from calling your function when an entity
+     * dies.
      *
      * @worldMutation
      *
@@ -13695,56 +12887,69 @@ export class EntityFloatsInLiquidComponent extends EntityComponent {
 }
 
 /**
- * 定义实体的飞行速度。
- *
- * Defines the flying speed of an entity.
+ * Represents the flying speed of an entity.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityFlyingSpeedComponent extends EntityComponent {
     private constructor();
     /**
      * @remarks
-     * 当前飞行速度值。
+     * Current value of the flying speed of the associated entity.
      *
-     * Current flying speed value.
+     * @worldMutation
      *
-     * @throws This property can throw when used.
      */
-    readonly value: number;
+    value: number;
     static readonly componentId = 'minecraft:flying_speed';
 }
 
 /**
- * 定义实体移动时的摩擦力修改器。
- *
- * Defines the friction modifier for an entity when moving.
+ * Defines how much friction affects this entity.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityFrictionModifierComponent extends EntityComponent {
     private constructor();
+    /**
+     * @remarks
+     * Current value of the friction modifier of the associated
+     * entity.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly value: number;
     static readonly componentId = 'minecraft:friction_modifier';
 }
 
 /**
- * 战利品物品条件，检查战利品来源是否具有特定的标记变体。
- *
- * Loot item condition to check that the loot source has a specific mark variant.
+ * Loot item condition that checks the value of the mark
+ * variant of a mob as it drops its loot.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityHasMarkVariantCondition extends LootItemCondition {
     private constructor();
-    readonly markVariant: number;
+    /**
+     * @remarks
+     * The mark variant value the mob must have for this condition
+     * to pass.
+     *
+     */
+    readonly value: number;
 }
 
 /**
- * 战利品物品条件，检查战利品来源是否具有特定的变体。
- *
- * Loot item condition to check that the loot source has a specific variant.
+ * Loot item condition that checks the variant value of a mob
+ * as it drops its loot.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityHasVariantCondition extends LootItemCondition {
     private constructor();
-    readonly variant: number;
+    /**
+     * @remarks
+     * The variant value the mob must have for this condition to
+     * pass.
+     *
+     */
+    readonly value: number;
 }
 
 /**
@@ -13782,62 +12987,55 @@ export class EntityHealableComponent extends EntityComponent {
 }
 
 /**
- * 包含实体在被治愈后的相关数据。
- *
- * Contains data related to an entity after it has been healed.
+ * Contains information related to an entity having been
+ * healed.
  */
 export class EntityHealAfterEvent {
     private constructor();
     /**
      * @remarks
-     * 被治愈的实体。
-     *
-     * The entity that was healed.
+     * Entity that was healed.
      *
      */
-    readonly entity: Entity;
+    readonly healedEntity: Entity;
     /**
      * @remarks
-     * 治愈的来源。
+     * Describes the amount of healing.
      *
-     * The source of the healing.
+     */
+    readonly healing: number;
+    /**
+     * @remarks
+     * Information on the source of healing.
      *
      */
     readonly healSource: EntityHealSource;
-    /**
-     * @remarks
-     * 实体恢复的生命值量。
-     *
-     * The amount of health the entity regained.
-     *
-     */
-    readonly healAmount: number;
 }
 
 /**
- * 管理与实体被治愈后相关的回调。
- *
- * Manages callbacks that are connected to after an entity is healed.
+ * Manages callbacks that are connected to when an entity is
+ * healed.
  */
 export class EntityHealAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * 添加一个回调，将在实体被治愈后调用。
-     *
-     * Adds a callback that will be called after an entity is healed.
+     * Adds a callback that will be called when an entity is
+     * healed.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
      */
-    subscribe(callback: (arg0: EntityHealAfterEvent) => void, options?: EntityEventOptions): (arg0: EntityHealAfterEvent) => void;
+    subscribe(
+        callback: (arg0: EntityHealAfterEvent) => void,
+        options?: EntityHealEventOptions,
+    ): (arg0: EntityHealAfterEvent) => void;
     /**
      * @remarks
-     * 移除一个回调，使其在实体被治愈后不再被调用。
-     *
-     * Removes a callback from being called after an entity is healed.
+     * Removes a callback from being called when an entity is
+     * healed.
      *
      * @worldMutation
      *
@@ -13848,86 +13046,66 @@ export class EntityHealAfterEventSignal {
 }
 
 /**
- * 包含实体在被治愈前的相关数据。
- *
- * Contains data related to an entity before it is healed.
+ * Contains information related to an entity that will be
+ * healed.
  */
 export class EntityHealBeforeEvent {
     private constructor();
-    /**
-     * @remarks
-     * 如果设置为 `true`，会取消治愈事件。
-     *
-     * If set to true, cancels the heal event.
-     *
-     */
     cancel: boolean;
     /**
      * @remarks
-     * 被治愈的实体。
-     *
-     * The entity that is being healed.
+     * Entity that will be healed.
      *
      */
-    readonly entity: Entity;
+    readonly healedEntity: Entity;
     /**
      * @remarks
-     * 治愈的来源。
+     * Describes the amount of healing.
      *
-     * The source of the healing.
+     */
+    healing: number;
+    /**
+     * @remarks
+     * Information on the source of healing.
      *
      */
     readonly healSource: EntityHealSource;
-    /**
-     * @remarks
-     * 实体将恢复的生命值量。
-     *
-     * The amount of health the entity will regain.
-     *
-     */
-    healAmount: number;
 }
 
 /**
- * 管理与实体被治愈前相关的回调。
- *
- * Manages callbacks that are connected to before an entity is healed.
+ * Manages callbacks that are connected to when an entity will
+ * be healed.
  */
 export class EntityHealBeforeEventSignal {
     private constructor();
     /**
      * @remarks
-     * 添加一个回调，将在实体被治愈前调用。
-     *
-     * Adds a callback that will be called before an entity is healed.
+     * Adds a callback that will be called when an entity will be
+     * healed.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
      * @param callback
-     * 此闭包以受限执行权限被调用。
-     *
      * This closure is called with restricted-execution privilege.
      * @returns
-     * 以受限执行权限被调用的闭包。
-     *
      * Closure that is called with restricted-execution privilege.
      */
-    subscribe(callback: (arg0: EntityHealBeforeEvent) => void): (arg0: EntityHealBeforeEvent) => void;
+    subscribe(
+        callback: (arg0: EntityHealBeforeEvent) => void,
+        options?: EntityHealEventOptions,
+    ): (arg0: EntityHealBeforeEvent) => void;
     /**
      * @remarks
-     * 移除一个回调，使其在实体被治愈前不再被调用。
-     *
-     * Removes a callback from being called before an entity is healed.
+     * Removes a callback from being called when an entity will be
+     * healed.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
      * @param callback
-     * 此闭包以受限执行权限被调用。
-     *
      * This closure is called with restricted-execution privilege.
      */
     unsubscribe(callback: (arg0: EntityHealBeforeEvent) => void): void;
@@ -13952,41 +13130,56 @@ export class EntityHealSource {
 }
 
 /**
- * 包含与实体生命值变化相关的数据。
- *
- * Contains data related to an entity's health change.
+ * Contains information related to an entity when its health
+ * changes. Warning: don't change the health of an entity in
+ * this event, or it will cause an infinite loop!
  */
 export class EntityHealthChangedAfterEvent {
     private constructor();
+    /**
+     * @remarks
+     * Entity whose health changed.
+     *
+     */
     readonly entity: Entity;
-    readonly newHealth: number;
-    readonly oldHealth: number;
+    /**
+     * @remarks
+     * New health value of the entity.
+     *
+     */
+    readonly newValue: number;
+    /**
+     * @remarks
+     * Old health value of the entity.
+     *
+     */
+    readonly oldValue: number;
 }
 
 /**
- * 管理与实体生命值变化时相关的回调。
- *
- * Manages callbacks that are connected to when an entity's health changes.
+ * Manages callbacks that are connected to when the health of
+ * an entity changes.
  */
 export class EntityHealthChangedAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * 添加一个回调，将在实体生命值变化时被调用。
-     *
-     * Adds a callback that will be called when an entity's health changes.
+     * Adds a callback that will be called when the health of an
+     * entity changes.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
      */
-    subscribe(callback: (arg0: EntityHealthChangedAfterEvent) => void, options?: EntityEventOptions): (arg0: EntityHealthChangedAfterEvent) => void;
+    subscribe(
+        callback: (arg0: EntityHealthChangedAfterEvent) => void,
+        options?: EntityEventOptions,
+    ): (arg0: EntityHealthChangedAfterEvent) => void;
     /**
      * @remarks
-     * 移除一个回调，使其在实体生命值变化时不再被调用。
-     *
-     * Removes a callback from being called when an entity's health changes.
+     * Removes a callback from being called when the health of an
+     * entity changes.
      *
      * @worldMutation
      *
@@ -14009,45 +13202,60 @@ export class EntityHealthComponent extends EntityAttributeComponent {
 }
 
 /**
- * 包含实体击中方块后的相关信息。
- *
  * Contains information related to an entity hitting a block.
  */
 export class EntityHitBlockAfterEvent {
     private constructor();
-    readonly block: Block;
+    /**
+     * @remarks
+     * Face of the block that was hit.
+     *
+     */
     readonly blockFace: Direction;
-    readonly dimension: Dimension;
-    readonly entity: Entity;
-    readonly faceLocation: Vector3;
-    readonly hitBlockInformation: BlockHitInformation;
-    readonly location: Vector3;
+    /**
+     * @remarks
+     * Entity that made the attack.
+     *
+     */
+    readonly damagingEntity: Entity;
+    /**
+     * @remarks
+     * Block that was hit by the attack.
+     *
+     */
+    readonly hitBlock: Block;
+    /**
+     * @remarks
+     * Block permutation that was hit by the attack.
+     *
+     */
+    readonly hitBlockPermutation: BlockPermutation;
 }
 
 /**
- * 管理与实体击中方块后相关的回调。
- *
- * Manages callbacks that are connected to after an entity hits a block.
+ * Manages callbacks that are connected to when an entity hits
+ * a block.
  */
 export class EntityHitBlockAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * 添加一个回调，将在实体击中方块后被调用。
-     *
-     * Adds a callback that will be called after an entity hits a block.
+     * Adds a callback that will be called when an entity hits a
+     * block.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
      */
-    subscribe(callback: (arg0: EntityHitBlockAfterEvent) => void, options?: EntityEventOptions): (arg0: EntityHitBlockAfterEvent) => void;
+    subscribe(
+        callback: (arg0: EntityHitBlockAfterEvent) => void,
+        options?: EntityEventOptions,
+    ): (arg0: EntityHitBlockAfterEvent) => void;
     /**
      * @remarks
-     * 移除一个回调，使其在实体击中方块后不再被调用。
-     *
-     * Removes a callback from being called after an entity hits a block.
+     * Removes a callback from being called when an entity hits a
+     * block.
      *
      * @worldMutation
      *
@@ -14069,29 +13277,29 @@ export class EntityHitEntityAfterEvent {
 }
 
 /**
- * 管理与实体击中另一个实体后相关的回调。
- *
- * Manages callbacks that are connected to after an entity hits another entity.
+ * Manages callbacks that are connected to when an entity makes
+ * a melee attack on another entity.
  */
 export class EntityHitEntityAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * 添加一个回调，将在实体击中另一个实体后被调用。
-     *
-     * Adds a callback that will be called after an entity hits another entity.
+     * Adds a callback that will be called when an entity hits
+     * another entity.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
      */
-    subscribe(callback: (arg0: EntityHitEntityAfterEvent) => void, options?: EntityEventOptions): (arg0: EntityHitEntityAfterEvent) => void;
+    subscribe(
+        callback: (arg0: EntityHitEntityAfterEvent) => void,
+        options?: EntityEventOptions,
+    ): (arg0: EntityHitEntityAfterEvent) => void;
     /**
      * @remarks
-     * 移除一个回调，使其在实体击中另一个实体后不再被调用。
-     *
-     * Removes a callback from being called after an entity hits another entity.
+     * Removes a callback from being called when an entity makes a
+     * melee attack on another entity.
      *
      * @worldMutation
      *
@@ -14500,13 +13708,22 @@ export class EntityIsTamedComponent extends EntityComponent {
 }
 
 /**
- * 为实体添加物品栏属性。
- *
- * Adds inventory properties to an entity.
+ * If added onto the entity, this indicates that the entity
+ * represents a free-floating item in the world. Lets you
+ * retrieve the actual item stack contents via the itemStack
+ * property.
+ * @seeExample testThatEntityIsFeatherItem.ts
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityItemComponent extends EntityComponent {
     private constructor();
+    /**
+     * @remarks
+     * Item stack represented by this entity in the world.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly itemStack: ItemStack;
     static readonly componentId = 'minecraft:item';
 }
 
@@ -14726,29 +13943,27 @@ export class EntityItemPickupBeforeEventSignal {
 }
 
 /**
- * 战利品物品条件，检查战利品来源是否被击杀。
- *
- * Loot item condition to check that the loot source was killed.
+ * Loot item condition that checks the entity type of the
+ * entity dropping its loot.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityKilledCondition extends LootItemCondition {
     private constructor();
-    readonly killedEntity: string;
-    readonly killedEntityType: string;
+    /**
+     * @remarks
+     * The entity type required for this condition to pass.
+     * Example: 'minecraft:skeleton'.
+     *
+     */
+    readonly entityType: string;
 }
 
 /**
- * 定义实体在熔岩中的移动速度。
- *
- * Defines the lava movement speed of an entity.
+ * Defines the base movement speed in lava of this entity.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
-export class EntityLavaMovementComponent extends EntityComponent {
+export class EntityLavaMovementComponent extends EntityAttributeComponent {
     private constructor();
-    /**
-     * @throws This property can throw when used.
-     */
-    readonly value: number;
     static readonly componentId = 'minecraft:lava_movement';
 }
 
@@ -14862,13 +14077,20 @@ export class EntityLeashableComponent extends EntityComponent {
 }
 
 /**
- * 包含实体已加载后的相关数据。
- *
- * Contains data related to an entity after it has been loaded.
+ * Contains data related to an entity loaded within the world.
+ * This could happen when an unloaded chunk is reloaded, or
+ * when an entity changes dimensions.
  */
 export class EntityLoadAfterEvent {
     private constructor();
-    readonly entity: Entity;
+    /**
+     * @remarks
+     * Entity that was loaded.
+     *
+     * @worldMutation
+     *
+     */
+    entity: Entity;
 }
 
 /**
@@ -14942,12 +14164,10 @@ export class EntityMovementBasicComponent extends EntityBaseMovementComponent {
 }
 
 /**
- * 定义实体的移动属性。
- *
- * Defines the movement properties of an entity.
+ * Defines the general movement speed of this entity.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
-export class EntityMovementComponent extends EntityComponent {
+export class EntityMovementComponent extends EntityAttributeComponent {
     private constructor();
     static readonly componentId = 'minecraft:movement';
 }
@@ -14975,13 +14195,25 @@ export class EntityMovementGenericComponent extends EntityBaseMovementComponent 
 }
 
 /**
- * 允许该实体滑翔移动。
- *
- * Allows this entity to move by gliding.
+ * When added, this movement control allows the mob to glide.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityMovementGlideComponent extends EntityBaseMovementComponent {
     private constructor();
+    /**
+     * @remarks
+     * Speed in effect when the entity is turning.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly speedWhenTurning: number;
+    /**
+     * @remarks
+     * Start speed during a glide.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly startSpeed: number;
     static readonly componentId = 'minecraft:movement.glide';
 }
 
@@ -15019,35 +14251,194 @@ export class EntityMovementSkipComponent extends EntityBaseMovementComponent {
 }
 
 /**
- * 允许该实体摆动移动。
- *
- * Allows this entity to move by swaying.
+ * When added, this move control causes the mob to sway side to
+ * side giving the impression it is swimming.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityMovementSwayComponent extends EntityBaseMovementComponent {
     private constructor();
+    /**
+     * @remarks
+     * Amplitude of the sway motion.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly swayAmplitude: number;
+    /**
+     * @remarks
+     * Amount of sway frequency.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly swayFrequency: number;
     static readonly componentId = 'minecraft:movement.sway';
 }
 
 /**
- * 允许该实体在方块上攀爬。
- *
- * Allows this entity to climb blocks.
+ * Allows this entity to generate paths that include vertical
+ * walls (for example, like Minecraft spiders do.)
  */
 // @ts-ignore Class inheritance allowed for native defined classes
-export class EntityNavigationClimbComponent extends EntityComponent {
+export class EntityNavigationClimbComponent extends EntityNavigationComponent {
     private constructor();
     static readonly componentId = 'minecraft:navigation.climb';
 }
 
 /**
- * 允许实体导航的基类组件。
- *
- * Base class component for allowing entity navigation.
+ * Allows this entity to generate paths that include vertical
+ * walls (for example, like Minecraft spiders do.)
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityNavigationComponent extends EntityComponent {
     private constructor();
+    /**
+     * @remarks
+     * Tells the pathfinder to avoid blocks that cause damage when
+     * finding a path.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly avoidDamageBlocks: boolean;
+    /**
+     * @remarks
+     * Tells the pathfinder to avoid portals (like nether portals)
+     * when finding a path.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly avoidPortals: boolean;
+    /**
+     * @remarks
+     * Whether or not the pathfinder should avoid tiles that are
+     * exposed to the sun when creating paths.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly avoidSun: boolean;
+    /**
+     * @remarks
+     * Tells the pathfinder to avoid water when creating a path.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly avoidWater: boolean;
+    /**
+     * @remarks
+     * Tells the pathfinder whether or not it can jump out of water
+     * (like a dolphin).
+     *
+     * @throws This property can throw when used.
+     */
+    readonly canBreach: boolean;
+    /**
+     * @remarks
+     * Tells the pathfinder that it can path through a closed door
+     * and break it.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly canBreakDoors: boolean;
+    /**
+     * @remarks
+     * Tells the pathfinder whether or not it can float.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly canFloat: boolean;
+    /**
+     * @remarks
+     * Tells the pathfinder whether or not it can jump up blocks.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly canJump: boolean;
+    /**
+     * @remarks
+     * Tells the pathfinder that it can path through a closed door
+     * assuming the AI will open the door.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly canOpenDoors: boolean;
+    /**
+     * @remarks
+     * Tells the pathfinder that it can path through a closed iron
+     * door assuming the AI will open the door.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly canOpenIronDoors: boolean;
+    /**
+     * @remarks
+     * Whether a path can be created through a door.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly canPassDoors: boolean;
+    /**
+     * @remarks
+     * Tells the pathfinder that it can start pathing when in the
+     * air.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly canPathFromAir: boolean;
+    /**
+     * @remarks
+     * Tells the pathfinder whether or not it can travel on the
+     * surface of the lava.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly canPathOverLava: boolean;
+    /**
+     * @remarks
+     * Tells the pathfinder whether or not it can travel on the
+     * surface of the water.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly canPathOverWater: boolean;
+    /**
+     * @remarks
+     * Tells the pathfinder whether or not it will be pulled down
+     * by gravity while in water.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly canSink: boolean;
+    /**
+     * @remarks
+     * Tells the pathfinder whether or not it can path anywhere
+     * through water and plays swimming animation along that path.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly canSwim: boolean;
+    /**
+     * @remarks
+     * Tells the pathfinder whether or not it can walk on the
+     * ground outside water.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly canWalk: boolean;
+    /**
+     * @remarks
+     * Tells the pathfinder whether or not it can travel in lava
+     * like walking on ground.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly canWalkInLava: boolean;
+    /**
+     * @remarks
+     * Tells the pathfinder whether or not it can walk on the
+     * ground or go underwater.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly isAmphibious: boolean;
 }
 
 /**
@@ -15150,13 +14541,18 @@ export class EntityNpcComponent extends EntityComponent {
 }
 
 /**
- * 当添加时，此组件表示该实体着火时的行为表现。
- *
- * When added, this component signifies that this entity on fire behavior.
+ * When present on an entity, this entity is on fire.
+ * @seeExample setOnFire.ts
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityOnFireComponent extends EntityComponent {
     private constructor();
+    /**
+     * @remarks
+     * The number of ticks remaining before the fire goes out.
+     *
+     */
+    readonly onFireTicksRemaining: number;
     static readonly componentId = 'minecraft:onfire';
 }
 
@@ -15376,41 +14772,59 @@ export class EntityPushThroughComponent extends EntityComponent {
 }
 
 /**
- * 包含实体被移除后的相关数据。
- *
- * Contains data related to an entity after it is removed.
+ * Data for an event that happens when an entity is removed
+ * from the world (for example, the entity is unloaded because
+ * it is not close to players.)
  */
 export class EntityRemoveAfterEvent {
     private constructor();
-    readonly removedEntity: Entity;
+    /**
+     * @remarks
+     * Id of the entity that was removed.
+     *
+     */
     readonly removedEntityId: string;
-    readonly removedEntityTypeId: string;
+    /**
+     * @remarks
+     * Identifier of the type of the entity removed - for example,
+     * 'minecraft:skeleton'.
+     *
+     */
+    readonly typeId: string;
 }
 
 /**
- * 管理与实体被移除后相关的回调。
- *
- * Manages callbacks that are connected to after an entity is removed.
+ * Allows registration for an event that fires when an entity
+ * is removed from  the game (for example, unloaded, or a few
+ * seconds after they are dead.)
  */
 export class EntityRemoveAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * 添加一个回调，将在实体被移除后被调用。
-     *
-     * Adds a callback that will be called after an entity is removed.
+     * Will call your function every time an entity is removed from
+     * the game.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
+     * @param callback
+     * Function to call.
+     * @param options
+     * Additional filtering options for this event.
+     * @returns
+     * Returns a closure that can be used in subsequent unsubscribe
+     * operations.
      */
-    subscribe(callback: (arg0: EntityRemoveAfterEvent) => void, options?: EntityEventOptions): (arg0: EntityRemoveAfterEvent) => void;
+    subscribe(
+        callback: (arg0: EntityRemoveAfterEvent) => void,
+        options?: EntityEventOptions,
+    ): (arg0: EntityRemoveAfterEvent) => void;
     /**
      * @remarks
-     * 移除一个回调，使其在实体被移除后不再被调用。
-     *
-     * Removes a callback from being called after an entity is removed.
+     * Unsubscribes your function from subsequent calls when an
+     * entity is removed.
      *
      * @worldMutation
      *
@@ -15421,15 +14835,18 @@ export class EntityRemoveAfterEventSignal {
 }
 
 /**
- * 包含实体被移除前的相关数据。
- *
- * Contains data related to an entity before it is removed.
+ * Data for an event that happens when an entity is being
+ * removed from the world (for example, the entity is unloaded
+ * because it is not close to players.)
  */
 export class EntityRemoveBeforeEvent {
     private constructor();
+    /**
+     * @remarks
+     * Reference to an entity that is being removed.
+     *
+     */
     readonly removedEntity: Entity;
-    readonly removedEntityId: string;
-    readonly removedEntityTypeId: string;
 }
 
 /**
@@ -15624,13 +15041,19 @@ export class EntityRideableComponent extends EntityComponent {
 }
 
 /**
- * 当添加时，此组件表示该实体正在骑乘另一个实体。
- *
- * When added, this component signifies that this entity is riding another entity.
+ * This component is added to any entity when it is riding
+ * another entity.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityRidingComponent extends EntityComponent {
     private constructor();
+    /**
+     * @remarks
+     * The entity this entity is currently riding on.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly entityRidingOn: Entity;
     static readonly componentId = 'minecraft:riding';
 }
 
@@ -15661,56 +15084,77 @@ export class EntityScaleComponent extends EntityComponent {
 }
 
 /**
- * 定义实体的皮肤 ID（材质变体）。
- *
- * Defines the entity's skin ID (texture variant).
+ * Skin Id value. Can be used to differentiate skins, such as
+ * base skins for villagers.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntitySkinIdComponent extends EntityComponent {
     private constructor();
+    /**
+     * @remarks
+     * Returns the value of the skin Id identifier of the entity.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly value: number;
     static readonly componentId = 'minecraft:skin_id';
 }
 
 /**
- * 包含实体生成后的相关数据。
- *
- * Contains data related to an entity after it is spawned.
+ * Contains data related to an entity spawning within the
+ * world.
+ * @seeExample logEntitySpawnEvent.ts
  */
 export class EntitySpawnAfterEvent {
     private constructor();
+    /**
+     * @remarks
+     * Initialization cause (Spawned, Born ...).
+     *
+     */
     readonly cause: EntityInitializationCause;
-    readonly entity: Entity;
+    /**
+     * @remarks
+     * Entity that was spawned.
+     *
+     * @worldMutation
+     *
+     */
+    entity: Entity;
 }
 
 /**
- * 管理与实体生成后相关的回调。
- *
- * Manages callbacks that are connected to after an entity is spawned.
+ * Registers a script-based event handler for handling what
+ * happens when an entity spawns.
  */
 export class EntitySpawnAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * 添加一个回调，将在实体生成后被调用。
-     *
-     * Adds a callback that will be called after an entity is spawned.
+     * Method to register an event handler for what happens when an
+     * entity spawns.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
+     * @param callback
+     * Function that handles the spawn event.
+     * @seeExample logEntitySpawnEvent.ts
      */
-    subscribe(callback: (arg0: EntitySpawnAfterEvent) => void, options?: EntityEventOptions): (arg0: EntitySpawnAfterEvent) => void;
+    subscribe(callback: (arg0: EntitySpawnAfterEvent) => void): (arg0: EntitySpawnAfterEvent) => void;
     /**
      * @remarks
-     * 移除一个回调，使其在实体生成后不再被调用。
-     *
-     * Removes a callback from being called after an entity is spawned.
+     * Unregisters a method that was previously subscribed to the
+     * subscription event.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
+     * @param callback
+     * Original function that was passed into the subscribe event,
+     * that is to be unregistered.
      */
     unsubscribe(callback: (arg0: EntitySpawnAfterEvent) => void): void;
 }
@@ -15726,29 +15170,30 @@ export class EntityStartSneakingAfterEvent {
 }
 
 /**
- * 管理与实体开始潜行后相关的回调。
- *
- * Manages callbacks that are connected to after an entity starts sneaking.
+ * @beta
+ * Manages callbacks that are connected to when an entity
+ * begins sneaking.
  */
 export class EntityStartSneakingAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * 添加一个回调，将在实体开始潜行后被调用。
-     *
-     * Adds a callback that will be called after an entity starts sneaking.
+     * Adds a callback that will be called when an entity begins
+     * sneaking.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
      */
-    subscribe(callback: (arg0: EntityStartSneakingAfterEvent) => void): (arg0: EntityStartSneakingAfterEvent) => void;
+    subscribe(
+        callback: (arg0: EntityStartSneakingAfterEvent) => void,
+        options?: EntitySneakingChangedEventOptions,
+    ): (arg0: EntityStartSneakingAfterEvent) => void;
     /**
      * @remarks
-     * 移除一个回调，使其在实体开始潜行后不再被调用。
-     *
-     * Removes a callback from being called after an entity starts sneaking.
+     * Removes a callback from being called when an entity begins
+     * sneaking.
      *
      * @worldMutation
      *
@@ -15769,29 +15214,30 @@ export class EntityStopSneakingAfterEvent {
 }
 
 /**
- * 管理与实体停止潜行后相关的回调。
- *
- * Manages callbacks that are connected to after an entity stops sneaking.
+ * @beta
+ * Manages callbacks that are connected to when an entity stops
+ * sneaking.
  */
 export class EntityStopSneakingAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * 添加一个回调，将在实体停止潜行后被调用。
-     *
-     * Adds a callback that will be called after an entity stops sneaking.
+     * Adds a callback that will be called when an entity stops
+     * sneaking.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
      */
-    subscribe(callback: (arg0: EntityStopSneakingAfterEvent) => void): (arg0: EntityStopSneakingAfterEvent) => void;
+    subscribe(
+        callback: (arg0: EntityStopSneakingAfterEvent) => void,
+        options?: EntitySneakingChangedEventOptions,
+    ): (arg0: EntityStopSneakingAfterEvent) => void;
     /**
      * @remarks
-     * 移除一个回调，使其在实体停止潜行后不再被调用。
-     *
-     * Removes a callback from being called after an entity stops sneaking.
+     * Removes a callback from being called when an entity stops
+     * sneaking.
      *
      * @worldMutation
      *
@@ -15802,63 +15248,122 @@ export class EntityStopSneakingAfterEventSignal {
 }
 
 /**
- * 定义该实体的强度属性，用于决定该实体可携带装备的数量。
- *
- * Defines the entity's strength, which determines the amount of equipment the entity can carry.
+ * Defines the entity's ability to carry items. An entity with
+ * a higher strength would have higher potential carry capacity
+ * and more item slots.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityStrengthComponent extends EntityComponent {
     private constructor();
+    /**
+     * @remarks
+     * Maximum strength of this entity, as defined in the entity
+     * type definition.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly max: number;
+    /**
+     * @remarks
+     * Current value of the strength component that has been set
+     * for entities.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly value: number;
     static readonly componentId = 'minecraft:strength';
 }
 
 /**
- * 定义实体的可驯服属性。
- *
- * Defines the tameable properties of an entity.
+ * Defines the rules for an entity to be tamed by the player.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityTameableComponent extends EntityComponent {
     private constructor();
+    /**
+     * @remarks
+     * Returns a set of items that can be used to tame this entity.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly getTameItems: ItemStack[];
+    /**
+     * @remarks
+     * Returns true if the entity is tamed by player.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly isTamed: boolean;
+    /**
+     * @remarks
+     * The chance of taming the entity with each item use between
+     * 0.0 and 1.0, where 1.0 is 100%
+     *
+     * @throws This property can throw when used.
+     */
+    readonly probability: number;
+    /**
+     * @remarks
+     * Returns the player that has tamed the entity, or 'undefined'
+     * if entity is not tamed.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly tamedToPlayer?: Player;
+    /**
+     * @remarks
+     * Returns the id of player that has tamed the entity, or
+     * 'undefined' if entity is not tamed.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly tamedToPlayerId?: string;
     static readonly componentId = 'minecraft:tameable';
+    /**
+     * @remarks
+     * Set this entity as tamed by the given player.
+     *
+     * @worldMutation
+     *
+     * @param player
+     * The player that this entity should be tamed by.
+     * @returns
+     * Returns true if the entity was tamed.
+     * @throws This function can throw errors.
+     */
+    tame(player: Player): boolean;
 }
 
 /**
- * 包含实体被驯服后的相关数据。
- *
- * Contains data related to an entity after it is tamed.
+ * @rc
+ * Contains data related to an entity being tamed.
  */
 export class EntityTamedAfterEvent {
     private constructor();
     readonly entity: Entity;
-    readonly player: Player;
+    readonly tamingEntity: Entity;
 }
 
 /**
- * 管理与实体被驯服后相关的回调。
- *
- * Manages callbacks that are connected to after an entity is tamed.
+ * @rc
+ * Manages callbacks that are connected to when an entity is
+ * tamed.
  */
 export class EntityTamedAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * 添加一个回调，将在实体被驯服后被调用。
-     *
-     * Adds a callback that will be called after an entity is tamed.
-     *
      * @worldMutation
      *
      * @earlyExecution
      *
      */
-    subscribe(callback: (arg0: EntityTamedAfterEvent) => void, options?: EntityEventOptions): (arg0: EntityTamedAfterEvent) => void;
+    subscribe(
+        callback: (arg0: EntityTamedAfterEvent) => void,
+        options?: EntityTamedEventOptions,
+    ): (arg0: EntityTamedAfterEvent) => void;
     /**
      * @remarks
-     * 移除一个回调，使其在实体被驯服后不再被调用。
-     *
-     * Removes a callback from being called after an entity is tamed.
-     *
      * @worldMutation
      *
      * @earlyExecution
@@ -15868,46 +15373,62 @@ export class EntityTamedAfterEventSignal {
 }
 
 /**
- * 包含实体被驯服前的相关数据。
- *
- * Contains data related to an entity before it is tamed.
+ * @rc
+ * Contains information regarding an event before an entity is
+ * tamed.
  */
 export class EntityTamedBeforeEvent {
     private constructor();
+    /**
+     * @remarks
+     * When set to true will cancel the event.
+     *
+     */
     cancel: boolean;
+    /**
+     * @remarks
+     * The entity that is being tamed.
+     *
+     */
     readonly entity: Entity;
-    readonly player: Player;
+    /**
+     * @remarks
+     * The entity that is attempting to tame the entity.
+     *
+     */
+    readonly tamingEntity: Entity;
 }
 
 /**
- * 管理与实体被驯服前相关的回调。
- *
- * Manages callbacks that are connected to before an entity is tamed.
+ * @rc
+ * Manages callbacks that are connected to before an entity is
+ * tamed.
  */
 export class EntityTamedBeforeEventSignal {
     private constructor();
     /**
      * @remarks
-     * 添加一个回调，将在实体被驯服前调用。
-     *
-     * Adds a callback that will be called before an entity is tamed.
-     *
      * @worldMutation
      *
      * @earlyExecution
      *
+     * @param callback
+     * This closure is called with restricted-execution privilege.
+     * @returns
+     * Closure that is called with restricted-execution privilege.
      */
-    subscribe(callback: (arg0: EntityTamedBeforeEvent) => void): (arg0: EntityTamedBeforeEvent) => void;
+    subscribe(
+        callback: (arg0: EntityTamedBeforeEvent) => void,
+        options?: EntityTamedEventOptions,
+    ): (arg0: EntityTamedBeforeEvent) => void;
     /**
      * @remarks
-     * 移除一个回调，使其在实体被驯服前不再被调用。
-     *
-     * Removes a callback from being called before an entity is tamed.
-     *
      * @worldMutation
      *
      * @earlyExecution
      *
+     * @param callback
+     * This closure is called with restricted-execution privilege.
      */
     unsubscribe(callback: (arg0: EntityTamedBeforeEvent) => void): void;
 }
@@ -16028,25 +15549,14 @@ export class EntityType {
 }
 
 // @ts-ignore Class inheritance allowed for native defined classes
-/**
- * 定义此实体的种类。
- *
- * Defines the type family of this entity.
- */
-// @ts-ignore Class inheritance allowed for native defined classes
 export class EntityTypeFamilyComponent extends EntityComponent {
     private constructor();
-    /**
-     * @throws This property can throw when used.
-     */
-    readonly typeFamily: Set<string>;
     static readonly componentId = 'minecraft:type_family';
     /**
-     * @remarks
-     * 检查实体是否具有给定的种类。
-     *
-     * Check if the entity has the given type family.
-     *
+     * @throws This function can throw errors.
+     */
+    getTypeFamilies(): string[];
+    /**
      * @throws This function can throw errors.
      */
     hasTypeFamily(typeFamily: string): boolean;
@@ -16079,54 +15589,66 @@ export class EntityTypes {
 }
 
 /**
- * 定义实体在水下的移动速度。
- *
- * Defines the underwater movement speed of an entity.
+ * Defines the general movement speed underwater of this
+ * entity.
  */
 // @ts-ignore Class inheritance allowed for native defined classes
-export class EntityUnderwaterMovementComponent extends EntityComponent {
+export class EntityUnderwaterMovementComponent extends EntityAttributeComponent {
     private constructor();
-    /**
-     * @throws This property can throw when used.
-     */
-    readonly value: number;
     static readonly componentId = 'minecraft:underwater_movement';
 }
 
 /**
- * 包含实体升级后的相关数据。
- *
- * Contains data related to an entity after it has been upgraded.
+ * Contains information related to firing of a data driven
+ * entity version upgrade.
  */
 export class EntityUpgradeAfterEvent {
     private constructor();
+    /**
+     * @remarks
+     * Entity that the upgrade triggered on.
+     *
+     */
     readonly entity: Entity;
+    /**
+     * @remarks
+     * Name of the data driven upgrade being triggered.
+     *
+     */
+    readonly upgradeId: string;
+    /**
+     * @remarks
+     * An updateable list of modifications to component state that
+     * are the effect of this triggered upgrade.
+     *
+     */
+    getModifiers(): DefinitionModifier[];
 }
 
 /**
- * 管理与实体升级后相关的回调。
- *
- * Manages callbacks that are connected to after an entity is upgraded.
+ * Contains event registration related to firing of a data
+ * driven entity version upgrade.
  */
 export class EntityUpgradeAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * 添加一个回调，将在实体升级后被调用。
-     *
-     * Adds a callback that will be called after an entity is upgraded.
+     * Adds a callback that will be called after a data driven
+     * entity version upgrade is triggered.
      *
      * @worldMutation
      *
      * @earlyExecution
      *
      */
-    subscribe(callback: (arg0: EntityUpgradeAfterEvent) => void): (arg0: EntityUpgradeAfterEvent) => void;
+    subscribe(
+        callback: (arg0: EntityUpgradeAfterEvent) => void,
+        options?: EntityDataDrivenTriggerEventOptions,
+    ): (arg0: EntityUpgradeAfterEvent) => void;
     /**
      * @remarks
-     * 移除一个回调，使其在实体升级后不再被调用。
-     *
-     * Removes a callback from being called after an entity is upgraded.
+     * Removes a callback that will be called after a data driven
+     * entity version upgrade is triggered.
      *
      * @worldMutation
      *
@@ -16137,13 +15659,20 @@ export class EntityUpgradeAfterEventSignal {
 }
 
 /**
- * 定义实体的变体。
- *
- * Defines the entity's variant.
+ * Used to differentiate the component group of a variant of an
+ * entity from others. (e.g. ocelot, villager).
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class EntityVariantComponent extends EntityComponent {
     private constructor();
+    /**
+     * @remarks
+     * Current value for variant for this entity, as specified via
+     * components.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly value: number;
     static readonly componentId = 'minecraft:variant';
 }
 
@@ -16159,14 +15688,47 @@ export class EntityWantsJockeyComponent extends EntityComponent {
 }
 
 /**
- * 表示实体的路径点。
- *
- * Represents a waypoint for an entity.
+ * Waypoint that tracks an entity's position. The waypoint
+ * automatically updates as the entity moves and becomes
+ * invalid when the entity is removed.
  */
-export class EntityWaypoint {
-    private constructor();
-    readonly dimension: Dimension;
-    readonly location: Vector3;
+// @ts-ignore Class inheritance allowed for native defined classes
+export class EntityWaypoint extends Waypoint {
+    /**
+     * @remarks
+     * The entity being tracked by this waypoint.
+     *
+     * @throws This property can throw when used.
+     *
+     * {@link InvalidWaypointError}
+     *
+     * {@link InvalidWaypointTextureSelectorError}
+     */
+    readonly entity: Entity;
+    /**
+     * @remarks
+     * The visibility rules that control when the waypoint is shown
+     * based on the entity's state (e.g., sneaking, invisible,
+     * dead).
+     *
+     * @throws This property can throw when used.
+     *
+     * {@link InvalidWaypointError}
+     *
+     * {@link InvalidWaypointTextureSelectorError}
+     */
+    readonly entityRules: EntityVisibilityRules;
+    /**
+     * @throws This function can throw errors.
+     *
+     * {@link InvalidWaypointTextureSelectorError}
+     */
+    constructor(
+        entity: Entity,
+        textureSelector: WaypointTextureSelector,
+        entityRules: EntityVisibilityRules,
+        color?: RGB,
+    );
 }
 
 /**
@@ -17765,9 +17327,6 @@ export class ItemCompostableComponent extends ItemComponent {
 }
 
 /**
- * 表示物品使用冷却组件。当出现在物品上时，表示该物品被实体使用后会有冷却效果。
- * 注意，若使用后不会进入冷却，原版物品会获取到没有实际作用的该组件。
- *
  * When present on an item, this item has a cooldown effect
  * when used by entities.
  */
@@ -17776,8 +17335,6 @@ export class ItemCooldownComponent extends ItemComponent {
     private constructor();
     /**
      * @remarks
-     * 表示物品的冷却类别。
-     *
      * Represents the cooldown category that this item is
      * associated with.
      *
@@ -17786,8 +17343,6 @@ export class ItemCooldownComponent extends ItemComponent {
     readonly cooldownCategory: string;
     /**
      * @remarks
-     * 物品冷却所需的时间，单位为刻。
-     *
      * Amount of time, in ticks, it will take this item to
      * cooldown.
      *
@@ -17804,62 +17359,21 @@ export class ItemCooldownComponent extends ItemComponent {
     getCooldownTicksRemaining(player: Player): number;
     /**
      * @remarks
-     * 如果物品属于传入的冷却类别则返回 true，否则返回 false。
-     *
      * Will return true if the item is the cooldown category passed
      * in and false otherwise.
      *
      * @worldMutation
      *
      * @param cooldownCategory
-     * 可能与此物品关联的冷却类别。
-     *
      * The cooldown category that might be associated with this
      * item.
      * @returns
-     * 如果物品属于给定的冷却类别则返回 true。
-     *
      * True if the item is the given cooldown category.
      * @throws This function can throw errors.
      */
     isCooldownCategory(cooldownCategory: string): boolean;
     /**
      * @remarks
-     * 此函数无法在只读模式下调用。
-     *
-     * 无法在只读模式下调用此函数，详见 {@link WorldBeforeEvents}。
-     *
-     * @throws This function can throw errors.
-     */
-    getCooldownTicksRemaining(player: Player): number;
-    /**
-     * @remarks
-     * 如果物品属于传入的冷却类别则返回 true，否则返回 false。
-     *
-     * Will return true if the item is the cooldown category passed
-     * in and false otherwise.
-     *
-     * 此函数无法在只读模式下调用。
-     *
-     * 无法在只读模式下调用此函数，详见 {@link WorldBeforeEvents}。
-     *
-     * @param cooldownCategory
-     * 可能与此物品关联的冷却类别。
-     *
-     * The cooldown category that might be associated with this
-     * item.
-     * @returns
-     * 如果物品属于给定的冷却类别则返回 true。
-     *
-     * True if the item is the given cooldown category.
-     * @throws This function can throw errors.
-     */
-    isCooldownCategory(cooldownCategory: string): boolean;
-    /**
-     * @remarks
-     * 开始物品的冷却周期。
-     * 如果物品已在冷却中，将重新开始冷却。
-     *
      * Starts a new cooldown period for this item.
      *
      * @worldMutation
@@ -23730,29 +23244,22 @@ export class PrimitiveShape {
 }
 
 /**
- * 用于允许向世界添加和移除文本图元的 Primitive Shapes 类。
- *
- * Primitive Shapes class used to allow adding and removing text primitives to the world.
+ * Primitive Shapes class used to allow adding and removing
+ * text primitives to the world.
  */
 export class PrimitiveShapesManager {
     private constructor();
     /**
      * @remarks
-     * 这是允许的最大图元形状数量。
-     *
      * This is the maximum number of allowed primitive shapes.
      *
      */
     readonly maxShapes: number;
     /**
      * @remarks
-     * 向世界添加一个新的文本图元。
-     *
      * Adds a new text primitive to the world.
      *
      * @param text
-     * 要添加的文本图元。
-     *
      * The text primitive to be added.
      * @throws This function can throw errors.
      *
@@ -23762,18 +23269,27 @@ export class PrimitiveShapesManager {
      */
     addText(text: TextPrimitive, dimension?: Dimension): void;
     /**
+     * @beta
      * @remarks
-     * 从世界中移除所有文本图元。
+     * Fetches and queries all primitive shapes stored in the
+     * manager and returns the results as an array of shape
+     * handles.
      *
+     * @param options
+     * Optional options for querying existing shapes to narrow down
+     * the results.
+     */
+    getShapes(options?: PrimitiveShapeQueryOptions): PrimitiveShape[];
+    /**
+     * @remarks
      * Removes all text primitives from the world.
      *
      */
     removeAll(): void;
     /**
      * @remarks
-     * 从世界中移除一个文本图元实例。这等同于在文本本身调用 remove。
-     *
-     * Removes an instance of a text primitive from the world. This is equivalent to calling remove on the text itself.
+     * Removes an instance of a text primitive from the world. This
+     * is equivalent to calling remove on the text itself.
      *
      */
     removeText(text: TextPrimitive): void;
@@ -26355,8 +25871,6 @@ export class TargetBlockHitAfterEventSignal {
 /**
  * A primitive shape class that represents a text label in the
  * world with a background.
- *
- * 一个基本形状类，表示世界中带有背景的文本标签。
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class TextPrimitive extends PrimitiveShape {
@@ -26366,7 +25880,6 @@ export class TextPrimitive extends PrimitiveShape {
      * of the background. Defaults to true but will always be false
      * if 'useRotation' is set to false.
      *
-     * 如果设置为 `true`，文本图元将渲染背景的背面。默认为 `true`，但如果 `'useRotation'` 设置为 `false`，则始终为 `false`。
      */
     backfaceVisible: boolean;
     /**
@@ -26374,7 +25887,6 @@ export class TextPrimitive extends PrimitiveShape {
      * The color of the background plate of the text. If set to
      * undefined, it will use the default color.
      *
-     * 文本背景板的颜色。如果设置为 `undefined`，则使用默认颜色。
      */
     backgroundColorOverride?: RGBA;
     /**
@@ -26383,16 +25895,22 @@ export class TextPrimitive extends PrimitiveShape {
      * entities. By default this is set to false (will always
      * render).
      *
-     * 如果设置为 `true`，文本将被方块或实体遮挡。默认设置为 `false`（始终渲染）。
      */
     depthTest: boolean;
+    /**
+     * @beta
+     * @remarks
+     * This value determines the gap between lines for the
+     * TextPrimitive. By default the line gap height is 0.
+     *
+     */
+    lineGapHeight: number;
     /**
      * @remarks
      * Get the text of the debug text shape. Returns the RawText of
      * the debug text if `setText` was called with a RawMessage or
      * a RawText object, otherwise returns a string.
      *
-     * 获取调试文本形状的文本。如果 `setText` 是通过 `RawMessage` 或 `RawText` 对象调用的，则返回调试文本的 `RawText`，否则返回字符串。
      */
     readonly text: RawMessage | string;
     /**
@@ -26401,7 +25919,6 @@ export class TextPrimitive extends PrimitiveShape {
      * of the text. Defaults to true but will always be false if
      * 'useRotation' is set to false.
      *
-     * 如果设置为 `true`，文本图元将渲染文本的背面。默认为 `true`，但如果 `'useRotation'` 设置为 `false`，则始终为 `false`。
      */
     textBackfaceVisible: boolean;
     /**
@@ -26409,15 +25926,12 @@ export class TextPrimitive extends PrimitiveShape {
      * If set to true, the text will not face the camera and
      * instead will use the rotation from the shape.
      *
-     * 如果设置为 `true`，文本将不会面向摄像机，而是使用形状的旋转角度。
      */
     useRotation: boolean;
     constructor(location: DimensionLocation | Vector3, text: RawMessage | string);
     /**
      * @remarks
      * Sets the text to display.
-     *
-     * 设置要显示的文本。
      *
      * @throws This function can throw errors.
      *
@@ -29129,50 +28643,6 @@ export interface CameraTargetOptions {
 }
 
 /**
- * @beta
- * 此接口定义了 {@link CompoundBlockVolume} 中的一个条目，表示一个正空间或负空间的体积。
- *
- * This interface defines an entry into the {@link
- * CompoundBlockVolume} which represents a volume of positive
- * or negative space.
- *
- */
-export interface CompoundBlockVolumeItem {
-    /**
-     * @remarks
-     * "action" 定义了方块体积在复合体积堆栈中的表示方式。
-     * "Add" 创建一个被正向选择的方块体积。
-     * "Subtract" 创建一个表示总体复合体积中空洞或负空间的方块体积。
-     *
-     * The 'action' defines how the block volume is represented in
-     * the compound block volume stack.
-     * 'Add' creates a block volume which is positively selected
-     * 'Subtract' creates a block volume which represents a hole or
-     * negative space in the overall compound block volume.
-     *
-     */
-    action?: CompoundBlockVolumeAction;
-    /**
-     * @remarks
-     * 位置关系枚举决定了指定的 `BlockVolume` 是相对于父复合体积原点定位，还是位于绝对世界坐标中。
-     *
-     * The relativity enumeration determines whether the
-     * BlockVolume specified is positioned relative to the parent
-     * compound block volume origin, or in absolute world space.
-     *
-     */
-    locationRelativity?: CompoundBlockVolumePositionRelativity;
-    /**
-     * @remarks
-     * 空间的体积。
-     *
-     * The volume of space
-     *
-     */
-    volume: BlockVolume;
-}
-
-/**
  * 表示容器访问的来源。
  *
  * Represents the source of a container access.
@@ -30270,12 +29740,10 @@ export interface EntitySneakingChangedEventOptions {
 }
 
 /**
- * @beta
- * 包含过滤实体驯服事件的选项。
- *
+ * @rc
  * Contains options for filtering entity tamed events.
  */
-export interface EntityTamedEventFilter {
+export interface EntityTamedEventOptions {
     entityFilter?: EntityFilter;
     tamingEntityFilter?: EntityFilter;
 }
@@ -31051,6 +30519,43 @@ export interface PlayerVisibilityRules extends EntityVisibilityRules {
      *
      */
     showSpectatorToSpectator?: boolean;
+}
+
+/**
+ * @beta
+ * Contains optional filters that control which primitive
+ * shapes are returned from a primitive shapes query.
+ */
+export interface PrimitiveShapeQueryOptions {
+    /**
+     * @remarks
+     * If specified, only returns shapes attached to this entity.
+     *
+     */
+    attachedTo?: Entity;
+    /**
+     * @remarks
+     * Adds a seed location to the query that is used in
+     * conjunction with distance properties.
+     *
+     */
+    location?: Vector3;
+    /**
+     * @remarks
+     * If specified, only includes shapes that are less than this
+     * distance away from the location specified in the location
+     * property.
+     *
+     */
+    maxDistance?: number;
+    /**
+     * @remarks
+     * If specified, only includes shapes that are at least this
+     * distance away from the location specified in the location
+     * property.
+     *
+     */
+    minDistance?: number;
 }
 
 /**

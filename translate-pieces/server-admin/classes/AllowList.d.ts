@@ -1,6 +1,6 @@
 /* IMPORT */ import { InvalidArgumentError } from '../../common';
 /* IMPORT */ import { InvalidEntityError, Player } from '../../server';
-/* IMPORT */ import { AllowListEntry, AllowListEntryNameInfo, AllowListFileReloadError, AllowListModificationError } from '..';
+/* IMPORT */ import { AllowListEntry, AllowListFileReloadError, AllowListModificationError } from '..';
 
 /**
  * Controls the allow list for the server. Only available on
@@ -26,13 +26,9 @@ export class AllowList {
      *
      * @worldMutation
      *
-     * @param playerDetails
+     * @param player
      * Player or player name that should be added to the allow
      * list.
-     * @param ignorePlayerLimit
-     * If true, the player will be allowed onto the server even if
-     * the server is at its player limit.
-     * Defaults to: false
      * @throws This function can throw errors.
      *
      * {@link AllowListModificationError}
@@ -41,7 +37,7 @@ export class AllowList {
      *
      * {@link InvalidEntityError}
      */
-    add(playerDetails: AllowListEntryNameInfo | Player, ignorePlayerLimit?: boolean): void;
+    add(player: AllowListEntry | Player): void;
     /**
      * @remarks
      * Clears the allow list, removing all entries.
@@ -54,7 +50,7 @@ export class AllowList {
      * @remarks
      * Returns if the player is in the server's allow list.
      *
-     * @param playerDetails
+     * @param player
      * Player or player name that should be checked for.
      * @throws This function can throw errors.
      *
@@ -62,7 +58,7 @@ export class AllowList {
      *
      * {@link InvalidEntityError}
      */
-    contains(playerDetails: AllowListEntryNameInfo | Player): boolean;
+    contains(player: AllowListEntry | Player): boolean;
     /**
      * @remarks
      * Reloads the server's allow list from disk.
@@ -80,7 +76,7 @@ export class AllowList {
      *
      * @worldMutation
      *
-     * @param playerDetails
+     * @param player
      * Player or player name that should be removed from the allow
      * list.
      * @throws This function can throw errors.
@@ -91,5 +87,5 @@ export class AllowList {
      *
      * {@link InvalidEntityError}
      */
-    remove(playerDetails: AllowListEntryNameInfo | Player): void;
+    remove(player: AllowListEntry | Player): void;
 }

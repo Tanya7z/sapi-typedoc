@@ -20,7 +20,7 @@
  *
  */
 import { ArgumentOutOfBoundsError, InvalidArgumentError } from '@minecraft/common';
-import { BiomeType, BlockBoundingBox, BlockLocationIterator, BlockPermutation, BlockType, BlockVolume, BlockVolumeBase, CompoundBlockVolume, Difficulty, Entity, GameMode, GraphicsMode, InvalidStructureError, ItemType, ListBlockVolume, Player, PlayerPermissionLevel, PlayerWaypointsMode, RGB, RGBA, StructureMirrorAxis, StructureRotation, Vector2, Vector3, VectorXZ, WorldAfterEvents } from '@minecraft/server';
+import { BiomeType, BlockBoundingBox, BlockLocationIterator, BlockPermutation, BlockType, BlockVolume, BlockVolumeBase, Difficulty, Entity, GameMode, GraphicsMode, InvalidStructureError, ItemType, ListBlockVolume, Player, PlayerPermissionLevel, PlayerWaypointsMode, RGB, RGBA, StructureMirrorAxis, StructureRotation, Vector2, Vector3, VectorXZ, WorldAfterEvents } from '@minecraft/server';
 // @ts-ignore Optional types-only package, will decay to any if @minecraft/vanilla-data isn't installed
 import type { BlockStateSuperset } from '@minecraft/vanilla-data';
 /**
@@ -65,6 +65,23 @@ export enum BlockPaletteItemType {
 export declare enum BlockTableOperationType {
     Deselect = 'deselect',
     Replace = 'replace',
+}
+
+export enum BlockUtilityExtrudeDirection {
+    Down = 0,
+    Up = 1,
+    North = 2,
+    South = 3,
+    West = 4,
+    East = 5,
+}
+
+export enum BlockUtilityFloodMatchCriteria {
+    NonAir = 0,
+    SameBlockType = 1,
+    Solid = 2,
+    Custom = 3,
+    SameBlockTypeAndStates = 4,
 }
 
 /**
@@ -452,6 +469,12 @@ export declare enum KeyboardKey {
     ALT = 18,
     /**
      * @remarks
+     * KeyboardEvent.DOM_VK_PAUSE
+     *
+     */
+    PAUSE = 19,
+    /**
+     * @remarks
      * KeyboardEvent.DOM_VK_CAPS_LOCK
      *
      */
@@ -752,6 +775,24 @@ export declare enum KeyboardKey {
     KEY_Z = 90,
     /**
      * @remarks
+     * KeyboardEvent.Meta_LEFT, ie. Left Windows key
+     *
+     */
+    WINDOWS_LEFT = 91,
+    /**
+     * @remarks
+     * KeyboardEvent.Meta_RIGHT, ie. Right Windows key
+     *
+     */
+    WINDOWS_RIGHT = 92,
+    /**
+     * @remarks
+     * KeyboardEvent.DOM_VK_CONTEXT_MENU, ie. Context Menu key
+     *
+     */
+    CONTEXT_MENU = 93,
+    /**
+     * @remarks
      * KeyboardEvent.DOM_VK_NUMPAD0
      *
      */
@@ -920,16 +961,40 @@ export declare enum KeyboardKey {
     F12 = 123,
     /**
      * @remarks
+     * KeyboardEvent.DOM_VK_NUM_LOCK
+     *
+     */
+    NUM_LOCK = 144,
+    /**
+     * @remarks
+     * KeyboardEvent.DOM_VK_SCROLL_LOCK
+     *
+     */
+    SCROLL_LOCK = 145,
+    /**
+     * @remarks
      * KeyboardEvent.DOM_VK_SEMICOLON, ie. ';'
      *
      */
     SEMICOLON = 186,
     /**
      * @remarks
+     * KeyboardEvent.DOM_VK_EQUALS, ie. '='
+     *
+     */
+    EQUALS = 187,
+    /**
+     * @remarks
      * KeyboardEvent.DOM_VK_COMMA, ie. ','
      *
      */
     COMMA = 188,
+    /**
+     * @remarks
+     * KeyboardEvent.DOM_VK_HYPHEN, ie. '-'
+     *
+     */
+    HYPHEN = 189,
     /**
      * @remarks
      * KeyboardEvent.DOM_VK_PERIOD, ie. '.'
@@ -1426,6 +1491,11 @@ export enum ThemeSettingsColorKey {
 export declare enum TimelinePlayerPlaybackState {
     Playing = 'playing',
     Stopped = 'stopped',
+}
+
+export enum TransactionProcessState {
+    Ended = 'Ended',
+    Started = 'Started',
 }
 
 export enum WidgetCollisionType {
@@ -2298,7 +2368,7 @@ export class BlockUtilities {
      * @throws This function can throw errors.
      */
     fillVolume(
-        volume: BlockVolumeBase | CompoundBlockVolume | RelativeVolumeListBlockVolume,
+        volume: BlockVolumeBase | RelativeVolumeListBlockVolume,
         block?: BlockPermutation | BlockType | string,
     ): void;
     /**
@@ -2315,7 +2385,7 @@ export class BlockUtilities {
      *
      * @throws This function can throw errors.
      */
-    getContiguousSelection(properties?: ContiguousSelectionProperties): CompoundBlockVolume;
+    getContiguousSelection(properties?: ContiguousSelectionProperties): RelativeVolumeListBlockVolume;
     /**
      * @remarks
      * @worldMutation
@@ -2381,6 +2451,110 @@ export class BlockUtilities {
         ignoreNoCollision: boolean,
         blockMask?: BlockMaskList,
     ): RelativeVolumeListBlockVolume;
+}
+
+export class BlockUtilityTasks {
+    private constructor();
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    extrude(
+        location: Vector3,
+        direction?: BlockUtilityExtrudeDirection,
+        faceRadius?: number,
+        layerCount?: number,
+        isShrink?: boolean,
+        criteria?: BlockUtilityFloodMatchCriteria,
+        customBlockList?: string[],
+        maxBlocksPerTick?: number,
+        buildGeometry?: boolean,
+        tolerance?: number,
+        faceVolume?: BlockVolumeBase | RelativeVolumeListBlockVolume,
+    ): Promise<RelativeVolumeListBlockVolume>;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    fillVolume(
+        volume: BlockVolumeBase | RelativeVolumeListBlockVolume,
+        block?: BlockPermutation | BlockType | string,
+        maxBlocksPerTick?: number,
+    ): Promise<number>;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    findObscuredBlocksWithinVolume(
+        volume: BlockVolumeBase | RelativeVolumeListBlockVolume,
+        maxBlocksPerTick?: number,
+    ): Promise<RelativeVolumeListBlockVolume>;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    floodSearch(
+        location: Vector3,
+        criteria?: BlockUtilityFloodMatchCriteria,
+        radius?: number,
+        customBlockList?: string[],
+        maxResultBlocks?: number,
+        maxBlocksPerTick?: number,
+    ): Promise<RelativeVolumeListBlockVolume>;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    generateManifest(
+        volume: BlockVolumeBase | RelativeVolumeListBlockVolume,
+        maxBlocksPerTick?: number,
+    ): Promise<BlockUtilityManifest>;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    replaceBlocksInSelection(
+        volume: BlockVolumeBase | RelativeVolumeListBlockVolume,
+        fromBlockIdentifier: string,
+        toBlock?: BlockPermutation | BlockType | string,
+        maxBlocksPerTick?: number,
+    ): Promise<number>;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    shrinkWrapVolume(
+        volume: BlockVolumeBase | RelativeVolumeListBlockVolume,
+        maxBlocksPerTick?: number,
+    ): Promise<RelativeVolumeListBlockVolume>;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    trimVolumeToFitContents(
+        volume: BlockVolumeBase | RelativeVolumeListBlockVolume,
+        retainMarqueeAfterTrimming: boolean,
+        ignoreLiquid: boolean,
+        ignoreNoCollision: boolean,
+        blockMask?: BlockMaskList,
+        maxBlocksPerTick?: number,
+    ): Promise<RelativeVolumeListBlockVolume>;
 }
 
 /**
@@ -2618,6 +2792,12 @@ export class BrushShapeManager {
      * @worldMutation
      *
      */
+    setPendingTransaction(pendingTransaction?: PendingTransaction): void;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     */
     setTerrainStrength(terrainStrength: number): void;
     /**
      * @remarks
@@ -2733,7 +2913,11 @@ export class ClipboardItem {
      * Success or Failure
      * @throws This function can throw errors.
      */
-    writeToWorld(location: Vector3, options?: ClipboardWriteOptions): boolean;
+    writeToWorld(
+        location: Vector3,
+        options?: ClipboardWriteOptions,
+        transaction?: PendingTransaction,
+    ): boolean;
 }
 
 /**
@@ -3471,6 +3655,7 @@ export class ExtensionContext {
     readonly afterEvents: ExtensionContextAfterEvents;
     readonly blockPalette: BlockPaletteManager;
     readonly blockUtilities: BlockUtilities;
+    readonly blockUtilityTasks: BlockUtilityTasks;
     readonly brushShapeManager: BrushShapeManager;
     /**
      * @remarks
@@ -4118,6 +4303,94 @@ export declare abstract class ObservableValidator<T> {
     abstract validate(newValue: T): T | undefined;
 }
 
+export class PendingTransaction {
+    private constructor();
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    addEntityOperation(entity: Entity, type: EntityOperationType): boolean;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    addUserDefinedOperation(
+        transactionHandler: UserDefinedTransactionOperationHandler,
+        operationData: string,
+        operationName?: string,
+    ): void;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    addVolumeListOperation(
+        operationHandler: VolumeListTransactionOperationHandler,
+        previous: RelativeVolumeListBlockVolume[],
+        current: RelativeVolumeListBlockVolume[],
+    ): void;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    commitTrackedChanges(): number;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    discard(): void;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    discardTrackedChanges(): number;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     */
+    isValid(): boolean;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    submit(transactionHandler?: TransactionHandler): void;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    trackBlockChangeArea(from: Vector3, to: Vector3): boolean;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    trackBlockChangeList(locations: Vector3[]): boolean;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    trackBlockChangeVolume(blockVolume: BlockVolumeBase): boolean;
+}
+
 export class PlaytestManager {
     private constructor();
     /**
@@ -4237,6 +4510,7 @@ export class RelativeVolumeListBlockVolume extends BlockVolumeBase {
      *
      */
     clear(): void;
+    clone(): RelativeVolumeListBlockVolume;
     /**
      * @remarks
      * @worldMutation
@@ -4593,6 +4867,42 @@ export class ThemeSettings {
     updateThemeColor(id: string, key: ThemeSettingsColorKey, newColor: RGBA): void;
 }
 
+export class TransactionEvent {
+    private constructor();
+    readonly error?: Error;
+    readonly isUndo: boolean;
+    readonly state: TransactionProcessState;
+}
+
+export class TransactionHandler {
+    private constructor();
+    readonly id: string;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    addUserDefinedOperationHandler(payloadClosure: (arg0: string) => void): UserDefinedTransactionOperationHandler;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    addVolumeListOperationHandler(
+        closure: (arg0: RelativeVolumeListBlockVolume[]) => void,
+    ): VolumeListTransactionOperationHandler;
+    isValid(): boolean;
+    /**
+     * @remarks
+     * @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
+    unregister(): void;
+}
+
 /**
  * The Transaction Manager is responsible for tracking and
  * managing all of the registered transaction operations which
@@ -4613,105 +4923,7 @@ export class TransactionManager {
      *
      * @throws This function can throw errors.
      */
-    addEntityOperation(entity: Entity, type: EntityOperationType): boolean;
-    /**
-     * @remarks
-     * @worldMutation
-     *
-     * @throws This function can throw errors.
-     */
-    addUserDefinedOperation(
-        transactionHandlerId: UserDefinedTransactionHandlerId,
-        operationData: string,
-        operationName?: string,
-    ): void;
-    /**
-     * @remarks
-     * Commit all of the transaction operations currently attached
-     * to the open transaction record to the manager.  These will
-     * be added as a single transaction manager entry.
-     * The open record will be closed and all tracking operations
-     * will cease.
-     *
-     * @worldMutation
-     *
-     * @throws This function can throw errors.
-     */
-    commitOpenTransaction(): boolean;
-    /**
-     * @remarks
-     * This function will commit the pending changes caused by any
-     * of the track changes variants.  The changes will be
-     * committed to the currently open transaction, but the
-     * transaction will remain open for further records.
-     * Pending block changes from tracking operations will be added
-     * to the transaction record before submission to the
-     * transaction manager
-     *
-     * @worldMutation
-     *
-     * @returns
-     * Returns the number of change requests that were being
-     * tracked
-     * @throws This function can throw errors.
-     */
-    commitTrackedChanges(): number;
-    /**
-     * @remarks
-     * @worldMutation
-     *
-     * @throws This function can throw errors.
-     */
-    createUserDefinedTransactionHandler(
-        undoClosure: (arg0: string) => void,
-        redoClosure: (arg0: string) => void,
-    ): UserDefinedTransactionHandlerId;
-    /**
-     * @remarks
-     * Discard the currently open transaction without committing it
-     * to the transaction manager stack.
-     * All records within the transaction will be discarded, and
-     * any tracking requests currently active will be stopped
-     *
-     * @worldMutation
-     *
-     * @throws This function can throw errors.
-     */
-    discardOpenTransaction(): boolean;
-    /**
-     * @remarks
-     * Discard any pending tracked changes.  This does not affect
-     * the current open transaction contents, only the pending
-     * tracked block operations
-     *
-     * @worldMutation
-     *
-     * @returns
-     * Returns the number of change requests that were discarded
-     * @throws This function can throw errors.
-     */
-    discardTrackedChanges(): number;
-    /**
-     * @remarks
-     * @worldMutation
-     *
-     * @throws This function can throw errors.
-     */
-    isBusy(): boolean;
-    /**
-     * @remarks
-     * Open a transaction record which will be a container for any
-     * number of transaction operations.
-     * All transaction operations within a record are grouped and
-     * treated as a single atomic unit
-     *
-     * @worldMutation
-     *
-     * @param name
-     * Give the transaction record a name
-     * @throws This function can throw errors.
-     */
-    openTransaction(name: string): boolean;
+    createPendingTransaction(name: string): PendingTransaction;
     /**
      * @remarks
      * Perform an redo operation.  This will take the last
@@ -4739,39 +4951,11 @@ export class TransactionManager {
     redoSize(): number;
     /**
      * @remarks
-     * Begin tracking block changes in a specified area.  These
-     * will be added to a pending changes list.
-     * The pending list will be added to the open transaction
-     * record when a commit has been issued.
-     *
-     * @worldMutation
-     *
-     * @param from
-     * Min block location of a bounding area
-     * @param to
-     * Max block location of a bounding area
-     * @throws This function can throw errors.
-     */
-    trackBlockChangeArea(from: Vector3, to: Vector3): boolean;
-    /**
-     * @remarks
-     * Begin tracking block changes in a list of specified block
-     * locations.
-     *
-     * @worldMutation
-     *
-     * @param locations
-     * An array of block locations to monitor for changes
-     * @throws This function can throw errors.
-     */
-    trackBlockChangeList(locations: Vector3[]): boolean;
-    /**
-     * @remarks
      * @worldMutation
      *
      * @throws This function can throw errors.
      */
-    trackBlockChangeVolume(blockVolume: BlockVolumeBase): boolean;
+    registerTransactionHandler(onEvent?: (arg0: TransactionEvent) => void): TransactionHandler;
     /**
      * @remarks
      * Perform an undo operation.  This will take the last
@@ -4800,6 +4984,10 @@ export class TransactionManager {
     undoSize(): number;
 }
 
+export class TransactionOperationHandler {
+    private constructor();
+}
+
 /**
  * A strongly typed transaction handle to enforce type safety
  * when adding user defined transactions.<br> This transaction
@@ -4814,7 +5002,11 @@ export declare class UserDefinedTransactionHandle<T> {
      * `UserDefinedTransactionHandle` class
      *
      */
-    constructor(nativeHandle: UserDefinedTransactionHandlerId, transactionManager: TransactionManager);
+    constructor(
+        transactionHandler: TransactionHandler,
+        nativeHandle: UserDefinedTransactionOperationHandler,
+        transactionManager: TransactionManager,
+    );
     /**
      * @remarks
      * Add a user defined transaction operation to the transaction
@@ -4841,10 +5033,11 @@ export declare class UserDefinedTransactionHandle<T> {
      * @param transactionName
      * A string name that will be associated with this operation
      */
-    addUserDefinedOperation(payload: T, transactionName: string): void;
+    addUserDefinedOperation(payload: T, transactionName: string, pendingTransaction: PendingTransaction): void;
 }
 
-export class UserDefinedTransactionHandlerId {
+// @ts-ignore Class inheritance allowed for native defined classes
+export class UserDefinedTransactionOperationHandler extends TransactionOperationHandler {
     private constructor();
 }
 
@@ -4914,6 +5107,11 @@ export declare class Vector3LimitObservableValidator implements ObservableValida
     constructor(min: Partial<Vector3>, max: Partial<Vector3>, isInteger?: boolean);
     updateLimits(min: Partial<Vector3>, max: Partial<Vector3>): void;
     validate(newValue: Vector3): Vector3;
+}
+
+// @ts-ignore Class inheritance allowed for native defined classes
+export class VolumeListTransactionOperationHandler extends TransactionOperationHandler {
+    private constructor();
 }
 
 export class Widget {
@@ -6168,6 +6366,16 @@ export interface ActionManager {
 export interface BlockMaskList {
     blockList: (BlockPermutation | BlockType | string)[];
     maskType: BlockMaskListType;
+}
+
+export interface BlockUtilityManifest {
+    entries: BlockUtilityManifestEntry[];
+    totalBlocks: number;
+}
+
+export interface BlockUtilityManifestEntry {
+    blockIdentifier: string;
+    count: number;
 }
 
 /**
@@ -11316,6 +11524,13 @@ export interface ITimelinePlayerOptions extends IPropertyItemOptionsBase {
     groups?: ITimelinePlayerGroup[];
     /**
      * @remarks
+     * Callback triggered when the total duration changes (e.g. via
+     * the timeline drag handle).
+     *
+     */
+    onDurationChanged?: (duration: number) => void;
+    /**
+     * @remarks
      * Callback triggered when the group selection changes.
      *
      */
@@ -12087,6 +12302,13 @@ export interface ModalToolCreationParameters {
      *
      */
     icon?: string;
+    /**
+     * @remarks
+     * When true, the tool will be excluded from tool groups and
+     * tool rail
+     *
+     */
+    staging?: boolean;
     /**
      * @remarks
      * Localized title of the tool

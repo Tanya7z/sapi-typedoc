@@ -9,7 +9,6 @@ export { SecretString } from './classes/SecretString';
 export { ServerSecrets } from './classes/ServerSecrets';
 export { ServerVariables } from './classes/ServerVariables';
 export { AllowListEntry } from './interfaces/AllowListEntry';
-export { AllowListEntryNameInfo } from './interfaces/AllowListEntryNameInfo';
 export { TransferPlayerIpPortOptions } from './interfaces/TransferPlayerIpPortOptions';
 export { TransferPlayerNetherNetOptions } from './interfaces/TransferPlayerNetherNetOptions';
 export { AllowListFileReloadError } from './classes/AllowListFileReloadError';

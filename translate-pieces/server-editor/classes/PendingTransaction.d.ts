@@ -18,8 +18,7 @@ export class PendingTransaction {
      */
     addUserDefinedOperation(
         transactionHandler: UserDefinedTransactionOperationHandler,
-        prevData: string,
-        currentData: string,
+        operationData: string,
         operationName?: string,
     ): void;
     /**

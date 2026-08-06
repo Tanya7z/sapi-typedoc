@@ -70,15 +70,47 @@ function findJSXElement<E extends TraversableJSXChildren>(
     return elements;
 }
 
-const examples: Record<
-    string,
-    {
-        content: string;
-        hash: string;
-        fileName: string;
-        sources: { source: string; fileName: string; path: string; symbol: Symbol }[];
-    }[]
-> = {};
+interface ExampleSource {
+    source: string;
+    fileName: string;
+    path: string;
+    symbol?: Symbol;
+}
+
+interface ExampleVersion {
+    content: string;
+    hash: string;
+    fileName: string;
+    sources: ExampleSource[];
+}
+
+const examples: Record<string, ExampleVersion[]> = {};
+
+/** 序列化 examples 数据（供 pre-build → rspress setup 传递） */
+export function serializeExamples(): Record<string, { content: string; hash: string; fileName: string; sources: { source: string; fileName: string; path: string }[] }[]> {
+    const result: Record<string, { content: string; hash: string; fileName: string; sources: { source: string; fileName: string; path: string }[] }[]> = {};
+    for (const [name, versions] of Object.entries(examples)) {
+        result[name] = versions.map((v) => ({
+            content: v.content,
+            hash: v.hash,
+            fileName: v.fileName,
+            sources: v.sources.map((s) => ({ source: s.source, fileName: s.fileName, path: s.path }))
+        }));
+    }
+    return result;
+}
+
+/** 从序列化数据恢复 examples（供 rspress setup 使用） */
+export function loadExamples(data: Record<string, { content: string; hash: string; fileName: string; sources: { source: string; fileName: string; path: string }[] }[]>): void {
+    for (const [name, versions] of Object.entries(data)) {
+        examples[name] = versions.map((v) => ({
+            content: v.content,
+            hash: v.hash,
+            fileName: v.fileName,
+            sources: v.sources.map((s) => ({ ...s }))
+        }));
+    }
+}
 
 declare module 'typedoc' {
     interface TranslatableStrings {
@@ -219,6 +251,12 @@ export default {
             ...tsdocApplication.options.getValue('blockTags'),
             '@seeExample'
         ]);
+        // HTML 渲染器覆写（<details> 折叠）仅在 HTML 主题下生效，Markdown 输出跳过
+        const themeName = tsdocApplication.options.getValue('theme');
+        if (themeName === 'markdown' || !tsdocApplication.options.isSet('theme')) {
+            // Markdown 模式：不注册 HTML 渲染覆写
+            return;
+        }
         tsdocApplication.renderer.on('beginRender', () => {
             const defaultTheme = tsdocApplication.renderer.theme as DefaultTheme;
             // eslint-disable-next-line @typescript-eslint/unbound-method

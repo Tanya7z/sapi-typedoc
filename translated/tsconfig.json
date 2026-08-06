@@ -16,30 +16,5 @@
       "@minecraft/server-ui": ["./server-ui"],
       "@minecraft/vanilla-data": ["./vanilla-data"]
     }
-  },
-  "typedocOptions": {
-    "name": "@minecraft",
-    "readme": "../README.md",
-    "entryPoints": ["*.d.ts"],
-    "externalPattern": "",
-    "lang": "zh",
-    "customCss": "./assets/extra.css",
-    "customJs": "./assets/extra.js",
-    "githubPages": false,
-    "navigationLinks": {
-      "原文": "javascript:toggleTranslation()"
-    },
-    "cascadedModifierTags": [],
-    "externalSymbolLinkMappings": {
-      "typescript": {
-        "Promise": "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise",
-        "Iterable": "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols",
-        "Iterator": "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols",
-        "IteratorResult": "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols",
-        "Record": "https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type",
-        "Pick": "https://www.typescriptlang.org/docs/handbook/utility-types.html#picktype-keys",
-        "Parameters": "https://www.typescriptlang.org/docs/handbook/utility-types.html#parameterstype"
-      }
-    }
   }
 }
