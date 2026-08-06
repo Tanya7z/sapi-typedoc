@@ -1,0 +1,20 @@
+Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)
+
+本目录（theme/assets/minecraft-wiki-skin/）内的 Minecraft Wiki 界面皮肤贴图
+及其衍生修改，采用 Creative Commons Attribution-NonCommercial-ShareAlike 3.0
+Unported 许可协议发布。
+
+完整法律文本：
+https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode
+
+通俗说明（非法律文本）：
+https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh-Hans
+
+摘要：
+- Attribution（署名）：保留作者与来源信息（见 NOTICE.md）
+- NonCommercial（非商业）：不得用于商业目的
+- ShareAlike（相同方式分享）：修改后须以相同或兼容的 CC BY-NC-SA 协议发布
+
+注意：
+- 本目录不包含 Mojang / Microsoft 游戏原版贴图。
+- 仓库其余代码仍按根目录 package.json 声明的 MIT 许可；仅本目录资源为 CC BY-NC-SA 3.0。

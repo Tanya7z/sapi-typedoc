@@ -2,6 +2,13 @@
 
 Minecraft Script API 中文参考（Rspress + TypeDoc）。
 
+## 许可
+
+- **代码**：MIT（见 `package.json`）
+- **主题皮肤贴图**（`theme/assets/minecraft-wiki-skin/`）：[CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/)，来自 [Minecraft Wiki](https://minecraft.wiki/) 社区界面皮肤。署名与文件清单见该目录下 [NOTICE.md](theme/assets/minecraft-wiki-skin/NOTICE.md)、[README.md](theme/assets/minecraft-wiki-skin/README.md)。
+
+本项目为非商业开源文档站；皮肤目录不含 Mojang 游戏原版贴图。
+
 ## 开发
 
 ```bash

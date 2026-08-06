@@ -48,10 +48,6 @@ export function writeRootNav(presentModules: string[]) {
       link: '/changelog/',
       activeMatch: '/changelog/',
     },
-    {
-      text: 'GitHub',
-      link: 'https://github.com/Tanya7z/sapi-typedoc',
-    },
   ];
 
   writeJson(join(docsDir, '_nav.json'), nav);

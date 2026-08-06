@@ -1,0 +1,2191 @@
+/**
+ * Minecraft Wiki 风格皮肤（控件对齐 .mp-button；logo 用站点字标）
+ * 外壳：浅/深色对应 Background 贴图；顶栏保持纯色，不用 Header 贴图。
+ */
+
+:root {
+  --sapi-shell: #303030;
+  --sapi-shell-bg: url('./assets/minecraft-wiki-skin/vanilla/light/Background.png');
+  --sapi-shell-bg-2x: url('./assets/minecraft-wiki-skin/vanilla/light/Background-HiDPI.png');
+  --sapi-paper: #f2eee7;
+  --sapi-stone: #313233;
+  --sapi-stone-border: #232324;
+  --sapi-grass: #6ba41e;
+  --sapi-nav-fg: #f2f2f2;
+  /* Wiki .mp-button 默认面色；portal 未选中同系 */
+  --sapi-tab-idle: #ebebeb;
+  --sapi-tab-idle-hi: #f4f4f4;
+  --sapi-tab-idle-lo: #d4d4d4;
+  --sapi-control-ease: 150ms ease;
+  /* 顶栏 tab / 搜索 / 图标按钮统一高度 */
+  --sapi-nav-control-h: 40px;
+  /* 首页列宽与左右 gutter，top / doc / footer 共用 */
+  --sapi-home-max: 72rem;
+  --sapi-home-gutter: 1rem;
+  /* 正文 token */
+  --sapi-doc-heading-border: #a2a9b1;
+  --sapi-doc-table-border: #a2a9b1;
+  --sapi-doc-table-head-bg: #eaecf0;
+  --sapi-doc-table-stripe: #f8f9fa;
+  --sapi-doc-code-bg: #f8f9fa;
+  --sapi-doc-code-border: #c8ccd1;
+  --sapi-doc-codeblock-title-bg: #313233;
+  --sapi-doc-codeblock-title-fg: #f0f0f0;
+  --sapi-doc-codeblock-border: #232324;
+  --sapi-doc-callout-radius: 0;
+  --sapi-doc-list-bullet: url('./assets/minecraft-wiki-skin/vanilla/light/List_bullet.svg');
+}
+
+html.dark,
+html.rp-dark {
+  --sapi-shell: #1a1a1a;
+  --sapi-shell-bg: url('./assets/minecraft-wiki-skin/vanilla/dark/Dark-background.png');
+  --sapi-shell-bg-2x: url('./assets/minecraft-wiki-skin/vanilla/dark/Dark-background-HiDPI.png');
+  /* 与 --rp-c-bg 同步：冷灰纸面，长文更易读 */
+  --sapi-paper: #222426;
+  --sapi-nav-fg: #f0f0f0;
+  --sapi-doc-heading-border: #54595d;
+  --sapi-doc-table-border: #54595d;
+  --sapi-doc-table-head-bg: #32343a;
+  --sapi-doc-table-stripe: #2a2c30;
+  --sapi-doc-code-bg: #1a1c1e;
+  --sapi-doc-code-border: #54595d;
+  --sapi-doc-codeblock-title-bg: #232324;
+  --sapi-doc-codeblock-title-fg: #f0f0f0;
+  --sapi-doc-codeblock-border: #000;
+  --sapi-doc-list-bullet: url('./assets/minecraft-wiki-skin/vanilla/dark/List_bullet.svg');
+}
+
+/* ---- 页面外壳：浅/深色对应 Background 平铺 ---- */
+body {
+  background-color: var(--sapi-shell);
+  background-image: var(--sapi-shell-bg);
+  background-repeat: repeat;
+  image-rendering: auto;
+}
+
+@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
+  body {
+    background-image: var(--sapi-shell-bg-2x);
+    background-size: 468px 468px;
+  }
+}
+
+/* 首页氛围层：与外壳同套贴图，关掉默认高斯模糊 */
+.rp-home-background {
+  filter: none !important;
+  backdrop-filter: none !important;
+  background-color: var(--sapi-shell) !important;
+  background-image: var(--sapi-shell-bg) !important;
+  background-repeat: repeat !important;
+  opacity: 1 !important;
+}
+
+@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
+  .rp-home-background {
+    background-image: var(--sapi-shell-bg-2x) !important;
+    background-size: 468px 468px !important;
+  }
+}
+
+/*
+ * 首页区块：对齐 Wiki .mp-section
+ * 半透明底 + #bbb 描边 + 轻微 inset，铺在纯色外壳上
+ */
+.sapi-home-top,
+.sapi-home-doc,
+.sapi-site-footer--home {
+  max-width: var(--sapi-home-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--sapi-home-gutter);
+  padding-right: var(--sapi-home-gutter);
+  box-sizing: border-box;
+}
+
+.sapi-home-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(11.5rem, 15.5rem);
+  gap: 0.65rem;
+  align-items: stretch;
+  margin-top: 1.25rem;
+  margin-bottom: 0.65rem;
+}
+
+.rp-home-hero,
+.sapi-home-links,
+.sapi-home-doc__panel,
+.sapi-site-footer--home .sapi-site-footer__panel {
+  background-color: #fcfcfcb8 !important;
+  border: 2px solid #bbb !important;
+  border-left: 2px solid #bbb !important;
+  box-shadow:
+    inset -2px -2px #0000000f,
+    inset 2px 2px #ffffff0d;
+}
+
+/*
+ * Hero：字标图作标题 + 入口按钮；右侧由 .sapi-home-links 承接彩色外链
+ */
+.rp-home-hero {
+  display: flex !important;
+  flex-direction: column !important;
+  margin: 0 !important;
+  max-width: none !important;
+  padding: 1rem 1.2rem 0.9rem;
+  align-items: stretch !important;
+  width: auto;
+  gap: 0.85rem;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+.rp-home-hero--no-image .rp-home-hero__container,
+.rp-home-hero__container {
+  gap: 0.75rem !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  width: 100%;
+  order: 2;
+  flex: 1 1 auto;
+  justify-content: flex-end !important;
+  margin-top: auto;
+}
+
+.rp-home-hero__content {
+  width: 100%;
+}
+
+/* 有标题图时隐藏空文字标题 */
+.rp-home-hero:not(.rp-home-hero--no-image) .rp-home-hero__title {
+  display: none !important;
+}
+
+.rp-home-hero__title:has(.rp-home-hero__title-brand:empty) {
+  display: none;
+}
+
+.rp-home-hero__actions {
+  gap: 0.45rem !important;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.rp-home-hero__action .rp-button {
+  margin-bottom: 2px;
+}
+
+/* 标题字标：放大以填满与右侧社交区的高度差 */
+.rp-home-hero__image {
+  display: block !important;
+  order: 1;
+  align-self: flex-start;
+  flex: 0 0 auto !important;
+  max-width: min(100%, 42rem);
+  margin: 0;
+}
+
+.rp-home-hero__image-img {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100%;
+  max-height: 5.75rem;
+  object-fit: contain;
+}
+
+/* light/dark 各一张：勿统一 display:block，否则浅色会叠两遍 */
+.rp-home-hero__image-img--light {
+  display: block !important;
+}
+
+.rp-home-hero__image-img--dark {
+  display: none !important;
+}
+
+html.dark .rp-home-hero__image-img--light,
+html.rp-dark .rp-home-hero__image-img--light {
+  display: none !important;
+}
+
+html.dark .rp-home-hero__image-img--dark,
+html.rp-dark .rp-home-hero__image-img--dark {
+  display: block !important;
+}
+
+/* 右侧彩色外链区块 */
+.sapi-home-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0.65rem 0.7rem 0.7rem;
+  box-sizing: border-box;
+}
+
+.sapi-home-links__title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #444;
+  letter-spacing: 0.02em;
+}
+
+.sapi-home-links__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.sapi-home-links__btn {
+  --sapi-link-face: #ebebeb;
+
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 2.35rem;
+  margin: 0;
+  padding: 0.35rem 0.55rem 0.55rem;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  border-radius: 0;
+  background: var(--sapi-link-face) !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  text-shadow: 2px 2px 0 #00000020;
+  font-weight: 700;
+  font-size: 0.82rem;
+  line-height: 1.2;
+  text-align: center;
+  transition:
+    background-color 0.1s,
+    margin 0.1s,
+    padding 0.1s;
+}
+
+.sapi-home-links__btn::after {
+  content: '';
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  box-shadow:
+    0 -6px 0 0 rgb(104, 104, 104) inset,
+    2px 2px 0 0 rgba(178, 178, 178, 0.5) inset,
+    -2px -8px 0 0 rgba(153, 153, 153, 0.5) inset;
+  mix-blend-mode: hard-light;
+  transition: 0.1s box-shadow, 0.1s background-color;
+}
+
+.sapi-home-links__btn-label {
+  position: relative;
+  z-index: 2;
+}
+
+.sapi-home-links__btn:hover {
+  filter: brightness(1.06);
+}
+
+.sapi-home-links__btn:active {
+  margin-top: 3px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.4rem;
+}
+
+.sapi-home-links__btn:active::after {
+  background-color: #0000001a;
+  box-shadow:
+    2px 2px 0 0 rgba(178, 178, 178, 0.5) inset,
+    -2px -2px 0 0 rgba(153, 153, 153, 0.5) inset;
+}
+
+.sapi-home-links__btn--wiki {
+  --sapi-link-face: #3a971e;
+}
+
+.sapi-home-links__btn--ms {
+  --sapi-link-face: #0078d4;
+}
+
+.sapi-home-links__btn--bedrock {
+  --sapi-link-face: #0eb9a9;
+}
+
+.sapi-home-links__btn--mcbe {
+  --sapi-link-face: #ff791a;
+}
+
+/* 外层只负责 gutter；面板边框在 __panel，与 hero/社交区同宽 */
+.sapi-home-doc {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.sapi-home-doc__panel {
+  padding: 1.1rem 1.35rem 1.5rem;
+  box-sizing: border-box;
+}
+
+html.dark .rp-home-hero,
+html.dark .sapi-home-links,
+html.dark .sapi-home-doc__panel,
+html.dark .sapi-site-footer--home .sapi-site-footer__panel,
+html.rp-dark .rp-home-hero,
+html.rp-dark .sapi-home-links,
+html.rp-dark .sapi-home-doc__panel,
+html.rp-dark .sapi-site-footer--home .sapi-site-footer__panel {
+  background-color: #4c4e522e !important;
+  border-color: #202125 !important;
+}
+
+html.dark .sapi-home-links__title,
+html.rp-dark .sapi-home-links__title {
+  color: #ddd;
+}
+
+html.dark .sapi-home-links__btn--wiki,
+html.rp-dark .sapi-home-links__btn--wiki {
+  --sapi-link-face: #137342;
+}
+
+html.dark .sapi-home-links__btn--ms,
+html.rp-dark .sapi-home-links__btn--ms {
+  --sapi-link-face: #005a9e;
+}
+
+html.dark .sapi-home-links__btn--bedrock,
+html.rp-dark .sapi-home-links__btn--bedrock {
+  --sapi-link-face: #166a64;
+}
+
+html.dark .sapi-home-links__btn--mcbe,
+html.rp-dark .sapi-home-links__btn--mcbe {
+  --sapi-link-face: #894425;
+}
+
+.rp-home-hero__tagline,
+.rp-home-hero__subtitle:not(.rp-home-hero__title-brand) {
+  color: var(--rp-c-text-1);
+  text-shadow: none;
+}
+
+.rp-home-hero__tagline {
+  display: none !important;
+}
+
+@media (width <= 800px) {
+  .sapi-home-top {
+    grid-template-columns: 1fr;
+  }
+
+  .rp-home-hero__image-img {
+    max-height: 4.25rem;
+  }
+}
+
+/* ---- 顶栏（首页与正文页同一套纯色，无 Header 贴图） ---- */
+.rp-nav {
+  background-color: var(--sapi-shell) !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  color: var(--sapi-nav-fg);
+  border-bottom: 2px solid #111;
+  text-shadow: none;
+  transition:
+    background-color var(--sapi-control-ease),
+    border-color var(--sapi-control-ease);
+}
+
+.rp-nav__title__link {
+  color: var(--sapi-nav-fg);
+  text-shadow: none;
+  font-size: 0;
+  font-weight: 600;
+  gap: 0;
+  white-space: nowrap;
+  transition: opacity var(--sapi-control-ease);
+}
+
+.rp-nav__title__link:hover {
+  opacity: 0.92;
+  color: var(--sapi-nav-fg);
+}
+
+.rp-nav__title__logo {
+  min-width: 0;
+  margin-right: 0;
+}
+
+/* 顶栏字标：宽幅透明底 PNG，按高度缩放 */
+.rspress-logo,
+.rp-nav__title__logo-image {
+  height: 32px;
+  width: auto;
+  max-width: min(220px, 42vw);
+  object-fit: contain;
+}
+
+.rp-nav__right {
+  gap: 10px;
+}
+
+.rp-nav__others {
+  gap: 8px;
+  margin-left: 12px;
+}
+
+.rp-nav-menu--right {
+  margin-left: 4px;
+}
+
+/*
+ * 顶栏 tab：对齐 Wiki 首页 .mp-portal / .mp-button
+ * 灰白面 + hard-light 斜面；hover/当前项变 progressive 绿 + 底白线
+ */
+.rp-nav-menu {
+  gap: 0 !important;
+  align-items: center;
+}
+
+.rp-nav-menu__item {
+  height: auto;
+  margin-left: -1px;
+  z-index: 1;
+}
+
+/* 「更多」与右侧版本映射等拉开间距 */
+.rp-nav-menu__item:has(> .rp-hover-group) {
+  margin-right: 18px;
+}
+
+.rp-nav-menu__item:hover,
+.rp-nav-menu__item--active {
+  z-index: 2;
+}
+
+.rp-nav-menu__item__container {
+  --sapi-btn-face: #ebebeb;
+  --sapi-btn-border: rgba(0, 0, 0, 0.4);
+  --sapi-btn-text: #202122;
+  --sapi-btn-text-shadow: transparent;
+
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  height: var(--sapi-nav-control-h) !important;
+  min-height: var(--sapi-nav-control-h);
+  margin: 0;
+  padding: 0 18px 4px !important;
+  border: 2px solid var(--sapi-btn-border);
+  border-radius: 0;
+  background: var(--sapi-btn-face) !important;
+  color: var(--sapi-btn-text) !important;
+  text-shadow: 2px 2px 0 var(--sapi-btn-text-shadow);
+  font-weight: 700;
+  font-size: 14px !important;
+  line-height: 1.2 !important;
+  cursor: pointer;
+  transition:
+    background-color 0.1s,
+    color 0.1s,
+    border-color 0.1s,
+    padding 0.1s,
+    margin 0.1s;
+}
+
+.rp-nav-menu__item__container::after {
+  content: '';
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  box-shadow:
+    0 -6px 0 0 rgb(104, 104, 104) inset,
+    2px 2px 0 0 rgba(178, 178, 178, 0.5) inset,
+    -2px -8px 0 0 rgba(153, 153, 153, 0.5) inset;
+  mix-blend-mode: hard-light;
+  transition:
+    0.1s background-color,
+    0.1s box-shadow;
+}
+
+/* 当前项底白线（对齐 .mp-portal-active） */
+.rp-nav-menu__item--active .rp-nav-menu__item__container::before {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20%;
+  min-width: 1.25rem;
+  height: 2px;
+  background: #fff;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.rp-nav-menu__item:hover .rp-nav-menu__item__container,
+.rp-nav-menu__item--active .rp-nav-menu__item__container,
+.rp-nav-menu__item--active:hover .rp-nav-menu__item__container {
+  --sapi-btn-face: #3a971e;
+  --sapi-btn-text: #fff;
+  --sapi-btn-text-shadow: #00000020;
+  color: #fff !important;
+  background: #3a971e !important;
+  cursor: pointer;
+  text-decoration: none;
+  opacity: 1;
+}
+
+/* 当前项 / 下拉展开：保持按下态（对齐 .mp-portal-active） */
+.rp-nav-menu__item--active .rp-nav-menu__item__container,
+.rp-nav-menu__item:has(> .rp-hover-group:not(.rp-hover-group--hidden))
+  .rp-nav-menu__item__container,
+.rp-nav-menu__item:active .rp-nav-menu__item__container {
+  margin-top: 4px;
+  /* 按下态文字略上移，避免沉到底边斜面里 */
+  padding: 1px 18px 3px !important;
+  cursor: inherit;
+}
+
+.rp-nav-menu__item--active .rp-nav-menu__item__container::after,
+.rp-nav-menu__item:has(> .rp-hover-group:not(.rp-hover-group--hidden))
+  .rp-nav-menu__item__container::after,
+.rp-nav-menu__item:active .rp-nav-menu__item__container::after {
+  background-color: #0000001a;
+  box-shadow:
+    2px 2px 0 0 rgba(178, 178, 178, 0.5) inset,
+    -2px -2px 0 0 rgba(153, 153, 153, 0.5) inset;
+}
+
+.rp-nav-menu__item__icon,
+.rp-nav-menu__item__leading-icon {
+  color: inherit;
+}
+
+.rp-nav-menu__item__icon svg,
+.rp-nav-menu__item__leading-icon svg {
+  fill: currentColor;
+}
+
+.rp-nav-menu__divider {
+  display: none;
+}
+
+html.dark .rp-nav-menu__item__container,
+html.rp-dark .rp-nav-menu__item__container {
+  --sapi-btn-face: #48494a;
+  --sapi-btn-border: #242424;
+  --sapi-btn-text: #f0f0f0;
+}
+
+html.dark .rp-nav-menu__item:hover .rp-nav-menu__item__container,
+html.dark .rp-nav-menu__item--active .rp-nav-menu__item__container,
+html.rp-dark .rp-nav-menu__item:hover .rp-nav-menu__item__container,
+html.rp-dark .rp-nav-menu__item--active .rp-nav-menu__item__container {
+  --sapi-btn-face: #137342;
+  background: #137342 !important;
+}
+
+/*
+ * 「更多」等下拉：对齐 Wiki Vector .vector-menu-content
+ * 纸面面板、直角、深描边；浅色文字强制深色，去掉顶栏浅字色 + text-shadow 叠出的「双重阴影」
+ */
+.rp-nav .rp-hover-group,
+.rp-nav-menu__item > .rp-hover-group,
+.rp-nav-hamburger > .rp-hover-group {
+  top: calc(100% + 2px);
+  border-radius: 0;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  background: #f7f3eb;
+  color: #202122;
+  text-shadow: none !important;
+  /* 单层外阴影即可；多层 inset 会在浅色面板边缘像双重描边 */
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+  padding: 0;
+  min-width: 10rem;
+  gap: 0;
+  filter: none !important;
+}
+
+.rp-nav .rp-hover-group__item,
+.rp-nav .rp-hover-group__item__link,
+.rp-nav .rp-hover-group a,
+.rp-nav .rp-hover-group .rp-link,
+.rp-nav-hamburger .rp-hover-group__item,
+.rp-nav-hamburger .rp-hover-group__item__link,
+.rp-nav-hamburger .rp-hover-group a,
+.rp-nav-hamburger .rp-hover-group .rp-link {
+  color: #202122 !important;
+  -webkit-text-fill-color: #202122 !important;
+  text-decoration: none;
+  text-shadow: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+.rp-nav .rp-hover-group__item,
+.rp-nav-hamburger .rp-hover-group__item {
+  height: auto;
+  min-height: 2rem;
+  margin: 0;
+  padding: 0.5rem 0.875rem;
+  border-radius: 0;
+  font-weight: 500;
+  line-height: 1.35;
+  transition: background-color 0.1s, color 0.1s;
+}
+
+.rp-nav .rp-hover-group__item:hover,
+.rp-nav-hamburger .rp-hover-group__item:hover {
+  opacity: 1 !important;
+  background: color-mix(in srgb, #3a971e 18%, #f7f3eb);
+  color: #1f4d12 !important;
+  -webkit-text-fill-color: #1f4d12 !important;
+}
+
+.rp-nav .rp-hover-group__item--active,
+.rp-nav-hamburger .rp-hover-group__item--active {
+  color: #1f4d12 !important;
+  -webkit-text-fill-color: #1f4d12 !important;
+  font-weight: 700;
+  background: color-mix(in srgb, #3a971e 12%, #f7f3eb);
+  pointer-events: none;
+}
+
+html.dark .rp-nav .rp-hover-group,
+html.dark .rp-nav-hamburger > .rp-hover-group,
+html.rp-dark .rp-nav .rp-hover-group,
+html.rp-dark .rp-nav-hamburger > .rp-hover-group {
+  background: var(--sapi-paper);
+  color: #f0f0f0;
+  border-color: #242424;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.45);
+}
+
+html.dark .rp-nav .rp-hover-group__item,
+html.dark .rp-nav .rp-hover-group__item__link,
+html.dark .rp-nav .rp-hover-group a,
+html.dark .rp-nav .rp-hover-group .rp-link,
+html.dark .rp-nav-hamburger .rp-hover-group__item,
+html.dark .rp-nav-hamburger .rp-hover-group__item__link,
+html.dark .rp-nav-hamburger .rp-hover-group a,
+html.dark .rp-nav-hamburger .rp-hover-group .rp-link,
+html.rp-dark .rp-nav .rp-hover-group__item,
+html.rp-dark .rp-nav .rp-hover-group__item__link,
+html.rp-dark .rp-nav .rp-hover-group a,
+html.rp-dark .rp-nav .rp-hover-group .rp-link,
+html.rp-dark .rp-nav-hamburger .rp-hover-group__item,
+html.rp-dark .rp-nav-hamburger .rp-hover-group__item__link,
+html.rp-dark .rp-nav-hamburger .rp-hover-group a,
+html.rp-dark .rp-nav-hamburger .rp-hover-group .rp-link {
+  color: #f0f0f0 !important;
+  -webkit-text-fill-color: #f0f0f0 !important;
+}
+
+html.dark .rp-nav .rp-hover-group__item:hover,
+html.dark .rp-nav-hamburger .rp-hover-group__item:hover,
+html.rp-dark .rp-nav .rp-hover-group__item:hover,
+html.rp-dark .rp-nav-hamburger .rp-hover-group__item:hover {
+  background: color-mix(in srgb, #137342 35%, var(--sapi-paper));
+  color: #b7e08a !important;
+  -webkit-text-fill-color: #b7e08a !important;
+}
+
+html.dark .rp-nav .rp-hover-group__item--active,
+html.dark .rp-nav-hamburger .rp-hover-group__item--active,
+html.rp-dark .rp-nav .rp-hover-group__item--active,
+html.rp-dark .rp-nav-hamburger .rp-hover-group__item--active {
+  color: #b7e08a !important;
+  -webkit-text-fill-color: #b7e08a !important;
+  background: color-mix(in srgb, #137342 28%, var(--sapi-paper));
+}
+
+/* 顶栏其它链接：勿波及下拉（浅色下拉叠阴影会像双重字） */
+.rp-nav__others > a:not(.rp-social-links__icon),
+.rp-nav > .rp-nav__right .rp-link:not(.rp-nav-menu__item__container):not(
+    .rp-social-links__icon
+  ):not(.rp-hover-group__item__link) {
+  color: var(--sapi-nav-fg);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.55);
+}
+
+/* ---- 搜索按钮：自研 mp-button 同款，与 tab 同高 ---- */
+.rp-search-button {
+  --sapi-btn-face: #ebebeb;
+  --sapi-btn-border: rgba(0, 0, 0, 0.4);
+
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  border-radius: 0 !important;
+  border: 2px solid var(--sapi-btn-border) !important;
+  min-width: 10.5rem;
+  width: auto;
+  height: var(--sapi-nav-control-h) !important;
+  min-height: var(--sapi-nav-control-h);
+  margin: 0 4px 0 0;
+  padding: 0 12px !important;
+  background: var(--sapi-btn-face) !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  color: #202122 !important;
+  transition:
+    background-color 0.1s,
+    border-color 0.1s,
+    margin 0.1s,
+    padding 0.1s;
+}
+
+.rp-search-button::before {
+  content: none;
+}
+
+.rp-search-button::after {
+  content: '';
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  box-shadow:
+    0 -6px 0 0 rgb(104, 104, 104) inset,
+    2px 2px 0 0 rgba(178, 178, 178, 0.5) inset,
+    -2px -8px 0 0 rgba(153, 153, 153, 0.5) inset;
+  mix-blend-mode: hard-light;
+  transition: 0.1s box-shadow;
+}
+
+.rp-search-button > * {
+  position: relative;
+  z-index: 2;
+}
+
+.rp-search-button:hover {
+  --sapi-btn-face: #f4f4f4;
+  border-color: var(--sapi-btn-border) !important;
+  filter: none;
+  color: #202122 !important;
+}
+
+.rp-search-button:active {
+  margin-top: 4px;
+}
+
+.rp-search-button:active::after {
+  /* 按下只收束斜面，不加暗色罩，避免「搜索」文字变色 */
+  box-shadow:
+    2px 2px 0 0 rgba(178, 178, 178, 0.5) inset,
+    -2px -2px 0 0 rgba(153, 153, 153, 0.5) inset;
+}
+
+.rp-search-button__word,
+.rp-search-button:hover .rp-search-button__word,
+.rp-search-button:active .rp-search-button__word,
+.rp-search-button__icon,
+.rp-search-button:hover .rp-search-button__icon,
+.rp-search-button:active .rp-search-button__icon {
+  color: #202122 !important;
+  text-shadow: none;
+  opacity: 1 !important;
+}
+
+.rp-search-button__hotkey {
+  display: none !important;
+}
+
+.rp-search-button--mobile {
+  --sapi-btn-face: #ebebeb;
+  width: var(--sapi-nav-control-h);
+  min-width: var(--sapi-nav-control-h);
+  height: var(--sapi-nav-control-h);
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  border-radius: 0;
+  background: var(--sapi-btn-face);
+  color: #202122 !important;
+}
+
+html.dark .rp-search-button,
+html.rp-dark .rp-search-button,
+html.dark .rp-search-button--mobile,
+html.rp-dark .rp-search-button--mobile {
+  --sapi-btn-face: #48494a;
+  --sapi-btn-border: #242424;
+  color: #f0f0f0 !important;
+}
+
+html.dark .rp-search-button__word,
+html.dark .rp-search-button__icon,
+html.dark .rp-search-button:hover .rp-search-button__word,
+html.dark .rp-search-button:hover .rp-search-button__icon,
+html.dark .rp-search-button:active .rp-search-button__word,
+html.dark .rp-search-button:active .rp-search-button__icon,
+html.rp-dark .rp-search-button__word,
+html.rp-dark .rp-search-button__icon,
+html.rp-dark .rp-search-button:hover .rp-search-button__word,
+html.rp-dark .rp-search-button:hover .rp-search-button__icon,
+html.rp-dark .rp-search-button:active .rp-search-button__word,
+html.rp-dark .rp-search-button:active .rp-search-button__icon {
+  color: #f0f0f0 !important;
+}
+
+/* ---- GitHub / 亮暗色：同款小方按钮；图标上移，底部留给立体斜面 ---- */
+.rp-social-links {
+  gap: 8px;
+  height: auto;
+  min-height: var(--sapi-nav-control-h);
+}
+
+.rp-social-links__item {
+  height: auto;
+  display: flex;
+  align-items: center;
+}
+
+.rp-social-links__item > .rp-social-links__icon,
+.rp-switch-appearance {
+  --sapi-btn-face: #ebebeb;
+  --sapi-btn-border: rgba(0, 0, 0, 0.4);
+
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: var(--sapi-nav-control-h);
+  height: var(--sapi-nav-control-h);
+  min-width: var(--sapi-nav-control-h);
+  min-height: var(--sapi-nav-control-h);
+  margin: 0;
+  /* 底部预留斜面厚度，图标落在“台面”中心偏上 */
+  padding: 0 0 7px !important;
+  border: 2px solid var(--sapi-btn-border);
+  border-radius: 0;
+  background: var(--sapi-btn-face) !important;
+  color: #202122 !important;
+  text-shadow: none;
+  line-height: 0;
+  transition:
+    background-color 0.1s,
+    border-color 0.1s,
+    margin 0.1s,
+    color 0.1s;
+}
+
+.rp-social-links__item > .rp-social-links__icon::after,
+.rp-switch-appearance::after {
+  content: '';
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  box-shadow:
+    0 -6px 0 0 rgb(104, 104, 104) inset,
+    2px 2px 0 0 rgba(178, 178, 178, 0.5) inset,
+    -2px -8px 0 0 rgba(153, 153, 153, 0.5) inset;
+  mix-blend-mode: hard-light;
+  transition:
+    0.1s background-color,
+    0.1s box-shadow;
+}
+
+.rp-social-links__item > .rp-social-links__icon > * {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+/* 深浅色按钮内有 sun/moon 两个图标，勿统一 display:flex，否则浅色会叠显 */
+.rp-switch-appearance > .rp-switch-appearance__icon {
+  position: relative;
+  z-index: 2;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.rp-switch-appearance__icon--sun {
+  display: flex !important;
+}
+
+.rp-switch-appearance__icon--moon,
+html.dark .rp-switch-appearance__icon--sun,
+html.rp-dark .rp-switch-appearance__icon--sun {
+  display: none !important;
+}
+
+html.dark .rp-switch-appearance__icon--moon,
+html.rp-dark .rp-switch-appearance__icon--moon {
+  display: flex !important;
+}
+
+/* SocialLink 内层再包一层 icon，去掉重复描边 */
+.rp-social-links__item > .rp-social-links__icon .rp-social-links__icon {
+  width: auto;
+  height: auto;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0 !important;
+  border: 0;
+  background: transparent !important;
+  color: inherit !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rp-social-links__item > .rp-social-links__icon .rp-social-links__icon::after {
+  content: none;
+}
+
+.rp-social-links__item > .rp-social-links__icon:hover,
+.rp-switch-appearance:hover {
+  --sapi-btn-face: #f4f4f4;
+  color: #111 !important;
+}
+
+.rp-social-links__item > .rp-social-links__icon:active,
+.rp-switch-appearance:active {
+  margin-top: 4px;
+}
+
+.rp-social-links__item > .rp-social-links__icon:active::after,
+.rp-switch-appearance:active::after {
+  background-color: #0000001a;
+  box-shadow:
+    2px 2px 0 0 rgba(178, 178, 178, 0.5) inset,
+    -2px -2px 0 0 rgba(153, 153, 153, 0.5) inset;
+}
+
+.rp-social-links__icon svg,
+.rp-switch-appearance svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  display: block;
+}
+
+html.dark .rp-social-links__item > .rp-social-links__icon,
+html.dark .rp-switch-appearance,
+html.rp-dark .rp-social-links__item > .rp-social-links__icon,
+html.rp-dark .rp-switch-appearance {
+  --sapi-btn-face: #48494a;
+  --sapi-btn-border: #242424;
+  color: #f0f0f0 !important;
+}
+
+html.dark .rp-social-links__item > .rp-social-links__icon:hover,
+html.dark .rp-switch-appearance:hover,
+html.rp-dark .rp-social-links__item > .rp-social-links__icon:hover,
+html.rp-dark .rp-switch-appearance:hover {
+  --sapi-btn-face: #555658;
+  color: #fff !important;
+}
+
+/* ---- 侧栏：石质 portal ---- */
+.rp-doc-layout__sidebar {
+  background: var(--sapi-stone-border);
+  border-right: 2px solid #000 !important;
+  color: #ddd;
+  padding: 12px 10px 20px !important;
+}
+
+.rp-sidebar-section-header {
+  margin-top: 10px;
+  padding: 0;
+}
+
+.rp-sidebar-section-header:first-child {
+  margin-top: 0;
+}
+
+.rp-sidebar-section-header__left {
+  width: 100%;
+  margin: 0;
+  padding: calc(0.45em + 2px) 10px;
+  color: #eee;
+  font-size: 13px;
+  font-weight: 700;
+  border: none;
+  border-bottom: 2px solid #000;
+  border-radius: 0;
+  background-color: var(--sapi-stone);
+  background-image:
+    conic-gradient(from 180deg at 2px calc(100% - 2px), #6a6b6c 90deg, transparent 0),
+    conic-gradient(from 0 at calc(100% - 2px) 2px, #6a6b6c 90deg, transparent 0),
+    linear-gradient(to top, #464747 2px, transparent 0),
+    linear-gradient(to bottom, #5a5b5c 2px, transparent 0),
+    linear-gradient(to left, #464747 2px, transparent 0),
+    linear-gradient(to right, #5a5b5c 2px, transparent 0);
+  text-shadow: 0 1px 0 #000;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.rp-sidebar-group {
+  color: #ddd;
+  margin-bottom: 2px;
+}
+
+.rp-sidebar-item {
+  border-radius: 0 !important;
+  color: #c8d0d6 !important;
+  margin-top: 1px;
+  /* 勿用 padding 简写覆盖 padding-left，否则 depth 缩进丢失、文字压住引导线 */
+  padding-top: 5px !important;
+  padding-right: 10px !important;
+  padding-bottom: 5px !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+  height: auto !important;
+  min-width: 0;
+  align-items: flex-start !important;
+  transition:
+    color var(--sapi-control-ease),
+    background-color var(--sapi-control-ease);
+}
+
+.rp-sidebar-item__left {
+  flex: 1 1 auto;
+  min-width: 0;
+  align-items: flex-start !important;
+}
+
+/* 长 API 名自动换行，不用省略号（后缀往往才是区分信息） */
+.rp-sidebar-item__left > .rp-doc,
+.rp-sidebar-item__left > span {
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  min-width: 0;
+}
+
+.rp-sidebar-item:hover,
+.rp-sidebar-item--pending {
+  color: #fff !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.rp-sidebar-item--active,
+.rp-sidebar-item--active:hover {
+  color: #fff !important;
+  font-weight: 700 !important;
+  background-color: rgba(58, 151, 30, 0.4) !important;
+  box-shadow: inset 3px 0 0 #3a971e;
+  text-decoration: inherit;
+  cursor: inherit;
+}
+
+.rp-sidebar-item.rp-link {
+  text-decoration: none;
+}
+
+/* 分组引导线放在缩进槽内；文字再右移，避免重叠 */
+.rp-sidebar-item--group-item:before {
+  background-color: #666 !important;
+  left: 14px !important;
+  width: 1px;
+}
+
+.rp-sidebar-item--group-item.rp-sidebar-item--active .rp-sidebar-item__left:before {
+  background-color: #6ba41e !important;
+  left: 14px !important;
+}
+
+.rp-sidebar-item--group-item[data-depth='1'] {
+  padding-left: 32px !important;
+}
+
+.rp-sidebar-item--group-item[data-depth='2'] {
+  padding-left: 44px !important;
+}
+
+.rp-sidebar-item--group-item[data-depth='3'] {
+  padding-left: 56px !important;
+}
+
+.rp-sidebar-item--group-item[data-depth='4'] {
+  padding-left: 68px !important;
+}
+
+.rp-sidebar-divider {
+  border-color: #000 !important;
+  opacity: 0.55;
+  margin: 8px 4px !important;
+}
+
+/* ---- 正文纸面：Wiki content 气质 ---- */
+.rp-doc-layout__doc,
+.rp-doc-layout__doc-container,
+.rp-doc-layout__overview {
+  background-color: var(--rp-c-bg);
+}
+
+.rp-doc-layout__doc {
+  border-top: 1px solid #b4bec3;
+  border-left: 3px solid #171717;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+html.dark .rp-doc-layout__doc,
+html.rp-dark .rp-doc-layout__doc {
+  border-top-color: #3a3a3a;
+  border-left-color: #000;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+
+.rp-doc-layout__doc-container,
+.rp-doc-layout__overview {
+  padding-top: 1.75rem !important;
+}
+
+.rp-doc-layout__outline {
+  background: color-mix(in srgb, var(--sapi-paper) 92%, transparent);
+  backdrop-filter: none !important;
+  box-shadow: none;
+  border-left: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0;
+}
+
+html.dark .rp-doc-layout__outline,
+html.rp-dark .rp-doc-layout__outline {
+  background: color-mix(in srgb, var(--sapi-paper) 95%, #000);
+  border-left-color: #3a3a3a;
+}
+
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(a.rp-link):not(:where(.rp-header-anchor)) {
+  color: var(--rp-c-link);
+  transition:
+    color var(--sapi-control-ease),
+    opacity var(--sapi-control-ease),
+    border-color var(--sapi-control-ease);
+}
+
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(a.rp-link):not(:where(.rp-header-anchor)):hover {
+  opacity: 0.9;
+  border-bottom-color: var(--rp-c-link);
+}
+
+/*
+ * 按钮：对齐 Wiki .mp-button 立体斜面
+ * 关键：::after 叠层 + mix-blend-mode:hard-light，让灰阶 inset
+ * 阴影随底色染色（绿钮绿边、灰钮灰边），再配合按下时 margin/阴影收束。
+ * 源：zh.minecraft.wiki Minecraft_Wiki/styles.css
+ */
+.rp-button {
+  --sapi-btn-face: #ebebeb;
+  --sapi-btn-border: rgba(0, 0, 0, 0.4);
+  --sapi-btn-text: #202122;
+  --sapi-btn-text-shadow: transparent;
+
+  position: relative;
+  isolation: isolate;
+  border-radius: 0 !important;
+  border: 2px solid var(--sapi-btn-border) !important;
+  background: var(--sapi-btn-face) !important;
+  background-image: none !important;
+  color: var(--sapi-btn-text) !important;
+  text-shadow: 2px 2px 0 var(--sapi-btn-text-shadow);
+  font-weight: 700;
+  /* 预留下沿厚度，按下时用 margin-top 吃掉 */
+  margin-top: 0;
+  margin-bottom: 6px;
+  padding: 8px 14px 14px !important;
+  box-shadow: none !important;
+  filter: none;
+  opacity: 1;
+  transition:
+    background-color 0.1s,
+    color 0.1s,
+    border-color 0.1s,
+    margin 0.1s,
+    padding 0.1s,
+    opacity 0.1s;
+}
+
+.rp-button::after {
+  content: '';
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  box-shadow:
+    0 -6px 0 0 rgb(104, 104, 104) inset,
+    2px 2px 0 0 rgba(178, 178, 178, 0.5) inset,
+    -2px -8px 0 0 rgba(153, 153, 153, 0.5) inset;
+  mix-blend-mode: hard-light;
+  transition:
+    0.1s background-color,
+    0.1s box-shadow;
+}
+
+.rp-button:hover {
+  opacity: 1;
+  filter: none;
+}
+
+.rp-button:active {
+  margin-top: 6px;
+  margin-bottom: 0;
+  padding: 14px 14px 8px !important;
+  transform: none;
+  filter: none;
+}
+
+.rp-button:active::after {
+  background-color: #0000001a;
+  box-shadow:
+    2px 2px 0 0 rgba(178, 178, 178, 0.5) inset,
+    -2px -2px 0 0 rgba(153, 153, 153, 0.5) inset;
+}
+
+/* 主按钮：Wiki progressive #3a971e */
+.rp-button--brand {
+  --sapi-btn-face: #3a971e;
+  --sapi-btn-border: rgba(0, 0, 0, 0.4);
+  --sapi-btn-text: #fff;
+  --sapi-btn-text-shadow: #00000020;
+}
+
+.rp-button--brand:hover {
+  --sapi-btn-face: #348619;
+}
+
+/* 副按钮：Wiki 默认灰白 #ebebeb（未选中 portal tab 同系） */
+.rp-button--alt {
+  --sapi-btn-face: #ebebeb;
+  --sapi-btn-border: rgba(0, 0, 0, 0.4);
+  --sapi-btn-text: #202122;
+  --sapi-btn-text-shadow: transparent;
+}
+
+.rp-button--alt:hover {
+  --sapi-btn-face: #f4f4f4;
+}
+
+html.dark .rp-button,
+html.rp-dark .rp-button {
+  --sapi-btn-face: #48494a;
+  --sapi-btn-border: #242424;
+  --sapi-btn-text: #fff;
+}
+
+html.dark .rp-button--brand,
+html.rp-dark .rp-button--brand {
+  --sapi-btn-face: #137342;
+  --sapi-btn-text: #fff;
+  --sapi-btn-text-shadow: #00000020;
+}
+
+html.dark .rp-button--brand:hover,
+html.rp-dark .rp-button--brand:hover {
+  --sapi-btn-face: #0f5f36;
+}
+
+html.dark .rp-button--alt,
+html.rp-dark .rp-button--alt {
+  --sapi-btn-face: #48494a;
+  --sapi-btn-text: #fff;
+}
+
+html.dark .rp-button--alt:hover,
+html.rp-dark .rp-button--alt:hover {
+  --sapi-btn-face: #555658;
+}
+
+/* ---- 正文 MD/MDX（.rp-doc）：API 文档优先 + Wiki 气质 ---- */
+
+/* 关掉 Rspress 首个 h2 上方装饰分割线（首页「更新日志」上方那条） */
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(h2:first-of-type)::before {
+  content: none !important;
+  display: none !important;
+  margin: 0 !important;
+  height: 0 !important;
+  background: none !important;
+}
+
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(h1) {
+  margin: 0 0 1rem;
+  padding-bottom: 0.25rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  border-bottom: 1px solid var(--sapi-doc-heading-border);
+}
+
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(h2) {
+  margin: 1.5rem 0 0.75rem;
+  padding-bottom: 0.2rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  border-bottom: 1px solid var(--sapi-doc-heading-border);
+}
+
+/* 首页正文以 h2 开头时去掉多余顶距 */
+.sapi-home-doc__panel.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(h2:first-of-type) {
+  margin-top: 0;
+}
+
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(h3) {
+  margin: 1.25rem 0 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(h4) {
+  margin: 1rem 0 0.4rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(p):not(:where(li p)) {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.65;
+}
+
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(hr) {
+  margin: 1.5rem 0;
+  border: 0;
+  border-top: 1px solid var(--sapi-doc-heading-border);
+}
+
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(ul) {
+  list-style-image: var(--sapi-doc-list-bullet);
+  padding-left: 1.5rem;
+}
+
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(ol) {
+  padding-left: 1.5rem;
+}
+
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(li) {
+  margin: 0.25rem 0;
+  line-height: 1.55;
+}
+
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(blockquote) {
+  margin: 1rem 0;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--sapi-doc-table-border);
+  border-left: 4px solid var(--sapi-grass);
+  border-radius: var(--sapi-doc-callout-radius);
+  background: color-mix(in srgb, var(--sapi-paper) 80%, #fff);
+}
+
+html.dark .rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(blockquote),
+html.rp-dark .rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(blockquote) {
+  background: color-mix(in srgb, var(--sapi-paper) 90%, #000);
+}
+
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(table) {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid var(--sapi-doc-table-border) !important;
+  border-radius: 0 !important;
+  overflow: hidden;
+}
+
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(thead) {
+  background: var(--sapi-doc-table-head-bg) !important;
+  color: var(--rp-c-text-1);
+}
+
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(th),
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(td) {
+  border: 1px solid var(--sapi-doc-table-border) !important;
+  padding: 0.5rem 0.75rem !important;
+  min-width: 0;
+}
+
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(tbody tr:nth-child(even)) {
+  background: var(--sapi-doc-table-stripe);
+}
+
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(tbody tr):hover {
+  background: color-mix(in srgb, var(--sapi-grass) 12%, var(--sapi-doc-table-stripe));
+}
+
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(:not(pre) > code) {
+  border-radius: 0 !important;
+  background-color: var(--sapi-doc-code-bg) !important;
+  border: 1px solid var(--sapi-doc-code-border) !important;
+  padding: 0.1em 0.35em !important;
+}
+
+.rp-codeblock {
+  border-radius: 0 !important;
+  border: 1px solid var(--sapi-doc-codeblock-border) !important;
+  box-shadow: none !important;
+  overflow: hidden;
+}
+
+.rp-codeblock__title {
+  background-color: var(--sapi-doc-codeblock-title-bg) !important;
+  color: var(--sapi-doc-codeblock-title-fg) !important;
+  border-bottom: 1px solid var(--sapi-doc-codeblock-border) !important;
+  border-radius: 0 !important;
+}
+
+.rp-codeblock__content {
+  backdrop-filter: none !important;
+}
+
+.rp-callout {
+  border-radius: var(--sapi-doc-callout-radius) !important;
+  border: 1px solid var(--sapi-doc-table-border) !important;
+  border-left-width: 4px !important;
+  padding: 0.75rem 1rem 0.65rem !important;
+  margin: 1rem 0 !important;
+}
+
+.rp-callout--tip {
+  border-left-color: #3a971e !important;
+  background: color-mix(in srgb, #3a971e 8%, var(--rp-c-bg)) !important;
+}
+
+.rp-callout--info {
+  border-left-color: #0078d4 !important;
+  background: color-mix(in srgb, #0078d4 8%, var(--rp-c-bg)) !important;
+}
+
+.rp-callout--warning {
+  border-left-color: #ff791a !important;
+  background: color-mix(in srgb, #ff791a 10%, var(--rp-c-bg)) !important;
+}
+
+.rp-callout--danger {
+  border-left-color: #c0392b !important;
+  background: color-mix(in srgb, #c0392b 10%, var(--rp-c-bg)) !important;
+}
+
+.rp-callout--note,
+.rp-callout--details {
+  border-left-color: #666 !important;
+  background: color-mix(in srgb, #888 8%, var(--rp-c-bg)) !important;
+}
+
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(details) {
+  border: 1px solid var(--sapi-doc-table-border);
+  border-radius: 0;
+  padding: 0.5rem 0.75rem;
+  background: color-mix(in srgb, var(--sapi-paper) 85%, transparent);
+}
+
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)):where(details):hover {
+  background: color-mix(in srgb, var(--sapi-paper) 70%, #fff);
+}
+
+/* ---- 标题旁标签 / 正文 Badge：Wiki 角标气质，避免默认圆角色块突兀 ---- */
+.rp-doc h1 .rp-badge,
+.rp-doc :not(:where(.rp-not-doc, .rp-not-doc *)) .rp-badge {
+  border-radius: 0 !important;
+  border: 1px solid currentColor;
+  height: auto;
+  min-height: 0;
+  margin: 0 0 0 0.4em;
+  padding: 0.12em 0.45em !important;
+  font-size: 0.62em;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  vertical-align: middle;
+  position: relative;
+  top: -0.12em;
+  opacity: 0.92;
+}
+
+.rp-doc h1 .rp-badge {
+  font-size: 0.45em;
+  top: -0.35em;
+}
+
+.rp-badge--warning {
+  color: #8a5a00 !important;
+  background-color: color-mix(in srgb, #f0c14b 28%, var(--rp-c-bg)) !important;
+  border-color: #c9a227 !important;
+}
+
+.rp-badge--danger {
+  color: #8b1a1a !important;
+  background-color: color-mix(in srgb, #c0392b 16%, var(--rp-c-bg)) !important;
+  border-color: #a93226 !important;
+}
+
+.rp-badge--info,
+.rp-badge--tip {
+  color: #1f4d12 !important;
+  background-color: color-mix(in srgb, #3a971e 14%, var(--rp-c-bg)) !important;
+  border-color: #3a971e !important;
+}
+
+html.dark .rp-badge--warning,
+html.rp-dark .rp-badge--warning {
+  color: #f0d78c !important;
+  background-color: color-mix(in srgb, #f0c14b 18%, var(--rp-c-bg)) !important;
+  border-color: #a88b2e !important;
+}
+
+html.dark .rp-badge--danger,
+html.rp-dark .rp-badge--danger {
+  color: #f0a8a8 !important;
+  background-color: color-mix(in srgb, #c0392b 22%, var(--rp-c-bg)) !important;
+  border-color: #8b3a3a !important;
+}
+
+html.dark .rp-badge--info,
+html.dark .rp-badge--tip,
+html.rp-dark .rp-badge--info,
+html.rp-dark .rp-badge--tip {
+  color: #b7e08a !important;
+  background-color: color-mix(in srgb, #137342 28%, var(--rp-c-bg)) !important;
+  border-color: #137342 !important;
+}
+
+.rp-badge svg {
+  width: 0.95em;
+  height: 0.95em;
+}
+
+/*
+ * 页脚：首页浮动卡片；正文页全宽石质接缝栏，贴住侧栏/纸面底边
+ */
+.sapi-site-footer {
+  margin-top: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.sapi-site-footer__panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 0.65rem;
+  width: 100%;
+  padding: 0.65rem 1rem;
+  box-sizing: border-box;
+  color: #202122 !important;
+  text-shadow: none;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* 正文页：取消首页 gutter/卡片，改成与侧栏同色的全宽底栏 */
+.sapi-site-footer--doc {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.sapi-site-footer--doc .sapi-site-footer__panel {
+  background: var(--sapi-stone-border) !important;
+  border: none !important;
+  border-top: 2px solid #000 !important;
+  box-shadow: none !important;
+  border-radius: 0;
+  color: #ddd !important;
+  padding: 0.75rem 1.25rem 0.9rem;
+}
+
+.sapi-site-footer--doc .sapi-site-footer__sep {
+  color: #ddd;
+  opacity: 0.4;
+}
+
+.sapi-site-footer--doc .sapi-site-footer__skin {
+  color: #aaa;
+}
+
+.sapi-site-footer--doc a,
+.sapi-site-footer--doc .sapi-cookie-settings {
+  color: #b7e08a !important;
+}
+
+.sapi-site-footer--doc a:hover,
+.sapi-site-footer--doc a:focus-visible,
+.sapi-site-footer--doc .sapi-cookie-settings:hover,
+.sapi-site-footer--doc .sapi-cookie-settings:focus-visible {
+  color: #d4f0a8 !important;
+}
+
+.sapi-site-footer a,
+.sapi-cookie-settings {
+  color: #3a5a2a !important;
+  text-decoration: none;
+  text-shadow: none;
+}
+
+.sapi-site-footer--home a,
+.sapi-site-footer--home .sapi-cookie-settings {
+  color: #3a5a2a !important;
+}
+
+.sapi-site-footer a:hover,
+.sapi-site-footer a:focus-visible,
+.sapi-cookie-settings:hover,
+.sapi-cookie-settings:focus-visible {
+  color: #1f4d12 !important;
+  text-decoration: underline;
+  outline: none;
+}
+
+.sapi-site-footer--home a:hover,
+.sapi-site-footer--home a:focus-visible,
+.sapi-site-footer--home .sapi-cookie-settings:hover,
+.sapi-site-footer--home .sapi-cookie-settings:focus-visible {
+  color: #1f4d12 !important;
+}
+
+.sapi-site-footer__sep {
+  color: #202122;
+  opacity: 0.45;
+}
+
+.sapi-site-footer__skin {
+  flex-basis: 100%;
+  margin-top: 0.1rem;
+  font-size: 0.75rem;
+  color: #555;
+}
+
+html.dark .sapi-site-footer--home .sapi-site-footer__panel,
+html.rp-dark .sapi-site-footer--home .sapi-site-footer__panel {
+  color: #f0f0f0 !important;
+}
+
+html.dark .sapi-site-footer--home a,
+html.dark .sapi-site-footer--home .sapi-cookie-settings,
+html.rp-dark .sapi-site-footer--home a,
+html.rp-dark .sapi-site-footer--home .sapi-cookie-settings {
+  color: #b7e08a !important;
+}
+
+html.dark .sapi-site-footer--home a:hover,
+html.dark .sapi-site-footer--home a:focus-visible,
+html.dark .sapi-site-footer--home .sapi-cookie-settings:hover,
+html.dark .sapi-site-footer--home .sapi-cookie-settings:focus-visible,
+html.rp-dark .sapi-site-footer--home a:hover,
+html.rp-dark .sapi-site-footer--home a:focus-visible,
+html.rp-dark .sapi-site-footer--home .sapi-cookie-settings:hover,
+html.rp-dark .sapi-site-footer--home .sapi-cookie-settings:focus-visible {
+  color: #d4f0a8 !important;
+}
+
+html.dark .sapi-site-footer--home .sapi-site-footer__sep,
+html.rp-dark .sapi-site-footer--home .sapi-site-footer__sep {
+  color: #f0f0f0;
+  opacity: 0.45;
+}
+
+html.dark .sapi-site-footer--home .sapi-site-footer__skin,
+html.rp-dark .sapi-site-footer--home .sapi-site-footer__skin {
+  color: #bfbfbf;
+}
+
+/* 正文纸面底边与页脚接缝：去掉多余空隙 */
+.rp-doc-layout__container {
+  margin-bottom: 0;
+}
+
+.rp-doc-layout__doc {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+html.dark .rp-doc-layout__doc,
+html.rp-dark .rp-doc-layout__doc {
+  border-bottom-color: rgba(0, 0, 0, 0.35);
+}
+
+.rp-doc-layout__sidebar {
+  border-bottom: 2px solid #000;
+}
+
+/* ---- 移动端 / 窄屏适配 ---- */
+
+/* 平板：顶栏仍显示 tab，压缩搜索与间距 */
+@media (width <= 1279px) {
+  :root {
+    --sapi-nav-control-h: 36px;
+    --sapi-home-gutter: 0.75rem;
+  }
+
+  .rp-nav {
+    --rp-nav-padding-x: 12px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .rp-nav__right {
+    gap: 8px;
+  }
+
+  .rp-nav-menu {
+    gap: 6px !important;
+  }
+
+  .rp-nav-menu__item__container {
+    padding: 0 12px 4px !important;
+    font-size: 12px !important;
+  }
+
+  .rp-nav-menu__item--active .rp-nav-menu__item__container,
+  .rp-nav-menu__item:has(> .rp-hover-group:not(.rp-hover-group--hidden))
+    .rp-nav-menu__item__container,
+  .rp-nav-menu__item:active .rp-nav-menu__item__container {
+    padding: 1px 12px 3px !important;
+  }
+
+  .rp-nav-menu__item:has(> .rp-hover-group) {
+    margin-right: 8px;
+  }
+
+  .rspress-logo,
+  .rp-nav__title__logo-image {
+    height: 28px;
+    max-width: min(180px, 42vw);
+  }
+
+  /* 搜索收成图标钮，避免挤掉 tab */
+  .rp-search-button {
+    min-width: var(--sapi-nav-control-h);
+    width: var(--sapi-nav-control-h);
+    padding: 0 0 4px !important;
+    justify-content: center;
+  }
+
+  .rp-search-button__word {
+    display: none !important;
+  }
+
+  .rp-doc-layout__doc-container,
+  .rp-doc-layout__overview {
+    padding-top: 1.35rem !important;
+    padding-left: 1.1rem !important;
+    padding-right: 1.1rem !important;
+  }
+
+  .rp-doc-layout__doc {
+    border-left-width: 2px;
+  }
+
+  .sapi-home-doc__panel {
+    padding: 0.95rem 1.05rem 1.25rem;
+  }
+
+  /* 平板 md 汉堡：同款斜面（仅美化，不改 display 显隐） */
+  .rp-nav-hamburger__md {
+    --sapi-btn-face: #ebebeb;
+    --sapi-btn-border: rgba(0, 0, 0, 0.4);
+
+    box-sizing: border-box;
+    width: var(--sapi-nav-control-h);
+    height: var(--sapi-nav-control-h);
+    min-width: var(--sapi-nav-control-h);
+    margin: 0;
+    padding: 0 0 4px !important;
+    border: 2px solid var(--sapi-btn-border);
+    border-radius: 0 !important;
+    background: var(--sapi-btn-face) !important;
+    color: #202122 !important;
+  }
+
+  .rp-nav-hamburger__md:hover,
+  .rp-nav-hamburger__md.rp-nav-hamburger--active {
+    background: #f4f4f4 !important;
+  }
+
+  html.dark .rp-nav-hamburger__md,
+  html.rp-dark .rp-nav-hamburger__md {
+    --sapi-btn-face: #48494a;
+    --sapi-btn-border: #242424;
+    color: #f0f0f0 !important;
+  }
+}
+
+@media (width <= 960px) {
+  :root {
+    --sapi-home-gutter: 0.65rem;
+  }
+
+  .rspress-logo,
+  .rp-nav__title__logo-image {
+    height: 26px;
+    max-width: min(160px, 46vw);
+  }
+
+  .rp-home-hero {
+    padding: 0.75rem 0.85rem 0.7rem;
+  }
+
+  .rp-home-hero__image-img {
+    max-height: 3.5rem;
+  }
+
+  .rp-home-hero__actions {
+    flex-wrap: wrap !important;
+    gap: 0.4rem !important;
+  }
+}
+
+@media (width <= 768px) {
+  :root {
+    --rp-nav-height: 56px;
+    --sapi-nav-control-h: 36px;
+  }
+
+  .rp-nav {
+    min-height: var(--rp-nav-height);
+    height: var(--rp-nav-height);
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .rp-nav__right {
+    gap: 6px;
+  }
+
+  .rp-nav__others {
+    margin-left: 0;
+  }
+
+  /* 汉堡：同款小方按钮（勿改默认 display，以免 sm/md 同时出现） */
+  .rp-nav-hamburger__sm,
+  .rp-nav-hamburger__md {
+    --sapi-btn-face: #ebebeb;
+    --sapi-btn-border: rgba(0, 0, 0, 0.4);
+
+    box-sizing: border-box;
+    width: var(--sapi-nav-control-h);
+    height: var(--sapi-nav-control-h);
+    min-width: var(--sapi-nav-control-h);
+    margin: 0;
+    padding: 0 0 4px !important;
+    border: 2px solid var(--sapi-btn-border);
+    border-radius: 0 !important;
+    background: var(--sapi-btn-face) !important;
+    color: #202122 !important;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rp-nav-hamburger__sm {
+    display: flex !important;
+  }
+
+  .rp-nav-hamburger svg {
+    fill: currentColor;
+    color: inherit;
+  }
+
+  .rp-nav-hamburger__sm:hover,
+  .rp-nav-hamburger__sm.rp-nav-hamburger--active,
+  .rp-nav-hamburger__md:hover,
+  .rp-nav-hamburger__md.rp-nav-hamburger--active {
+    background: #f4f4f4 !important;
+  }
+
+  html.dark .rp-nav-hamburger__sm,
+  html.dark .rp-nav-hamburger__md,
+  html.rp-dark .rp-nav-hamburger__sm,
+  html.rp-dark .rp-nav-hamburger__md {
+    --sapi-btn-face: #48494a;
+    --sapi-btn-border: #242424;
+    color: #f0f0f0 !important;
+  }
+
+  html.dark .rp-nav-hamburger__sm:hover,
+  html.dark .rp-nav-hamburger__sm.rp-nav-hamburger--active,
+  html.dark .rp-nav-hamburger__md:hover,
+  html.dark .rp-nav-hamburger__md.rp-nav-hamburger--active,
+  html.rp-dark .rp-nav-hamburger__sm:hover,
+  html.rp-dark .rp-nav-hamburger__sm.rp-nav-hamburger--active,
+  html.rp-dark .rp-nav-hamburger__md:hover,
+  html.rp-dark .rp-nav-hamburger__md.rp-nav-hamburger--active {
+    background: #555658 !important;
+  }
+
+  /* 全屏移动菜单：纸面底，勿继承顶栏浅字色/阴影 */
+  .rp-nav-screen {
+    background-color: var(--sapi-paper) !important;
+    background-image: var(--sapi-shell-bg);
+    background-repeat: repeat;
+    color: #202122 !important;
+    text-shadow: none !important;
+    padding: 1rem 1.1rem 2rem;
+    border-top: 2px solid #111;
+  }
+
+  .rp-nav-screen,
+  .rp-nav-screen * {
+    text-shadow: none !important;
+  }
+
+  .rp-nav-screen a,
+  .rp-nav-screen .rp-link,
+  .rp-nav-screen-menu-item,
+  .rp-nav-screen-menu-item__left,
+  .rp-nav-screen-menu-item__right {
+    color: #202122 !important;
+    -webkit-text-fill-color: #202122 !important;
+  }
+
+  .rp-nav-screen-menu-item {
+    border-radius: 0 !important;
+    border: 2px solid rgba(0, 0, 0, 0.25);
+    background: #ebebeb;
+    margin-bottom: 4px;
+    min-height: 40px;
+  }
+
+  .rp-nav-screen-menu-item:hover,
+  .rp-nav-screen-menu-item--active {
+    background: color-mix(in srgb, #3a971e 18%, #ebebeb) !important;
+    color: #1f4d12 !important;
+    -webkit-text-fill-color: #1f4d12 !important;
+  }
+
+  .rp-nav-screen-menu-item--active {
+    font-weight: 700;
+    box-shadow: inset 3px 0 0 #3a971e;
+  }
+
+  .rp-nav-screen-menu-item__group-inner .rp-nav-screen-menu-item {
+    background: #f7f3eb;
+    border-color: rgba(0, 0, 0, 0.18);
+  }
+
+  .rp-nav-screen-menu-item__group-inner .rp-nav-screen-menu-item:hover,
+  .rp-nav-screen-menu-item__group-inner .rp-nav-screen-menu-item--active {
+    background: color-mix(in srgb, #3a971e 18%, #f7f3eb) !important;
+    color: #1f4d12 !important;
+    -webkit-text-fill-color: #1f4d12 !important;
+  }
+
+  .rp-nav-screen-divider {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .rp-nav-screen-appearance {
+    border-radius: 0 !important;
+    border: 2px solid rgba(0, 0, 0, 0.25);
+    background: #ebebeb;
+    margin-bottom: 4px;
+    color: #202122 !important;
+  }
+
+  .rp-nav-screen .rp-social-links {
+    justify-content: center;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  html.dark .rp-nav-screen,
+  html.rp-dark .rp-nav-screen {
+    background-color: var(--sapi-paper) !important;
+    color: #f0f0f0 !important;
+  }
+
+  html.dark .rp-nav-screen a,
+  html.dark .rp-nav-screen .rp-link,
+  html.dark .rp-nav-screen-menu-item,
+  html.dark .rp-nav-screen-menu-item__left,
+  html.dark .rp-nav-screen-menu-item__right,
+  html.dark .rp-nav-screen-appearance,
+  html.rp-dark .rp-nav-screen a,
+  html.rp-dark .rp-nav-screen .rp-link,
+  html.rp-dark .rp-nav-screen-menu-item,
+  html.rp-dark .rp-nav-screen-menu-item__left,
+  html.rp-dark .rp-nav-screen-menu-item__right,
+  html.rp-dark .rp-nav-screen-appearance {
+    color: #f0f0f0 !important;
+    -webkit-text-fill-color: #f0f0f0 !important;
+  }
+
+  html.dark .rp-nav-screen-menu-item,
+  html.dark .rp-nav-screen-appearance,
+  html.rp-dark .rp-nav-screen-menu-item,
+  html.rp-dark .rp-nav-screen-appearance {
+    background: #48494a;
+    border-color: #242424;
+  }
+
+  html.dark .rp-nav-screen-menu-item:hover,
+  html.dark .rp-nav-screen-menu-item--active,
+  html.rp-dark .rp-nav-screen-menu-item:hover,
+  html.rp-dark .rp-nav-screen-menu-item--active {
+    /* 深色勿用浅绿底+白字，否则几乎不可读 */
+    background: color-mix(in srgb, #137342 40%, #48494a) !important;
+    color: #d4f0a8 !important;
+    -webkit-text-fill-color: #d4f0a8 !important;
+  }
+
+  html.dark .rp-nav-screen-menu-item:hover .rp-nav-screen-menu-item__left,
+  html.dark .rp-nav-screen-menu-item:hover .rp-nav-screen-menu-item__right,
+  html.dark .rp-nav-screen-menu-item--active .rp-nav-screen-menu-item__left,
+  html.dark .rp-nav-screen-menu-item--active .rp-nav-screen-menu-item__right,
+  html.rp-dark .rp-nav-screen-menu-item:hover .rp-nav-screen-menu-item__left,
+  html.rp-dark .rp-nav-screen-menu-item:hover .rp-nav-screen-menu-item__right,
+  html.rp-dark .rp-nav-screen-menu-item--active .rp-nav-screen-menu-item__left,
+  html.rp-dark .rp-nav-screen-menu-item--active .rp-nav-screen-menu-item__right {
+    color: #d4f0a8 !important;
+    -webkit-text-fill-color: #d4f0a8 !important;
+  }
+
+  html.dark .rp-nav-screen-menu-item--active,
+  html.rp-dark .rp-nav-screen-menu-item--active {
+    box-shadow: inset 3px 0 0 #6ba41e;
+  }
+
+  html.dark .rp-nav-screen-menu-item__group-inner .rp-nav-screen-menu-item,
+  html.rp-dark .rp-nav-screen-menu-item__group-inner .rp-nav-screen-menu-item {
+    background: var(--sapi-paper);
+  }
+
+  html.dark .rp-nav-screen-menu-item__group-inner .rp-nav-screen-menu-item:hover,
+  html.dark .rp-nav-screen-menu-item__group-inner .rp-nav-screen-menu-item--active,
+  html.rp-dark .rp-nav-screen-menu-item__group-inner .rp-nav-screen-menu-item:hover,
+  html.rp-dark .rp-nav-screen-menu-item__group-inner .rp-nav-screen-menu-item--active {
+    background: color-mix(in srgb, #137342 35%, var(--sapi-paper)) !important;
+    color: #d4f0a8 !important;
+    -webkit-text-fill-color: #d4f0a8 !important;
+  }
+
+  html.dark .rp-nav-screen-menu-item__group-inner .rp-nav-screen-menu-item:hover
+    .rp-nav-screen-menu-item__left,
+  html.dark .rp-nav-screen-menu-item__group-inner .rp-nav-screen-menu-item:hover
+    .rp-nav-screen-menu-item__right,
+  html.dark .rp-nav-screen-menu-item__group-inner .rp-nav-screen-menu-item--active
+    .rp-nav-screen-menu-item__left,
+  html.dark .rp-nav-screen-menu-item__group-inner .rp-nav-screen-menu-item--active
+    .rp-nav-screen-menu-item__right,
+  html.rp-dark .rp-nav-screen-menu-item__group-inner .rp-nav-screen-menu-item:hover
+    .rp-nav-screen-menu-item__left,
+  html.rp-dark .rp-nav-screen-menu-item__group-inner .rp-nav-screen-menu-item:hover
+    .rp-nav-screen-menu-item__right,
+  html.rp-dark .rp-nav-screen-menu-item__group-inner .rp-nav-screen-menu-item--active
+    .rp-nav-screen-menu-item__left,
+  html.rp-dark .rp-nav-screen-menu-item__group-inner .rp-nav-screen-menu-item--active
+    .rp-nav-screen-menu-item__right {
+    color: #d4f0a8 !important;
+    -webkit-text-fill-color: #d4f0a8 !important;
+  }
+
+  /* 侧栏抽屉：保持石质；打开时可见 */
+  .rp-doc-layout__sidebar--open {
+    background: var(--sapi-stone-border) !important;
+    border-right: 2px solid #000 !important;
+  }
+
+  /* 侧栏顶栏菜单条 */
+  .rp-sidebar-menu {
+    background-color: var(--sapi-stone-border) !important;
+    border-bottom: 2px solid #000 !important;
+    color: #eee;
+    padding: 0 12px;
+  }
+
+  .rp-sidebar-menu__left,
+  .rp-sidebar-menu__right,
+  .rp-sidebar-menu__right__text {
+    color: #eee !important;
+  }
+
+  .rp-sidebar-menu__mask {
+    background-color: rgba(0, 0, 0, 0.45);
+    backdrop-filter: none;
+  }
+
+  .rp-doc-layout__doc {
+    border-left: none;
+    border-top: 1px solid #b4bec3;
+  }
+
+  html.dark .rp-doc-layout__doc,
+  html.rp-dark .rp-doc-layout__doc {
+    border-top-color: #3a3a3a;
+  }
+
+  .rp-doc-layout__doc-container,
+  .rp-doc-layout__overview {
+    padding-left: 0.9rem !important;
+    padding-right: 0.9rem !important;
+    padding-top: 1.1rem !important;
+    overflow-x: auto;
+  }
+
+  .sapi-home-links__btn {
+    min-height: 2.6rem;
+    font-size: 0.9rem;
+  }
+
+  .sapi-site-footer__panel {
+    padding: 0.55rem 0.75rem;
+    font-size: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    gap: 0.25rem 0.35rem;
+  }
+}
+
+@media (width <= 480px) {
+  .rspress-logo,
+  .rp-nav__title__logo-image {
+    height: 22px;
+    max-width: min(140px, 52vw);
+  }
+
+  .rp-social-links__item > .rp-social-links__icon,
+  .rp-switch-appearance,
+  .rp-nav-hamburger,
+  .rp-search-button,
+  .rp-search-button--mobile {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    min-height: 34px;
+  }
+
+  .rp-home-hero__image-img {
+    max-height: 2.85rem;
+  }
+
+  .rp-home-hero__actions {
+    gap: 0.35rem !important;
+  }
+
+  .rp-home-hero__action .rp-button {
+    font-size: 0.8rem !important;
+    padding: 6px 10px 10px !important;
+  }
+
+  .rp-doc-layout__doc-container,
+  .rp-doc-layout__overview {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+}

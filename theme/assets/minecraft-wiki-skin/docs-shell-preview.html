@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>sapi-typedoc × Minecraft Wiki 皮肤 — 控件样板</title>
+  <style>
+    /* ---- Wiki 皮肤变量（对应 Vector.css vanilla） ---- */
+    :root {
+      --header-bg: url("./vanilla/light/Header-background.png");
+      --base-bg: url("./vanilla/light/Background.png");
+      --vector-tabs: url("./vanilla/light/Vector-tabs.png");
+      --vector-tabs-first: url("./vanilla/light/Vector-tabs-first.png");
+      --list-bullet: url("./vanilla/light/List_bullet.svg");
+
+      --content-text: #202122;
+      --content-secondary: #555;
+      --content-bg: #e6eff4;
+      --content-border-top: #b4bec3;
+      --content-border-left: #171717;
+      --simplesearch-top: #fff;
+      --simplesearch-left: #888;
+      --simplesearch-grass: #6ba41e;
+      --link: #0645ad;
+      --link-visited: #0b0080;
+      --brand-green: #3c8527;
+      --brand-green-dark: #2d6a1b;
+      --stone: #313233;
+      --stone-border: #232324;
+
+      --font: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      font-family: var(--font);
+      color: var(--content-text);
+      background-color: #303030;
+      background-image: var(--base-bg);
+      background-repeat: repeat;
+      image-rendering: auto;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code, pre { font-family: var(--mono); font-size: 0.9em; }
+
+    /* ---- 顶栏（草地贴图，对应 Rspress nav） ---- */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-height: 56px;
+      padding: 0 20px;
+      color: #fff;
+      text-shadow: 0 1px 0 #333;
+      background-color: #5a8a2f;
+      background-image: var(--header-bg);
+      background-repeat: repeat-x;
+      background-size: auto 100%;
+      border-bottom: 3px solid #3d2914;
+      image-rendering: pixelated;
+    }
+    .site-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .site-brand:hover { text-decoration: none; opacity: 0.92; }
+    .site-brand img { width: 28px; height: 28px; image-rendering: pixelated; }
+    .site-nav {
+      display: flex;
+      gap: 4px;
+      flex: 1;
+      flex-wrap: wrap;
+    }
+    .site-nav a {
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 2px;
+      font-size: 14px;
+    }
+    .site-nav a:hover,
+    .site-nav a.is-active {
+      background: rgba(0, 0, 0, 0.22);
+      text-decoration: none;
+    }
+
+    /* Wiki 风格搜索框 */
+    .search {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      min-width: 200px;
+      max-width: 280px;
+      height: 30px;
+      border-top: 3px solid var(--simplesearch-top);
+      border-left: 3px solid var(--simplesearch-left);
+      background: linear-gradient(#c3c3c3, #dbdbdb);
+    }
+    .search::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: -3px;
+      border-top: 3px solid var(--simplesearch-left);
+      border-left: 3px solid var(--content-border-top);
+    }
+    .search::after {
+      content: "";
+      position: absolute;
+      top: -3px;
+      right: 0;
+      border-top: 3px solid var(--simplesearch-grass);
+      border-left: 3px solid var(--simplesearch-top);
+    }
+    .search input {
+      flex: 1;
+      border: 0;
+      outline: 0;
+      background: rgba(255, 255, 255, 0.55);
+      padding: 0 8px;
+      font: inherit;
+      font-size: 13px;
+      color: #000;
+      min-width: 0;
+    }
+    .search input::placeholder { color: #72777d; }
+    .search button {
+      width: 32px;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      color: #333;
+      opacity: 0.7;
+    }
+    .search button:hover { opacity: 1; }
+
+    /* ---- 主体：侧栏 + 内容（仿 Rspress doc 布局） ---- */
+    .shell {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr) 200px;
+      gap: 0;
+      max-width: 1280px;
+      margin: 0 auto;
+      min-height: calc(100vh - 56px);
+    }
+    @media (max-width: 960px) {
+      .shell { grid-template-columns: 1fr; }
+      .sidebar, .outline { display: none; }
+    }
+
+    /* 侧栏 portal（石质倒角标题） */
+    .sidebar {
+      padding: 16px 10px 32px;
+      color: #ddd;
+    }
+    .portal {
+      margin: 0 6px 12px;
+      background: var(--stone-border);
+      border: 2px solid #000;
+    }
+    .portal-title {
+      margin: 0;
+      padding: calc(0.5em + 2px);
+      font-size: 13px;
+      font-weight: 700;
+      color: #eee;
+      border-bottom: 2px solid #000;
+      background-color: var(--stone);
+      background-image:
+        conic-gradient(from 180deg at 2px calc(100% - 2px), #6a6b6c 90deg, transparent 0),
+        conic-gradient(from 0 at calc(100% - 2px) 2px, #6a6b6c 90deg, transparent 0),
+        linear-gradient(to top, #464747 2px, transparent 0),
+        linear-gradient(to bottom, #5a5b5c 2px, transparent 0),
+        linear-gradient(to left, #464747 2px, transparent 0),
+        linear-gradient(to right, #5a5b5c 2px, transparent 0);
+      cursor: pointer;
+      user-select: none;
+    }
+    .portal-title::before {
+      content: "";
+      display: inline-block;
+      width: 0;
+      height: 0;
+      margin-right: 6px;
+      border-style: solid;
+      border-width: 6px 5px 0;
+      border-color: #aaa transparent transparent;
+      vertical-align: middle;
+    }
+    .portal.is-collapsed .portal-title::before {
+      transform: rotate(-90deg);
+    }
+    .portal.is-collapsed .portal-body { display: none; }
+    .portal-body {
+      padding: 0.35em 0.5em;
+      background: #232324;
+      border: 2px solid #313233;
+      border-top: 0;
+    }
+    .portal-body a {
+      display: block;
+      padding: 4px 6px;
+      color: #aadcff;
+      font-size: 13px;
+      border-radius: 2px;
+    }
+    .portal-body a:hover,
+    .portal-body a.is-active {
+      background: rgba(255, 255, 255, 0.08);
+      text-decoration: none;
+      color: #fff;
+    }
+
+    /* 内容纸面 */
+    .main {
+      margin: 12px 12px 24px 0;
+      background: var(--content-bg);
+      border: 1px solid var(--content-border-top);
+      border-left: 3px solid var(--content-border-left);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+      min-width: 0;
+    }
+
+    /* Vector tabs（控件样板） */
+    .tabs {
+      display: flex;
+      gap: 0;
+      list-style: none;
+      margin: 0;
+      padding: 8px 12px 0;
+      height: 44px;
+      background: transparent;
+    }
+    .tabs li {
+      position: relative;
+      margin-right: 4px;
+      --tab-fill: var(--content-border-top);
+      background:
+        var(--vector-tabs) no-repeat right 8px top,
+        linear-gradient(to right, var(--tab-fill) calc(100% - 14px), transparent 0) no-repeat left 6px top 6px;
+      image-rendering: pixelated;
+    }
+    .tabs li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 6px;
+      height: 100%;
+      background: var(--vector-tabs) var(--tab-fill) no-repeat left top;
+      pointer-events: none;
+    }
+    .tabs li:first-child::before {
+      background: var(--vector-tabs-first) no-repeat left top;
+      height: 93px;
+    }
+    .tabs li.is-active,
+    .tabs li:hover {
+      --tab-fill: var(--content-bg);
+      background-position-y: bottom, 6px;
+    }
+    .tabs a {
+      display: block;
+      padding: 14px 16px 0 18px;
+      height: 36px;
+      color: #0645ad;
+      font-size: 13px;
+      text-decoration: none;
+    }
+    .tabs li.is-active a { color: #000; font-weight: 600; }
+
+    .doc {
+      padding: 8px 28px 36px;
+    }
+    .doc h1 {
+      margin: 0.4em 0 0.35em;
+      font-size: 1.85rem;
+      border-bottom: 1px solid #c8d0d6;
+      padding-bottom: 0.25em;
+    }
+    .doc h2 {
+      margin: 1.4em 0 0.5em;
+      font-size: 1.25rem;
+      border-bottom: 1px solid #d5dde3;
+      padding-bottom: 0.15em;
+    }
+    .doc p, .doc li { line-height: 1.65; font-size: 15px; }
+    .doc ul.bullets { list-style: none; padding-left: 0; }
+    .doc ul.bullets li {
+      padding-left: 1.1em;
+      background: var(--list-bullet) no-repeat left 0.55em;
+      background-size: 3px 6px;
+      image-rendering: pixelated;
+    }
+    .lead { color: var(--content-secondary); }
+
+    /* 按钮组（文档站 CTA 风格 + Wiki 像素风） */
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 1em 0 1.4em;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 16px;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      border: 2px solid #000;
+      cursor: pointer;
+      text-decoration: none !important;
+      image-rendering: pixelated;
+      box-shadow:
+        inset -2px -2px 0 rgba(0, 0, 0, 0.25),
+        inset 2px 2px 0 rgba(255, 255, 255, 0.35);
+    }
+    .btn:active {
+      box-shadow:
+        inset 2px 2px 0 rgba(0, 0, 0, 0.25),
+        inset -2px -2px 0 rgba(255, 255, 255, 0.2);
+      transform: translate(1px, 1px);
+    }
+    .btn-brand {
+      background: var(--brand-green);
+      color: #fff !important;
+      border-color: #1f4d12;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+    }
+    .btn-brand:hover { background: var(--brand-green-dark); }
+    .btn-alt {
+      background: #f4f7f9;
+      color: #202122 !important;
+      border-color: #7a858c;
+    }
+    .btn-alt:hover { background: #fff; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--link) !important;
+      border-color: transparent;
+      box-shadow: none;
+    }
+    .btn-ghost:hover { background: rgba(6, 69, 173, 0.08); }
+    .btn:disabled,
+    .btn.is-disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* 表单控件 */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin: 1em 0;
+    }
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .field input[type="text"],
+    .field input[type="search"],
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 7px 9px;
+      border: 2px solid #8a949b;
+      background: #fff;
+      font: inherit;
+      font-size: 14px;
+      box-shadow: inset 1px 1px 0 #dfe5e9;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: 2px solid var(--simplesearch-grass);
+      outline-offset: 0;
+      border-color: #5a8a2f;
+    }
+    .checks { display: flex; flex-direction: column; gap: 6px; font-size: 14px; }
+    .checks label { font-weight: 400; display: flex; gap: 8px; align-items: center; }
+
+    /* 内容卡片 / tip（仿文档提示） */
+    .tip {
+      margin: 1em 0;
+      padding: 10px 14px;
+      border-left: 4px solid var(--simplesearch-grass);
+      background: rgba(107, 164, 30, 0.12);
+      font-size: 14px;
+    }
+    .code {
+      margin: 1em 0;
+      padding: 12px 14px;
+      background: #f8f9fa;
+      border: 1px solid #c8d0d6;
+      overflow-x: auto;
+    }
+
+    /* 右侧大纲 */
+    .outline {
+      padding: 24px 12px 32px 8px;
+      font-size: 13px;
+    }
+    .outline h3 {
+      margin: 0 0 8px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #ddd;
+      text-shadow: 0 1px 0 #000;
+    }
+    .outline a {
+      display: block;
+      padding: 3px 0;
+      color: #cfe8ff;
+    }
+    .outline a:hover { color: #fff; }
+
+    .site-footer {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 16px;
+      color: #bbb;
+      font-size: 13px;
+      background: rgba(0, 0, 0, 0.35);
+      border-top: 2px solid #111;
+    }
+    .site-footer a { color: #9ad; }
+
+    .badge {
+      display: inline-block;
+      padding: 1px 6px;
+      margin-left: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      vertical-align: middle;
+      background: #e8a317;
+      color: #222;
+      border: 1px solid #000;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="site-brand" href="#">
+      <img src="./catalog/Wiki.png" width="28" height="28" alt="" style="image-rendering:pixelated" />
+      <span>Minecraft Script API</span>
+    </a>
+    <nav class="site-nav" aria-label="主导航">
+      <a href="#" class="is-active">指南</a>
+      <a href="#">API 参考</a>
+      <a href="#">版本映射</a>
+      <a href="#">标签</a>
+      <a href="#">更新日志</a>
+    </nav>
+    <form class="search" role="search" onsubmit="return false">
+      <input type="search" placeholder="搜索文档…" aria-label="搜索" />
+      <button type="submit" aria-label="搜索">⌕</button>
+    </form>
+  </header>
+
+  <div class="shell">
+    <aside class="sidebar" aria-label="侧栏">
+      <section class="portal">
+        <h2 class="portal-title">入门</h2>
+        <div class="portal-body">
+          <a href="#" class="is-active">皮肤控件样板</a>
+          <a href="#">安装与环境</a>
+          <a href="#">第一个脚本</a>
+        </div>
+      </section>
+      <section class="portal">
+        <h2 class="portal-title">API 模块</h2>
+        <div class="portal-body">
+          <a href="#">@minecraft/server</a>
+          <a href="#">@minecraft/server-ui</a>
+          <a href="#">@minecraft/server-net</a>
+          <a href="#">@minecraft/math</a>
+        </div>
+      </section>
+      <section class="portal is-collapsed">
+        <h2 class="portal-title">工具</h2>
+        <div class="portal-body">
+          <a href="#">版本映射</a>
+          <a href="#">标签索引</a>
+        </div>
+      </section>
+    </aside>
+
+    <main class="main">
+      <ul class="tabs" aria-label="页面标签">
+        <li class="is-active"><a href="#">文档</a></li>
+        <li><a href="#">源码</a></li>
+        <li><a href="#">历史</a></li>
+        <li><a href="#">更多 ▾</a></li>
+      </ul>
+
+      <article class="doc">
+        <h1>皮肤控件样板 <span class="badge">预览</span></h1>
+        <p class="lead">
+          用现有文档站信息架构（顶栏 / 侧栏 / 正文 / 大纲），套上 Minecraft Wiki 的
+          CC BY-NC-SA 皮肤贴图与控件 CSS，方便对照按钮、搜索框、标签页与侧栏折叠效果。
+        </p>
+
+        <div class="tip">
+          贴图来自 <code>theme/assets/minecraft-wiki-skin/vanilla/</code>；
+          控件样式参考 Wiki Vector 皮肤（石质 portal、草地色搜索框角、Vector-tabs）。
+          本页为静态样板，尚未接入 Rspress 主题。
+        </div>
+
+        <h2 id="buttons">按钮</h2>
+        <p>对应首页 CTA：主按钮（brand）与次要按钮（alt），改成像素描边风。</p>
+        <div class="actions">
+          <a class="btn btn-brand" href="#">API 参考</a>
+          <a class="btn btn-alt" href="#">版本映射</a>
+          <a class="btn btn-alt" href="#">更新日志</a>
+          <button class="btn btn-ghost" type="button">次要操作</button>
+          <button class="btn btn-brand is-disabled" type="button" disabled>禁用</button>
+        </div>
+
+        <h2 id="tabs">标签页（Vector-tabs）</h2>
+        <p>上方「文档 / 源码 / 历史」使用 <code>Vector-tabs.png</code> 切片背景，悬停或选中时填充变为内容纸色。</p>
+
+        <h2 id="search">搜索框</h2>
+        <p>顶栏右侧为 Wiki 简易搜索样式：灰渐变底、白/灰/草地色三角边。</p>
+        <div class="form-grid">
+          <div class="field">
+            <label for="q2">页内再放一个搜索控件</label>
+            <div class="search" style="max-width:100%">
+              <input id="q2" type="search" placeholder="World、Entity…" />
+              <button type="button" aria-label="搜索">⌕</button>
+            </div>
+          </div>
+        </div>
+
+        <h2 id="forms">表单与选择</h2>
+        <div class="form-grid">
+          <div class="field">
+            <label for="pkg">模块</label>
+            <select id="pkg">
+              <option>@minecraft/server</option>
+              <option>@minecraft/server-ui</option>
+              <option>@minecraft/server-net</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="ver">通道</label>
+            <select id="ver">
+              <option>stable / latest</option>
+              <option>preview / rc</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="sym">符号名</label>
+            <input id="sym" type="text" placeholder="Player、World…" />
+          </div>
+          <div class="field">
+            <span style="display:block;font-size:13px;font-weight:600;margin-bottom:4px">选项</span>
+            <div class="checks">
+              <label><input type="checkbox" checked /> 仅稳定 API</label>
+              <label><input type="checkbox" /> 含实验性</label>
+              <label><input type="radio" name="lang" checked /> 中文</label>
+              <label><input type="radio" name="lang" /> English</label>
+            </div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn btn-brand" type="button">应用筛选</button>
+          <button class="btn btn-alt" type="button">重置</button>
+        </div>
+
+        <h2 id="content">正文元素</h2>
+        <p>
+          链接示例：参见
+          <a href="#">World</a>、
+          <a href="#">Entity</a>
+          与 <code>system.run</code>。
+        </p>
+        <ul class="bullets">
+          <li>列表点使用 Wiki <code>List_bullet.svg</code></li>
+          <li>侧栏标题为 <code>conic-gradient</code> 石质倒角（纯 CSS）</li>
+          <li>背景 / 顶栏为平铺贴图</li>
+        </ul>
+        <pre class="code"><code>import { world } from "@minecraft/server";
+
+world.afterEvents.playerSpawn.subscribe((ev) => {
+  ev.player.sendMessage("Hello, Script API");
+});</code></pre>
+
+        <h2 id="sidebar-note">侧栏折叠</h2>
+        <p>点击左侧「工具」标题可折叠（样板内已演示 collapsed 状态）。石质标题条与百科 portal 一致。</p>
+      </article>
+    </main>
+
+    <aside class="outline" aria-label="本页大纲">
+      <h3>本页内容</h3>
+      <a href="#buttons">按钮</a>
+      <a href="#tabs">标签页</a>
+      <a href="#search">搜索框</a>
+      <a href="#forms">表单与选择</a>
+      <a href="#content">正文元素</a>
+      <a href="#sidebar-note">侧栏折叠</a>
+    </aside>
+
+    <footer class="site-footer">
+      皮肤贴图 CC BY-NC-SA 3.0 · 来源 Minecraft Wiki ·
+      <a href="./preview.html">贴图一览</a> ·
+      <a href="./NOTICE.md">署名</a>
+    </footer>
+  </div>
+
+  <script>
+    document.querySelectorAll(".portal-title").forEach((el) => {
+      el.addEventListener("click", () => {
+        el.parentElement.classList.toggle("is-collapsed");
+      });
+    });
+    document.querySelectorAll(".tabs li").forEach((li) => {
+      li.addEventListener("click", (e) => {
+        e.preventDefault();
+        li.parentElement.querySelectorAll("li").forEach((x) => x.classList.remove("is-active"));
+        li.classList.add("is-active");
+      });
+    });
+  </script>
+</body>
+</html>

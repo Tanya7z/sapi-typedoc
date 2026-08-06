@@ -12,8 +12,8 @@ export default defineConfig({
   description: '基于官方 @minecraft/*.d.ts 生成的中文 Script API 参考（sapi-typedoc）',
   icon: '/logo.png',
   logo: {
-    light: '/logo.png',
-    dark: '/logo.png',
+    light: '/sapi_cn_docs_logo.png',
+    dark: '/sapi_cn_docs_logo.png',
   },
   llms: true,
   // GA 仅在 Cookie 同意后由 theme 动态加载，不再无条件注入 head

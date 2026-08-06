@@ -1,6 +1,11 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { renderPreviewDiffSection } from '../docs-home.js';
+import {
+  renderPerPackageVersionMaps,
+  renderPreviewDiffSection,
+  renderVersionMapSection,
+} from '../docs-home.js';
+import type { ModuleChangelogBundle } from '../official-data.js';
 import type { ModuleExperimentalDiff } from './experimental-diff.js';
 
 describe('renderPreviewDiffSection', () => {
@@ -19,7 +24,6 @@ describe('renderPreviewDiffSection', () => {
       stableVersion: '1.3.0',
       previewVersion: '1.3.0',
     };
-    // previewVersion 与 stable 相同时真实 builder 走「无增量」分支；此处测空列表文案
     const text = renderPreviewDiffSection({
       ...diff,
       previewVersion: '1.3.0-rc.1',
@@ -55,5 +59,48 @@ describe('renderPreviewDiffSection', () => {
     const text = renderPreviewDiffSection(diff).join('\n');
     assert.match(text, /无独立 npm `latest`/);
     assert.match(text, /`DebugDrawer`/);
+  });
+});
+
+describe('renderVersionMapSection / renderPerPackageVersionMaps', () => {
+  const bundle: ModuleChangelogBundle = {
+    moduleName: '@minecraft/server',
+    learnUrl: 'https://example.com/server',
+    tracks: [
+      { track: 'stable', npmVersion: '2.9.0', matchedExactly: true },
+      { track: 'preview', npmVersion: '2.10.0-rc.1.26.50-preview.20', matchedExactly: true },
+    ],
+    versionMap: [
+      {
+        apiVersion: '2.10.0',
+        previewMc: '1.26.50.20',
+        firstPublished: '2026-06-01',
+      },
+      {
+        apiVersion: '2.9.0',
+        stableMc: '1.26.36',
+        previewMc: '1.26.40.20',
+        firstPublished: '2026-04-01',
+      },
+    ],
+  };
+
+  it('备注高亮稳定 / 预览 / 文档站', () => {
+    const text = renderVersionMapSection(bundle, { docs: '2.10.0' }).join('\n');
+    assert.match(text, /## 版本映射表/);
+    assert.match(text, /`2\.10\.0`.*文档站 \/ 预览/);
+    assert.match(text, /`2\.9\.0`.*稳定/);
+  });
+
+  it('按包输出全量对照并挂锚点', () => {
+    const text = renderPerPackageVersionMaps(
+      { '@minecraft/server': '2.10.0-beta.1.26.50-preview.20' },
+      [bundle],
+    ).join('\n');
+    assert.match(text, /## 各包 API 版本对照/);
+    assert.match(text, /### @minecraft\/server \{#minecraftserver\}/);
+    assert.match(text, /本站更新日志/);
+    assert.match(text, /`2\.10\.0`/);
+    assert.match(text, /文档站/);
   });
 });

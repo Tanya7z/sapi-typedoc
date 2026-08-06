@@ -13,13 +13,15 @@ export function PageComments() {
   const { pathname } = useLocation();
   const { page } = usePageData();
   const [mounted, setMounted] = useState(false);
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<'light' | 'dark_dimmed'>('light');
 
   useEffect(() => {
     setMounted(true);
     const root = document.documentElement;
     const sync = () => {
-      setTheme(root.classList.contains('dark') ? 'dark' : 'light');
+      const isDark =
+        root.classList.contains('dark') || root.classList.contains('rp-dark');
+      setTheme(isDark ? 'dark_dimmed' : 'light');
     };
     sync();
     const observer = new MutationObserver(sync);
@@ -33,9 +35,9 @@ export function PageComments() {
 
   return (
     <section className="sapi-comments" aria-label="页面评论">
-      <h2 className="sapi-comments__title">评论</h2>
+      <h2 className="sapi-comments__title">讨论</h2>
       <Giscus
-        key={pathname}
+        key={`${pathname}-${theme}`}
         id="sapi-giscus"
         repo={REPO}
         repoId={REPO_ID}
@@ -46,7 +48,7 @@ export function PageComments() {
         reactionsEnabled="1"
         emitMetadata="0"
         inputPosition="top"
-        theme={theme === 'dark' ? 'dark' : 'light'}
+        theme={theme}
         lang="zh-CN"
         loading="lazy"
       />
