@@ -1,4 +1,5 @@
-import { useMemo, useState, type CSSProperties } from 'react';
+import { Badge } from '@rspress/core/theme';
+import { useMemo, useState } from 'react';
 
 export type TagFilterItem = {
   name: string;
@@ -23,59 +24,6 @@ const KIND_LABELS: Record<string, string> = {
   types: '类型别名',
   'type-aliases': '类型别名',
   modules: '模块',
-};
-
-const wrapStyle: CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '1rem',
-};
-
-const filtersStyle: CSSProperties = {
-  display: 'flex',
-  flexWrap: 'wrap',
-  gap: '0.75rem 1.25rem',
-  alignItems: 'flex-end',
-};
-
-const fieldStyle: CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '0.25rem',
-  fontSize: '0.9rem',
-};
-
-const selectStyle: CSSProperties = {
-  minWidth: '10rem',
-  padding: '0.35rem 0.5rem',
-};
-
-const listStyle: CSSProperties = {
-  listStyle: 'none',
-  padding: 0,
-  margin: 0,
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '0.35rem',
-};
-
-const metaStyle: CSSProperties = {
-  color: 'var(--rp-c-text-2, #666)',
-  fontSize: '0.85rem',
-  marginLeft: '0.5rem',
-};
-
-const legendTableStyle: CSSProperties = {
-  width: '100%',
-  borderCollapse: 'collapse',
-  fontSize: '0.9rem',
-};
-
-const legendCellStyle: CSSProperties = {
-  borderBottom: '1px solid var(--rp-c-divider, #e5e5e5)',
-  padding: '0.35rem 0.5rem',
-  textAlign: 'left',
-  verticalAlign: 'top',
 };
 
 function kindLabel(kind: string): string {
@@ -116,36 +64,38 @@ export function TagFilter({ items, legend = [] }: TagFilterProps) {
   const hasFilter = Boolean(domain || module || kind);
 
   return (
-    <div style={wrapStyle}>
+    <div className="sapi-tag-filter">
       {legend.length > 0 ? (
-        <details open>
-          <summary>领域标签说明</summary>
-          <table style={legendTableStyle}>
-            <thead>
-              <tr>
-                <th style={legendCellStyle}>标签</th>
-                <th style={legendCellStyle}>含义</th>
-              </tr>
-            </thead>
-            <tbody>
-              {legend.map((entry) => (
-                <tr key={entry.tag}>
-                  <td style={legendCellStyle}>
-                    <code>{entry.tag}</code>
-                  </td>
-                  <td style={legendCellStyle}>{entry.meaning}</td>
+        <details className="sapi-tag-filter__legend" open>
+          <summary className="sapi-tag-filter__legend-summary">领域标签说明</summary>
+          <div className="sapi-tag-filter__legend-body">
+            <table className="sapi-tag-filter__table">
+              <thead>
+                <tr>
+                  <th>标签</th>
+                  <th>含义</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {legend.map((entry) => (
+                  <tr key={entry.tag}>
+                    <td>
+                      <Badge type="info">{entry.tag}</Badge>
+                    </td>
+                    <td>{entry.meaning}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </details>
       ) : null}
 
-      <div style={filtersStyle}>
-        <label style={fieldStyle}>
-          领域
+      <div className="sapi-tag-filter__controls">
+        <label className="sapi-tag-filter__field">
+          <span className="sapi-tag-filter__label">领域</span>
           <select
-            style={selectStyle}
+            className="sapi-tag-filter__select"
             value={domain}
             onChange={(e) => setDomain(e.target.value)}
           >
@@ -157,10 +107,10 @@ export function TagFilter({ items, legend = [] }: TagFilterProps) {
             ))}
           </select>
         </label>
-        <label style={fieldStyle}>
-          模块
+        <label className="sapi-tag-filter__field">
+          <span className="sapi-tag-filter__label">模块</span>
           <select
-            style={selectStyle}
+            className="sapi-tag-filter__select"
             value={module}
             onChange={(e) => setModule(e.target.value)}
           >
@@ -172,9 +122,13 @@ export function TagFilter({ items, legend = [] }: TagFilterProps) {
             ))}
           </select>
         </label>
-        <label style={fieldStyle}>
-          类型
-          <select style={selectStyle} value={kind} onChange={(e) => setKind(e.target.value)}>
+        <label className="sapi-tag-filter__field">
+          <span className="sapi-tag-filter__label">类型</span>
+          <select
+            className="sapi-tag-filter__select"
+            value={kind}
+            onChange={(e) => setKind(e.target.value)}
+          >
             <option value="">全部</option>
             {kindOptions.map((k) => (
               <option key={k} value={k}>
@@ -186,6 +140,7 @@ export function TagFilter({ items, legend = [] }: TagFilterProps) {
         {hasFilter ? (
           <button
             type="button"
+            className="sapi-tag-filter__clear"
             onClick={() => {
               setDomain('');
               setModule('');
@@ -197,22 +152,32 @@ export function TagFilter({ items, legend = [] }: TagFilterProps) {
         ) : null}
       </div>
 
-      <p style={{ margin: 0, fontSize: '0.9rem' }}>
+      <p className="sapi-tag-filter__count">
         共 {filtered.length} 项
         {hasFilter ? `（筛选自 ${items.length}）` : null}
       </p>
 
       {filtered.length === 0 ? (
-        <p style={{ margin: 0, color: 'var(--rp-c-text-2, #666)' }}>无匹配项</p>
+        <p className="sapi-tag-filter__empty">无匹配项</p>
       ) : (
-        <ul style={listStyle}>
+        <ul className="sapi-tag-filter__list">
           {filtered.map((item) => (
-            <li key={`${item.module}/${item.kind}/${item.name}`}>
-              <a href={item.href}>{item.name}</a>
-              <span style={metaStyle}>
+            <li key={`${item.module}/${item.kind}/${item.name}`} className="sapi-tag-filter__item">
+              <a className="sapi-tag-filter__link" href={item.href}>
+                {item.name}
+              </a>
+              <span className="sapi-tag-filter__meta">
                 {item.module} · {kindLabel(item.kind)}
-                {item.tags.length > 0 ? ` · ${item.tags.join(', ')}` : ''}
               </span>
+              {item.tags.length > 0 ? (
+                <span className="sapi-tag-filter__badges">
+                  {item.tags.map((tag) => (
+                    <Badge key={tag} type="info">
+                      {tag}
+                    </Badge>
+                  ))}
+                </span>
+              ) : null}
             </li>
           ))}
         </ul>

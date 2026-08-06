@@ -43,13 +43,14 @@ async function runPostTypeDocPipeline(): Promise<void> {
   writeRootNav(
     vanillaOk ? [...new Set([...modules, 'vanilla-data'])] : modules,
   );
+  // 先增强写入 frontmatter tag，再写侧栏：custom-link 需显式带上 tag
+  await enhanceMemberPages(refs);
   for (const mod of modules) {
     writeModuleMeta(
       mod,
       refs.filter((r) => r.module === mod),
     );
   }
-  await enhanceMemberPages(refs);
   const linkPages = rewriteAllMemberLinks(refs);
   writeTagsIndex(refs);
   writeUntaggedReport(refs);

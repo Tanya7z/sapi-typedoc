@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { describe, it } from 'node:test';
 import {
   buildInheritanceGraph,
+  parseFrontmatterTag,
   parseLocalParents,
   renderInheritanceKindMeta,
   renderMetaForModule,
@@ -86,8 +87,23 @@ describe('resolveLocalMemberHref', () => {
     assert.equal(resolveLocalMemberHref('server.Entity.md', known, mod), 'Entity.md');
   });
 
-  it('忽略跨目录链接', () => {
+  it('忽略跨目录相对链接', () => {
     assert.equal(resolveLocalMemberHref('../interfaces/Foo.md', known, mod), undefined);
+  });
+
+  it('接受 rewrite 后的站内绝对路径 /mod/kind/Symbol', () => {
+    assert.equal(
+      resolveLocalMemberHref('/server/classes/Entity', known, mod, 'classes'),
+      'Entity.md',
+    );
+    assert.equal(
+      resolveLocalMemberHref('/server/classes/Player.mdx#ctor', known, mod, 'classes'),
+      'Player.mdx',
+    );
+    assert.equal(
+      resolveLocalMemberHref('/common/classes/Entity', known, mod, 'classes'),
+      undefined,
+    );
   });
 
   it('跨模块 mod.Symbol.md 即使本地有同名文件也不解析', () => {
@@ -225,6 +241,44 @@ describe('buildInheritanceGraph', () => {
     );
     // Zebra 有子，应排在 Alpha 前
     assert.deepEqual(graph.roots, ['Zebra.md', 'Alpha.md']);
+  });
+});
+
+describe('parseFrontmatterTag / custom-link tag', () => {
+  it('解析 tag: experimental / deprecated，忽略无 tag', () => {
+    assert.equal(parseFrontmatterTag('---\ntitle: "X"\ntag: experimental\n---\n'), 'experimental');
+    assert.equal(parseFrontmatterTag('---\ntag: "deprecated"\n---\n'), 'deprecated');
+    assert.equal(parseFrontmatterTag('---\ntitle: "X"\n---\n'), undefined);
+  });
+
+  it('嵌套 custom-link 写入 frontmatter 中的 experimental tag', () => {
+    const graph = buildInheritanceGraph(
+      [
+        {
+          fileName: 'Entity.mdx',
+          content: '---\ntitle: "Entity"\n---\n\n# Entity\n',
+        },
+        {
+          fileName: 'Player.mdx',
+          content:
+            '---\ntitle: "Player"\ntag: experimental\n---\n\n# Player\n\n## Extends\n\n- [`Entity`](/server/classes/Entity)\n',
+        },
+      ],
+      'server',
+      'classes',
+    );
+    const tagsByFile = new Map([['Player.mdx', 'experimental']]);
+    const meta = renderInheritanceKindMeta('server', 'classes', graph, tagsByFile);
+    const entity = meta.find(
+      (item) => typeof item === 'object' && item.type === 'custom-link' && item.label === 'Entity',
+    );
+    assert.ok(entity && typeof entity === 'object' && entity.type === 'custom-link');
+    assert.equal(entity.tag, undefined);
+    const player = entity.items?.find(
+      (c) => typeof c === 'object' && c.type === 'custom-link' && c.label === 'Player',
+    );
+    assert.ok(player && typeof player === 'object' && player.type === 'custom-link');
+    assert.equal(player.tag, 'experimental');
   });
 });
 
