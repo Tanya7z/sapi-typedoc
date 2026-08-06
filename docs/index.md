@@ -32,7 +32,7 @@ features:
     icon: 🔄
     link: /changelog/
   - title: vanilla-data 精简索引
-    details: @minecraft/vanilla-data 以名称索引形式提供，便于按枚举与常量查找，避免完整成员页膨胀。
+    details: "@minecraft/vanilla-data 以名称索引形式提供，便于按枚举与常量查找，避免完整成员页膨胀。"
     icon: 📋
     link: /vanilla-data/
   - title: 自动化更新
