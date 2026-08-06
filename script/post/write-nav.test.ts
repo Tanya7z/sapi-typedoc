@@ -22,17 +22,18 @@ describe('ensureVanillaDataNav', () => {
     const initial: NavItem[] = [
       { text: 'server', link: '/server/', activeMatch: '/server/' },
       { text: 'server-ui', link: '/server-ui/', activeMatch: '/server-ui/' },
-      { text: 'common', link: '/common/', activeMatch: '/common/' },
       { text: 'math', link: '/math/', activeMatch: '/math/' },
       {
         text: '更多',
         items: [
+          { text: 'common', link: '/common/' },
           { text: 'server-net', link: '/server-net/' },
           { text: 'server-admin', link: '/server-admin/' },
           { text: 'diagnostics', link: '/diagnostics/' },
           { text: '标签索引', link: '/tags/' },
         ],
       },
+      { text: '版本映射', link: '/versions/', activeMatch: '/versions/' },
       { text: '更新日志', link: '/changelog/', activeMatch: '/changelog/' },
       { text: 'GitHub', link: 'https://github.com/Tanya7z/sapi-typedoc' },
     ];
@@ -41,7 +42,7 @@ describe('ensureVanillaDataNav', () => {
     assert.equal(ensureVanillaDataNav({ docsDir: root }), true);
 
     const nav = readNav(root);
-    for (const name of ['server', 'server-ui', 'common', 'math']) {
+    for (const name of ['server', 'server-ui', 'math']) {
       assert.ok(
         nav.some((item) => item.text === name),
         `应保留主模块 ${name}`,
@@ -51,6 +52,7 @@ describe('ensureVanillaDataNav', () => {
     const more = nav.find((item) => item.text === '更多');
     assert.ok(more?.items, '应保留「更多」分组');
     const items = more.items!;
+    assert.ok(items.some((item) => item.text === 'common'));
     assert.ok(items.some((item) => item.text === 'server-net'));
     assert.ok(items.some((item) => item.text === 'server-admin'));
     assert.ok(items.some((item) => item.text === 'diagnostics'));

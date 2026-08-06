@@ -19,13 +19,13 @@ export function pluginSapiPostTypeDoc(): RspressPlugin {
   return {
     name: 'sapi-post-typedoc',
     async config(config) {
-      runPostTypeDocPipeline();
+      await runPostTypeDocPipeline();
       return config;
     },
   };
 }
 
-function runPostTypeDocPipeline(): void {
+async function runPostTypeDocPipeline(): Promise<void> {
   const refs = restructureModules();
   if (refs.length === 0) {
     console.warn(
@@ -49,7 +49,7 @@ function runPostTypeDocPipeline(): void {
       refs.filter((r) => r.module === mod),
     );
   }
-  enhanceMemberPages(refs);
+  await enhanceMemberPages(refs);
   const linkPages = rewriteAllMemberLinks(refs);
   writeTagsIndex(refs);
   writeUntaggedReport(refs);

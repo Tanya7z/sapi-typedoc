@@ -1,6 +1,12 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { basename } from 'node:path';
 import { boostForInheritanceDepth, inferDomainTags } from '../domain-tags.js';
+import {
+  buildExperimentalDiff,
+  experimentalMembersOf,
+  isSymbolExperimental,
+  type ExperimentalDiffResult,
+} from './experimental-diff.js';
 import { moveFileSync } from './fs-utils.js';
 import { buildInheritanceGraph, TREE_KINDS } from './inheritance-meta.js';
 import { applyRelatedSection, pickRelated, stripRelatedSection, type MemberWithTags } from './related.js';
@@ -39,27 +45,59 @@ export function parseSymbolFromTitle(content: string): string | undefined {
   return heading || undefined;
 }
 
-/** 状态 tag：弃用优先于 experimental */
-export function detectStatusTag(content: string): 'deprecated' | 'experimental' | undefined {
+/**
+ * 正文状态：仅识别弃用。
+ * experimental 由稳定↔预览符号差异决定（见 experimental-diff），不看正文 Beta 徽章。
+ */
+export function detectStatusTag(content: string): 'deprecated' | undefined {
   const text = stripFrontmatter(content).body;
   if (
     /@deprecated/i.test(text) ||
     /\bdeprecated\b/i.test(text) ||
     /已弃用/.test(text) ||
-    /\*\*`Deprecated`\*\*/i.test(text)
+    /\*\*`Deprecated`\*\*/i.test(text) ||
+    /\*\*`已弃用`\*\*/.test(text)
   ) {
     return 'deprecated';
   }
-  if (
-    /\bbeta\b/i.test(text) ||
-    /\bpreview\b/i.test(text) ||
-    /\brc\b/i.test(text) ||
-    /\*\*`Beta`\*\*/i.test(text) ||
-    /\*\*`Preview`\*\*/i.test(text)
-  ) {
-    return 'experimental';
-  }
   return undefined;
+}
+
+/** 合并弃用与符号级实验性：弃用优先 */
+export function resolveStatusTag(
+  content: string,
+  symbolExperimental?: boolean,
+): 'deprecated' | 'experimental' | undefined {
+  return detectStatusTag(content) ?? (symbolExperimental ? 'experimental' : undefined);
+}
+
+const EXPERIMENTAL_MEMBER_BADGE = '<Badge type="warning">实验性</Badge>';
+
+/** 去掉 ### 标题下由本流水线写入的实验性 Badge，便于幂等 */
+export function stripExperimentalMemberBadges(body: string): string {
+  return body.replace(
+    /^(###[^\r\n]+)\r?\n+(?:<Badge type="warning">实验性<\/Badge>\s*\r?\n+)*/gm,
+    '$1\n\n',
+  );
+}
+
+/**
+ * 在仅预览新增的成员 `###` 标题下插入实验性 Badge。
+ * 构造函数标题 `Constructor` / `构造函数` 对应成员名 `constructor`。
+ */
+export function markExperimentalMembers(body: string, memberNames: Iterable<string>): string {
+  const wanted = new Set([...memberNames].filter(Boolean));
+  let next = stripExperimentalMemberBadges(body);
+  if (wanted.size === 0) return next;
+  return next.replace(
+    /^###[ \t]+([^\r\n{#]+?)[ \t]*(?:\{#[^}]+\})?[ \t]*$/gm,
+    (full, rawTitle: string) => {
+      const title = rawTitle.trim();
+      const key = /^(Constructor|构造函数)$/i.test(title) ? 'constructor' : title;
+      if (!wanted.has(key)) return full;
+      return `${full}\n\n${EXPERIMENTAL_MEMBER_BADGE}`;
+    },
+  );
 }
 
 export function addConstructorAnchors(content: string): string {
@@ -127,7 +165,18 @@ export function escapeMdxProse(content: string): string {
         .split(/(`[^`]*`)/g)
         .map((seg, j) => {
           if (j % 2 === 1) return seg;
-          return seg.replace(/(?<!\\)\{/g, '\\{').replace(/(?<!\\)\}/g, '\\}').replace(/(?<!\\)</g, '\\<');
+          // 保护标题锚点 {#id}（幂等重跑时可能已是 \{#id\}）
+          const anchors: string[] = [];
+          const withSlots = seg
+            .replace(/\\?\{#[^}\\]+\\?\}/g, (m) => {
+              const normalized = m.replace(/\\\{/g, '{').replace(/\\\}/g, '}');
+              anchors.push(normalized);
+              return `\0ANCHOR${anchors.length - 1}\0`;
+            })
+            .replace(/(?<!\\)\{/g, '\\{')
+            .replace(/(?<!\\)\}/g, '\\}')
+            .replace(/(?<!\\)</g, '\\<');
+          return withSlots.replace(/\0ANCHOR(\d+)\0/g, (_, idx) => anchors[Number(idx)]!);
         })
         .join('');
     })
@@ -363,11 +412,16 @@ export function enhanceMemberContent(
     symbolName?: string;
     inheritanceDepth?: number;
     module?: string;
+    /** 该符号相对稳定版为新增导出 */
+    symbolExperimental?: boolean;
+    /** 稳定版已有符号上的新增成员名 */
+    experimentalMembers?: Iterable<string>;
   } = {},
 ): EnhanceContentResult {
   const strippedFm = stripFrontmatter(raw);
   // 去掉旧 Badge / Tabs / SourceCode / 同领域相关，保证幂等；相关节在第二遍再追加
   let body = stripBadgeArtifacts(strippedFm.body);
+  body = stripExperimentalMemberBadges(body);
   body = stripExampleTabs(body);
   body = stripSourceCode(body);
   body = stripRelatedSection(body);
@@ -375,7 +429,7 @@ export function enhanceMemberContent(
 
   const symbolName = options.symbolName?.trim() || parseSymbolFromTitle(body) || 'unknown';
   const domainTags = inferDomainTags(symbolName);
-  const tag = detectStatusTag(body);
+  const tag = resolveStatusTag(body, options.symbolExperimental);
   const searchBoost =
     options.inheritanceDepth !== undefined
       ? boostForInheritanceDepth(options.inheritanceDepth)
@@ -385,11 +439,13 @@ export function enhanceMemberContent(
   body = wrapPrivilegeParagraphs(body);
   body = wrapExampleTabs(body);
   body = wrapLongCodeBlocks(body);
+  body = markExperimentalMembers(body, options.experimentalMembers ?? []);
   body = insertDomainChips(body, domainTags);
   body = applySourceCode(body, options.module);
 
   const importNames: string[] = [];
-  if (domainTags.length > 0) importNames.push('Badge');
+  const hasExperimentalMemberBadge = body.includes(EXPERIMENTAL_MEMBER_BADGE);
+  if (domainTags.length > 0 || hasExperimentalMemberBadge) importNames.push('Badge');
   if (body.includes('<Tabs>')) {
     importNames.push('Tabs', 'Tab');
   }
@@ -447,8 +503,15 @@ export function buildInheritanceDepthByAbsPath(refs: MemberRef[]): Map<string, n
  * 两遍：先增强并收集 domainTags，再追加「同领域相关」。
  * 就地更新 refs 的 fileName/absPath，供同一次 build 后续任务使用。
  */
-export function enhanceMemberPages(refs: MemberRef[]): MemberRef[] {
+export async function enhanceMemberPages(
+  refs: MemberRef[],
+  options: { experimentalDiff?: ExperimentalDiffResult } = {},
+): Promise<MemberRef[]> {
   const depthByAbsPath = buildInheritanceDepthByAbsPath(refs);
+  const modules = [...new Set(refs.map((r) => r.module))];
+  const experimentalDiff =
+    options.experimentalDiff ??
+    (await buildExperimentalDiff({ modules }));
   let enhanced = 0;
   const tagged: MemberWithTags[] = [];
 
@@ -459,12 +522,15 @@ export function enhanceMemberPages(refs: MemberRef[]): MemberRef[] {
       continue;
     }
 
+    const modDiff = experimentalDiff.modules[ref.module];
     const raw = readFileSync(ref.absPath, 'utf-8');
     const depth = depthByAbsPath.get(ref.absPath);
     const result = enhanceMemberContent(raw, {
       symbolName: ref.symbolName,
       inheritanceDepth: depth,
       module: ref.module,
+      symbolExperimental: isSymbolExperimental(modDiff, ref.symbolName),
+      experimentalMembers: experimentalMembersOf(modDiff, ref.symbolName),
     });
 
     const destPath = toMdxPath(ref.absPath);

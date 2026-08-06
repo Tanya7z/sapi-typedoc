@@ -16,19 +16,27 @@ import {
   escapeTabLabel,
   insertDomainChips,
   isEnhanceableMember,
+  markExperimentalMembers,
   npmPackageForModule,
   parseSymbolFromTitle,
+  resolveStatusTag,
   sourceCodeHref,
   stripExampleTabs,
+  stripExperimentalMemberBadges,
   stripSourceCode,
   wrapExampleTabs,
   wrapLongCodeBlocks,
   wrapPrivilegeParagraphs,
 } from './enhance-member-mdx.js';
+import type { ExperimentalDiffResult } from './experimental-diff.js';
 import type { MemberRef } from './restructure-modules.js';
 
 function countMatches(content: string, pattern: RegExp): number {
   return (content.match(pattern) ?? []).length;
+}
+
+function mockDiff(partial: ExperimentalDiffResult['modules']): ExperimentalDiffResult {
+  return { generatedAt: '2026-01-01T00:00:00.000Z', modules: partial };
 }
 
 describe('parseSymbolFromTitle / detectStatusTag', () => {
@@ -37,9 +45,30 @@ describe('parseSymbolFromTitle / detectStatusTag', () => {
     assert.equal(parseSymbolFromTitle('# 类: Entity\n\n'), 'Entity');
   });
 
-  it('弃用优先于 experimental', () => {
+  it('正文只识别弃用；experimental 由符号差异决定', () => {
     assert.equal(detectStatusTag('# X\n\n@deprecated\n**`Beta`**'), 'deprecated');
-    assert.equal(detectStatusTag('# X\n\n**`Beta`**'), 'experimental');
+    assert.equal(detectStatusTag('# X\n\n**`Beta`**'), undefined);
+    assert.equal(resolveStatusTag('# X\n\n**`Beta`**', true), 'experimental');
+    assert.equal(resolveStatusTag('# X\n\n**`Beta`**', false), undefined);
+    assert.equal(resolveStatusTag('# X\n\n@deprecated', true), 'deprecated');
+  });
+});
+
+describe('markExperimentalMembers', () => {
+  it('在 ### 成员标题下插入实验性 Badge，且幂等', () => {
+    const raw = ['## Properties', '', '### getFoo', '', '说明', '', '### id', '', '稳定成员', ''].join('\n');
+    const once = markExperimentalMembers(raw, ['getFoo']);
+    assert.match(once, /### getFoo\n\n<Badge type="warning">实验性<\/Badge>\n\n说明/);
+    assert.doesNotMatch(once, /### id\n\n<Badge type="warning">/);
+    const twice = markExperimentalMembers(once, ['getFoo']);
+    assert.equal(countMatches(twice, /实验性/g), 1);
+    assert.equal(stripExperimentalMemberBadges(twice).includes('实验性'), false);
+  });
+
+  it('Constructor / 构造函数 对应 constructor', () => {
+    const raw = addConstructorAnchors('### Constructor\n\nbody\n');
+    const out = markExperimentalMembers(raw, ['constructor']);
+    assert.match(out, /### Constructor \{#constructor\}\n\n<Badge type="warning">实验性<\/Badge>/);
   });
 });
 
@@ -289,6 +318,8 @@ describe('enhanceMemberContent', () => {
       symbolName: 'EntityDieAfterEvent',
       inheritanceDepth: 1,
       module: 'server',
+      symbolExperimental: true,
+      experimentalMembers: ['constructor'],
     });
     assert.match(first.content, /^---\n/);
     assert.match(first.content, /title: "EntityDieAfterEvent"/);
@@ -301,6 +332,7 @@ describe('enhanceMemberContent', () => {
     );
     assert.match(first.content, /<Badge type="info">event<\/Badge> <Badge type="info">entity<\/Badge>/);
     assert.match(first.content, /## Constructors \{#constructors\}/);
+    assert.match(first.content, /### Constructor \{#constructor\}\n\n<Badge type="warning">实验性<\/Badge>/);
     assert.match(first.content, /:::tip\n无法在只读模式下调用此函数。\n:::/);
     assert.match(first.content, /:::details 示例\n```ts\n/);
     assert.match(first.content, /<Tabs>/);
@@ -311,6 +343,8 @@ describe('enhanceMemberContent', () => {
       symbolName: 'EntityDieAfterEvent',
       inheritanceDepth: 1,
       module: 'server',
+      symbolExperimental: true,
+      experimentalMembers: ['constructor'],
     });
     const themeImports = second.content.match(/import \{[^}]+\} from '@rspress\/core\/theme';/g) ?? [];
     assert.equal(themeImports.length, 1);
@@ -335,7 +369,7 @@ describe('enhanceMemberContent', () => {
 });
 
 describe('enhanceMemberPages', () => {
-  it('跳过 modules 概览；.md 改为 .mdx 并更新 ref', () => {
+  it('跳过 modules 概览；.md 改为 .mdx 并更新 ref', async () => {
     const root = mkdtempSync(join(tmpdir(), 'sapi-enhance-'));
     const classDir = join(root, 'server', 'classes');
     mkdirSync(classDir, { recursive: true });
@@ -370,7 +404,18 @@ describe('enhanceMemberPages', () => {
     assert.equal(isEnhanceableMember(refs[0]!), true);
     assert.equal(isEnhanceableMember(refs[1]!), false);
 
-    enhanceMemberPages(refs);
+    await enhanceMemberPages(refs, {
+      experimentalDiff: mockDiff({
+        server: {
+          module: 'server',
+          allExperimental: false,
+          experimentalSymbols: ['Player'],
+          experimentalMembers: {},
+          stableVersion: '1.0.0',
+          previewVersion: '2.0.0-beta',
+        },
+      }),
+    });
 
     assert.equal(refs[0]!.fileName, 'Player.mdx');
     assert.ok(refs[0]!.absPath.endsWith('Player.mdx'));
@@ -388,7 +433,7 @@ describe('enhanceMemberPages', () => {
     assert.match(out, /<SourceCode href="https:\/\/www\.npmjs\.com\/package\/@minecraft\/server" \/>/);
   });
 
-  it('按继承深度写入 searchBoost；二次增强在 .mdx 上仍正确', () => {
+  it('按继承深度写入 searchBoost；二次增强在 .mdx 上仍正确', async () => {
     const root = mkdtempSync(join(tmpdir(), 'sapi-enhance-depth-'));
     const classDir = join(root, 'server', 'classes');
     mkdirSync(classDir, { recursive: true });
@@ -419,7 +464,18 @@ describe('enhanceMemberPages', () => {
       },
     ];
 
-    enhanceMemberPages(refs);
+    const experimentalDiff = mockDiff({
+      server: {
+        module: 'server',
+        allExperimental: false,
+        experimentalSymbols: [],
+        experimentalMembers: {},
+        stableVersion: '1.0.0',
+        previewVersion: '2.0.0-beta',
+      },
+    });
+
+    await enhanceMemberPages(refs, { experimentalDiff });
 
     assert.equal(refs[0]!.fileName, 'Entity.mdx');
     assert.equal(refs[1]!.fileName, 'Player.mdx');
@@ -429,11 +485,13 @@ describe('enhanceMemberPages', () => {
     // Entity depth 0 → 1.2；Player depth 1 → 1.1
     assert.match(entityOut, /searchBoost: 1\.2/);
     assert.match(playerOut, /searchBoost: 1\.1/);
+    assert.doesNotMatch(entityOut, /^tag:/m);
+    assert.doesNotMatch(playerOut, /^tag:/m);
 
     const entityBadges = countMatches(entityOut, /<Badge\b/g);
     const playerBadges = countMatches(playerOut, /<Badge\b/g);
 
-    enhanceMemberPages(refs);
+    await enhanceMemberPages(refs, { experimentalDiff });
 
     const entityAgain = readFileSync(refs[0]!.absPath, 'utf-8');
     const playerAgain = readFileSync(refs[1]!.absPath, 'utf-8');
@@ -447,7 +505,7 @@ describe('enhanceMemberPages', () => {
     assert.equal(countMatches(playerAgain, /<SourceCode\b/g), 1);
   });
 
-  it('第二遍追加同领域相关且幂等', () => {
+  it('第二遍追加同领域相关且幂等', async () => {
     const root = mkdtempSync(join(tmpdir(), 'sapi-enhance-related-'));
     const classDir = join(root, 'server', 'classes');
     mkdirSync(classDir, { recursive: true });
@@ -487,7 +545,18 @@ describe('enhanceMemberPages', () => {
       },
     ];
 
-    enhanceMemberPages(refs);
+    const experimentalDiff = mockDiff({
+      server: {
+        module: 'server',
+        allExperimental: false,
+        experimentalSymbols: [],
+        experimentalMembers: {},
+        stableVersion: '1.0.0',
+        previewVersion: '2.0.0-beta',
+      },
+    });
+
+    await enhanceMemberPages(refs, { experimentalDiff });
 
     const eventOut = readFileSync(refs[1]!.absPath, 'utf-8');
     assert.match(eventOut, /## 同领域相关\n\n- \[Entity\]\(\/server\/classes\/Entity\)\n/);
@@ -501,7 +570,7 @@ describe('enhanceMemberPages', () => {
     assert.doesNotMatch(worldOut, /## 同领域相关/);
     assert.match(worldOut, /^---\n[\s\S]*?\n---\n/);
 
-    enhanceMemberPages(refs);
+    await enhanceMemberPages(refs, { experimentalDiff });
     const eventAgain = readFileSync(refs[1]!.absPath, 'utf-8');
     assert.equal(countMatches(eventAgain, /## 同领域相关/g), 1);
     assert.equal(countMatches(eventAgain, /\[Entity\]\(\/server\/classes\/Entity\)/g), 1);

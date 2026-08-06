@@ -6,7 +6,7 @@ import { basePath } from '../utils.js';
 
 export type AbbreviationMap = Map<string, string>;
 
-/** pandoc/mkdocs 词表行：`*[ABBR]: definition` */
+/** pandoc 词表行：`*[ABBR]: definition` */
 const ABBR_LINE_RE = /^\*\[([^\]]+)\]:\s*(.+)$/;
 
 /** 解析 abbreviations.md 文本为缩写表（同名后者覆盖） */
@@ -62,11 +62,12 @@ type MdxJsxTextElement = {
   children: PhrasingContent[];
 };
 
-function makeAbbrNode(abbr: string, title: string): MdxJsxTextElement {
+function makeAbbrNode(abbr: string, tip: string): MdxJsxTextElement {
   return {
     type: 'mdxJsxTextElement',
     name: 'abbr',
-    attributes: [{ type: 'mdxJsxAttribute', name: 'title', value: title }],
+    // tip 由 theme Abbr 组件渲染为浮层，避免原生 title 气泡
+    attributes: [{ type: 'mdxJsxAttribute', name: 'tip', value: tip }],
     children: [{ type: 'text', value: abbr }],
   };
 }
@@ -141,7 +142,7 @@ export type RemarkAbbrGlossaryOptions = {
 
 /**
  * 基于外部词表的 remark 缩写插件。
- * 正文中的完整词匹配替换为 `<abbr title="...">`，代码块/行内代码/链接内不处理。
+ * 正文中的完整词匹配替换为 `<abbr tip="...">`，代码块/行内代码/链接内不处理。
  * 不用过时的 remark-abbr（需页内定义且不适配 remark 13+ / MDX）。
  */
 export function remarkAbbrGlossary(options: RemarkAbbrGlossaryOptions = {}): Plugin<[], Root> {

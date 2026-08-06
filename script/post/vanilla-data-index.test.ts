@@ -52,6 +52,11 @@ describe('writeVanillaDataIndex', () => {
 
     const body = readFileSync(indexPath, 'utf-8');
     assert.match(body, /title: vanilla-data/);
+    // @ 开头的 description 必须加引号，否则 YAML 解析失败会把 frontmatter 漏到页面
+    assert.match(
+      body,
+      /description: "@minecraft\/vanilla-data 枚举\/常量名称索引（精简，不展开成员）"/,
+    );
     assert.match(body, /:::tip 精简索引/);
     assert.match(body, /^## M$/m);
     assert.match(body, /`MinecraftBlockTypes`/);

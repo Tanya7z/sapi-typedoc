@@ -8,8 +8,7 @@
  *    （修复链接、创建示例页面、创建执行权限摘要）
  *
  * 跳过的 hooks：
- * - 1.readme.ts afterConvert — rspress 无 TypeDoc readme（readme: 'none'）
- * - 3.docs-home.ts — 改为独立 post-build 脚本
+ * - 3.docs-home.ts — 由 npm run docs:sync / afterUpdate 维护，不在 typedoc setup 内跑
  */
 import { existsSync, readFileSync } from 'fs';
 import { resolve as resolvePath } from 'path';
@@ -18,7 +17,7 @@ import type { BeforeConvertHookContext } from './hooks/hook.js';
 import { buildMetaPath, installLanguages, translatedPath, type TypeDocLanguages } from './utils.js';
 import { loadExamples } from './hooks/1.example-extractor.js';
 
-// 直接导入需要的 hooks（跳过 readme 和 docs-home）
+// 直接导入 TypeDoc 转换期 hooks（docs-home 走 afterUpdate / docs:sync）
 import exampleExtractor from './hooks/1.example-extractor.js';
 import executionPrivileges from './hooks/1.execution-privileges.js';
 import fixLinkInlineTags from './hooks/1.fix-link-inline-tags.js';

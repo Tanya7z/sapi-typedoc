@@ -10,11 +10,6 @@
     "activeMatch": "/server-ui/"
   },
   {
-    "text": "common",
-    "link": "/common/",
-    "activeMatch": "/common/"
-  },
-  {
     "text": "math",
     "link": "/math/",
     "activeMatch": "/math/"
@@ -22,6 +17,10 @@
   {
     "text": "更多",
     "items": [
+      {
+        "text": "common",
+        "link": "/common/"
+      },
       {
         "text": "server-net",
         "link": "/server-net/"
@@ -59,6 +58,11 @@
         "link": "/tags/"
       }
     ]
+  },
+  {
+    "text": "版本映射",
+    "link": "/versions/",
+    "activeMatch": "/versions/"
   },
   {
     "text": "更新日志",

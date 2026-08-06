@@ -90,6 +90,12 @@ describe('remarkAbbrGlossary', () => {
       assert.equal(node.type, 'mdxJsxTextElement');
       if (node.type !== 'mdxJsxTextElement') continue;
       assert.equal(node.name, 'abbr');
+      const tip = node.attributes.find((a) => a.name === 'tip');
+      assert.ok(tip?.value);
+      assert.equal(
+        node.attributes.some((a) => a.name === 'title'),
+        false,
+      );
     }
 
     const code = tree.children[1]!;

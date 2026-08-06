@@ -10,14 +10,17 @@ hero:
       text: API 参考
       link: /server/
     - theme: alt
+      text: 版本映射
+      link: /versions/
+    - theme: alt
       text: 更新日志
       link: /changelog/
     - theme: alt
       text: GitHub
       link: https://github.com/Tanya7z/sapi-typedoc
   image:
-    src: /rspress-icon.png
-    alt: Minecraft Script API
+    src: /logo.png
+    alt: Minecraft Script API 文档
 
 features:
   - title: 全模块覆盖
@@ -30,7 +33,7 @@ features:
   - title: 稳定 / 预览双轨道
     details: 同步 npm latest 与 rc/preview/beta 版本，标注对应 Minecraft 游戏版本号。
     icon: 🔄
-    link: /changelog/
+    link: /versions/
   - title: vanilla-data 精简索引
     details: "@minecraft/vanilla-data 以名称索引形式提供，便于按枚举与常量查找，避免完整成员页膨胀。"
     icon: 📋
@@ -42,28 +45,7 @@ features:
 
 # Minecraft Script API 中文文档
 
-<!-- summary start -->
-
-数据来源：官方 npm [`@minecraft/*`](https://www.npmjs.com/search?q=scope%3Aminecraft)。
-
-| 包名 | 当前文档版本 | 对应 MC 版本 | 本站更新日志 |
-| --- | --- | --- | --- |
-| [@minecraft/server](https://www.npmjs.com/package/@minecraft/server) | `2.11.0-beta` | `1.26.50.20` | [稳定/预览](./changelog/server.md) |
-| [@minecraft/server-ui](https://www.npmjs.com/package/@minecraft/server-ui) | `2.3.0-beta` | `1.26.50.20` | [稳定/预览](./changelog/server-ui.md) |
-| [@minecraft/server-net](https://www.npmjs.com/package/@minecraft/server-net) | `1.0.0-beta` | `1.26.50.20` | [稳定/预览](./changelog/server-net.md) |
-| [@minecraft/common](https://www.npmjs.com/package/@minecraft/common) | `1.3.0` | - | [稳定/预览](./changelog/common.md) |
-| [@minecraft/debug-utilities](https://www.npmjs.com/package/@minecraft/debug-utilities) | `1.0.0-beta` | `1.26.50.20` | [稳定/预览](./changelog/debug-utilities.md) |
-| [@minecraft/diagnostics](https://www.npmjs.com/package/@minecraft/diagnostics) | `1.0.0-beta` | `1.26.50.20` | [稳定/预览](./changelog/diagnostics.md) |
-| [@minecraft/math](https://www.npmjs.com/package/@minecraft/math) | `2.4.0` | - | [模块文档](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/math/minecraft-math) |
-| [@minecraft/server-admin](https://www.npmjs.com/package/@minecraft/server-admin) | `1.0.0-beta` | `1.26.50.20` | [稳定/预览](./changelog/server-admin.md) |
-| [@minecraft/server-editor](https://www.npmjs.com/package/@minecraft/server-editor) | `0.1.0-beta` | `1.26.50.20` | [稳定/预览](./changelog/server-editor.md) |
-| [@minecraft/server-gametest](https://www.npmjs.com/package/@minecraft/server-gametest) | `1.0.0-beta` | `1.26.50.20` | [稳定/预览](./changelog/server-gametest.md) |
-| [@minecraft/server-graphics](https://www.npmjs.com/package/@minecraft/server-graphics) | `1.0.0-beta` | `1.26.50.20` | [稳定/预览](./changelog/server-graphics.md) |
-| [@minecraft/vanilla-data](https://www.npmjs.com/package/@minecraft/vanilla-data) | `1.26.50-preview.20` | - | [模块文档](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/vanilla-data/minecraft-vanilla-data) |
-
-游戏版本号：`1.26.50.20`
-
-<!-- summary end -->
+当前文档站锁定的 npm 包版本与对应游戏版本见[版本映射](/versions/)。
 
 > `@minecraft/vanilla-data` 以[精简名称索引](/vanilla-data/)收录，不生成完整成员页。
 

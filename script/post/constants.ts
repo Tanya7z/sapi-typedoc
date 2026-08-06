@@ -4,8 +4,8 @@ import { basePath } from '../utils.js';
 export const docsDir = resolvePath(basePath, 'docs');
 export const apiDir = resolvePath(docsDir, 'api');
 
-/** 顶栏主模块（规格 §4） */
-export const PRIMARY_MODULES = ['server', 'server-ui', 'common', 'math'] as const;
+/** 顶栏主模块；其余在「更多」（含 common） */
+export const PRIMARY_MODULES = ['server', 'server-ui', 'math'] as const;
 
 /** 全模块顺序（主 + 更多内排序；含 vanilla-data 索引） */
 export const MODULE_ORDER = [

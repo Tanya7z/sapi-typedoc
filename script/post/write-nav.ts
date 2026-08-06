@@ -39,6 +39,11 @@ export function writeRootNav(presentModules: string[]) {
       ],
     },
     {
+      text: '版本映射',
+      link: '/versions/',
+      activeMatch: '/versions/',
+    },
+    {
       text: '更新日志',
       link: '/changelog/',
       activeMatch: '/changelog/',
@@ -79,9 +84,12 @@ export function ensureVanillaDataNav(options: { docsDir?: string } = {}): boolea
   let more = nav.find((item) => item.text === '更多');
   if (!more) {
     more = { text: '更多', items: [] };
-    const changelogIdx = nav.findIndex((item) => item.text === '更新日志');
-    if (changelogIdx >= 0) {
-      nav.splice(changelogIdx, 0, more);
+    // 插在「版本映射 / 更新日志」之前，保持顶栏右区顺序
+    const insertAt = nav.findIndex(
+      (item) => item.text === '版本映射' || item.text === '更新日志',
+    );
+    if (insertAt >= 0) {
+      nav.splice(insertAt, 0, more);
     } else {
       nav.push(more);
     }

@@ -65,7 +65,7 @@ export function writeVanillaDataIndex(
   mkdirSync(dir, { recursive: true });
   writeFileSync(
     join(dir, 'index.mdx'),
-    `---\ntitle: vanilla-data\ndescription: @minecraft/vanilla-data 枚举/常量名称索引（精简，不展开成员）\n---\n\n# @minecraft/vanilla-data\n\n:::tip 精简索引\n本页仅列出导出名称，不生成每枚举成员页，以避免页数爆炸。\n:::\n\n${body}\n`,
+    `---\ntitle: vanilla-data\ndescription: "@minecraft/vanilla-data 枚举/常量名称索引（精简，不展开成员）"\n---\n\n# @minecraft/vanilla-data\n\n:::tip 精简索引\n本页仅列出导出名称，不生成每枚举成员页，以避免页数爆炸。\n:::\n\n${body}\n`,
     'utf-8',
   );
   writeJson(join(dir, '_meta.json'), [{ type: 'file', name: 'index', label: '索引' }]);
