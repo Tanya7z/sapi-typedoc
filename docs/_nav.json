@@ -68,9 +68,5 @@
     "text": "更新日志",
     "link": "/changelog/",
     "activeMatch": "/changelog/"
-  },
-  {
-    "text": "GitHub",
-    "link": "https://github.com/Tanya7z/sapi-typedoc"
   }
 ]

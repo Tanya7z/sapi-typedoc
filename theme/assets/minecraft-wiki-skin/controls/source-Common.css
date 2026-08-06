@@ -1,0 +1,1427 @@
+/* 这里放置的CSS将应用于所有皮肤 */
+/**
+ * See [[MediaWiki:Vector.css]] for desktop theme related styles.
+ * See [[MediaWiki:Vector-theme-dark.css]] for desktop dark theme related styles.
+ *
+ * See [[MediaWiki:Minerva.css]] for mobile theme related styles.
+ * See [[MediaWiki:Minerva-theme-dark.css]] for mobile dark theme related styles.
+ */
+
+/* Minecraft font
+ * [[File:Minecraft.woff2]] [[File:Minecraft.woff]] [[File:Unifont.woff2]]
+ */
+ @font-face {
+	font-family: Minecraft;
+	src: url('filepath://Minecraft.woff2') format('woff2'),
+	     url('filepath://Minecraft.woff') format('woff');
+}
+@font-face {
+    font-family: Unifont;
+    src: url('filepath://Unifont.woff2') format('woff2');
+}
+
+/* Codex Design tokens */
+:root,
+.skin-invert,
+.notheme {
+	--color-base: #202122;
+	--color-base-fixed: #202122;
+	--color-base--hover: #404244;
+	--color-emphasized: #101418;
+	--color-subtle: #54595d;
+	--color-placeholder: #72777d;
+	--color-disabled: #a2a9b1;
+	--color-disabled-emphasized: #a2a9b1;
+	--color-inverted: #fff;
+	--color-inverted-fixed: #fff; /* The same as color-inverted in light mode, but does not change in dark mode. Use this for things that should be white in both modes. */
+	--color-progressive: #36c; /* 'Progressive' Color and states */
+	--color-progressive--hover: #3056a9;
+	--color-progressive--active: #233566;
+	--color-progressive--focus: #36c;
+	--color-destructive: #bf3c2c; /* 'Destructive' Color and states */
+	--color-destructive--hover: #9f3526;
+	--color-destructive--active: #612419;
+	--color-destructive--focus: #36c;
+	--color-visited: #6a60b0; /* 'Visited' color. In combination with progressive. Used for default links. */
+	--color-visited--hover: #534fa3;
+	--color-visited--active: #353262;
+	--color-destructive--visited: #9f5555; /* Red link 'Visited' color. Used for visited red links. */
+	--color-destructive--visited--hover: #854848;
+	--color-destructive--visited--active: #512e2e;
+	--color-error: #bf3c2c;
+	--color-error--hover: #9f3526;
+	--color-error--active: #612419;
+	--color-warning: #886425;
+	--color-success: #177860;
+	--color-notice: #404244;
+	--color-icon-error: #f54739;
+	--color-icon-warning: #ab7f2a;
+	--color-icon-success: #099979;
+	--color-icon-notice: #72777d;
+	--color-content-added: #006400;
+	--color-content-removed: #8b0000;
+	--filter-invert-icon: 0;
+	--filter-invert-primary-button-icon: 1;
+	--box-shadow-color-base: #a2a9b1;
+	--box-shadow-color-progressive--active: #233566;
+	--box-shadow-color-progressive--focus: #36c;
+	--box-shadow-color-progressive-selected: #36c;
+	--box-shadow-color-progressive-selected--hover: #3056a9;
+	--box-shadow-color-progressive-selected--active: #233566;
+	--box-shadow-color-destructive--focus: #36c;
+	--box-shadow-color-inverted: #fff;
+	--box-shadow-color-alpha-base: rgba( 0, 0, 0, 0.06 );
+	--box-shadow-color-transparent: transparent;
+	--font-size-x-small: 0.75rem; /* `x` stands for extra. In this case extra small. */
+	--font-size-small: 0.875rem;
+	--font-size-medium: 1rem;
+	--font-size-large: 1.125rem;
+	--font-size-x-large: 1.25rem;
+	--font-size-xx-large: 1.5rem;
+	--font-size-xxx-large: 1.75rem;
+	--line-height-x-small: 1.25rem; /* `x` stands for extra. In this case extra small. */
+	--line-height-small: 1.375rem;
+	--line-height-medium: 1.625rem;
+	--line-height-large: 1.75rem;
+	--line-height-x-large: 1.875rem;
+	--line-height-xx-large: 2.125rem;
+	--line-height-xxx-large: 2.375rem;
+	--line-height-content: 1.625; /* Intended for user-generated content that comes from outside of the design system. Components and features should use the standard font-size and line-height tokens instead. */
+	--mix-blend-mode-base: normal;
+	--mix-blend-mode-blend: multiply;
+	--background-color-base: #fff; /* Background Colors for static elements (for page layout, sections, etc.) from here on. */
+	--background-color-base-fixed: #fff; /* The same as background-color-base in light mode, but does not change in dark mode. Use this for things that should be white in both modes. */
+	--background-color-neutral: #eaecf0;
+	--background-color-neutral-subtle: #f8f9fa;
+	--background-color-interactive: #eaecf0;
+	--background-color-interactive--hover: #dadde3;
+	--background-color-interactive--active: #c8ccd1;
+	--background-color-interactive-subtle: #f8f9fa;
+	--background-color-interactive-subtle--hover: #eaecf0;
+	--background-color-interactive-subtle--active: #dadde3;
+	--background-color-disabled: #dadde3; /* Components like Buttons, Checkboxes, Radios, ProgressBars…. */
+	--background-color-disabled-subtle: #eaecf0; /* Components like TextInputs, Selects…. */
+	--background-color-inverted: #101418;
+	--background-color-progressive: #36c;
+	--background-color-progressive--hover: #3056a9;
+	--background-color-progressive--active: #233566;
+	--background-color-progressive--focus: #36c;
+	--background-color-progressive-subtle: #e8eeff;
+	--background-color-progressive-subtle--hover: #d9e2ff;
+	--background-color-progressive-subtle--active: #b6d4fb;
+	--background-color-destructive: #bf3c2c;
+	--background-color-destructive--hover: #9f3526;
+	--background-color-destructive--active: #612419;
+	--background-color-destructive--focus: #36c;
+	--background-color-destructive-subtle: #ffe9e5;
+	--background-color-destructive-subtle--hover: #ffdad3;
+	--background-color-destructive-subtle--active: #ffc8bd;
+	--background-color-error: #f54739;
+	--background-color-error--hover: #d74032;
+	--background-color-error--active: #bf3c2c;
+	--background-color-error-subtle: #ffe9e5;
+	--background-color-error-subtle--hover: #ffdad3;
+	--background-color-error-subtle--active: #ffc8bd;
+	--background-color-warning-subtle: #fdf2d5;
+	--background-color-success-subtle: #dff2eb;
+	--background-color-notice-subtle: #eaecf0;
+	--background-color-content-added: #a3d3ff;
+	--background-color-content-removed: #ffe49c;
+	--background-color-transparent: transparent;
+	--background-color-backdrop-light: rgba( 255, 255, 255, 0.65 ); /* Backdrop is the term used by CSS Fullscreen API and is used to dim the background when a modal Dialog is open. Also known as overlay mask. */
+	--background-color-backdrop-dark: rgba( 0, 0, 0, 0.65 );
+	--background-color-button-quiet--hover: rgba( 0, 24, 73, 0.027 );
+	--background-color-button-quiet--active: rgba( 0, 24, 73, 0.082 );
+	--background-color-input-binary--checked: #36c;
+	--background-color-tab-list-item-framed--hover: rgba( 255, 255, 255, 0.3 );
+	--background-color-tab-list-item-framed--active: rgba( 255, 255, 255, 0.65 );
+	--opacity-icon-base: 0.87;
+	--opacity-icon-base--hover: 0.74;
+	--opacity-icon-base--selected: 1;
+	--opacity-icon-base--disabled: 0.51;
+	--opacity-icon-placeholder: 0.51;
+	--opacity-icon-subtle: 0.67;
+	--border-color-base: #a2a9b1;
+	--border-color-emphasized: #202122;
+	--border-color-subtle: #c8ccd1;
+	--border-color-muted: #dadde3;
+	--border-color-interactive: #72777d;
+	--border-color-interactive--hover: #27292d;
+	--border-color-interactive--active: #202122;
+	--border-color-disabled: #c8ccd1;
+	--border-color-inverted: #fff;
+	--border-color-inverted-fixed: #fff; /* The same as color-inverted in light mode, but does not change in dark mode. Use this for things that should be white in both modes. */
+	--border-color-progressive: #6485d1;
+	--border-color-progressive--hover: #3056a9;
+	--border-color-progressive--active: #233566;
+	--border-color-progressive--focus: #36c;
+	--border-color-destructive: #f54739;
+	--border-color-destructive--hover: #9f3526;
+	--border-color-destructive--active: #612419;
+	--border-color-destructive--focus: #36c;
+	--border-color-error: #f54739;
+	--border-color-error--hover: #9f3526;
+	--border-color-error--active: #612419;
+	--border-color-warning: #ab7f2a;
+	--border-color-warning--hover: #735421;
+	--border-color-warning--active: #453217;
+	--border-color-success: #099979;
+	--border-color-notice: #72777d;
+	--border-color-content-added: #a3d3ff;
+	--border-color-content-removed: #ffe49c;
+	--border-color-transparent: transparent;
+	--border-color-divider: #a2a9b1;
+	--outline-color-progressive--focus: #36c; /* Use in places where no more customized focus styles are provided, for example on generic `:focus`. */
+	--color-link: var( --color-progressive ); /* Default Link color and states */
+	--color-link--hover: var( --color-progressive--hover );
+	--color-link--active: var( --color-progressive--active );
+	--color-link--focus: var( --color-progressive--focus );
+	--color-link--visited: var( --color-visited );
+	--color-link--visited--hover: var( --color-visited--hover );
+	--color-link--visited--active: var( --color-visited--active );
+	--color-link-red: var( --color-destructive ); /* Red ('new') Link color and states */
+	--color-link-red--hover: var( --color-destructive--hover );
+	--color-link-red--active: var( --color-destructive--active );
+	--color-link-red--focus: var( --color-destructive--focus );
+	--color-link-red--visited: var( --color-destructive--visited );
+	--color-link-red--visited--hover: var( --color-destructive--visited--hover );
+	--color-link-red--visited--active: var( --color-destructive--visited--active );
+	--accent-color-base: #36c;
+	--border-color-input--hover: var( --border-color-interactive );
+	--border-color-input-binary: var( --border-color-interactive );
+	--border-color-input-binary--hover: var( --border-color-progressive--hover );
+	--border-color-input-binary--active: var( --border-color-progressive--active );
+	--border-color-input-binary--focus: var( --border-color-progressive--focus );
+	--border-color-input-binary--checked: var( --border-color-progressive );
+	
+	/* DEPRECATED TOKENS */
+	/* Warning: the following token name is deprecated (Use `color-subtle` instead. Note, that `color-subtle` is using `color.gray600` instead of `color.gray500` now.) */
+	--color-base--subtle: #54595d;
+	/* Warning: the following token name is deprecated (Use `line-height-x-small` instead. Deprecated, part of old font-size/line-height system) */
+	--line-height-xxx-small: 1.4285714rem;
+	/* Warning: the following token name is deprecated (Use `line-height-small` instead. Deprecated, part of old font-size/line-height system) */
+	--line-height-xx-small: 1.5714285rem;
+}
+
+/* Codex Design tokens dark mode */
+body.wgl-theme-dark,
+.skin-vector .mw-notification {
+	--color-base: #eaecf0;
+	--color-base--hover: #f8f9fa;
+	--color-emphasized: #f8f9fa;
+	--color-subtle: #a2a9b1;
+	--color-disabled: #54595d;
+	--color-disabled-emphasized: #72777d;
+	--color-inverted: #101418;
+	--color-progressive: #88a3e8; /* 'Progressive' Color and states */
+	--color-progressive--hover: #a6bbf5;
+	--color-progressive--active: #b6d4fb;
+	--color-destructive: #fd7865; /* 'Destructive' Color and states */
+	--color-destructive--hover: #fea898;
+	--color-destructive--active: #ffc8bd;
+	--color-visited: #a799cd; /* 'Visited' color. In combination with progressive. Used for default links. */
+	--color-visited--hover: #c5b9dd;
+	--color-visited--active: #d9d0e9;
+	--color-destructive--visited: #c99391; /* Red link 'Visited' color. Used for visited red links. */
+	--color-destructive--visited--hover: #dcb5b3;
+	--color-destructive--visited--active: #e8cecd;
+	--color-error: #fd7865;
+	--color-error--hover: #fea898;
+	--color-error--active: #ffc8bd;
+	--color-warning: #ca982e;
+	--color-success: #2cb491;
+	--color-notice: #a2a9b1;
+	--color-content-added: #80cdb3;
+	--color-content-removed: #fd7865;
+	--color-base--subtle: #a2a9b1;
+	--box-shadow-color-base: #72777d;
+	--box-shadow-color-progressive--focus: #6485d1;
+	--box-shadow-color-progressive-selected: #88a3e8;
+	--box-shadow-color-progressive-selected--hover: #a6bbf5;
+	--box-shadow-color-progressive-selected--active: #b6d4fb;
+	--box-shadow-color-destructive--focus: #6485d1;
+	--box-shadow-color-inverted: #000;
+	--box-shadow-color-alpha-base: rgba( 0, 0, 0, 0.87 );
+	--mix-blend-mode-blend: screen;
+	--background-color-base: #101418; /* Background Colors for static elements (for page layout, sections, etc.) from here on. */
+	--background-color-neutral: #27292d;
+	--background-color-neutral-subtle: #202122;
+	--background-color-interactive: #27292d;
+	--background-color-interactive--hover: #404244;
+	--background-color-interactive--active: #54595d;
+	--background-color-interactive-subtle: #202122;
+	--background-color-interactive-subtle--hover: #27292d;
+	--background-color-interactive-subtle--active: #404244;
+	--background-color-disabled: #404244; /* Components like Buttons, Checkboxes, Radios, ProgressBars…. */
+	--background-color-disabled-subtle: #27292d; /* Components like TextInputs, Selects…. */
+	--background-color-inverted: #f8f9fa;
+	--background-color-progressive--focus: #6485d1;
+	--background-color-progressive-subtle: #1b223d;
+	--background-color-progressive-subtle--hover: #233566;
+	--background-color-progressive-subtle--active: #3056a9;
+	--background-color-destructive--focus: #6485d1;
+	--background-color-destructive-subtle: #3c1a13;
+	--background-color-destructive-subtle--hover: #612419;
+	--background-color-destructive-subtle--active: #9f3526;
+	--background-color-error-subtle: #3c1a13;
+	--background-color-error-subtle--hover: #612419;
+	--background-color-error-subtle--active: #9f3526;
+	--background-color-warning-subtle: #2d2212;
+	--background-color-success-subtle: #132821;
+	--background-color-notice-subtle: #27292d;
+	--background-color-content-added: #233566;
+	--background-color-content-removed: #453217;
+	--background-color-backdrop-light: rgba( 0, 0, 0, 0.65 ); /* Backdrop is the term used by CSS Fullscreen API and is used to dim the background when a modal Dialog is open. Also known as overlay mask. */
+	--background-color-backdrop-dark: rgba( 255, 255, 255, 0.65 );
+	--border-color-base: #72777d;
+	--border-color-emphasized: #eaecf0;
+	--border-color-subtle: #54595d;
+	--border-color-muted: #404244;
+	--border-color-interactive--hover: #a2a9b1;
+	--border-color-interactive--active: #c8ccd1;
+	--border-color-disabled: #54595d;
+	--border-color-inverted: #101418;
+	--border-color-progressive--hover: #88a3e8;
+	--border-color-progressive--active: #a6bbf5;
+	--border-color-progressive--focus: #6485d1;
+	--border-color-destructive--hover: #fd7865;
+	--border-color-destructive--active: #fea898;
+	--border-color-destructive--focus: #6485d1;
+	--border-color-error--hover: #fd7865;
+	--border-color-error--active: #fea898;
+	--border-color-warning--hover: #ca982e;
+	--border-color-warning--active: #edb537;
+	--border-color-content-added: #233566;
+	--border-color-content-removed: #987027;
+}
+
+body.wgl-theme-dark .skin-invert-image img,
+body.wgl-theme-dark .skin-invert:not(.mw-echo-notificationsWrapper),
+body.wgl-theme-dark .oo-ui-iconElement-icon:not(.oo-ui-image-progressive):not(.oo-ui-image-destructive):not(.oo-ui-checkboxInputWidget-checkIcon):not(.oo-ui-image-invert):not(.mw-no-invert),
+body.wgl-theme-dark .oo-ui-indicatorElement-indicator {
+	color-scheme: light;
+	filter: invert(1) hue-rotate(180deg);
+}
+
+/* Defaults assume a namespace without a custom theme, and light theme. */
+:root {
+	--link-color: #0645ad;
+	--link-color-active: #faa700;
+	--custom-background-blue: #ccf;
+	--custom-background-cyan: #cef;
+	--custom-background-green: #cfc;
+	--custom-background-gray: #d2d2d2;
+	--custom-background-grey: var(--custom-background-gray);
+	--custom-background-magenta: #fdf;
+	--custom-background-orange: #fdb;
+	--custom-background-purple: #ecf;
+	--custom-background-red: #fcc;
+	--custom-background-yellow: #ffc;
+	--custom-border-blue: #36e;
+	--custom-border-cyan: #9df;
+	--custom-border-green: #5d5;
+	--custom-border-gray: #bbb;
+	--custom-border-grey: var(--custom-border-gray);
+	--custom-border-magenta: #f9f;
+	--custom-border-orange: #f90;
+	--custom-border-purple: #96c;
+	--custom-border-red: #e44;
+	--custom-border-yellow: #fc3;
+	--custom-closed-topic-neutral: #eef;
+	--custom-closed-topic-no: #fee;
+	--custom-closed-topic-yes: #efe;
+	--custom-code-background: #f8f9fa;
+	--custom-load-page-button-color: #fff8;
+	--custom-main-page-background: #fcfcfc;
+	--custom-main-page-border: var(--custom-border-gray);
+	--custom-main-page-edition-subheader: #333;
+	--custom-mcwiki-header-color: #bcd4f5;
+	--custom-navbox-background: #fff;
+	--custom-navbox-top: #ccc;
+	--custom-navbox-middle: #ddd;
+	--custom-navbox-thru: #eee;
+	--custom-nbt-inherit-color: #e6e6fa;
+	--custom-table-background: #f8f9fa;
+	--custom-table-alternate-background: #f0f1f2;
+	--custom-table-choice-always: #003600;
+	--custom-table-choice-always-background: #80d080;
+	--custom-table-choice-default: #fff;
+	--custom-table-choice-in-off-background: #060;
+	--custom-table-choice-in-on-background: #0c0;
+	--custom-table-choice-na: #000;
+	--custom-table-choice-na-background: #fff;
+	--custom-table-choice-neutral: #634800;
+	--custom-table-choice-neutral-background: #ffeb9c;
+	--custom-table-choice-never: #3c0404;
+	--custom-table-choice-never-background: #ff8080;
+	--custom-table-choice-no: #840606;
+	--custom-table-choice-no-background: #ffc7ce;
+	--custom-table-choice-out-off-background: #900;
+	--custom-table-choice-out-on-background: #f00;
+	--custom-table-choice-partial: #665400;
+	--custom-table-choice-partial-background: #ffd;
+	--custom-table-choice-planned: #0131b7;
+	--custom-table-choice-planned-background: #dfdfff;
+	--custom-table-choice-rarely: #533400;
+	--custom-table-choice-rarely-background: #fdce5e;
+	--custom-table-choice-unknown: #222;
+	--custom-table-choice-unknown-background: #ccc;
+	--custom-table-choice-yes: #005600;
+	--custom-table-choice-yes-background: #c6efce;
+	--custom-table-header-background: #eaecf0;
+	--custom-topic-30-days: #bbb;
+	--custom-topic-7-days: #ddd;
+}
+
+body.wgl-theme-dark {
+	--link-color: #90c0fe;
+	--link-color-active: #faa700;
+	--custom-background-blue: hsl(240, 25%, 12%);
+	--custom-background-cyan: hsl(190, 25%, 12%);
+	--custom-background-green: hsl(120, 25%, 12%);
+	--custom-background-gray: hsl(0, 0%, 12%);
+	--custom-background-grey: var(--custom-background-gray);
+	--custom-background-magenta: hsl(310, 25%, 12%);
+	--custom-background-orange: hsl(40, 25%, 12%);
+	--custom-background-purple: hsl(260, 25%, 12%);
+	--custom-background-red: hsl(0, 25%, 12%);
+	--custom-background-yellow: hsl(60, 25%, 12%);
+	--custom-border-blue: hsl(240, 15%, 36%);
+	--custom-border-cyan: hsl(190, 15%, 36%);
+	--custom-border-green: hsl(120, 15%, 36%);
+	--custom-border-gray: hsl(0, 0%, 36%);
+	--custom-border-grey: var(--custom-border-gray);
+	--custom-border-magenta: hsl(310, 15%, 36%);
+	--custom-border-orange: hsl(40, 15%, 36%);
+	--custom-border-purple: hsl(260, 15%, 36%);
+	--custom-border-red: hsl(0, 15%, 36%);
+	--custom-border-yellow: hsl(60, 15%, 36%);
+	--custom-closed-topic-neutral: #2a2a33;
+	--custom-closed-topic-no: #332a2a;
+	--custom-closed-topic-yes: #2a332a;
+	--custom-code-background: #131313;
+	--custom-load-page-button-color: #fff2;
+	--custom-main-page-background: #202125;
+	--custom-main-page-border: #2e2e2e;
+	--custom-main-page-edition-subheader: #ddd;
+	--custom-mcwiki-header-color: #2e4159;
+	--custom-navbox-background: #131313;
+	--custom-navbox-top: #363636;
+	--custom-navbox-middle: #2d2d2d;
+	--custom-navbox-thru: #202020;
+	--custom-nbt-inherit-color: #404050;
+	--custom-table-background: #131313;
+	--custom-table-alternate-background: #202020;
+	--custom-table-choice-always: #a0e37b;
+	--custom-table-choice-always-background: #1c410c;
+	--custom-table-choice-default: #ddd;
+	--custom-table-choice-in-off-background: #030;
+	--custom-table-choice-in-on-background: #060;
+	--custom-table-choice-na: #fff;
+	--custom-table-choice-na-background: #000;
+	--custom-table-choice-neutral: #e2c789;
+	--custom-table-choice-neutral-background: #4c3416;
+	--custom-table-choice-never: #ffb29d;
+	--custom-table-choice-never-background: #601a15;
+	--custom-table-choice-no: #f2acae;
+	--custom-table-choice-no-background: #432a2e;
+	--custom-table-choice-out-off-background: #400;
+	--custom-table-choice-out-on-background: #700;
+	--custom-table-choice-partial: #cebe95;
+	--custom-table-choice-partial-background: #362d21;
+	--custom-table-choice-planned: #b9c1db;
+	--custom-table-choice-planned-background: #2a2a4b;
+	--custom-table-choice-rarely: #ede0b8;
+	--custom-table-choice-rarely-background: #693a0c;
+	--custom-table-choice-unknown: #ddd;
+	--custom-table-choice-unknown-background: #444;
+	--custom-table-choice-yes: #adf2ad;
+	--custom-table-choice-yes-background: #384c3c;
+	--custom-table-header-background: #363636;
+	--custom-topic-30-days: #303030;
+	--custom-topic-7-days: #242424;
+}
+
+/** Site stylings **/
+/* Set text spaces */
+body {
+	text-autospace: normal;
+	text-spacing-trim: normal;
+}
+
+/** Main page stylings **/
+@supports (flex-wrap: wrap) { 
+	.edition-group {
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.edition-group .edition-box {
+		flex: 17.4em;
+	}
+}
+
+/** Template stylings **/
+/* Template:Comment* */
+.comment-icon img {
+	vertical-align: text-bottom;
+}
+
+/* [[Template:Columns-list]] */
+.div-col.columns {
+	margin-top: 0.3em;
+}
+
+.div-col.columns ul,
+.div-col.columns ol {
+	margin-top: 0;
+}
+
+/* [[Template:SimpleNavbox]] */
+.navbox {
+	background: var(--custom-navbox-background);
+	border: 1px solid var(--custom-border-gray);
+	margin: 1em auto 0;
+	width: 100%;
+}
+
+.navbox table {
+	background: var(--custom-navbox-background);
+}
+
+.navbox table,
+.navbox .table-wide {
+	margin-left: -4px;
+	margin-right: -2px;
+}
+
+.navbox table:first-child,
+.navbox .table-wide:first-child {
+	margin-top: -2px;
+}
+
+.navbox table:last-child,
+.navbox .table-wide:last-child {
+	margin-bottom: -2px;
+}
+
+.navbox .table-wide {
+	clear: none;
+}
+
+.navbox .navbox-top {
+	white-space: nowrap;
+	background-color: var(--custom-navbox-top);
+	padding: 0 3px;
+	text-align: center;
+}
+
+.navbox .navbox-middle {
+	white-space: nowrap;
+	background-color: var(--custom-navbox-middle);
+	padding: 0 3px;
+	text-align: center;
+}
+
+.navbox .navbox-thru {
+	white-space: nowrap;
+	background-color: var(--custom-navbox-thru);
+	padding: 0 3px;
+	text-align: center;
+}
+
+.navbox-navbar,
+.navbox-navbar-mini {
+	float: left;
+	font-size: 80%;
+	position: absolute;
+}
+
+.navbox-title {
+	padding: 0 10px;
+	font-size: 110%;
+}
+
+.navbox th {
+	background-color: var(--custom-navbox-thru);
+	padding: 0 10px;
+	white-space: nowrap;
+	text-align: right;
+}
+
+.navbox td {
+	width: 100%;
+	padding: 0 0 0 2px;
+}
+
+.navbox .table-wide::before {
+	width: 0;
+	height: 0;
+	box-shadow: none;
+}
+
+.navbox .table-wide-inner,
+.navbox .table-wide table {
+	margin: 0;
+}
+
+/* Clear before navboxes and their section */
+.mw-heading2:has(#导航, #導覽):has(+ table.navbox) {
+	clear: both;
+}
+
+/* [[Template:LoadBox]] with navbox */
+.loadbox-navbox {
+	padding: 2px !important;
+	margin: 1em 0 0 !important;
+	clear: both;
+}
+#content .loadbox-navbox > p {
+	background-color: var(--custom-navbox-top);
+	text-align: center;
+	margin: 0;
+	padding: 0 3px;
+}
+.loadbox-navbox > p > b {
+	font-size: 110%;
+}
+
+.loadbox-navbox .navbox {
+	margin: 0 -2px -2px;
+	border: 0;
+}
+.loadbox-navbox > .load-page-content > .mw-parser-output > .navbox > tbody > tr:first-child {
+	display: none;
+}
+
+/* [[Template:Layered blueprint]] */
+@-webkit-keyframes layered-blueprint-fade-in {
+	0% {
+		opacity: 0;
+		visibility: hidden;
+	}
+	100% {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+@keyframes layered-blueprint-fade-in {
+	0% {
+		opacity: 0;
+		visibility: hidden;
+	}
+	100% {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+.layered-blueprint-layer {
+	-webkit-animation: layered-blueprint-fade-in 200ms;
+	animation: layered-blueprint-fade-in 200ms;
+}
+
+@-webkit-keyframes layered-blueprint-fade-out {
+	0% {
+		opacity: 1;
+		visibility: visible;
+	}
+	100% {
+		opacity: 0;
+		visibility: hidden;
+	}
+}
+@keyframes layered-blueprint-fade-out {
+	0% {
+		opacity: 1;
+		visibility: visible;
+	}
+	100% {
+		opacity: 0;
+		visibility: hidden;
+	}
+}
+.layered-blueprint-radio:checked + .layered-blueprint-tab + .layered-blueprint-layer ~ .layered-blueprint-layer {
+	-webkit-animation: layered-blueprint-fade-out 200ms;
+	animation: layered-blueprint-fade-out 200ms;
+}
+
+.wikiEditor-ui-text {
+	background-color: var(--background-color-base);
+}
+
+.wikiEditor-ui-text textarea {
+	background-color: transparent;
+}
+
+/* [[Template:Sprite]] */
+.sprite {
+	display: inline-block;
+	vertical-align: text-top;
+	height: 16px;
+	width: 16px;
+	background-repeat: no-repeat;
+}
+.sprite-file {
+	--vertical-align: text-top;
+	display: inline-block;
+	height: 16px;
+	width: 16px;
+}
+.sprite-file img {
+	vertical-align: var(--vertical-align);
+}
+.sprite-file + a > .sprite-text,
+.sprite-file + .sprite-text,
+.sprite + .sprite-text {
+	padding-left: 0.312em;
+}
+.sprite-file:has(a:hover:not(.new)) + a:has(> .sprite-text),
+.sprite-file:has(a:focus:not(.new)) + a:has(> .sprite-text) {
+	text-decoration: underline;
+}
+.wgl-lightmode .sprite-file:has(a:active:not(.new)) + a:has(> .sprite-text) {
+    color: #faa700;
+}
+/* [[File:Grid Unknown.png]] */
+.sprite-file a.new:first-child {
+	vertical-align: var(--vertical-align);
+	background-image: url('filepath://Grid_Unknown.png');
+    background-size: 100% 100%;
+	display: inline-block;
+	text-indent: -9999px;
+	overflow: hidden;
+	height: 100%;
+	width: 100%;
+    image-rendering: optimizeSpeed;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimize-contrast;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
+/* [[Template:AprilFoolsSprite]]: [[File:AprilFoolsSprite.png]] */
+.af-sprite {
+	background-image: url('filepath://AprilFoolsSprite.png');
+}
+
+/* [[Template:BlockLegacySprite]]: [[File:BlockLegacyCSS.png]] */
+.blocklegacy-sprite {
+	background-image: url('filepath://BlockLegacyCSS.png');
+}
+
+/* [[Template:Schematic]]: [[File:SchematicSprite.png]] */
+.schematic-sprite {
+	background-image: url('filepath://SchematicSprite.png');
+	background-size: 32em auto;
+	width: 1em;
+	height: 1em;
+}
+
+/* [[Template:TintSprite]]: [[File:TintSprite.png]] */
+.tint-sprite {
+	background-image: url('filepath://TintSprite.png');
+}
+.tint-sprite-mask {
+	-webkit-mask-image: url('filepath://TintSprite.png');
+	mask-image: url('filepath://TintSprite.png');
+}
+
+/* Prevent page jump from the toolbar loading */
+.client-js #editform {
+	/* To disable margin collapsing */
+	overflow: hidden;
+}
+.client-js .mw-editform > #wpTextbox1 {
+    margin-top: 73px;
+}
+.mw-editform .wikiEditor-ui-top {
+	min-height: 72px;
+}
+
+/* Alternating cell background */
+.alternatecells:nth-child(odd) {
+	background-color: var(--custom-table-alternate-background);
+}
+body.wgl-theme-dark .alternatecells:nth-child(odd) {
+	background-color: #222;
+}
+
+/* Alternating table rows, primarily used with [[Template:Infobox row]] */
+.alternaterows tr:nth-child(even),
+.infobox-rows tr:nth-child(odd) {
+	background-color: var(--custom-table-alternate-background);
+}
+
+/* Scale file page image to the width of the page */
+.dynamic-video video,
+.dynamic-image img,
+#file video,
+#file img {
+	max-width: 100%;
+	height: auto;
+}
+
+/* Allow parts of toc to be hidden */
+/* Section levels */
+.toc-hidelevel2 .toclevel-1 ul,
+.toc-hidelevel3 .toclevel-2 ul,
+.toc-hidelevel4 .toclevel-3 ul,
+/* Numbers */
+.toc-nonumbers .tocnumber {
+	display: none;
+}
+
+/* Turn a list into a tree view style (See [[.minecraft]]) */
+.treeview {
+	margin-top: 0.3em;
+	display: flow-root;
+}
+
+.treeview .treeview-header {
+	padding-left: 3px;
+	font-weight: bold;
+}
+.treeview .treeview-header:last-child {
+	border-color: #636363 !important;
+	border-left-style: dotted;
+}
+.treeview .treeview-header:not(:last-child)::before,
+.treeview .treeview-condition:not(:last-child)::before {
+	content: none;
+}
+.treeview .treeview-header:last-child::before {
+	border-bottom: 0;
+}
+.treeview .treeview-condition {
+	font-weight: bold;
+}
+
+.treeview ul,
+.treeview li {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	list-style-image: none;
+}
+
+.treeview-identblock {
+	position: relative;
+	padding-left: 13px;
+	margin-left: 7px;
+}
+.treeview li li,
+.treeview-block {
+	position: relative;
+	padding-left: 13px;
+	margin-left: 7px;
+	border-left: 1px solid #636363;
+}
+.treeview li li::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: -1px;
+	width: 11px;
+	height: 11px;
+	border-bottom: 1px solid #636363;
+}
+
+.treeview li li:last-child:not(.treeview-continue) {
+	border-color: transparent;
+}
+.treeview li li:last-child:not(.treeview-continue)::before {
+	border-left: 1px solid #636363;
+	width: 10px;
+}
+
+.treeview dl,
+.treeview dt {
+	margin-bottom: 0;
+}
+
+.nbttree-inherited {
+	background-color: var(--custom-nbt-inherit-color);
+}
+
+/* Simulate link styling for JS only links */
+.jslink {
+	color: var(--link-color);
+	/*-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+	        user-select: none;*/
+}
+.jslink:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+.jslink:active {
+	color: var(--link-color-active);
+}
+
+/* Try to use nearest neighbour scaling for pixelated images */
+.mcwiki-header-grass,
+.ns-special .gallerybox img,
+.ns-14 .gallerybox img,
+.filehistory a img,
+.pixel-image,
+.invslot-item-image,
+.msgbox img,
+.spriteedit-new-image,
+.sprite {
+	image-rendering: optimizeSpeed;
+	image-rendering: -webkit-optimize-contrast;
+	image-rendering: optimize-contrast;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: -o-crisp-edges;
+	image-rendering: crisp-edges;
+	image-rendering: pixelated;
+	-ms-interpolation-mode: nearest-neighbor;
+}
+
+/* Mark internal links as plain */
+#mw-content-text a.external[href^="https://zh.minecraft.wiki/w/"],
+#mw-content-text a.external[href^="//zh.minecraft.wiki/w/"] {
+	background: none;
+	padding-right: 0;
+}
+
+/* Make tabs the correct size */
+body {
+	-moz-tab-size: 4;
+	  -o-tab-size: 4;
+	     tab-size: 4;
+}
+
+/* Classes corresponding to Minecraft formatting codes */
+.format-0 {
+	color: #000;
+	--mcfont-shadow-color: #000;
+}
+.format-1 {
+	color: #0000A8;
+	--mcfont-shadow-color: #00002A;
+}
+.format-2 {
+	color: #00A800;
+	--mcfont-shadow-color: #002A00;
+}
+.format-3 {
+	color: #00A8A8;
+	--mcfont-shadow-color: #002A2A;
+}
+.format-4 {
+	color: #A80000;
+	--mcfont-shadow-color: #2A0000;
+}
+.format-5 {
+	color: #A800A8;
+	--mcfont-shadow-color: #2A002A;
+}
+.format-6 {
+	color: #FBA800;
+	--mcfont-shadow-color: #3E2A00;
+}
+.format-7 {
+	color: #A8A8A8;
+	--mcfont-shadow-color: #2A2A2A;
+}
+.format-8 {
+	color: #545454;
+	--mcfont-shadow-color: #151515;
+}
+.format-9 {
+	color: #5454FB;
+	--mcfont-shadow-color: #15153E;
+}
+.format-a {
+	color: #54FB54;
+	--mcfont-shadow-color: #153E15;
+}
+.format-b {
+	color: #54FBFB;
+	--mcfont-shadow-color: #153E3E;
+}
+.format-c {
+	color: #FB5454;
+	--mcfont-shadow-color: #3E1515;
+}
+.format-d {
+	color: #FB54FB;
+	--mcfont-shadow-color: #3E153E;
+}
+.format-e {
+	color: #FBFB54;
+	--mcfont-shadow-color: #3E3E15;
+}
+.format-f,
+#minetip-tooltip {
+	color: #FBFBFB;
+	--mcfont-shadow-color: #3E3E3E;
+}
+.format-g {
+	color: #DDD605;
+	--mcfont-shadow-color: #373501;
+}
+.format-h {
+	color: #E3D4D1;
+	--mcfont-shadow-color: #383534;
+}
+.format-i {
+	color: #CECACA;
+	--mcfont-shadow-color: #333232;
+}
+.format-j {
+	color: #443A3B;
+	--mcfont-shadow-color: #110E0E;
+}
+.format-l {
+	font-weight: bold;
+	letter-spacing: 0.125em;
+}
+.format-m {
+	text-decoration: line-through;
+}
+.format-n {
+	text-decoration: underline;
+}
+.format-o {
+	font-style: italic;
+}
+.format-p {
+	color: #DEB12D;
+	--mcfont-shadow-color: #372C0B;
+}
+.format-q {
+	color: #47A036;
+	--mcfont-shadow-color: #04280D;
+}
+.format-s {
+	color: #2CBAA8;
+	--mcfont-shadow-color: #0B2E2A;
+}
+.format-t {
+	color: #21497B;
+	--mcfont-shadow-color: #08121E;
+}
+.format-u {
+	color: #9A5CC6;
+	--mcfont-shadow-color: #261731;
+}
+.format-v {
+	color: #EB7114;
+	--mcfont-shadow-color: #3B1D05;
+}
+/* Custom color codes because §m and §n are used twice. */
+.format-y {
+	color: #971607;
+	--mcfont-shadow-color: #250501;
+}
+.format-z {
+	color: #B4684D;
+	--mcfont-shadow-color: #2D1A13;
+}
+/* Class for &#123456 and &$123 adding custom hex colors. */
+.format-custom {
+	--mcfont-shadow-color: color-mix(in srgb, currentColor 25%, #000 75%);
+}
+
+.mcfont-shadow,
+.mcfont-shadow span {
+	text-shadow: 0.0625em 0.125em 0 var(--mcfont-shadow-color, transparent);
+}
+.unifont-shadow {
+	text-shadow: 0.0625em 0.0625em 0 var(--mcfont-shadow-color, transparent);
+}
+.mojangles-shadow {
+	text-shadow: 0.125em 0.125em 0 var(--mcfont-shadow-color, transparent);
+}
+
+/* Styling for tooltip */
+.explain {
+	border-bottom: 0;
+	text-decoration-line: underline;
+	text-decoration-style: dotted;
+}
+
+.explain.noline {
+	text-decoration: none;
+}
+
+#minetip-tooltip {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: #100010;
+	background-color: rgba(16, 0, 16, 0.94);
+	padding: 0.375em;
+	/*font-family: Minecraft, "Arial Black", Unifont, "WenQuanYi Bitmap Song", SimSun, MingLiU, "GB18030 Bitmap", Beijing, sans-serif;*/
+	font-family: Minecraft, "Arial Black", Unifont, "WenQuanYi Bitmap Song", SimSun, MingLiU, Beijing, sans-serif;
+	font-size: 16px;
+	word-spacing: 4px;
+	white-space: nowrap;
+	line-height: 1.25em;
+	margin: 0.125em 0.25em;
+	pointer-events: none;
+	z-index: 9999;
+}
+#minetip-tooltip::before {
+	content: "";
+	position: absolute;
+	top: 0.125em;
+	right: -0.125em;
+	bottom: 0.125em;
+	left: -0.125em;
+	border: 0.15em solid #100010;
+	border-style: none solid;
+	border-color: rgba(16, 0, 16, 0.94);
+}
+#minetip-tooltip::after {
+	content: "";
+	position: absolute;
+	top: 0.125em;
+	right: 0;
+	bottom: 0.125em;
+	left: 0;
+	border: 0.125em solid #2D0A63;
+	border-image: -webkit-linear-gradient(rgba(80, 0, 255, 0.31), rgba(40, 0, 127, 0.31)) 1;
+	border-image: linear-gradient(rgba(80, 0, 255, 0.31), rgba(40, 0, 127, 0.31)) 1;
+}
+
+#minetip-tooltip > .description,
+#minetip-tooltip > .minetip-description {
+	display: block;
+	margin-top: 0.25em;
+}
+
+.invslot-stacksize {
+	font-family: Minecraft, "Arial Black", sans-serif !important;
+}
+
+/* prevent sitenotice show/hide toggle from moving page contents down after pageload */
+.globalNotice .globalNoticeDismiss {
+	float: right;
+}
+
+/* history table wrapping issue */
+td > code {
+	display: inline-block;
+	line-height: 1.2;
+}
+
+/* Style pre and similar elements/classes with one common styling */
+@media screen {
+	pre, .mw-code {
+	    background-color: var(--background-color-neutral-subtle);
+	    color: var(--color-emphasized);
+	    border: 1px solid var(--border-color-muted);
+	}
+}
+body.mediawiki a > code {
+	color: inherit;
+}
+
+kbd {
+	text-align: center;
+	font-size: 80%;
+	font-family: inherit;
+	font-weight: 500;
+	border: 1px solid;
+	border-radius: 2px;
+	padding: 0.1em 0.4em;
+	-webkit-box-decoration-break: clone;
+	-o-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+kbd {
+	text-shadow: 0 1px 0 var(--background-color-base);
+	background-color: var(--background-color-neutral-subtle);
+	color: var(--color-emphasized);
+	box-shadow: 0 1px rgba(0,0,0,0.2), 0 0 0 2px var(--background-color-base) inset;
+	border-color: var(--border-color-muted);
+	font-size: smaller;
+}
+
+/* Show abusefilter error footer only once at the end */
+.errorbox li:not(:last-child) .abusefilter-message-footer {
+    display: none;
+}
+
+/* User link icons */
+
+/* Weird Gloop */
+/* [[File:Weird Gloop.png]] light mode */
+.mw-userlink[href="/w/User:Jayden"], .mw-userlink[href="/w/User:Jayden?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:Cook_Me_Plox"], .mw-userlink[href="/w/User:Cook_Me_Plox?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:TehKittyCat"], .mw-userlink[href="/w/User:TehKittyCat?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:BigDiesel2m"], .mw-userlink[href="/w/User:BigDiesel2m?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:Gaz_Lloyd"], .mw-userlink[href="/w/User:Gaz_Lloyd?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:Weird_Gloop"], .mw-userlink[href="/w/User:Weird_Gloop?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:Isobel"], .mw-userlink[href="/w/User:Isobel?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:Mudscape"], .mw-userlink[href="/w/User:Mudscape?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:Andmcadams"], .mw-userlink[href="/w/User:Andmcadams?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:SomeRandomDeveloper"], .mw-userlink[href="/w/User:SomeRandomDeveloper?action=edit&redlink=1"] {
+	padding-left: 17px;
+	background: url('filepath://Weird_Gloop.png') no-repeat left center;
+	background-size: 14px 14px;
+}
+
+/* [[File:Weird Gloop dark.png]] dark mode */
+.wgl-theme-dark .mw-userlink[href="/w/User:Jayden"], .wgl-theme-dark .mw-userlink[href="/w/User:Jayden?action=edit&redlink=1"],
+.wgl-theme-dark .mw-userlink[href="/w/User:Cook_Me_Plox"], .wgl-theme-dark .mw-userlink[href="/w/User:Cook_Me_Plox?action=edit&redlink=1"],
+.wgl-theme-dark .mw-userlink[href="/w/User:TehKittyCat"], .wgl-theme-dark .mw-userlink[href="/w/User:TehKittyCat?action=edit&redlink=1"],
+.wgl-theme-dark .mw-userlink[href="/w/User:BigDiesel2m"], .wgl-theme-dark .mw-userlink[href="/w/User:BigDiesel2m?action=edit&redlink=1"],
+.wgl-theme-dark .mw-userlink[href="/w/User:Gaz_Lloyd"], .wgl-theme-dark .mw-userlink[href="/w/User:Gaz_Lloyd?action=edit&redlink=1"],
+.wgl-theme-dark .mw-userlink[href="/w/User:Weird_Gloop"], .wgl-theme-dark .mw-userlink[href="/w/User:Weird_Gloop?action=edit&redlink=1"],
+.wgl-theme-dark .mw-userlink[href="/w/User:Isobel"], .wgl-theme-dark .mw-userlink[href="/w/User:Isobel?action=edit&redlink=1"],
+.wgl-theme-dark .mw-userlink[href="/w/User:Mudscape"], .wgl-theme-dark .mw-userlink[href="/w/User:Mudscape?action=edit&redlink=1"],
+.wgl-theme-dark .mw-userlink[href="/w/User:Andmcadams"], .wgl-theme-dark .mw-userlink[href="/w/User:Andmcadams?action=edit&redlink=1"],
+.wgl-theme-dark .mw-userlink[href="/w/User:SomeRandomDeveloper"], .wgl-theme-dark .mw-userlink[href="/w/User:SomeRandomDeveloper?action=edit&redlink=1"] {
+	background-image: url('filepath://Weird_Gloop_dark.png');
+}
+
+/* Mojang */
+/* Add [[File:Mojang logo.svg]] to known Mojang employee userlinks */
+.mw-userlink[href="/w/User:Dinnerbone-gpuser"], .mw-userlink[href="/w/User:Dinnerbone-gpuser?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:Jeb_mojang"], .mw-userlink[href="/w/User:Jeb_mojang?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:MidnightEnforcer"], .mw-userlink[href="/w/User:MidnightEnforcer?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:Minecraft_Staff"], .mw-userlink[href="/w/User:Minecraft_Staff?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:Mojang_tommo"], .mw-userlink[href="/w/User:Mojang_tommo?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:Slicedlime"], .mw-userlink[href="/w/User:Slicedlime?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:Jocopa3"], .mw-userlink[href="/w/User:Jocopa3?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:IP_Justice"], .mw-userlink[href="/w/User:IP_Justice?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:Cornerhard"], .mw-userlink[href="/w/User:Cornerhard?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:CornerHard"], .mw-userlink[href="/w/User:CornerHard?action=edit&redlink=1"],
+
+/* legacy/deleted */
+.mw-userlink[href="/w/User:MidnightEnforcer43458@legacy41488102"], .mw-userlink[href="/w/User:MidnightEnforcer43458@legacy41488102?action=edit&redlink=1"],
+/* previously User:Jonkagstrom47437 */
+.mw-userlink[href="/w/User:@DeletedUser40286849"], .mw-userlink[href="/w/User:@DeletedUser40286849?action=edit&redlink=1"],
+/* previously User:shoghicp */
+.mw-userlink[href="/w/User:@DeletedUser40317681"], .mw-userlink[href="/w/User:@DeletedUser40317681?action=edit&redlink=1"] {
+	padding-left: 17px;
+	background: url('filepath://Mojang_logo.svg') no-repeat left center;
+	background-size: 14px 14px;
+}
+
+/* Add [[File:Grass Block JE7 BE6.png]] to known Minecraft/Mojang-related contractor employee userlinks */
+.mw-userlink[href="/w/User:C418bla"], .mw-userlink[href="/w/User:C418bla?action=edit&redlink=1"] {
+	padding-left: 17px;
+	background: url('filepath://Grass_Block_JE7_BE6.png') no-repeat left center;
+	background-size: 14px 14px;
+}
+
+/* Add [[File:Gray Mojang Thing.png]] to known ex-Mojang employee userlinks */
+.mw-userlink[href="/w/User:EvilSeph"], .mw-userlink[href="/w/User:EvilSeph?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:ExcitedZe"], .mw-userlink[href="/w/User:ExcitedZe?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:Neon_Master"], .mw-userlink[href="/w/User:Neon_Master?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:RazzleberryFox"], .mw-userlink[href="/w/User:RazzleberryFox?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:Tahg"], .mw-userlink[href="/w/User:Tahg?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:Tamerjeison"], .mw-userlink[href="/w/User:Tamerjeison?action=edit&redlink=1"],
+.mw-userlink[href="/w/User:HelenAngel"], .mw-userlink[href="/w/User:HelenAngel?action=edit&redlink=1"],
+/* previously User:ProfMobius */
+.mw-userlink[href="/w/User:@DeletedUser40549330"], .mw-userlink[href="/w/User:@DeletedUser40549330?action=edit&redlink=1"] {
+	padding-left: 17px;
+	background: url('filepath://Gray_Mojang_Thing.png') no-repeat left center;
+}
+
+/* CUSTOMIZED RULES */
+
+#siteNotice #localNotice, #siteNotice .globalNotice {
+	background-color: transparent; 
+	border: none;
+}
+
+#localNotice .globalNoticeDismiss {
+	display: none;
+}
+
+/* Add icons for administrations, hide some Chinese variants */
+.ca-variants-zh-Hans, .ca-variants-zh-Hant, .ca-variants-zh-Hant-MO,
+.language-searcher .site-link-list .zh-Hans, .language-searcher .site-link-list .zh-Hant {
+	display: none;
+}
+
+pre, tt, samp, .mw-code {
+	font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace, Courier;
+}
+
+code {
+	display: inline-block;
+}
+
+.load-page-button {
+    background-color: var(--custom-load-page-button-color);
+}
+
+.mw-userlink[title="User:MysticNebula70"]::before {
+	content: "";
+	background: url(filepath://Sprite-bureaucrat.png) no-repeat center/16px;	/* [[File:Sprite-bureaucrat.png]] for bureaucrats */
+	vertical-align: text-top;
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin-right: 2px;
+}
+
+.mw-userlink[title="User:Hatsuki kiri"]::before,
+.mw-userlink[title="User:Leo768"]::before,
+.mw-userlink[title="User:TeaSummer"]::before,
+.mw-userlink[title="User:XiaoXin666"]::before {
+	content: "";
+	background: url(filepath://Sprite-admin.png) no-repeat center/16px;	/* [[File:Sprite-admin.png]] for sysops */
+	vertical-align: text-top;
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin-right: 2px;
+}
+
+.mw-userlink[title="User:AblazeVase69188"]::before,
+.mw-userlink[title="User:Villager-bloc-h"]::before,
+.mw-userlink[title="User:Wilf233"]::before {
+	content: "";
+	background: url(filepath://Sprite-patrol.png) no-repeat center/16px;	/* [[File:Sprite-patrol.png]] for patrollers */
+	vertical-align: text-top;
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin-right: 2px;
+}
+
+.mw-userlink[title="User:Winston Sung"]::before,
+.mw-userlink[title="User:YTMango9487"]::before {
+	content: "";
+	background: url(filepath://Sprite-interface-admin.png) no-repeat center/16px;	/* [[File:Sprite-interface-admin.png]] for interface administrators */
+	vertical-align: text-top;
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin-right: 2px;
+}
+
+@media screen and (max-width: 720px) {
+    div#mw-navigation div#mw-panel {
+		position: static !important;
+	}
+
+    body.page-Minecraft_Wiki.action-view img.banner-image {
+		display: none;
+	}
+}
+
+div.footer-post {
+    padding-bottom: 0;
+}
+
+/* search on small screens */
+@media screen and (max-width: 720px) {
+	#mw-head {
+		top: 13px;
+	}
+	
+	div#p-search form {
+		background: none;
+		border: none;
+		margin: 0;
+	}
+	
+	div#p-search form::before,
+	div#p-search form::after {
+		border: none;
+	}
+	
+	div#simpleSearch::before {
+		border-left-color: transparent;
+	}
+	
+	div#simpleSearch::after {
+		border-top-color: transparent;
+	}
+}
+
+/* math symbol fix */
+.mwe-math-fallback-image-inline {
+  padding: 0;
+  margin: 2px;
+  vertical-align: middle !important;
+}
+
+/* RC overflow */
+.mw-enhanced-rc span.changedby {
+	line-break: loose;
+}
+
+/* mobile font size */
+body {
+	        text-size-adjust: none;
+	    -ms-text-size-adjust: none;
+	   -moz-text-size-adjust: none;
+	-webkit-text-size-adjust: none;
+}
+
+/* Hide calculator parameters in nojs environment */
+.mcw-calc-parameter {
+	display: none;
+}
+
+/* Enhance contrast for search highlight since we use a blue background */
+body.wgl-theme-light .mw-prefs-search-highlight {
+    background: #c9dffd !important; /* default style contains !important */
+    outline: 3px solid #c9dffd !important;
+}
+
+/* DiscussionTools */
+body.wgl-theme-dark .ext-discussiontools-init-highlight {
+    mix-blend-mode: lighten;
+}
+
+body.wgl-theme-dark .ext-discussiontools-init-publishedcomment {
+	background-color: #6b5f29;
+}
+
+body.wgl-theme-dark .ext-discussiontools-init-targetcomment {
+	background-color: #1b1f29;
+}
+
+body.wgl-theme-dark .ext-discussiontools-ui-replyWidget-preview {
+	background: #222;
+}
+
+.mw-indicator {
+	vertical-align: middle;
+}
+
+/* Fix for inputbox width */
+.mw-inputbox-form .cdx-text-input {
+	min-width: 0;
+}
+
+/* Fix for inputboxes contained in other boxes (e.g. archive boxes) */
+.mw-inputbox-input[size], .mw-inputbox-createbox[size] {
+	max-width: 100%;
+}
+
+/* sticky cdx-message fixes, use the default spacing value between adjacent instances ( .cdx-message + .cdx-message ) */
+.mw-contributions-blocked-notice + .cdx-message.mw-warning-with-logexcerpt,	/* Special:Contributions local block cdx-message <-> global block cdx-message */
+.cdx-message.mw-undelete-revision + textarea {	/* Special:Undelete cdx-message <-> the readonly textarea */
+	margin-top: 8px;
+}
+
+.mw-protection-indicator-icon--lock {
+    width: 30px;
+    height: 30px;
+}
+
+#mw-indicator-protection-autoconfirmed .mw-protection-indicator-icon--lock {
+    mask: none;
+    background: url("filepath://Semi-protected page lock.svg");
+}
+	
+#mw-indicator-protection-sysop-cascade .mw-protection-indicator-icon--lock,
+#mw-indicator-protection-sysop .mw-protection-indicator-icon--lock {
+    mask: none;
+    background: url("filepath://Fully-protected page lock.svg");
+}

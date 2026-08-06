@@ -1,0 +1,1473 @@
+/* All CSS here will be loaded for users of the Vector skin */
+
+/**
+ * See [[MediaWiki:Common.css]] for desktop and mobile styles, e.g. templates.
+ *
+ * See [[MediaWiki:Vector-theme-dark.css]] for desktop dark theme related styles.
+ *
+ * See [[MediaWiki:Minerva.css]] for mobile theme related styles.
+ * See [[MediaWiki:Minerva-theme-dark.css]] for mobile dark theme related styles.
+ */
+ 
+/* Default styles:
+ * [[File:Wiki.png]] [[File:Background.png]] [[File:Header-background.png]]
+ * [[File:Vector-tabs.png]] [[File:Vector-tabs-first.png]] [[File:Wiki@2x.png]]
+ * [[File:Background-HiDPI.png]] [[File:Header-background-HiDPI.png]]
+ * [[File:Vector-tabs-HiDPI.png]] [[File:Vector-tabs-first-HiDPI.png]]
+ */
+:root {
+	--wiki-logo: url('/images/Wiki.png');
+	--base-background: url('filepath://Background.png');
+	--header-background: url('filepath://Header-background.png');
+	--vector-tabs: url('filepath://Vector-tabs.png');
+	--vector-tabs-first: url('filepath://Vector-tabs-first.png');
+	
+	--wiki-logo-hidpi: url('/images/Wiki@2x.png');
+	--base-background-hidpi: url('filepath://Background-HiDPI.png');
+	--header-background-hidpi: url('filepath://Header-background-HiDPI.png');
+	--vector-tabs-hidpi: url('filepath://Vector-tabs-HiDPI.png');
+	--vector-tabs-first-hidpi: url('filepath://Vector-tabs-first-HiDPI.png');
+	
+	--list-bullet: url('filepath://List_bullet.svg');
+	
+	--content-text-color: #202122; /* Just a fallback for dark mode toggle */
+	--content-secondary-text-color: #555555;
+	
+	--base-background-color: #303030;
+	--content-background-color: #E6EFF4;
+	--content-border-top-color: #B4BEC3;
+	--content-border-top-right-color: #784c2a;
+	--content-border-left-color: #171717;
+	--director-table-background-color: #FFFFFF;
+	--simplesearch-top-border-color: #FFFFFF;
+	--simplesearch-left-border-color: #888888;
+	--simplesearch-topright-grass-color: #6BA41E;
+	--searchinput-placeholder-color: #72777D;
+	
+	--sidebar-display-minecraft: initial;
+	--sidebar-display-dungeons: none;
+	--sidebar-display-earth: none;
+	--sidebar-display-legends: none;
+	--sidebar-display-story-mode: none;
+	--sidebar-display-china: none;
+}
+
+/* Dungeons styles:
+ * [[File:Dungeons Wiki.png]] [[File:Background-dungeons.png]] [[File:Background-dungeons-HiDPI.png]]
+ * [[File:Header-background-dungeons.png]] [[File:Vector-tabs-dungeons.png]]
+ * [[File:Vector-tabs-first-dungeons.png]]
+ * [[File:Dungeons Wiki HiDPI.png]] [[File:Header-background-dungeons-HiDPI.png]]
+ * [[File:Vector-tabs-dungeons-HiDPI.png]] [[File:Vector-tabs-first-dungeons-HiDPI.png]]
+ */
+body.rootpage-Minecraft_Dungeons,
+body.rootpage-Talk_Minecraft_Dungeons,
+body.ns-9996,
+body.ns-9997,
+body.ns-10000,
+body.ns-10001 {
+	/* Overwrite theme gadget styles */
+	--base-background: url('filepath://Background-dungeons.png');
+	--base-background-hidpi: url('filepath://Background-dungeons-HiDPI.png');
+	
+	/*--wiki-logo: url('filepath://Dungeons_Wiki.png');*/
+	--header-background: url('filepath://Header-background-dungeons.png');
+	--vector-tabs: url('filepath://Vector-tabs-dungeons.png');
+	--vector-tabs-first: url('filepath://Vector-tabs-first-dungeons.png');
+	
+	/*--wiki-logo-hidpi: url('filepath://Dungeons_Wiki_HiDPI.png');*/
+	--header-background-hidpi: url('filepath://Header-background-dungeons-HiDPI.png');
+	--vector-tabs-hidpi: url('filepath://Vector-tabs-dungeons-HiDPI.png');
+	--vector-tabs-first-hidpi: url('filepath://Vector-tabs-first-dungeons-HiDPI.png');
+	
+	--content-background-color: #F2EEE7;
+	--content-border-top-color: #C5B494;
+	--content-border-top-right-color: #595959;
+	--simplesearch-before-border-left-color: #3A3B3A;
+	--simplesearch-topright-grass-color: #F26417;
+	--search-form-after-border-top-color: #F27633;
+	
+	--sidebar-display-minecraft: none;
+	--sidebar-display-dungeons: initial;
+	--sidebar-display-earth: none;
+	--sidebar-display-legends: none;
+	--sidebar-display-story-mode: none;
+	--sidebar-display-china: none;
+}
+
+/* Dungeons II styles:
+ * [[File:Dungeons Wiki.png]] [[File:Background-dungeons2.png]] [[File:Background-dungeons-HiDPI.png]]
+ * [[File:Header-background-dungeons2.png]] [[File:Vector-tabs-dungeons2.png]]
+ * [[File:Vector-tabs-first-dungeons2.png]]
+ * [[File:Dungeons Wiki HiDPI.png]] [[File:Background-dungeons2-HiDPI.png]]
+ * [[File:Header-background-dungeons2-HiDPI.png]] [[File:Vector-tabs-dungeons2-HiDPI.png]]
+ * [[File:Vector-tabs-first-dungeons2-HiDPI.png]]
+ */
+body.rootpage-Minecraft_Dungeons_II,
+body.rootpage-Talk_Minecraft_Dungeons_II,
+body.ns-10014,
+body.ns-10015 {
+	/* Overwrite theme gadget styles */
+	--base-background: url('filepath://Background-dungeons2.png');
+	--base-background-hidpi: url('filepath://Background-dungeons2-HiDPI.png');
+	
+	/*--wiki-logo: url('filepath://Dungeons_Wiki.png');*/
+	--header-background: url('filepath://Header-background-dungeons2.png');
+	--vector-tabs: url('filepath://Vector-tabs-dungeons2.png');
+	--vector-tabs-first: url('filepath://Vector-tabs-first-dungeons2.png');
+	
+	/*--wiki-logo-hidpi: url('filepath://Dungeons_Wiki_HiDPI.png');*/
+	--header-background-hidpi: url('filepath://Header-background-dungeons2-HiDPI.png');
+	--vector-tabs-hidpi: url('filepath://Vector-tabs-dungeons2-HiDPI.png');
+	--vector-tabs-first-hidpi: url('filepath://Vector-tabs-first-dungeons2-HiDPI.png');
+	
+  	--content-background-color: #E3E8F1;
+	--content-border-top-color: #8E9EBD;
+	--simplesearch-topright-grass-color: #2489E3;
+	--search-form-after-border-top-color: #3E96E4;
+	
+	--sidebar-display-minecraft: none;
+	--sidebar-display-dungeons: initial;
+	--sidebar-display-earth: none;
+	--sidebar-display-legends: none;
+	--sidebar-display-story-mode: none;
+	--sidebar-display-china: none;
+}
+
+/* Earth styles:
+ * [[File:Earth Wiki.png]] [[File:Header-background-earth.png]]
+ * [[File:Vector-tabs-earth.png]] [[File:Vector-tabs-first-earth.png]]
+ * [[File:Earth Wiki HiDPI.png]] [[File:Header-background-earth-HiDPI.png]]
+ * [[File:Vector-tabs-earth-HiDPI.png]] [[File:Vector-tabs-first-earth-HiDPI.png]]
+ */
+body.rootpage-Minecraft_Earth,
+body.rootpage-Talk_Minecraft_Earth,
+body.ns-10002,
+body.ns-10003 {
+	/* Overwrite theme gadget styles */
+	--base-background: url('filepath://Background.png');
+	--base-background-hidpi: url('filepath://Background-HiDPI.png');
+	
+	/*--wiki-logo: url('filepath://Earth_Wiki.png');*/
+	--header-background: url('filepath://Header-background-earth.png');
+	--vector-tabs: url('filepath://Vector-tabs-earth.png');
+	--vector-tabs-first: url('filepath://Vector-tabs-first-earth.png');
+	
+	/*--wiki-logo-hidpi: url('filepath://Earth_Wiki_HiDPI.png');*/
+	--header-background-hidpi: url('filepath://Header-background-earth-HiDPI.png');
+	--vector-tabs-hidpi: url('filepath://Vector-tabs-earth-HiDPI.png');
+	--vector-tabs-first-hidpi: url('filepath://Vector-tabs-first-earth-HiDPI.png');
+	
+	--content-background-color: #E5EDFF;
+	--content-border-top-color: #B7BDCC;
+	--content-border-top-right-color: #406b7f;
+	--simplesearch-before-border-left-color: #284350;
+	--simplesearch-topright-grass-color: #0FD36D;
+	--search-form-after-border-top-color: #2DDA81;
+	
+	--sidebar-display-minecraft: none;
+	--sidebar-display-dungeons: none;
+	--sidebar-display-earth: initial;
+	--sidebar-display-legends: none;
+	--sidebar-display-story-mode: none;
+	--sidebar-display-china: none;
+}
+
+/* Legends styles:
+ * [[File:Header-background-legends.png]] [[File:Vector-tabs-legends.png]]
+ * [[File:Vector-tabs-first-legends.png]] [[File:Header-background-legends-HiDPI.png]]
+ * [[File:Vector-tabs-legends-HiDPI.png]] [[File:Vector-tabs-first-legends-HiDPI.png]]
+ */
+body.rootpage-Minecraft_Legends,
+body.rootpage-Talk_Minecraft_Legends,
+body.ns-9994,
+body.ns-9995,
+body.ns-10006,
+body.ns-10007 {
+	/* Overwrite theme gadget styles */
+	--base-background: url('filepath://Background.png');
+	--base-background-hidpi: url('filepath://Background-HiDPI.png');
+
+	--header-background: url('filepath://Header-background-legends.png');
+	--vector-tabs: url('filepath://Vector-tabs-legends.png');
+	--vector-tabs-first: url('filepath://Vector-tabs-first-legends.png');
+
+	--header-background-hidpi: url('filepath://Header-background-legends-HiDPI.png');
+	--vector-tabs-hidpi: url('filepath://Vector-tabs-legends-HiDPI.png');
+	--vector-tabs-first-hidpi: url('filepath://Vector-tabs-first-legends-HiDPI.png');
+	
+	--content-background-color: #DAEAE9;
+	--content-border-top-color: #9FA2A2;
+	--content-border-top-right-color: #34538c;
+	--simplesearch-before-border-left-color: #203559;
+	--simplesearch-topright-grass-color: #08F9E2;
+	--search-form-after-border-top-color: #2AFDE9;
+	
+	--sidebar-display-minecraft: none;
+	--sidebar-display-dungeons: none;
+	--sidebar-display-earth: none;
+	--sidebar-display-legends: initial;
+	--sidebar-display-story-mode: none;
+	--sidebar-display-china: none;
+}
+
+/* Story Mode styles:
+ * [[File:Header-background-storymode.png]] [[File:Vector-tabs-storymode.png]]
+ * [[File:Vector-tabs-first-storymode.png]] [[File:Header-background-storymode-HiDPI.png]]
+ * [[File:Vector-tabs-storymode-HiDPI.png]] [[File:Vector-tabs-first-storymode-HiDPI.png]]
+ */
+body.rootpage-Minecraft_Story_Mode,
+body.rootpage-Talk_Minecraft_Story_Mode,
+body.rootpage-Minecraft_Story_Mode_-_Season_Two,
+body.rootpage-Talk_Minecraft_Story_Mode_-_Season_Two,
+body.ns-10004,
+body.ns-10005 {
+	/* Overwrite theme gadget styles */
+	--base-background: url('filepath://Background.png');
+	--base-background-hidpi: url('filepath://Background-HiDPI.png');
+	
+	/*--wiki-logo: url('filepath://Story_Mode_Wiki.png');*/
+	--header-background: url('filepath://Header-background-storymode.png');
+	--vector-tabs: url('filepath://Vector-tabs-storymode.png');
+	--vector-tabs-first: url('filepath://Vector-tabs-first-storymode.png');
+	
+	/*--wiki-logo-hidpi: url('filepath://Story_Mode_Wiki_HiDPI.png');*/
+	--header-background-hidpi: url('filepath://Header-background-storymode-HiDPI.png');
+	--vector-tabs-hidpi: url('filepath://Vector-tabs-storymode-HiDPI.png');
+	--vector-tabs-first-hidpi: url('filepath://Vector-tabs-first-storymode-HiDPI.png');
+	
+	--content-background-color: #f9eddc;
+	--content-border-top-color: #d5c090;
+	--content-border-top-right-color: #503767;
+	--simplesearch-before-border-left-color: #352343;
+	--simplesearch-topright-grass-color: #d2a734;
+	--search-form-after-border-top-color: #d2a734;
+	
+	--sidebar-display-minecraft: none;
+	--sidebar-display-dungeons: none;
+	--sidebar-display-earth: none;
+	--sidebar-display-legends: none;
+	--sidebar-display-story-mode: initial;
+	--sidebar-display-china: none;
+}
+
+/* Minecraft China styles:
+ * [[File:Header-background-china.png]] [[File:Vector-tabs-china.png]]
+ * [[File:Vector-tabs-first-china.png]] [[File:Header-background-china-HiDPI.png]]
+ * [[File:Vector-tabs-china-HiDPI.png]] [[File:Vector-tabs-first-china-HiDPI.png]]
+ */
+body.rootpage-中国版,
+body.rootpage-Talk_中国版,
+body.ns-10010,
+body.ns-10011 {
+	/* Overwrite theme gadget styles */
+	--base-background: url('filepath://Background.png');
+	--base-background-hidpi: url('filepath://Background-HiDPI.png');
+
+	--header-background: url('filepath://Header-background-china.png');
+	--vector-tabs: url('filepath://Vector-tabs-china.png');
+	--vector-tabs-first: url('filepath://Vector-tabs-first-china.png');
+
+	--header-background-hidpi: url('filepath://Header-background-china-HiDPI.png');
+	--vector-tabs-hidpi: url('filepath://Vector-tabs-china-HiDPI.png');
+	--vector-tabs-first-hidpi: url('filepath://Vector-tabs-first-china-HiDPI.png');
+
+	--simplesearch-topright-grass-color: #789D35;
+
+	--sidebar-display-minecraft: none;
+	--sidebar-display-dungeons: none;
+	--sidebar-display-earth: none;
+	--sidebar-display-legends: none;
+	--sidebar-display-story-mode: none;
+	--sidebar-display-china: initial;
+}
+
+/* Give the background the initial stone texture */
+body {
+	background-color: var(--base-background-color);
+	background-image: var(--header-background), var(--base-background);
+	background-repeat: repeat-x, repeat;
+	background-position: top left, top left;
+	background-size: auto 234px, 468px;
+}
+
+/* Logo */
+.mw-wiki-logo {
+	background-image: var(--wiki-logo);
+	background-size: cover;
+}
+
+#mw-page-base {
+	background: none;
+	height: 85px;
+}
+
+/* Remove excess spacing between the sidebar and the logo */
+div#mw-panel {
+	padding-top: 0;
+	padding-bottom: 10px;
+}
+
+#p-logo,
+#p-logo a {
+	height: 8.75em; /* 140px */
+}
+
+/* Set the outer content link colours to light gray and white */
+#mw-panel *:not(h3) > a:not(:hover):not(:focus),
+#footer a:not(:hover):not(:focus) {
+	color: #BFBFBF !important;
+}
+
+#mw-panel h3,
+#mw-panel a,
+#footer li,
+#footer a {
+	color: #FFF !important;
+}
+
+#mw-panel h3 {
+	text-decoration: none !important;
+	cursor: pointer;
+}
+
+/* Set the tab link colours to black and bold */
+#p-namespaces a,
+#p-associated-pages a,
+#p-views a,
+#p-cactions-label span,
+div#mw-head div.vectorMenu h4,
+#p-variants-label span {
+	font-weight: bold;
+	text-decoration: none;
+}
+
+/* Use black links */
+#p-namespaces a,
+#p-associated-pages a,
+#p-views a,
+#p-sharing span,
+#p-cactions-label span,
+div#mw-head div.vectorMenu h4,
+#p-variants-label span {
+	color: var(--content-text-color);
+}
+
+#p-namespaces .new a,
+#p-associated-pages .new a,
+#p-views .new a {
+	color: #BA0000;
+}
+
+/* Set visited link color to Vector 2022 */
+:where(body:not(.wgl-theme-dark)) a:visited {
+	color: #6a60b0;
+}
+
+/* Add some margin to help with the 3D effect */
+#right-navigation,
+#content {
+	margin-right: 10px;
+}
+#footer {
+	margin-right: 8px;
+}
+
+/* Position the tabs */
+#left-navigation,
+#right-navigation {
+	margin-top: 54px;
+}
+
+#mw-head-base {
+	height: 80px;
+	margin-top: -80px;
+}
+
+/* Give the tabs the grass block styling */
+nav.vector-menu-tabs,
+nav.vector-menu-dropdown {
+	background: none;
+	padding: 0;
+	height: 36px;
+}
+
+nav.vector-menu-tabs li a {
+	box-sizing: unset;
+}
+
+nav.vector-menu-tabs,
+nav.vector-menu-tabs a,
+.vector-menu-portal .vector-menu-heading,
+nav.vector-menu-tabs ul,
+nav.vector-menu-tabs ul li.selected,
+#mw-head .vector-menu-dropdown .vector-menu-heading {
+	background: none;
+}
+
+nav.vector-menu-tabs ul li,
+nav.vector-menu-tabs ul li.selected,
+nav.vector-menu-tabs ul li:hover,
+nav.vector-menu-tabs ul li:focus,
+nav.vector-menu-dropdown,
+nav.vector-menu-dropdown:hover,
+nav.vector-menu-dropdown:focus {
+	--ca-background-image: var(--vector-tabs);
+	--ca-background-color: var(--content-border-top-color);
+	background: var(--ca-background-image) no-repeat right 8px top,
+	            linear-gradient(to right, var(--ca-background-color) calc(100% - 14px), transparent 0) no-repeat left 6px top 6px;
+	position: relative;
+}
+
+nav.vector-menu-tabs ul li.selected,
+nav.vector-menu-tabs ul li:hover,
+nav.vector-menu-tabs ul li:focus,
+nav.vector-menu-dropdown:hover,
+nav.vector-menu-dropdown:focus {
+	--ca-background-color: var(--content-background-color);
+	background-position-y: bottom, 6px;
+}
+
+nav.vector-menu-tabs ul li:before,
+nav.vector-menu-dropdown:before {
+	content: "";
+	position: absolute;
+	left: 0;
+	background: var(--ca-background-image) var(--content-border-top-color) no-repeat left top;
+	width: 6px;
+	height: 100%;
+	pointer-events: none;
+}
+
+#left-navigation nav.vector-menu-tabs li:first-child:before {
+	background: var(--vector-tabs-first) no-repeat left top;
+	height: 93px
+}
+
+nav.vector-menu-tabs li a {
+	padding: 15px 14px 0 20px;
+	height: 21px;
+	margin-right: 8px;
+}
+
+.vector-menu-tabs .mw-watchlink.icon {
+	/* Force font-size when using the icon */
+	font-size: 16px !important;
+}
+
+.vector-menu-tabs .mw-watchlink.icon a {
+	width: 45px;
+	margin-right: 3px;
+	margin-bottom: -4px;
+}
+
+.vector-menu-tabs .mw-watchlink.icon a:before {
+	left: 1.17em;
+}
+
+nav.vector-menu-dropdown label {
+	padding: 15px 14px 0 20px !important;
+}
+
+nav.vector-menu-dropdown .vector-menu-content {
+	transition: none;
+	margin-left: 6px;
+	min-width: calc(100% - 14px); /* Subtract 14px from the minimum width so that it doesn't cross the grass border */
+}
+
+nav.vector-menu {
+	margin: 0 8px 0 6px;
+}
+#p-views,
+#p-cactions {
+	margin: 0;
+}
+#p-cactions {
+	padding-right: 8px;
+}
+
+#left-navigation nav.vector-menu {
+	margin-left: 0;
+}
+
+nav.vector-menu h3 span {
+	padding-left: 14px;
+	font-weight: bold;
+}
+
+nav.vector-menu h3 a {
+	height: 36px;
+	margin-right: 8px;
+}
+
+nav.vector-menu div.vector-menu-content {
+	top: 35px;
+}
+
+.vector-menu-portal .vector-menu-content,
+#p-personal .vector-menu-content-list,
+#footer {
+	background-color: #232324;
+	border: 2px #313233 solid;
+}
+nav.vector-menu-portal,
+#p-personal {
+	background-color: #232324;
+	border: 2px black solid;
+}
+
+/* Collapsible side panel sections (arrow copied from the Aether Wiki) */
+#mw-panel nav.vector-menu-portal h3:before {
+	content: "";
+	display: inline-block;
+	background: 0 0;
+	position: relative;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-color: #AAA transparent;
+	border-width: 6px 5px 0;
+	margin-right: -11px;
+	margin-bottom: 1px;
+}
+
+#mw-panel nav.vector-menu-portal.collapsed h3:before {
+	-webkit-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+}
+
+.vector-legacy-sidebar .vector-menu-portal {
+	display: var(--sidebar-display, block);
+	margin: 0.5em 8px 2px 6px;
+	padding: 0;
+}
+
+.vector-legacy-sidebar .vector-menu-portal .vector-menu-content {
+	margin-left: 0;
+	padding: 0;
+}
+
+.vector-legacy-sidebar .vector-menu-portal .vector-menu-content-list {
+	padding: 0.3em 0.5em;
+}
+
+div#mw-panel nav.vector-menu-portal h3 {
+	background: conic-gradient(from 180deg at 2px calc(100% - 2px), #6a6b6c 90deg, transparent 0),
+	            conic-gradient(from 0 at calc(100% - 2px) 2px, #6a6b6c 90deg, transparent 0),
+	            linear-gradient(to top, #464747 2px, transparent 0px),
+	            linear-gradient(to bottom, #5a5b5c 2px, transparent 0px),
+	            linear-gradient(to left, #464747 2px, transparent 0px),
+	            linear-gradient(to right, #5a5b5c 2px, transparent 0px);
+	background-color: #313233;
+	padding: calc(0.5em + 2px);
+	border-bottom: 2px solid black;
+}
+
+@media screen and (min-width: 720px) {
+	div#mw-panel nav.vector-menu-portal.collapsed h3 {
+		background: conic-gradient(from 180deg at 2px calc(100% - 2px), #7c7c7d 90deg, transparent 0),
+		            conic-gradient(from 0 at calc(100% - 2px) 2px, #7c7c7d 90deg, transparent 0),
+		            linear-gradient(to top, #5a5b5c 2px, transparent 0),
+		            linear-gradient(to bottom, #6d6d6e 2px, transparent 0),
+		            linear-gradient(to left, #5a5b5c 2px, transparent 0),
+		            linear-gradient(to right, #6d6d6e 2px, transparent 0);
+		background-color: #48494a;
+		padding: 0.5em calc(0.5em + 2px);
+		border-bottom: 5px solid #313233;
+	}
+}
+
+.vector-legacy-sidebar .vector-menu-portal .vector-menu-heading {
+	margin: 0;
+}
+
+/* Uncomment this to unhide the "Navigation" header of the first sidebar box */
+/* #p-logo + .mw-portlet .vector-menu-heading {
+	display: block;
+} */
+
+/*#mw-panel nav.vector-menu-portal.collapsed .vector-menu-content {
+	display: none;
+}*/
+
+/* Style the personal links */
+#p-personal {
+	right: 10px;
+	top: 5px;
+	margin-right: 0;
+	margin-left: 10px;
+}
+
+#p-personal a {
+	color: white;
+}
+
+.mw-echo-alert {
+	background-color: #8e721c;
+	border: 1px solid #fff;
+	border-radius: 4px;
+	font-weight: bold;
+}
+
+#p-personal .vector-menu-content-list {
+	padding: 1px 0.5em 1px 0;
+}
+
+.vector-user-menu-legacy li {
+	padding-top: 0.3em;
+	padding-bottom: 0.3em;
+}
+
+.mw-echo-notifications-badge.oo-ui-icon-bell, .mw-echo-notifications-badge.mw-ui-icon-bell::before,
+.mw-echo-notifications-badge.oo-ui-icon-tray, .mw-echo-notifications-badge.mw-ui-icon-tray::before {
+	filter: invert(1);
+}
+.vector-user-menu-legacy #pt-anonuserpage,
+.vector-user-menu-legacy #pt-tmpuserpage,
+.vector-user-menu-legacy #pt-userpage a {
+	filter: invert(1);
+	padding-top: 0;
+	background-size: 14px;
+	background-position: unset;
+}
+
+.vector-user-menu-legacy #pt-anonuserpage span,
+.vector-user-menu-legacy #pt-tmpuserpage span,
+.vector-user-menu-legacy #pt-userpage a span {
+	color: white;
+	filter: invert(1);
+	will-change: filter; /* Fix safari bug */
+}
+
+.skin-vector-legacy #p-personal #pt-notifications-notice,
+.skin-vector-legacy #p-personal #pt-notifications-alert {
+	margin-right: 0;
+}
+
+.skin-vector-legacy #pt-notifications-notice .mw-echo-notifications-badge,
+.skin-vector-legacy #pt-notifications-alert .mw-echo-notifications-badge {
+	top: 0;
+	width: 14px;
+	height: 14px;
+	background-size: 14px 14px;
+	margin-right: 8px;
+}
+
+.skin-vector-legacy #pt-notifications-notice .mw-echo-notifications-badge.mw-echo-notifications-badge-all-read,
+.skin-vector-legacy #pt-notifications-alert .mw-echo-notifications-badge.mw-echo-notifications-badge-all-read {
+	margin-right: 2px;
+}
+
+.skin-vector-legacy #pt-notifications-notice .mw-echo-notifications-badge:after,
+.skin-vector-legacy #pt-notifications-alert .mw-echo-notifications-badge:after {
+	top: 4px;
+	filter: invert(1);
+	border-color: var(--color-inverted-fixed);
+	color: var(--color-inverted-fixed);
+}
+
+/* Style the simple search */
+#p-search {
+	margin-left: 0;
+}
+
+#p-search form {
+	position: relative;
+	margin-top: 6px;
+	padding: 0 4px 0 5px;
+	height: 27px;
+}
+
+#simpleSearch {
+	top: -3px;
+	border: 0;
+	border-top: 3px solid var(--simplesearch-top-border-color);
+	border-left: 3px solid var(--simplesearch-left-border-color);
+	background-color: #D0CFCF;
+	background-image: -webkit-linear-gradient(#C3C3C3, #DBDBDB);
+	background-image: linear-gradient(#C3C3C3, #DBDBDB);
+	-webkit-transition: none !important;
+	-moz-transition: none !important;
+	transition: none !important;
+}
+
+#simpleSearch:before {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: -3px;
+	border-top: 3px solid var(--simplesearch-left-border-color);
+	border-left: 3px solid var(--content-border-top-color);
+	z-index: 1;
+}
+
+#simpleSearch:after {
+	content: "";
+	position: absolute;
+	top: -3px;
+	right: 0;
+	border-top: 3px solid var(--simplesearch-topright-grass-color);
+	border-left: 3px solid var(--simplesearch-top-border-color);
+}
+
+/* Remove border of search bar */
+#simpleSearch .vector-search-box-input {
+	border: none;
+	border-radius: 0;
+	outline: none;
+	box-shadow: none;
+	height: 27px;
+}
+
+.vector-search-box-input::placeholder {
+	color: var(--searchinput-placeholder-color);
+}
+
+/* Style the simple search */
+#p-search {
+	margin-left: 0;
+	width: unset;
+	min-width: unset;
+}
+
+#p-search #searchform {
+	position: relative;
+	margin-top: 6px;
+	padding: 0 4px 0 5px;
+}
+
+/* Unstyle codex search */
+#p-search #searchform .cdx-text-input__input,
+#p-search #searchform .cdx-search-input,
+#p-search #searchform {
+	background: none;
+	display: block;
+	border: none;
+	border-radius: 0;
+	outline: none;
+	box-shadow: none;
+	height: 27px;
+}
+
+/* Keep old vector default styles */
+#p-search #searchform .cdx-search-input__input-wrapper {
+	height: 100%;
+	min-width: 6.5em;
+	width: 20vw;
+	max-width: 26em;
+	margin: 0;
+}
+
+#p-search #searchform .cdx-search-input__input-wrapper {
+	position: relative;
+	top: -3px;
+	border: 0;
+	border-top: 3px solid var(--simplesearch-top-border-color);
+	border-left: 3px solid var(--simplesearch-left-border-color);
+	background-color: #D0CFCF;
+	background-image: -webkit-linear-gradient(#C3C3C3, #DBDBDB);
+	background-image: linear-gradient(#C3C3C3, #DBDBDB);
+	-webkit-transition: none !important;
+	-moz-transition: none !important;
+	transition: none !important;
+}
+
+#p-search #searchform .cdx-search-input__input-wrapper:before {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: -3px;
+	border-top: 3px solid var(--simplesearch-left-border-color);
+	border-left: 3px solid var(--content-border-top-color);
+	z-index: 1;
+}
+
+#p-search #searchform .cdx-search-input__input-wrapper:after {
+	content: "";
+	position: absolute;
+	top: -3px;
+	right: 0;
+	border-top: 3px solid var(--simplesearch-topright-grass-color);
+	border-left: 3px solid var(--simplesearch-top-border-color);
+}
+
+#p-search #searchform .cdx-text-input__input {
+	background-color: rgba(255, 255, 255, 0.5);
+	color: #000;
+	min-height: unset;
+	padding: 5px 2.15384615em 5px 0.4em;
+}
+
+#p-search #searchform .cdx-text-input__input::placeholder {
+	color: var(--searchinput-placeholder-color);
+}
+
+#p-search #searchform .cdx-search-input__end-button {
+	display: block;
+	position: absolute;
+	top: 1px;
+	bottom: 1px;
+	right: 1px;
+	min-width: 28px;
+	width: 2.15384615em;
+	border: 0;
+	padding: 0;
+	cursor: pointer;
+	direction: ltr;
+	text-indent: -99999px;
+	white-space: nowrap;
+	overflow: hidden;
+	z-index: 1;
+	background: no-repeat center / 1.23076923em url(/skins/Vector/resources/skins.vector.styles.legacy/images/search.svg?ac00d);
+	opacity: 0.67;
+	margin: 0;
+	min-height: unset;
+}
+
+#p-search #searchform > .cdx-search-input__end-button {
+	right: 5px;
+}
+
+/* The suggestions shown under the search bar */
+/*#p-search #searchform .cdx-menu {*/
+/*	background-color: #DBDADA;*/
+/*	border-color: #3C3B3B;*/
+/*	box-shadow: none;*/
+/*}*/
+
+/*#p-search #searchform .cdx-menu--has-footer .cdx-menu-item:last-of-type:not(:first-of-type) {*/
+/*	border-color: #3C3B3B;*/
+/*}*/
+
+/*#p-search #searchform .cdx-menu-item--highlighted {*/
+/*	background-color: #0078D7;*/
+/*}*/
+
+/*#p-search #searchform .cdx-menu-item--highlighted .cdx-typeahead-search__search-footer__icon,*/
+/*#p-search #searchform .cdx-menu-item--highlighted .cdx-menu-item__text__supporting-text,*/
+/*#p-search #searchform .cdx-menu-item--highlighted .cdx-menu-item__text__description,*/
+/*#p-search #searchform .cdx-menu-item--highlighted .cdx-menu-item__content,*/
+/*#p-search #searchform .cdx-menu-item--highlighted {*/
+/*	color: #fff;*/
+/*}*/
+
+#p-search #searchform .cdx-thumbnail__placeholder,
+#p-search #searchform .cdx-thumbnail__image {
+	background-color: #f8f9fa;
+}
+
+/* Fix placeholder text being too light in chrome */
+::-webkit-input-placeholder {
+	color: inherit;
+	opacity: 0.54;
+}
+
+/* The suggestions shown under the search bar */
+.suggestions.searchbar {
+	margin-right: -1px;
+}
+
+.suggestions.searchbar > .suggestions-results,
+.suggestions.searchbar > .mw-searchSuggest-link {
+	display: block;
+	margin-left: 1px;
+}
+
+.suggestions.searchbar .suggestions-results,
+.suggestions.searchbar .suggestions-special,
+.suggestions .suggestions-results,
+.suggestions .suggestions-special {
+	background-color: #DBDADA !important;
+	border-color: #3C3B3B !important;
+}
+
+.suggestions.searchbar .suggestions-result-current,
+.suggestions .suggestions-result-current {
+	background-color: #0078D7 !important;
+}
+
+/* Give the main content area its healthy blue glow and add a border */
+.mw-body, .parsoid-body,
+div#content {
+	position: relative;
+	background-color: var(--content-background-color);
+	border-top: 6px solid var(--content-border-top-color);
+	border-bottom: 0;
+	border-left: 6px solid var(--content-border-left-color);
+}
+
+nav.mw-portlet.emptyPortlet {
+	display: none;
+}
+
+.oo-ui-windowManager-modal > .oo-ui-dialog > .oo-ui-window-frame {
+	background-color: var(--content-background-color);
+}
+
+/* Add the 3D corners to the main content */
+#mw-page-base::after {
+	content: "";
+	position: absolute;
+	border-top: 6px solid var(--content-border-top-right-color);
+	border-left: 6px solid var(--content-border-top-color);
+	z-index: 1;
+	top: 84px;
+	right: 10px;
+}
+
+#content:after {
+	content: "";
+	position: absolute;
+	border-top: 6px solid transparent;
+	border-left: 6px solid var(--base-background-color);
+	left: -6px;
+	bottom: 0;
+}
+
+#footer {
+	outline: 2px black solid;
+	border-width: 4px;
+	outline-offset: -2px;
+	margin-left: calc(10em + 4px);
+	margin-top: 10px;
+	padding: 0.5em 0.75em;
+}
+
+#footer:after {
+	content: '';
+	clear: both;
+	display: block;
+}
+
+@media screen and (min-width: 982px) {
+	/* Position the footer */
+	#footer {
+		margin-left: calc(11em + 4px);
+	}
+}
+
+/* Fix positioning for small screens when the sidebar moves below the content */
+@media screen and (max-width: 720px) {
+	#mw-head {
+		top: 13px;
+	}
+	div#mw-navigation div#mw-panel {
+		position: static !important; /* position: relative may be added to inline styles by built-in JS after page load; it needs an !important to override */
+	}
+
+	/* Add some margin to help with the 3D effect */
+	#left-navigation,
+	#content {
+		margin-left: 10px;
+	}
+	#footer {
+		margin-left: 8px;
+	}
+	#footer:before {
+		content: none;
+	}
+	/* Position the tabs */
+	#left-navigation,
+	#right-navigation {
+		margin-top: 40px;
+	}
+	/* Position the personal links */
+	#p-personal {
+		top: -8px;
+	}
+
+	/* Position the sidebar sections */
+	#mw-panel {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+	.vector-menu-portal.collapsed {
+		border-bottom: none;
+	}
+	#mw-panel #p-logo {
+		margin: auto;
+		margin-top: 1em;
+	}
+	#mw-panel li {
+		padding: .5em 0;
+	}
+	#mw-panel li a:not([href^="https://discord.gg/"]) {
+		padding: .5em;
+	}
+	#mw-panel li:has([href^="https://discord.gg/"]) {
+		margin: 0 .5em;
+	}
+
+	/* Position searchbar in article body */
+	#p-search {
+		float: none;
+		position: absolute;
+		right: 0;
+		left: 0;
+		margin: 0;
+		bottom: -31px;
+		margin-bottom: -1em;
+	}
+	#p-search #searchform {
+		margin: 0;
+		padding: 0 calc(1em + 16px);
+	}
+	#p-search #searchform .cdx-search-input__input-wrapper {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		max-width: 100%;
+		border-bottom: 3px solid var(--simplesearch-left-border-color);
+		border-right: 3px solid var(--simplesearch-top-border-color);
+	}
+	#p-search #searchform .cdx-search-input__end-button {
+		right: -2px;
+	}
+	#p-search #searchform > .cdx-search-input__end-button {
+		right: calc(1em + 14px);
+	}
+	.mw-body,
+	.parsoid-body,
+	div#content {
+		padding-top: calc(2em + 33px);
+	}
+	#p-cactions {
+		margin-right: -8px;
+	}
+	.vector-menu-dropdown .vector-menu-content {
+		left: unset;
+		right: 7px;
+	}
+	#p-search #searchform .cdx-search-input__input-wrapper:before,
+	#p-search #searchform .cdx-search-input__input-wrapper:after,
+	#mw-page-base::after {
+		content: none;
+	}
+}
+
+/* Use black bullet points, instead of blue circles: [[File:List bullet.svg]] */
+ul {
+	list-style-image: var(--list-bullet);
+}
+
+/* Add white background to some areas */
+#asirra_ChallengeTableDiv {
+	background-color: #FFF;
+}
+
+/* Fix diff area styling */
+table.diff {
+	background-color: transparent;
+}
+
+td.diff-addedline,
+td.diff-deletedline {
+	background-color: #F9F9F9;
+}
+
+td.diff-context {
+	background-color: #F3F3F3;
+}
+
+td.diff-addedline,
+td.diff-deletedline,
+td.diff-context,
+td.diff-addedline .diffchange,
+td.diff-deletedline .diffchange {
+	border-radius: 0;
+}
+
+/* Get rid of stupid white borders on page history */
+#pagehistory li {
+	border-color: transparent;
+}
+
+/* Same as the default preference tab images, but with the blue background colour instead of white
+   [[File:Pref-tab-border.png]] [[File:Pref-tab-bg.png]] */
+.client-js #preftoc,
+.client-js #preftoc li {
+	background-image: url('filepath://Pref-tab-border.png');
+}
+
+.client-js #preftoc li.selected a {
+	background-image: url('filepath://Pref-tab-bg.png');
+}
+
+/* Fix side-by-side editor background colour */
+.wikiEditor-ui-controls {
+	background-color: #E6EFF4;
+	border-right: 1px solid #E6EFF4;
+}
+
+/* Style notifications to look like achievements: [[File:Achievement background.png]] */
+body .mw-notification-area-layout {
+	top: 80px;
+}
+
+body .mw-notification.mw-notification-type-success,
+body .mw-notification.mw-notification-type-error,
+body .mw-notification.mw-notification-type-warn,
+body .mw-notification {
+	border: 8px solid #555;
+	border-radius: 0;
+	-webkit-border-image: url('filepath://Achievement_background.png') 8 repeat;
+	-moz-border-image: url('filepath://Achievement_background.png') 8 repeat;
+	-o-border-image: url('filepath://Achievement_background.png') 8 repeat;
+	border-image: url('filepath://Achievement_background.png') 8 fill repeat;
+	box-shadow: none;
+	background-color: #212121;
+	background-clip: padding-box;
+	color: #FFF;
+	padding: 0.2em 0.4em;
+}
+
+body .mw-notification.mw-notification-type-success {
+	color: #2d6;
+}
+body .mw-notification.mw-notification-type-error {
+	color: #d33;
+}
+body .mw-notification.mw-notification-type-warn {
+	color: #fc3;
+}
+
+/* HiDPI images */
+@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
+	body {
+		background-image: var(--header-background-hidpi), var(--base-background-hidpi);
+	}
+	
+	.mw-wiki-logo {
+		background-image: var(--wiki-logo-hidpi);
+		background-size: 8.4375em auto; /* 135px */
+	}
+	
+	nav.vector-menu-tabs ul li,
+	nav.vector-menu-tabs ul li.selected,
+	nav.vector-menu-tabs ul li:hover,
+	nav.vector-menu-tabs ul li:focus,
+	nav.vector-menu-dropdown,
+	nav.vector-menu-dropdown:hover,
+	nav.vector-menu-dropdown:focus {
+		--ca-background-image: var(--vector-tabs-hidpi);
+		background-size: 262px auto, auto;
+	}
+	
+	nav.vector-menu-tabs ul li:before,
+	nav.vector-menu-dropdown:before {
+		background-size: 262px auto;
+	}
+	
+	#left-navigation nav.vector-menu-tabs li:first-child:before {
+		background-image: var(--vector-tabs-first-hidpi);
+		background-size: 6px auto;
+	}
+}
+
+.wikiEditor-ui .oo-ui-toolbar-popups {
+	right: 0;
+}
+.wikiEditor-ui .ve-init-mw-switchPopupWidget,
+.wikiEditor-ui .oo-ui-popupToolGroup-tools {
+	right: 0 !important;
+	left: unset !important;
+}
+.wikiEditor-ui .ve-init-mw-switchPopupWidget .oo-ui-popupWidget-anchor {
+	margin-left: calc(100% - 1.25em);
+	left: unset !important;
+}
+
+body.rootpage-Minecraft_Wiki #firstHeading,
+body.rootpage-Dungeons_Wiki #firstHeading,
+body.rootpage-Legends_Wiki #firstHeading,
+body.rootpage-Earth_Wiki #firstHeading,
+body.rootpage-China_Edition_Wiki #firstHeading,
+body.rootpage-Story_Mode_Wiki #firstHeading {
+	display: none;
+}
+
+body.rootpage-Minecraft_Wiki #bodyContent,
+body.rootpage-Dungeons_Wiki #bodyContent,
+body.rootpage-Legends_Wiki #bodyContent,
+body.rootpage-Earth_Wiki #bodyContent,
+body.rootpage-China_Edition_Wiki #bodyContent,
+body.rootpage-Story_Mode_Wiki #bodyContent {
+	clear: both;
+}
+
+body.rootpage-Minecraft_Wiki .mw-indicators,
+body.rootpage-Dungeons_Wiki .mw-indicators,
+body.rootpage-Legends_Wiki .mw-indicators,
+body.rootpage-Earth_Wiki .mw-indicators,
+body.rootpage-China_Edition_Wiki .mw-indicators,
+body.rootpage-Story_Mode_Wiki .mw-indicators {
+	margin-top: -16px;
+}
+
+div#mw-panel nav.portal li a[href="https://discord.gg/fGdE5ZE"] {
+	display: inline-block;
+	position: relative;
+	height: 20px;
+	width: 119px;
+	margin: 0.25em;
+	max-width: 100%;
+}
+div#mw-panel nav.portal li a[href="https://discord.gg/fGdE5ZE"]::before {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: -0.25em;
+	content: "";
+	background: url(https://discord.com/api/guilds/447104142729674753/embed.png) no-repeat;
+	background-size: contain;
+}
+
+#n-sidebar-navigation-randomminecraftpage,
+#n-sidebar-navigation-randomdungeonspage,
+#n-sidebar-navigation-randomlegendspage,
+#n-sidebar-navigation-randomearthpage,
+#n-sidebar-navigation-randomstorymodepage,
+#n-sidebar-navigation-randomchinapage,
+#p-version li {
+	margin-left: 10px;
+	display: var(--sidebar-display, list-item);
+}
+
+.ns-0 #n-randompage, .ns-1 #n-randompage,
+.ns-9994 #n-randompage, .ns-9995 #n-randompage,
+.ns-9996 #n-randompage, .ns-9997 #n-randompage,
+.ns-9998 #n-randompage, .ns-9999 #n-randompage,
+.ns-10000 #n-randompage, .ns-10001 #n-randompage,
+.ns-10002 #n-randompage, .ns-10003 #n-randompage,
+.ns-10004 #n-randompage, .ns-10005 #n-randompage,
+.ns-10006 #n-randompage, .ns-10007 #n-randompage,
+.ns-10010 #n-randompage, .ns-10011 #n-randompage,
+.ns-10014 #n-randompage, .ns-10015 #n-randompage,
+#p-version #n-sidebar-version-bedrock,
+#p-version #n-sidebar-version-java {
+	margin-left: 0;
+	font-weight: bold;
+}
+
+body.rootpage-Minecraft_Wiki #n-randompage {
+	font-weight: normal;
+}
+
+body.rootpage-Minecraft_Wiki #n-sidebar-navigation-randomminecraftpage,
+#n-sidebar-navigation-randomminecraftpage {
+	--sidebar-display: none;
+}
+.ns-0 #n-sidebar-navigation-randomminecraftpage,
+.ns-1 #n-sidebar-navigation-randomminecraftpage,
+.ns-9998 #n-sidebar-navigation-randomminecraftpage,
+.ns-9999 #n-sidebar-navigation-randomminecraftpage,
+#p-version,
+#p-sidebar-usefulminecraftpages {
+	--sidebar-display: var(--sidebar-display-minecraft);
+}
+
+#n-sidebar-navigation-randomdungeonspage,
+#p-sidebar-usefuldungeonspages {
+	--sidebar-display: var(--sidebar-display-dungeons);
+}
+
+#n-sidebar-navigation-randomearthpage,
+#p-sidebar-usefulearthpages {
+	--sidebar-display: var(--sidebar-display-earth);
+}
+
+#n-sidebar-navigation-randomlegendspage,
+#p-sidebar-usefullegendspages {
+	--sidebar-display: var(--sidebar-display-legends);
+}
+
+#n-sidebar-navigation-randomstorymodepage,
+#p-sidebar-usefulstorymodepages {
+	--sidebar-display: var(--sidebar-display-story-mode);
+}
+
+#n-sidebar-navigation-randomchinapage,
+#p-sidebar-usefulchinapages {
+	--sidebar-display: var(--sidebar-display-china);
+}
+
+/* Hide mobile-only things */
+.mobileonly {
+	display: none;
+}
+
+/* Changes for VisualEditor's save UI */
+.ve-ui-mwSaveDialog-options {
+	background-color: transparent;
+	border: 0;
+}
+.ve-ui-mwSaveDialog-summary {
+	background-color: transparent;
+}
+.ve-ui-changeDescriptionsSelectWidget > .oo-ui-optionWidget {
+	padding: 0.3em 0.6em;
+	border-radius: 3px;
+}
+
+/* Fix class name overuse */
+.wikiEditor-ui-toolbar .page {
+	margin-top: 0;
+}
+
+.mw-body-content code {
+	background-color: var(--custom-code-background);
+	border: 1px solid var(--content-background-color);
+	border-radius: 2px;
+	padding: 1px 4px;
+}
+
+#preferences .mw-htmlform-submit-buttons {
+	background-color: var(--content-background-color);
+}
+
+/* Hide the tab for talk page on Forum namespace */
+.rootpage-Minecraft_Wiki_管理员告示板 #ca-talk,
+.rootpage-Minecraft_Wiki_机器人工作请求 #ca-talk,
+.rootpage-Minecraft_Wiki_字词转换请求 #ca-talk,
+.rootpage-Minecraft_Wiki_权限管理 #ca-talk,
+.ns-10008 #ca-talk {
+	display: none;
+}
+
+.cm-mw-toggle-wikieditor .oo-ui-labelElement-label {
+	display: none;
+}
+
+/* readd legacy .thumb styles for [[Template:FakeImage]] */
+div.tleft, div.floatleft, table.floatleft {
+	float: left;
+	clear: left;
+}
+
+div.tright, div.floatright, table.floatright {
+	clear: right;
+	float: right
+}
+
+@media all and (max-width: calc(640px - 1px)) {
+	body.skin--responsive div.tleft,
+	body.skin--responsive div.floatleft,
+	body.skin--responsive table.floatleft,
+	body.skin--responsive div.tright,
+	body.skin--responsive div.floatright,
+	body.skin--responsive table.floatright {
+		clear: both;
+		float: none;
+	}
+}
+
+div.thumb {
+	width: auto;
+	background-color: transparent;
+	margin-bottom: 0.5em;
+}
+
+div.tleft {
+	margin: 0.5em 1.4em 1.3em 0;
+}
+
+div.tright {
+	margin: 0.5em 0 1.3em 1.4em;
+}
+
+.thumbcaption {
+	text-align: start;
+	line-height: 1.4em;
+	padding: 3px;
+}
+
+.thumbcaption:empty {
+	padding: 0;
+}
+
+div.thumbinner {
+	padding: 3px;
+	text-align: center;
+	overflow: hidden;
+}
+
+@media all and (max-width: calc(640px - 1px)) {
+	body.skin--responsive .mw-parser-output .thumb .thumbinner {
+		display:flex;
+		place-content: flex-start center;
+		flex-flow: column wrap;
+	}
+
+	body.skin--responsive .mw-parser-output .thumb .thumbinner > .thumbcaption {
+		justify-content: space-between;
+		width: 100%;
+		flex: 1 0 100%;
+		order: 1;
+		display: block;
+	}
+}
+
+div.thumbinner {
+	border: 1px solid var(--border-color-subtle);
+	background-color: var(--background-color-interactive-subtle);
+	font-size: 94%
+}
+
+.thumbimage {
+	border: 1px solid var(--border-color-subtle);
+	background-color: var(--background-color-interactive-subtle);
+}
+
+.thumbcaption {
+	border: 0;
+	font-size: 94%
+}
+
+.thumbborder {
+	border: 1px solid #eaecf0
+}
+
+@media print {
+	.mw-body, .parsoid-body, div#content {
+		border: 0;
+	}
+
+	h2,
+	.mw-body a.mw-file-description {
+		border-bottom: 0;
+	}
+
+	#footer {
+		margin-left: 0;
+	}
+
+	html {
+		color-scheme: light !important;
+	}
+
+	table.floatright, div.floatright, table.floatleft, div.floatleft {
+		border: 0;
+	}
+
+	div.thumb {
+		page-break-inside: avoid;
+	}
+
+	div.thumb a {
+		border-bottom: 0;
+	}
+
+	div.thumbinner {
+		background-color: #fff;
+		color: #666;
+		min-width: 100px;
+		border: 1pt solid #000;
+		border-radius: 2px;
+		font-size: 10pt;
+	}
+
+	.thumbborder {
+		border: 1pt solid #ddd;
+	}
+}

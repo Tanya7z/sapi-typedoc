@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>Minecraft Wiki 皮肤资源预览</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; color: #222; }
+    body { margin: 24px; background: #f3f3f3; }
+    h1, h2 { margin: 1.2em 0 0.4em; }
+    .note { background: #fff8e6; border: 1px solid #e6c35c; padding: 12px 14px; max-width: 900px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+    figure {
+      margin: 0; background: #fff; border: 1px solid #ccc; padding: 12px;
+      image-rendering: pixelated;
+    }
+    figure img { max-width: 100%; height: auto; display: block; background:
+      repeating-conic-gradient(#ddd 0% 25%, #fff 0% 50%) 0 0 / 16px 16px; }
+    figcaption { margin-top: 8px; font-size: 13px; word-break: break-all; }
+    code { font-size: 12px; }
+  </style>
+</head>
+<body>
+  <h1>站点皮肤贴图预览（CC BY-NC-SA 3.0）</h1>
+  <p class="note">仅含 Wiki 自制界面皮肤，不含游戏原版 / Mojang GUI 资源。
+    控件样板（仿文档站）：<a href="./docs-shell-preview.html"><strong>docs-shell-preview.html</strong></a></p>
+
+  <h2>vanilla light</h2>
+  <div class="grid" id="cc-light"></div>
+
+  <h2>vanilla dark</h2>
+  <div class="grid" id="cc-dark"></div>
+
+  <script>
+    function card(folder, name, parent) {
+      const fig = document.createElement('figure');
+      const img = document.createElement('img');
+      img.src = folder + '/' + name;
+      img.alt = name;
+      const cap = document.createElement('figcaption');
+      cap.innerHTML = '<code>' + name + '</code>';
+      fig.append(img, cap);
+      parent.append(fig);
+    }
+    const light = [
+      'Header-background.png','Header-background-HiDPI.png',
+      'Background.png','Background-HiDPI.png',
+      'Vector-tabs.png','Vector-tabs-HiDPI.png',
+      'Vector-tabs-first.png','Vector-tabs-first-HiDPI.png',
+      'Mobile-header.png','GrassBackground.png','List_bullet.svg'
+    ];
+    const dark = [
+      'Dark-header-background.png','Dark-header-background-HiDPI.png',
+      'Dark-background.png','Dark-background-HiDPI.png',
+      'Dark-vector-tabs.png','Dark-vector-tabs-HiDPI.png',
+      'Dark-vector-tabs-first.png','Dark-vector-tabs-first-HiDPI.png',
+      'Dark-mobile-header.png','Dark-GrassBackground.png'
+    ];
+    light.forEach(n => card('vanilla/light', n, document.getElementById('cc-light')));
+    dark.forEach(n => card('vanilla/dark', n, document.getElementById('cc-dark')));
+  </script>
+</body>
+</html>
