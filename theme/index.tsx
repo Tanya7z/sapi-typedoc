@@ -50,7 +50,6 @@ export function Layout(props: ComponentProps<typeof OriginalLayout>) {
           <PageComments />
         </>
       }
-      {/* 正文：贴在侧栏/纸面下方的全宽接缝栏；首页：仍用 bottom 浮动卡片 */}
       afterDoc={!isHome ? <SiteFooter variant="doc" /> : undefined}
       bottom={isHome ? <SiteFooter variant="home" /> : undefined}
     />
