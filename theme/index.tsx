@@ -1,6 +1,9 @@
 // Learn how to customize the theme: https://rspress.rs/guide/basic/custom-theme
 import { Layout as OriginalLayout } from '@rspress/core/theme-original';
 import type { ComponentProps, ReactNode } from 'react';
+import { PageComments } from './PageComments';
+import { PageFeedback } from './PageFeedback';
+import { SiteFooter } from './SiteFooter';
 import './index.css';
 
 export * from '@rspress/core/theme-original';
@@ -33,6 +36,13 @@ export function Layout(props: ComponentProps<typeof OriginalLayout>) {
         ...props.components,
         abbr: Abbr,
       }}
+      beforeDocFooter={
+        <>
+          <PageFeedback />
+          <PageComments />
+        </>
+      }
+      bottom={<SiteFooter />}
     />
   );
 }

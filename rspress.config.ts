@@ -16,6 +16,11 @@ export default defineConfig({
     dark: '/logo.png',
   },
   llms: true,
+  // GA 仅在 Cookie 同意后由 theme 动态加载，不再无条件注入 head
+  globalUIComponents: [
+    path.join(__dirname, 'theme', 'CookieConsent.tsx'),
+    path.join(__dirname, 'theme', 'GoogleAnalytics.tsx'),
+  ],
   markdown: {
     // 外部词表缩写；不用过时的 remark-abbr（需页内定义且不适配 remark 13+ / MDX）
     remarkPlugins: [remarkAbbrGlossary()],
@@ -54,5 +59,6 @@ export default defineConfig({
         content: 'https://github.com/Tanya7z/sapi-typedoc',
       },
     ],
+    // 备案号由 theme/SiteFooter（Layout bottom）全站展示，避免与首页 footer 重复
   },
 });

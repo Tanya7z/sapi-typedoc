@@ -34,10 +34,17 @@ features:
     details: 同步 npm latest 与 rc/preview/beta 版本，标注对应 Minecraft 游戏版本号。
     icon: 🔄
     link: /versions/
-  - title: vanilla-data 精简索引
-    details: "@minecraft/vanilla-data 以名称索引形式提供，便于按枚举与常量查找，避免完整成员页膨胀。"
+  - title: 版本映射表
+    details: 对照当前文档站锁定的 @minecraft/* npm 包版本与对应 Minecraft 游戏版本。
     icon: 📋
-    link: /vanilla-data/
+    link: /versions/
+  - title: 标签索引
+    details: 按 entity、block、ui 等领域标签筛选符号，快速定位相关 API。
+    icon: 🏷️
+    link: /tags/
+  - title: LLM 增强
+    details: 生成 llms.txt 与页面 Markdown，便于在 ChatGPT、Claude 等工具中引用文档。
+    icon: ✨
   - title: 自动化更新
     details: GitHub Actions 每周自动拉取最新 .d.ts、翻译、构建并部署。
     icon: 🤖
