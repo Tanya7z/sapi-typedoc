@@ -17,7 +17,7 @@ import { basePath, parsePackageVersion, translatedPath } from './utils.js';
 
 /**
  * 文档站自动区块：
- * - 版本映射页：translated/package.json（当前文档站锁定的 npm 版本）
+ * - 版本映射页：当前锁定版本摘要 + 各包全量 API↔MC 对照（npm packument）
  * - 首页更新日志摘要：npm latest/rc|preview|beta + MicrosoftDocs
  * - changelog / versions 侧栏：各自 _meta.json（顶栏由 write-nav 负责）
  */
@@ -66,12 +66,21 @@ function trackLabel(track: TrackChangelog['track']) {
     return track === 'stable' ? '稳定版' : '预览版';
 }
 
-/** 当前文档站锁定的 npm 包 ↔ MC 版本映射表正文 */
-function renderVersionMapBody(dependencies: Partial<Record<string, string>>) {
+function apiCoreOf(version: string | undefined) {
+    if (!version) return undefined;
+    return /^(\d+\.\d+\.\d+)/.exec(version)?.[1];
+}
+
+function bundleByName(bundles: ModuleChangelogBundle[], moduleName: string) {
+    return bundles.find((item) => item.moduleName === moduleName);
+}
+
+/** 当前文档站锁定的 npm 包摘要表 */
+function renderCurrentLockTable(dependencies: Partial<Record<string, string>>) {
     const lines = [
-        '本页列出当前文档站锁定的 npm 包版本，以及由版本号推断的对应 Minecraft 版本。',
+        '## 当前文档站锁定版本',
         '',
-        '数据来源：官方 npm [`@minecraft/*`](https://www.npmjs.com/search?q=scope%3Aminecraft)。',
+        '下列版本为构建本站文档时锁定的 `@minecraft/*` 依赖；完整历史对照见下文各包分表。',
         '',
         '| 包名 | 当前文档版本 | 对应 MC 版本 | 本站更新日志 |',
         '| --- | --- | --- | --- |'
@@ -84,31 +93,121 @@ function renderVersionMapBody(dependencies: Partial<Record<string, string>>) {
         const mcVersion = info?.gameVersion ? `\`${info.gameVersion}\`` : '-';
         const npmUrl = `https://www.npmjs.com/package/${moduleName}`;
         const short = shortName(moduleName);
+        const anchor = `#${moduleName.replace(/[@/]/g, '').toLowerCase()}`;
         const logLink = hasOfficialChangelog(moduleName)
             ? `[稳定/预览](/changelog/${short})`
             : `[模块文档](${officialChangelogUrl(moduleName)})`;
-        lines.push(`| [${moduleName}](${npmUrl}) | \`${displayVersion}\` | ${mcVersion} | ${logLink} |`);
+        lines.push(
+            `| [${moduleName}](${npmUrl}) | [\`${displayVersion}\`](${anchor}) | ${mcVersion} | ${logLink} |`
+        );
     }
-    if (gameVersion) lines.push('', `游戏版本号：\`${gameVersion}\``);
+    if (gameVersion) lines.push('', `由版本号推断的游戏版本号：\`${gameVersion}\``);
     lines.push(
         '',
-        '> `@minecraft/vanilla-data` 以[精简名称索引](/vanilla-data/)收录，不生成完整成员页。'
+        '> `@minecraft/vanilla-data` 以[精简名称索引](/vanilla-data/)收录，不生成完整成员页。',
+        ''
     );
-    return lines.join('\n');
+    return lines;
+}
+
+/**
+ * 「API 版本 ↔ MC 版本」分表。
+ * @param highlightCores 备注中高亮的 API 核心版本（如文档站锁定 / 稳定 / 预览）
+ */
+export function renderVersionMapSection(
+    bundle: ModuleChangelogBundle,
+    highlightCores: { docs?: string; stable?: string; preview?: string } = {}
+) {
+    if (bundle.versionMap.length === 0) return [];
+
+    const stableCore =
+        highlightCores.stable ?? apiCoreOf(bundle.tracks.find((item) => item.track === 'stable')?.npmVersion);
+    const previewCore =
+        highlightCores.preview ?? apiCoreOf(bundle.tracks.find((item) => item.track === 'preview')?.npmVersion);
+    const docsCore = highlightCores.docs;
+
+    const lines = [
+        '## 版本映射表',
+        '',
+        '> 由 npm 已发布版本号推断（如 `2.9.0-rc.1.26.50-preview.20` → 预览分支 MC `1.26.50.20`）。',
+        '',
+        '| API 版本 | 稳定分支 MC | 预览分支 MC | 首次发布 | 备注 |',
+        '| --- | --- | --- | --- | --- |'
+    ];
+    for (const row of bundle.versionMap) {
+        const notes: string[] = [];
+        if (docsCore && row.apiVersion === docsCore) notes.push('文档站');
+        if (row.apiVersion === stableCore) notes.push('稳定');
+        if (row.apiVersion === previewCore) notes.push('预览');
+        lines.push(
+            `| \`${row.apiVersion}\` | ${row.stableMc ? `\`${row.stableMc}\`` : '-'} | ${
+                row.previewMc ? `\`${row.previewMc}\`` : '-'
+            } | ${row.firstPublished ?? '-'} | ${notes.join(' / ') || '-'} |`
+        );
+    }
+    lines.push('');
+    return lines;
+}
+
+/** 各包全量版本对照（用于 /versions/） */
+export function renderPerPackageVersionMaps(
+    dependencies: Partial<Record<string, string>>,
+    bundles: ModuleChangelogBundle[]
+) {
+    const lines = [
+        '## 各包 API 版本对照',
+        '',
+        '下表按包列出 npm 上出现过的 API 核心版本，以及能从版本号解析出的 Minecraft 稳定/预览分支。备注中的「文档站」对应当前本站锁定依赖所属的 API 核心版本。',
+        ''
+    ];
+
+    for (const [moduleName, version] of orderModules(dependencies)) {
+        const bundle = bundleByName(bundles, moduleName);
+        const headingId = moduleName.replace(/[@/]/g, '').toLowerCase();
+        lines.push(`### ${moduleName} {#${headingId}}`, '');
+
+        if (!bundle || bundle.versionMap.length === 0) {
+            lines.push('暂无可用的 npm 版本映射数据。', '');
+            continue;
+        }
+
+        const npmUrl = `https://www.npmjs.com/package/${moduleName}`;
+        const short = shortName(moduleName);
+        const links = [`[npm](${npmUrl})`, `[Learn](${bundle.learnUrl})`];
+        if (hasOfficialChangelog(moduleName)) {
+            links.push(`[本站更新日志](/changelog/${short})`);
+        }
+        lines.push(links.join(' · '), '');
+
+        const section = renderVersionMapSection(bundle, {
+            docs: apiCoreOf(version),
+            stable: apiCoreOf(bundle.tracks.find((item) => item.track === 'stable')?.npmVersion),
+            preview: apiCoreOf(bundle.tracks.find((item) => item.track === 'preview')?.npmVersion)
+        });
+        lines.push(...section.filter((line) => line !== '## 版本映射表'));
+    }
+
+    return lines;
 }
 
 /** 写出独立版本映射页 */
-function writeVersionsPage(dependencies: Partial<Record<string, string>>) {
+function writeVersionsPage(
+    dependencies: Partial<Record<string, string>>,
+    bundles: ModuleChangelogBundle[]
+) {
     mkdirSync(versionsDir, { recursive: true });
     const body = [
         '---',
         'title: 版本映射',
-        'description: "当前文档站锁定的 @minecraft/* npm 包版本与对应 Minecraft 游戏版本对照表。"',
+        'description: "各 @minecraft/* 包的 API 版本与 Minecraft 游戏版本对照；含当前文档站锁定版本。"',
         '---',
         '',
         '# 版本映射',
         '',
-        renderVersionMapBody(dependencies),
+        '数据来源：官方 npm [`@minecraft/*`](https://www.npmjs.com/search?q=scope%3Aminecraft) 已发布版本号。',
+        '',
+        ...renderCurrentLockTable(dependencies),
+        ...renderPerPackageVersionMaps(dependencies, bundles),
         ''
     ].join('\n');
     writeFileSync(resolvePath(versionsDir, 'index.md'), body, 'utf-8');
@@ -141,40 +240,6 @@ function renderHomeChangelogIndex(bundles: ModuleChangelogBundle[]) {
         '> 正文来自 [MicrosoftDocs/minecraft-creator](https://github.com/MicrosoftDocs/minecraft-creator/tree/main/creator/ScriptAPI/minecraft)；若 npm 预览版本尚未收录，会回退到官方 changelog 中同轨道最近条目。'
     );
     return lines.join('\n');
-}
-
-function apiCoreOf(version: string | undefined) {
-    if (!version) return undefined;
-    return /^(\d+\.\d+\.\d+)/.exec(version)?.[1];
-}
-
-/** 「API 版本 ↔ MC 版本」映射表。 */
-function renderVersionMapSection(bundle: ModuleChangelogBundle) {
-    if (bundle.versionMap.length === 0) return [];
-
-    const stableCore = apiCoreOf(bundle.tracks.find((item) => item.track === 'stable')?.npmVersion);
-    const previewCore = apiCoreOf(bundle.tracks.find((item) => item.track === 'preview')?.npmVersion);
-
-    const lines = [
-        '## 版本映射表',
-        '',
-        '> 由 npm 已发布版本号推断（如 `2.9.0-rc.1.26.50-preview.20` → 预览分支 MC `1.26.50.20`）。',
-        '',
-        '| API 版本 | 稳定分支 MC | 预览分支 MC | 首次发布 | 备注 |',
-        '| --- | --- | --- | --- | --- |'
-    ];
-    for (const row of bundle.versionMap) {
-        const notes: string[] = [];
-        if (row.apiVersion === stableCore) notes.push('稳定');
-        if (row.apiVersion === previewCore) notes.push('预览');
-        lines.push(
-            `| \`${row.apiVersion}\` | ${row.stableMc ? `\`${row.stableMc}\`` : '-'} | ${
-                row.previewMc ? `\`${row.previewMc}\`` : '-'
-            } | ${row.firstPublished ?? '-'} | ${notes.join(' / ') || '-'} |`
-        );
-    }
-    lines.push('');
-    return lines;
 }
 
 /** 「相对稳定版的变更」：预览相对 latest 的新增符号/成员 */
@@ -315,8 +380,6 @@ export async function syncDocsHome(providedDependencies?: Partial<Record<string,
         return;
     }
 
-    writeVersionsPage(dependencies);
-
     const orderedNames = orderModules(dependencies).map(([name]) => name);
     const moduleShorts = orderedNames.map((name) => shortName(name));
     console.log(`[docs-home] 构建稳定↔预览 API 差异：${moduleShorts.length} 个包`);
@@ -324,6 +387,8 @@ export async function syncDocsHome(providedDependencies?: Partial<Record<string,
 
     console.log(`[docs-home] 拉取官方更新日志：${orderedNames.length} 个包（稳定 + 预览）`);
     const bundles = await fetchOfficialChangelogBundles(orderedNames);
+
+    writeVersionsPage(dependencies, bundles);
     writeChangelogPages(bundles, experimentalDiff);
 
     const original = readFileSync(homePath, 'utf-8');

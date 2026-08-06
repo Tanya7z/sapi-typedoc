@@ -344,6 +344,7 @@ function buildTrack(
 
 /**
  * 为每个 npm 包拉取稳定版 + 预览版官方更新日志全文，并推断版本映射表。
+ * 无独立 changelog 的包（如 math / vanilla-data）仍会从 packument 生成 versionMap。
  */
 export async function fetchOfficialChangelogBundles(
     moduleNames: string[]
@@ -351,22 +352,22 @@ export async function fetchOfficialChangelogBundles(
     return Promise.all(
         moduleNames.map(async (moduleName) => {
             const learnUrl = officialChangelogUrl(moduleName);
-            if (!hasOfficialChangelog(moduleName)) {
-                return { moduleName, learnUrl, tracks: [], versionMap: [] };
-            }
-
             let tracks: TrackChangelog[] = [];
             let versionMap: ApiVersionMapping[] = [];
+
             try {
                 const packument = await fetchNpmPackument(moduleName);
                 const { stable, preview } = resolveTrackVersions(packument.distTags);
                 versionMap = buildVersionMapping(packument.versions, packument.time);
-                const markdown = await fetchOfficialMarkdown(moduleName);
-                const headings = markdown ? listVersionHeadings(markdown) : [];
-                tracks = [
-                    buildTrack('stable', stable, markdown, headings),
-                    buildTrack('preview', preview, markdown, headings)
-                ].filter((item): item is TrackChangelog => item !== undefined);
+
+                if (hasOfficialChangelog(moduleName)) {
+                    const markdown = await fetchOfficialMarkdown(moduleName);
+                    const headings = markdown ? listVersionHeadings(markdown) : [];
+                    tracks = [
+                        buildTrack('stable', stable, markdown, headings),
+                        buildTrack('preview', preview, markdown, headings)
+                    ].filter((item): item is TrackChangelog => item !== undefined);
+                }
             } catch (error) {
                 console.warn(`[official-data] ${moduleName} 拉取失败：${String(error)}`);
             }
