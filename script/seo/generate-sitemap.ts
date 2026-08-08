@@ -18,6 +18,8 @@ async function walkHtmlFiles(dir: string, out: string[] = []): Promise<string[]>
       continue;
     }
     if (entry.isFile() && entry.name.endsWith('.html')) {
+      // 错误页不进入 sitemap
+      if (entry.name === '404.html') continue;
       out.push(full);
     }
   }
