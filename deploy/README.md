@@ -1,7 +1,8 @@
 # 阿里云部署
 
-目标站点：`sapi.dogelake.cn`  
-服务器静态目录：`/var/www/sapi-typedoc`
+目标站点：`https://sapi.dogelake.cn/`（备用：`sapi.ovo7.cc`，需备案通过后再接入）  
+服务器静态目录：`/var/www/sapi-typedoc`  
+续期通知邮箱：`hi@ovo7.cc`
 
 ## 本地发布
 

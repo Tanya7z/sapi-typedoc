@@ -110,10 +110,8 @@ jobs:
           ssh "${DEPLOY_USER}@${DEPLOY_HOST}" "sed -i 's/\r$//' /tmp/remote-sync.sh && chmod +x /tmp/remote-sync.sh && bash /tmp/remote-sync.sh /tmp/doc_build.tar.gz /var/www/sapi-typedoc"
 
       - name: Healthcheck
-        env:
-          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
         run: |
           set -euo pipefail
-          code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "http://${DEPLOY_HOST}/")
+          code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "https://sapi.dogelake.cn/")
           test "$code" = "200"
           echo "healthcheck HTTP $code"

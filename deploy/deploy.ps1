@@ -6,7 +6,7 @@
 param(
   [string]$HostName = $(if ($env:SAPI_SSH_HOST) { $env:SAPI_SSH_HOST } else { "aliyun" }),
   [string]$RemoteRoot = "/var/www/sapi-typedoc",
-  [string]$HealthUrl = $(if ($env:SAPI_HEALTH_URL) { $env:SAPI_HEALTH_URL } else { "http://139.224.226.83/" }),
+  [string]$HealthUrl = $(if ($env:SAPI_HEALTH_URL) { $env:SAPI_HEALTH_URL } else { "https://sapi.dogelake.cn/" }),
   [switch]$SkipBuild,
   [switch]$SkipHealthCheck
 )
