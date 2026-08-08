@@ -53,3 +53,7 @@ cache/untagged-symbols.json
 deploy/*.tar.gz
 deploy/*.tgz
 
+# MCP package
+mcp/node_modules/
+mcp/dist/
+

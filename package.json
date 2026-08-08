@@ -24,7 +24,10 @@
     "format": "biome format --write",
     "check": "biome check --write",
     "deploy:aliyun": "powershell -NoProfile -ExecutionPolicy Bypass -File ./deploy/deploy.ps1",
-    "deploy:aliyun:fast": "powershell -NoProfile -ExecutionPolicy Bypass -File ./deploy/deploy.ps1 -SkipBuild"
+    "deploy:aliyun:fast": "powershell -NoProfile -ExecutionPolicy Bypass -File ./deploy/deploy.ps1 -SkipBuild",
+    "mcp:build": "npm --prefix mcp run build",
+    "mcp:start": "npm --prefix mcp start",
+    "mcp:start:http": "npm --prefix mcp run start:http"
   },
   "dependencies": {
     "@giscus/react": "^3.1.0",

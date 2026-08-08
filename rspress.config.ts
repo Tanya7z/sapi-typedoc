@@ -62,7 +62,14 @@ export default defineConfig({
     remarkPlugins: [remarkAbbrGlossary()],
     link: {
       checkDeadLinks: {
-        excludes: ['/sitemap.xml', '/llms.txt', '/llms-full.txt', '/robots.txt'],
+        excludes: [
+          '/sitemap.xml',
+          '/llms.txt',
+          '/llms-full.txt',
+          '/robots.txt',
+          '/mcp',
+          '/mcp-install.md',
+        ],
       },
     },
   },

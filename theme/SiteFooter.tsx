@@ -34,6 +34,10 @@ export function SiteFooter({ variant = 'home' }: SiteFooterProps) {
         <span className="sapi-site-footer__sep" aria-hidden="true">
           ·
         </span>
+        <a href="/mcp-install/">MCP 安装</a>
+        <span className="sapi-site-footer__sep" aria-hidden="true">
+          ·
+        </span>
         <span className="sapi-site-footer__skin">
           皮肤贴图来自{' '}
           <a
