@@ -148,7 +148,8 @@ export function generateApiIndex(options: GenerateApiIndexOptions = {}): {
   const tagsPath = options.tagsPath ?? join(basePath, 'docs', 'tags', '_data.json');
   const diffPath = options.diffPath ?? join(basePath, 'cache', 'experimental-diff.json');
   const metaPath = options.metaPath ?? buildMetaPath;
-  const outDir = options.outDir ?? join(docBuildPath, 'mcp');
+  // 勿使用 doc_build/mcp/：会与 Rspress 的 mcp.html（路由 /mcp/）冲突导致 403
+  const outDir = options.outDir ?? join(docBuildPath, 'mcp-data');
   const modules = options.modules ?? [...MODULE_ORDER];
 
   const tagsData = readJsonSafe<TagsIndexData>(tagsPath);

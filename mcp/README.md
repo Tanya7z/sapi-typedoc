@@ -35,7 +35,7 @@ npm run start:http # http://127.0.0.1:3921/mcp
 | 变量 | 说明 |
 |------|------|
 | `SAPI_DOCS_BASE_URL` | 文档站根 URL，默认 `https://sapi.dogelake.cn` |
-| `SAPI_MCP_INDEX_DIR` | 本地混合索引目录（含 `api-index.json` 等），优先于远程拉取 |
+| `SAPI_MCP_INDEX_DIR` | 本地混合索引目录（含 `api-index.json` 等），优先于远程 `/mcp-data/` |
 | `PORT` / `MCP_PORT` | HTTP 端口，默认 `3921` |
 | `MCP_HOST` | 绑定地址，默认 `127.0.0.1` |
 | `MCP_AUTH_TOKEN` | 可选；设置后要求 `Authorization: Bearer <token>` |

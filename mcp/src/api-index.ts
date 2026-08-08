@@ -51,7 +51,7 @@ async function loadJson<T>(fileName: string, cache: CacheEntry<T> | null): Promi
     return { data: local, cache: next };
   }
 
-  const url = `${getBaseUrl()}/mcp/${fileName}`;
+  const url = `${getBaseUrl()}/mcp-data/${fileName}`;
   const text = await fetchText(url);
   const data = JSON.parse(text) as T;
   const next = { fetchedAt: now, data };

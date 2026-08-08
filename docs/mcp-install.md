@@ -108,7 +108,7 @@ curl -sS -o /dev/null -w "%{http_code}" -X POST "https://sapi.dogelake.cn/mcp" -
 
 文档站：https://sapi.dogelake.cn/  
 完整 llms 索引：https://sapi.dogelake.cn/llms.txt  
-混合索引：https://sapi.dogelake.cn/mcp/api-index.json  
+混合索引：https://sapi.dogelake.cn/mcp-data/api-index.json  
 npm 包：`sapi-docs-mcp`
 
 ## 给用户的最短提示（可复制）
