@@ -48,6 +48,11 @@ export function writeRootNav(presentModules: string[]) {
       link: '/changelog/',
       activeMatch: '/changelog/',
     },
+    {
+      text: 'MCP',
+      link: '/mcp-install/',
+      activeMatch: '/mcp-install',
+    },
   ];
 
   writeJson(join(docsDir, '_nav.json'), nav);

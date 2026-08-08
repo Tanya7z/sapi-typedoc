@@ -68,5 +68,10 @@
     "text": "更新日志",
     "link": "/changelog/",
     "activeMatch": "/changelog/"
+  },
+  {
+    "text": "MCP",
+    "link": "/mcp-install/",
+    "activeMatch": "/mcp-install"
   }
 ]
