@@ -49,3 +49,7 @@ cache/untagged-symbols.json
 *.bak
 *.code-workspace
 
+# Deploy artifacts
+deploy/*.tar.gz
+deploy/*.tgz
+
