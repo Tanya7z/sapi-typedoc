@@ -16,12 +16,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -40,6 +36,30 @@ jobs:
       - name: Build Rspress site
         run: npm run build
 
+      - name: Pack static site
+        run: tar -czf doc_build.tar.gz doc_build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: doc-build
+          path: |
+            doc_build
+            doc_build.tar.gz
+          retention-days: 3
+
+  deploy-pages:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: doc-build
+
       - name: Setup GitHub Pages
         id: pages_setup
         uses: actions/configure-pages@v5
@@ -50,9 +70,52 @@ jobs:
         if: ${{ steps.pages_setup.outcome == 'success' }}
         uses: actions/upload-pages-artifact@v4
         with:
-          path: ${{ github.workspace }}/doc_build
+          path: doc_build
 
       - name: Deploy to GitHub Pages
         if: ${{ steps.pages_setup.outcome == 'success' }}
         id: deployment
         uses: actions/deploy-pages@v4
+
+  deploy-aliyun:
+    needs: build
+    runs-on: ubuntu-latest
+    # 未配置 Secrets 时跳过，避免阻断 Pages 部署
+    if: ${{ secrets.DEPLOY_SSH_KEY != '' && secrets.DEPLOY_HOST != '' && secrets.DEPLOY_USER != '' }}
+    steps:
+      - name: Checkout deploy scripts
+        uses: actions/checkout@v5
+        with:
+          sparse-checkout: |
+            deploy
+          sparse-checkout-cone-mode: true
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: doc-build
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H "${{ secrets.DEPLOY_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Sync to Aliyun
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          set -euo pipefail
+          scp doc_build.tar.gz deploy/remote-sync.sh "${DEPLOY_USER}@${DEPLOY_HOST}:/tmp/"
+          ssh "${DEPLOY_USER}@${DEPLOY_HOST}" "sed -i 's/\r$//' /tmp/remote-sync.sh && chmod +x /tmp/remote-sync.sh && bash /tmp/remote-sync.sh /tmp/doc_build.tar.gz /var/www/sapi-typedoc"
+
+      - name: Healthcheck
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+        run: |
+          set -euo pipefail
+          code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "http://${DEPLOY_HOST}/")
+          test "$code" = "200"
+          echo "healthcheck HTTP $code"
