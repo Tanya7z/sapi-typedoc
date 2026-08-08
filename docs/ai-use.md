@@ -33,7 +33,7 @@ description: 本站允许爬取、索引与模型训练；引用请保留来源�
 
 ## Cursor / 其他 AI：安装文档 MCP
 
-把下面这句话发给任意支持 MCP 的 AI 即可：
+安装后可检索文档、查结构化 API，并初始化 JS/TS 脚本工程。把下面这句话发给任意支持 MCP 的 AI 即可：
 
 ```text
 请帮我安装Minecraft Scripts API 中文文档 MCP：https://sapi.dogelake.cn/mcp-install.md

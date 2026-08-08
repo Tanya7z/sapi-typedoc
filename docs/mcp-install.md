@@ -1,6 +1,6 @@
 ---
 title: MCP 安装说明（给 AI）
-description: 将 sapi-docs MCP 安装到当前环境：优先远程 HTTPS，失败则回退 npx 本地 stdio。
+description: 安装 sapi-docs MCP：远程优先；含符号查询、示例与脚本工程脚手架；失败则回退 npx。
 ---
 
 # MCP 安装说明（给 AI Agent）
