@@ -22,10 +22,11 @@
     "node": ">=20"
   },
   "bin": {
-    "sapi-docs-mcp": "./dist/stdio.js",
-    "sapi-docs-mcp-http": "./dist/http.js"
+    "sapi-docs-mcp": "bin/sapi-docs-mcp.mjs",
+    "sapi-docs-mcp-http": "bin/sapi-docs-mcp-http.mjs"
   },
   "files": [
+    "bin",
     "dist",
     "README.md"
   ],

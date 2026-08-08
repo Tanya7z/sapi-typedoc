@@ -1,29 +1,12 @@
 import { defineConfig } from 'tsup';
 
-const shared = {
-  format: ['esm'] as const,
-  target: 'node20' as const,
-  platform: 'node' as const,
+export default defineConfig({
+  entry: ['src/stdio.ts', 'src/http.ts'],
+  format: ['esm'],
+  target: 'node20',
+  platform: 'node',
   dts: false,
+  clean: true,
   splitting: false,
   sourcemap: true,
-};
-
-export default defineConfig([
-  {
-    ...shared,
-    entry: ['src/stdio.ts'],
-    clean: true,
-    banner: {
-      js: '#!/usr/bin/env node',
-    },
-  },
-  {
-    ...shared,
-    entry: ['src/http.ts'],
-    clean: false,
-    banner: {
-      js: '#!/usr/bin/env node',
-    },
-  },
-]);
+});
