@@ -1,5 +1,7 @@
 ---
 pageType: home
+title: Minecraft Script API 文档
+description: 基于官方 @minecraft/*.d.ts 生成的中文 Script API 参考，含模块文档、版本映射与更新日志。
 
 hero:
   image:
@@ -30,14 +32,14 @@ hero:
 | --- | --- | --- |
 | [@minecraft/server](./changelog/server.md) | `2.9.0` | `2.10.0-rc.1.26.50-preview.24` |
 | [@minecraft/server-ui](./changelog/server-ui.md) | `2.1.0` | `2.2.0-rc.1.26.50-preview.24` |
-| [@minecraft/server-net](./changelog/server-net.md) | `1.0.0-beta.11940b24` | `1.0.0-beta.1.26.50-preview.24` |
+| [@minecraft/server-net](./changelog/server-net.md) | `1.0.0-beta.11940b24` | `1.0.0-beta.1.26.43-stable` |
 | [@minecraft/common](./changelog/common.md) | `1.3.0` | `1.3.0-rc.1.26.30-preview.26` |
-| [@minecraft/debug-utilities](./changelog/debug-utilities.md) | `1.0.0-beta.1.20.70-preview.20` | `1.0.0-beta.1.26.50-preview.24` |
-| [@minecraft/diagnostics](./changelog/diagnostics.md) | `1.0.0-beta.1.21.70-preview.22` | `1.0.0-beta.1.26.50-preview.24` |
-| [@minecraft/server-admin](./changelog/server-admin.md) | `1.0.0-beta.11940b24` | `1.0.0-beta.1.26.50-preview.24` |
-| [@minecraft/server-editor](./changelog/server-editor.md) | `0.1.0-beta.1.20.20-preview.20` | `0.1.0-beta.1.26.50-preview.24` |
+| [@minecraft/debug-utilities](./changelog/debug-utilities.md) | `1.0.0-beta.1.20.70-preview.20` | `1.0.0-beta.1.26.43-stable` |
+| [@minecraft/diagnostics](./changelog/diagnostics.md) | `1.0.0-beta.1.21.70-preview.22` | `1.0.0-beta.1.26.43-stable` |
+| [@minecraft/server-admin](./changelog/server-admin.md) | `1.0.0-beta.11940b24` | `1.0.0-beta.1.26.43-stable` |
+| [@minecraft/server-editor](./changelog/server-editor.md) | `0.1.0-beta.1.20.20-preview.20` | `0.1.0-beta.1.26.43-stable` |
 | [@minecraft/server-gametest](./changelog/server-gametest.md) | `1.0.0-beta.1.21.60-preview.24` | `0.1.0-rc.1.21.40-preview.20` |
-| [@minecraft/server-graphics](./changelog/server-graphics.md) | `1.0.0-beta.1.21.130-preview.22` | `1.0.0-beta.1.26.50-preview.24` |
+| [@minecraft/server-graphics](./changelog/server-graphics.md) | `1.0.0-beta.1.21.130-preview.22` | `1.0.0-beta.1.26.43-stable` |
 
 > 正文来自 [MicrosoftDocs/minecraft-creator](https://github.com/MicrosoftDocs/minecraft-creator/tree/main/creator/ScriptAPI/minecraft)；若 npm 预览版本尚未收录，会回退到官方 changelog 中同轨道最近条目。
 

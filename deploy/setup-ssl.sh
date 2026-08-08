@@ -90,9 +90,35 @@ server {
         try_files \$uri =404;
     }
 
+    location = /robots.txt {
+        default_type text/plain;
+        try_files \$uri =404;
+    }
+
+    location = /sitemap.xml {
+        default_type application/xml;
+        try_files \$uri =404;
+    }
+
+    location = /llms.txt {
+        default_type text/plain;
+        try_files \$uri =404;
+    }
+
+    location = /llms-full.txt {
+        default_type text/plain;
+        try_files \$uri =404;
+    }
+
     location ~* \\.(?:js|css|png|jpg|jpeg|gif|svg|ico|woff2?)\$ {
         expires 7d;
         add_header Cache-Control "public, max-age=604800";
+        try_files \$uri =404;
+    }
+
+    location ~* \\.md\$ {
+        default_type text/markdown;
+        charset utf-8;
         try_files \$uri =404;
     }
 

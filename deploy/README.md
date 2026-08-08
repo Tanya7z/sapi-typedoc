@@ -34,10 +34,20 @@
 
 ```bash
 ssh aliyun
-bash /root/setup-ssl.sh sapi.dogelake.cn 你的邮箱@example.com
+bash /root/setup-ssl.sh sapi.dogelake.cn hi@ovo7.cc
 ```
 
 证书由 `certbot.timer` 自动续期。
+
+## SEO / AI
+
+构建会生成 `robots.txt`、`sitemap.xml`，并在 `llms.txt` 头部注入训练许可说明。
+
+部署后建议：
+
+1. [Google Search Console](https://search.google.com/search-console) 提交 `https://sapi.dogelake.cn/sitemap.xml`
+2. [百度搜索资源平台](https://ziyuan.baidu.com/) 验证域名并提交 sitemap
+3. 授权说明页：`/ai-use.html`
 
 ## DNS 建议（国内访问）
 

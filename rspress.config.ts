@@ -5,6 +5,29 @@ import { remarkAbbrGlossary } from './script/post/abbreviations.js';
 import { pluginSapiPostTypeDoc } from './script/plugins/sapi-post-typedoc.js';
 import { setupTypeDoc } from './script/rspress-setup.js';
 
+const SITE_ORIGIN = 'https://sapi.dogelake.cn';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      name: 'Minecraft Script API 文档',
+      url: SITE_ORIGIN,
+      description:
+        '基于官方 @minecraft/*.d.ts 生成的中文 Script API 参考（sapi-typedoc）',
+      inLanguage: 'zh-CN',
+    },
+    {
+      '@type': 'SoftwareSourceCode',
+      name: 'sapi-typedoc',
+      codeRepository: 'https://github.com/Tanya7z/sapi-typedoc',
+      programmingLanguage: 'TypeScript',
+      url: SITE_ORIGIN,
+    },
+  ],
+};
+
 export default defineConfig({
   root: path.join(__dirname, 'docs'),
   lang: 'zh',
@@ -16,6 +39,19 @@ export default defineConfig({
     dark: '/sapi_cn_docs_logo.png',
   },
   llms: true,
+  builderConfig: {
+    html: {
+      // 站点级 JSON-LD；不写全局 canonical，避免所有页面都指向首页
+      tags: [
+        {
+          tag: 'script',
+          attrs: { type: 'application/ld+json' },
+          children: JSON.stringify(jsonLd),
+          head: true,
+        },
+      ],
+    },
+  },
   // GA 仅在 Cookie 同意后由 theme 动态加载，不再无条件注入 head
   globalUIComponents: [
     path.join(__dirname, 'theme', 'CookieConsent.tsx'),
@@ -24,6 +60,11 @@ export default defineConfig({
   markdown: {
     // 外部词表缩写；不用过时的 remark-abbr（需页内定义且不适配 remark 13+ / MDX）
     remarkPlugins: [remarkAbbrGlossary()],
+    link: {
+      checkDeadLinks: {
+        excludes: ['/sitemap.xml', '/llms.txt', '/llms-full.txt', '/robots.txt'],
+      },
+    },
   },
   route: {
     exclude: ['superpowers/**/*', 'components/**/*', '**/*.test.ts', 'searchHooks.ts', 'api/**/*'],

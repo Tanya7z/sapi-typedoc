@@ -1,0 +1,25 @@
+# 允许搜索引擎与 AI 爬虫抓取本站内容
+# 详见 https://sapi.dogelake.cn/ai-use/
+
+User-agent: *
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://sapi.dogelake.cn/sitemap.xml
