@@ -5,7 +5,7 @@ description: 安装 sapi-docs MCP：远程优先；含符号查询、示例与�
 
 # MCP 安装说明（给 AI Agent）
 
-你是安装助手。目标：把 **Minecraft Script API 中文文档 MCP（sapi-docs）** 安装到用户当前的 AI 客户端，使下列工具可用：`search_docs` / `get_page` / `list_modules` / `list_symbols` / `get_llms_index` / `get_symbol` / `search_by_tag` / `get_examples` / `get_versions` / `init_script_project`。
+你是安装助手。目标：把 **Minecraft Script API 中文文档 MCP（sapi-docs）** 安装到用户当前的 AI 客户端，使下列工具可用：`search_docs` / `get_page` / `list_modules` / `list_symbols` / `get_llms_index` / `get_symbol` / `search_by_tag` / `get_examples` / `get_versions` / `resolve_versions` / `init_script_project`。
 
 **不要向用户推销。按下列步骤直接改配置并验证。**
 
@@ -77,8 +77,8 @@ curl -sS -o /dev/null -w "%{http_code}" -X POST "https://sapi.dogelake.cn/mcp" -
 ## 安装后验证
 
 1. 重新加载 MCP / 重启客户端（若需要）。
-2. 确认工具列表含：`search_docs`、`get_page`、`list_modules`、`list_symbols`、`get_llms_index`、`get_symbol`、`search_by_tag`、`get_examples`、`get_versions`、`init_script_project`。
-3. 冒烟调用：`search_docs`，参数 `query: "Player"`；再 `get_symbol`，参数 `name: "Player", module: "server"`。
+2. 确认工具列表含：`search_docs`、`get_page`、`list_modules`、`list_symbols`、`get_llms_index`、`get_symbol`、`search_by_tag`、`get_examples`、`get_versions`、`resolve_versions`、`init_script_project`。
+3. 冒烟调用：`resolve_versions`，参数 `gameVersion: "1.26.42", track: "stable"`；再 `get_symbol`，参数 `name: "Player", module: "server"`。
 
 ## 工具说明（装好后如何用）
 
@@ -93,22 +93,25 @@ curl -sS -o /dev/null -w "%{http_code}" -X POST "https://sapi.dogelake.cn/mcp" -
 | `search_by_tag` | 按领域标签列符号（event、player…） |
 | `get_examples` | 官方示例代码 |
 | `get_versions` | 文档站锁定的包版本 |
-| `init_script_project` | 生成 BP 脚本工程文件树（由你写入磁盘） |
+| `resolve_versions` | 按游戏版本解析推荐包版本与 min_engine |
+| `init_script_project` | 生成 BP 脚本工程文件树（由你写入磁盘；可传 `gameVersion`） |
 
 ## 首次编写 / 项目初始化（必须遵守）
 
 当用户要写 Script API、做脚本模组，或初始化项目，且工作区未见现成行为包脚本工程时：
 
 1. **先问语言**：JavaScript 或 TypeScript；**推荐 TypeScript**。
-2. 确认包名（可用 `demo_pack`）与模块（默认 `server`）。
-3. 调用 `init_script_project`，把返回的 `FILE:` 区块写入工作区。
-4. 再用 `get_symbol` / `search_by_tag` / `get_examples` 写业务代码；长说明才用 `get_page`。
+2. **询问游戏版本**（如 `1.26.42`），用 `resolve_versions` 确认包版本。
+3. 确认包名（可用 `demo_pack`）与模块（默认 `server`）。
+4. 调用 `init_script_project`（传入 `gameVersion`），把返回的 `FILE:` 区块写入工作区。
+5. 再用 `get_symbol` / `search_by_tag` / `get_examples` 写业务代码；长说明才用 `get_page`。
 
 `init_script_project` **不会**直接写用户磁盘，必须由你落盘。
 
 文档站：https://sapi.dogelake.cn/  
 完整 llms 索引：https://sapi.dogelake.cn/llms.txt  
 混合索引：https://sapi.dogelake.cn/mcp-data/api-index.json  
+版本映射数据：https://sapi.dogelake.cn/mcp-data/version-map.json  
 npm 包：`sapi-docs-mcp`
 
 ## 给用户的最短提示（可复制）

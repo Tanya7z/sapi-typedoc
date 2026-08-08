@@ -28,6 +28,7 @@ description: 本站允许爬取、索引与模型训练；引用请保留来源�
 | MCP 安装（给 AI） | [mcp-install.md](https://sapi.dogelake.cn/mcp-install.md) |
 | MCP 远程端点 | `https://sapi.dogelake.cn/mcp` |
 | MCP 混合索引 | [api-index.json](https://sapi.dogelake.cn/mcp-data/api-index.json) |
+| MCP 版本映射数据 | [version-map.json](https://sapi.dogelake.cn/mcp-data/version-map.json) |
 
 单页 Markdown 导出：在任意文档 URL 后改为 `.md`（例如 `/server/classes/Player.md`）。
 

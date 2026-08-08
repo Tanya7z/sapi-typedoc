@@ -9,9 +9,10 @@ description: 用 MCP 检索本站 Script API，查结构化签名与示例，并
 
 - 搜索与阅读 API 文档
 - 查结构化签名、权限标签、领域标签与实验性差异
-- 取官方示例；初始化行为包工程（JS / TS，推荐 TS）
+- 按游戏版本解析推荐 `@minecraft/*` 包版本（`resolve_versions`）
+- 取官方示例；初始化行为包工程（JS / TS，推荐 TS；可传 `gameVersion`）
 
-数据来自本站公开页与 `/mcp-data/api-index.json` 等混合索引。远程优先；本地回退 `npx -y sapi-docs-mcp`。
+数据来自本站公开页与 `/mcp-data/` 混合索引。远程优先；本地回退 `npx -y sapi-docs-mcp`。
 
 ## 安装
 

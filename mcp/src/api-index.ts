@@ -6,6 +6,7 @@ import type {
   ApiSymbol,
   ExampleRef,
   ExamplesIndex,
+  VersionMapIndex,
   VersionsIndex,
 } from './types.js';
 
@@ -16,6 +17,7 @@ type CacheEntry<T> = { fetchedAt: number; data: T };
 let apiCache: CacheEntry<ApiIndex> | null = null;
 let examplesCache: CacheEntry<ExamplesIndex> | null = null;
 let versionsCache: CacheEntry<VersionsIndex> | null = null;
+let versionMapCache: CacheEntry<VersionMapIndex> | null = null;
 
 async function fetchText(url: string): Promise<string> {
   const res = await fetch(url, {
@@ -53,6 +55,11 @@ async function loadJson<T>(fileName: string, cache: CacheEntry<T> | null): Promi
 
   const url = `${getBaseUrl()}/mcp-data/${fileName}`;
   const text = await fetchText(url);
+  if (text.trimStart().startsWith('<')) {
+    throw new Error(
+      `期望 JSON，收到 HTML：${url}（索引可能尚未部署；可设 SAPI_MCP_INDEX_DIR 指向本地 mcp-data）`,
+    );
+  }
   const data = JSON.parse(text) as T;
   const next = { fetchedAt: now, data };
   return { data, cache: next };
@@ -76,6 +83,13 @@ export async function getVersionsIndex(force = false): Promise<VersionsIndex> {
   if (force) versionsCache = null;
   const { data, cache } = await loadJson<VersionsIndex>('versions.json', versionsCache);
   versionsCache = cache;
+  return data;
+}
+
+export async function getVersionMap(force = false): Promise<VersionMapIndex> {
+  if (force) versionMapCache = null;
+  const { data, cache } = await loadJson<VersionMapIndex>('version-map.json', versionMapCache);
+  versionMapCache = cache;
   return data;
 }
 

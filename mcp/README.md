@@ -16,10 +16,11 @@ Minecraft Script API 中文文档 MCP 服务器。数据来自 [sapi.dogelake.cn
 | `get_symbol` | 结构化签名、成员、权限、标签 |
 | `search_by_tag` | 按领域标签发现 API |
 | `get_examples` | 官方示例 |
-| `get_versions` | 锁定包版本 |
-| `init_script_project` | JS/TS 行为包脚手架（返回文件树） |
+| `get_versions` | 文档站锁定包版本 |
+| `resolve_versions` | 按游戏版本解析推荐包版本 |
+| `init_script_project` | JS/TS 行为包脚手架（可传 `gameVersion`） |
 
-首次写脚本时，服务端 instructions 要求先询问 JS/TS（推荐 TS），再初始化工程。
+首次写脚本时，服务端 instructions 要求先询问 JS/TS（推荐 TS）与游戏版本，再初始化工程。
 
 ## 本地运行
 

@@ -64,3 +64,23 @@ export type VersionsIndex = {
   gameVersion?: string;
   packages: Record<string, PackageVersionInfo>;
 };
+
+export type VersionMapRow = {
+  apiVersion: string;
+  stableMc?: string;
+  previewMc?: string;
+  firstPublished?: string;
+};
+
+export type VersionMapPackage = {
+  module: string;
+  packageName: string;
+  npmStable?: string;
+  npmPreview?: string;
+  rows: VersionMapRow[];
+};
+
+export type VersionMapIndex = {
+  generatedAt: string;
+  packages: Record<string, VersionMapPackage>;
+};

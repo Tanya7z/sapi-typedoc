@@ -1,5 +1,10 @@
 import { randomUUID } from 'node:crypto';
-import type { VersionsIndex } from './types.js';
+import {
+  parseMinEngineVersion,
+  resolveVersions,
+  type ResolveTrack,
+} from './resolve-versions.js';
+import type { VersionMapIndex, VersionsIndex } from './types.js';
 
 export type ScaffoldLanguage = 'ts' | 'js';
 export type ScaffoldTrack = 'preview' | 'stable';
@@ -10,6 +15,8 @@ export type ScaffoldOptions = {
   /** 不含 @minecraft/ 前缀，如 server、server-ui */
   modules: string[];
   track?: ScaffoldTrack;
+  /** 玩家游戏版本，如 1.26.42；提供时按版本映射选依赖与 min_engine */
+  gameVersion?: string;
   includeEmptyResourcePack?: boolean;
 };
 
@@ -42,29 +49,26 @@ function resolveManifestVersion(
   track: ScaffoldTrack,
 ): string {
   const pkg = versions.packages[`@minecraft/${module}`];
-  if (!pkg) {
-    // 未知模块时给常见占位
-    return '1.0.0-beta';
-  }
+  if (!pkg) return '1.0.0-beta';
   if (track === 'stable') {
     if (pkg.stable) {
-      // stable 可能是完整 npm 版本
       const m = /^(\d+\.\d+\.\d+(?:-[a-zA-Z]+)?)/.exec(pkg.stable);
       return m?.[1] ?? pkg.manifest;
     }
-    // 无稳定轨信息时回退 manifest（文档锁定）
     return pkg.manifest;
   }
   return pkg.manifest;
 }
 
-function parseMinEngine(gameVersion?: string): [number, number, number] {
-  if (!gameVersion) return [1, 21, 0];
-  const parts = gameVersion.split('.').map((x) => Number.parseInt(x, 10));
-  const major = Number.isFinite(parts[0]) ? parts[0]! : 1;
-  const minor = Number.isFinite(parts[1]) ? parts[1]! : 21;
-  const patch = Number.isFinite(parts[2]) ? parts[2]! : 0;
-  return [major, minor, patch];
+function resolveNpmDep(
+  versions: VersionsIndex,
+  module: string,
+  track: ScaffoldTrack,
+): string {
+  const pkg = versions.packages[`@minecraft/${module}`];
+  if (!pkg) return 'latest';
+  if (track === 'stable' && pkg.stable) return pkg.stable;
+  return pkg.locked;
 }
 
 function displayName(packName: string): string {
@@ -89,28 +93,79 @@ world.afterEvents.playerSpawn.subscribe((event) => {
 `;
 }
 
+type DepChoice = {
+  manifest: string;
+  npm: string;
+};
+
 /** 生成行为包脚本工程文件树（由宿主 Agent 写入磁盘） */
 export function buildScriptProject(
   versions: VersionsIndex,
   options: ScaffoldOptions,
+  versionMap?: VersionMapIndex,
 ): ScaffoldResult {
   const language = options.language;
   const packName = sanitizePackName(options.packName);
   const modules = [...(options.modules.length > 0 ? options.modules : ['server'])];
   if (!modules.includes('server')) modules.unshift('server');
-  const track = options.track ?? 'preview';
+
+  let track: ScaffoldTrack = options.track ?? 'preview';
+  let minEngine = parseMinEngineVersion(versions.gameVersion ?? '1.21.0');
+  const depByModule = new Map<string, DepChoice>();
+  const resolveNotes: string[] = [];
+
+  if (options.gameVersion) {
+    if (!versionMap) {
+      throw new Error(
+        '提供了 gameVersion 但缺少 version-map.json。请确认文档站已部署 /mcp-data/version-map.json，或设置 SAPI_MCP_INDEX_DIR。',
+      );
+    }
+    const resolved = resolveVersions(versionMap, {
+      gameVersion: options.gameVersion,
+      track: (options.track as ResolveTrack | undefined) ?? 'auto',
+      modules,
+    });
+    track = resolved.track;
+    minEngine = resolved.minEngineVersion;
+    resolveNotes.push(
+      `按游戏版本 ${resolved.normalizedGameVersion}（${track}）解析依赖。`,
+      ...resolved.warnings,
+    );
+    for (const mod of modules) {
+      const hit = resolved.packages[`@minecraft/${mod}`];
+      if (hit) {
+        depByModule.set(mod, {
+          manifest: hit.manifest,
+          npm: hit.npmVersion ?? hit.manifest,
+        });
+      } else {
+        // 映射未命中时回退文档站锁定
+        depByModule.set(mod, {
+          manifest: resolveManifestVersion(versions, mod, track),
+          npm: resolveNpmDep(versions, mod, track),
+        });
+        resolveNotes.push(`${mod}: 映射未命中，回退文档站 ${track} 锁定版本`);
+      }
+    }
+  } else {
+    for (const mod of modules) {
+      depByModule.set(mod, {
+        manifest: resolveManifestVersion(versions, mod, track),
+        npm: resolveNpmDep(versions, mod, track),
+      });
+    }
+  }
+
   const rootDir = packName;
   const bpDir = `${rootDir}/behavior_packs/${packName}`;
   const headerUuid = randomUUID();
   const moduleUuid = randomUUID();
-  const minEngine = parseMinEngine(versions.gameVersion);
 
   const deps = modules.map((mod) => ({
     module_name: `@minecraft/${mod}`,
-    version: resolveManifestVersion(versions, mod, track),
+    version: depByModule.get(mod)!.manifest,
   }));
 
-  // script 模块在 BP 内始终以 JS 为入口；TS 工程构建输出到此路径
   const entry = 'scripts/main.js';
 
   const manifest = {
@@ -141,17 +196,15 @@ export function buildScriptProject(
     },
   ];
 
-  if (language === 'ts') {
-    const pkgDeps: Record<string, string> = {};
-    for (const mod of modules) {
-      const key = `@minecraft/${mod}`;
-      pkgDeps[key] = versions.packages[key]?.locked ?? 'latest';
-    }
-    // server 脚本几乎总会用到类型；若未显式包含也装上便于编辑
-    if (!pkgDeps['@minecraft/server'] && versions.packages['@minecraft/server']) {
-      pkgDeps['@minecraft/server'] = versions.packages['@minecraft/server'].locked;
-    }
+  const pkgDeps: Record<string, string> = {};
+  for (const mod of modules) {
+    pkgDeps[`@minecraft/${mod}`] = depByModule.get(mod)!.npm;
+  }
+  if (!pkgDeps['@minecraft/server'] && versions.packages['@minecraft/server']) {
+    pkgDeps['@minecraft/server'] = resolveNpmDep(versions, 'server', track);
+  }
 
+  if (language === 'ts') {
     files.push(
       {
         path: `${rootDir}/package.json`,
@@ -246,12 +299,6 @@ if (watch) {
       path: `${bpDir}/scripts/main.js`,
       content: mainScript(packName),
     });
-    // 可选轻量 package.json 便于装类型包（即使用 JS）
-    const pkgDeps: Record<string, string> = {};
-    for (const mod of modules) {
-      const key = `@minecraft/${mod}`;
-      pkgDeps[key] = versions.packages[key]?.locked ?? 'latest';
-    }
     files.push({
       path: `${rootDir}/package.json`,
       content: `${JSON.stringify(
@@ -297,6 +344,10 @@ if (watch) {
     });
   }
 
+  const versionLine = options.gameVersion
+    ? `- 已按 gameVersion=${options.gameVersion} 解析（track=${track}，min_engine=[${minEngine.join(', ')}]）。`
+    : `- 依赖版本对齐文档站锁定（track=${track}）。`;
+
   const workflow =
     language === 'ts'
       ? [
@@ -312,7 +363,8 @@ if (watch) {
           '4. 改代码后 `npm run watch` 或再次 `npm run build`，再重新进世界验证。',
           '',
           '### 值得注意',
-          `- 依赖版本已对齐文档站锁定（track=${track}）。`,
+          versionLine,
+          ...resolveNotes.map((n) => `- ${n}`),
           '- `@minecraft/*` 由游戏运行时提供，打包时已 external，勿打进 bundle。',
           '- 推荐 TypeScript：类型与文档一致，改 API 更不易写错。',
         ].join('\n')
@@ -325,7 +377,8 @@ if (watch) {
           '4. 直接编辑 `behavior_packs/.../scripts/main.js` 后重新进世界验证。',
           '',
           '### 值得注意',
-          `- 依赖版本已对齐文档站锁定（track=${track}）。`,
+          versionLine,
+          ...resolveNotes.map((n) => `- ${n}`),
           '- 若项目会变大，建议改用 TypeScript 模板（重新调用 init_script_project，language=ts）。',
         ].join('\n');
 

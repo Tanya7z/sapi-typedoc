@@ -190,6 +190,52 @@ export function renderPerPackageVersionMaps(
     return lines;
 }
 
+/** 写出 MCP / 工具用的机器可读版本映射 */
+function writeVersionsDataJson(bundles: ModuleChangelogBundle[]) {
+    const packages: Record<
+        string,
+        {
+            module: string;
+            packageName: string;
+            npmStable?: string;
+            npmPreview?: string;
+            rows: Array<{
+                apiVersion: string;
+                stableMc?: string;
+                previewMc?: string;
+                firstPublished?: string;
+            }>;
+        }
+    > = {};
+    for (const bundle of bundles) {
+        const module = shortName(bundle.moduleName);
+        const stable = bundle.tracks.find((t) => t.track === 'stable')?.npmVersion;
+        const preview = bundle.tracks.find((t) => t.track === 'preview')?.npmVersion;
+        packages[bundle.moduleName] = {
+            module,
+            packageName: bundle.moduleName,
+            npmStable: stable,
+            npmPreview: preview,
+            rows: bundle.versionMap.map((row) => ({
+                apiVersion: row.apiVersion,
+                stableMc: row.stableMc,
+                previewMc: row.previewMc,
+                firstPublished: row.firstPublished
+            }))
+        };
+    }
+    const payload = {
+        generatedAt: new Date().toISOString(),
+        packages
+    };
+    writeFileSync(
+        resolvePath(versionsDir, '_data.json'),
+        `${JSON.stringify(payload, null, 2)}\n`,
+        'utf-8'
+    );
+    console.log(`[docs-home] 版本映射数据 docs/versions/_data.json（${Object.keys(packages).length} 包）`);
+}
+
 /** 写出独立版本映射页 */
 function writeVersionsPage(
     dependencies: Partial<Record<string, string>>,
@@ -216,6 +262,7 @@ function writeVersionsPage(
         `${JSON.stringify([{ type: 'file', name: 'index', label: '版本映射' }], null, 2)}\n`,
         'utf-8'
     );
+    writeVersionsDataJson(bundles);
 }
 
 function renderHomeChangelogIndex(bundles: ModuleChangelogBundle[]) {

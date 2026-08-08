@@ -7,6 +7,7 @@ import {
   formatSymbol,
   getApiIndex,
   getExamplesIndex,
+  getVersionMap,
   getVersionsIndex,
   searchByTag,
 } from './api-index.js';
@@ -16,6 +17,10 @@ import {
   getIndex,
   getLlmsSection,
 } from './client.js';
+import {
+  formatResolveVersionsResult,
+  resolveVersions,
+} from './resolve-versions.js';
 import { buildScriptProject, formatScaffoldResult } from './scaffold.js';
 import { searchEntries } from './search.js';
 
@@ -24,10 +29,11 @@ const SERVER_INSTRUCTIONS = `你是 Minecraft Script API（sapi.dogelake.cn）�
 首次编写 / 项目初始化规则（必须遵守）：
 1. 当用户要写 Script API、做脚本模组、初始化行为包/附加包工程，且工作区未见现成 BP 脚本工程时：
    - 先询问语言：JavaScript 或 TypeScript；推荐 TypeScript（类型与文档一致，更不易写错）。
-   - 可顺带确认包名（默认 demo_pack）与模块（默认 server）。
+   - 询问游戏版本（如 1.26.42）；用 resolve_versions 确认包版本，再 init_script_project（传入 gameVersion）。
    - 用户选定后调用 init_script_project，将返回的 FILE 区块写入工作区，再写业务代码。
 2. 查 API 优先用 get_symbol / search_by_tag / get_examples；需要长说明再用 get_page。
-3. 回答中的类型、权限（worldMutation / earlyExecution）、实验性标记以工具结果为准，勿臆造。`;
+3. 「游戏版本对应哪个 @minecraft 包版本」必须用 resolve_versions，勿让用户手翻 /versions 长表。
+4. 回答中的类型、权限（worldMutation / earlyExecution）、实验性标记以工具结果为准，勿臆造。`;
 
 function textResult(text: string) {
   return {
@@ -47,7 +53,7 @@ function errorResult(err: unknown) {
 export function createDocsServer(): McpServer {
   const server = new McpServer({
     name: 'sapi-docs',
-    version: '1.1.0',
+    version: '1.2.0',
     instructions: SERVER_INSTRUCTIONS,
   });
 
@@ -290,7 +296,8 @@ export function createDocsServer(): McpServer {
   server.registerTool(
     'get_versions',
     {
-      description: '返回文档站锁定的 @minecraft/* 包版本，供依赖与 manifest 对齐。',
+      description:
+        '返回文档站锁定的 @minecraft/* 包版本。若要根据玩家游戏版本选包，请用 resolve_versions。',
       inputSchema: {},
     },
     async () => {
@@ -308,6 +315,8 @@ export function createDocsServer(): McpServer {
             versions.gameVersion ? `游戏版本: ${versions.gameVersion}` : '',
             '',
             ...lines,
+            '',
+            '提示: 用 resolve_versions(gameVersion) 按玩家 MC 版本解析推荐包版本。',
           ]
             .filter(Boolean)
             .join('\n'),
@@ -319,10 +328,40 @@ export function createDocsServer(): McpServer {
   );
 
   server.registerTool(
+    'resolve_versions',
+    {
+      description:
+        '根据 Minecraft 游戏版本解析推荐的 @minecraft/* 包版本与 min_engine_version。例如 gameVersion=1.26.42 → server/server-ui 等。',
+      inputSchema: {
+        gameVersion: z
+          .string()
+          .describe('游戏版本，如 1.26.42 或 1.26.50.20'),
+        track: z
+          .enum(['stable', 'preview', 'auto'])
+          .optional()
+          .describe('轨道；默认 auto（四段版本号倾向 preview）'),
+        modules: z
+          .array(z.string())
+          .optional()
+          .describe('可选，限制模块短名，如 ["server","server-ui"]'),
+      },
+    },
+    async ({ gameVersion, track, modules }) => {
+      try {
+        const map = await getVersionMap();
+        const result = resolveVersions(map, { gameVersion, track, modules });
+        return textResult(formatResolveVersionsResult(result));
+      } catch (err) {
+        return errorResult(err);
+      }
+    },
+  );
+
+  server.registerTool(
     'init_script_project',
     {
       description:
-        '生成 Script API 行为包工程文件树（manifest、入口脚本、TS 工具链等）。只返回文件内容，由调用方写入磁盘。写入前若用户未选定语言，必须先询问 JS 或 TS（推荐 TS）。',
+        '生成 Script API 行为包工程文件树（manifest、入口脚本、TS 工具链等）。只返回文件内容，由调用方写入磁盘。写入前若用户未选定语言，必须先询问 JS 或 TS（推荐 TS）。传入 gameVersion 可生成匹配该游戏版本的依赖与 min_engine_version。',
       inputSchema: {
         language: z.enum(['ts', 'js']).describe('ts（推荐）或 js'),
         packName: z
@@ -336,23 +375,40 @@ export function createDocsServer(): McpServer {
         track: z
           .enum(['preview', 'stable'])
           .optional()
-          .describe('依赖轨道，默认 preview（与文档站锁定一致）'),
+          .describe('依赖轨道；若同时传 gameVersion 且未指定，则按版本自动推断'),
+        gameVersion: z
+          .string()
+          .optional()
+          .describe('玩家游戏版本，如 1.26.42；推荐传入以匹配依赖'),
         includeEmptyResourcePack: z
           .boolean()
           .optional()
           .describe('是否附带空资源包，默认 false'),
       },
     },
-    async ({ language, packName, modules, track, includeEmptyResourcePack }) => {
+    async ({
+      language,
+      packName,
+      modules,
+      track,
+      gameVersion,
+      includeEmptyResourcePack,
+    }) => {
       try {
         const versions = await getVersionsIndex();
-        const result = buildScriptProject(versions, {
-          language,
-          packName: packName ?? 'demo_pack',
-          modules: modules ?? ['server'],
-          track: track ?? 'preview',
-          includeEmptyResourcePack: includeEmptyResourcePack ?? false,
-        });
+        const versionMap = gameVersion ? await getVersionMap() : undefined;
+        const result = buildScriptProject(
+          versions,
+          {
+            language,
+            packName: packName ?? 'demo_pack',
+            modules: modules ?? ['server'],
+            track,
+            gameVersion,
+            includeEmptyResourcePack: includeEmptyResourcePack ?? false,
+          },
+          versionMap,
+        );
         return textResult(formatScaffoldResult(result));
       } catch (err) {
         return errorResult(err);

@@ -1,7 +1,7 @@
 /**
- * 构建 MCP 混合索引：api-index / examples-index / versions → doc_build/mcp/
+ * 构建 MCP 混合索引：api-index / examples-index / versions / version-map → doc_build/mcp-data/
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { DOMAIN_TAG_LEGEND } from '../domain-tags.js';
 import { MODULE_ORDER } from '../post/constants.js';
@@ -26,6 +26,7 @@ import type {
   PackageVersionInfo,
   VersionsIndex,
 } from './types.js';
+import type { VersionMapIndex } from './version-map-types.js';
 
 type BuildMeta = {
   dependencies?: Record<string, string>;
@@ -134,6 +135,7 @@ export type GenerateApiIndexOptions = {
   tagsPath?: string;
   diffPath?: string;
   metaPath?: string;
+  versionMapPath?: string;
   outDir?: string;
   modules?: string[];
 };
@@ -142,12 +144,15 @@ export function generateApiIndex(options: GenerateApiIndexOptions = {}): {
   api: ApiIndex;
   examples: ExamplesIndex;
   versions: VersionsIndex;
+  versionMap?: VersionMapIndex;
   outDir: string;
 } {
   const translatedRoot = options.translatedRoot ?? translatedPath;
   const tagsPath = options.tagsPath ?? join(basePath, 'docs', 'tags', '_data.json');
   const diffPath = options.diffPath ?? join(basePath, 'cache', 'experimental-diff.json');
   const metaPath = options.metaPath ?? buildMetaPath;
+  const versionMapPath =
+    options.versionMapPath ?? join(basePath, 'docs', 'versions', '_data.json');
   // 勿使用 doc_build/mcp/：会与 Rspress 的 mcp.html（路由 /mcp/）冲突导致 403
   const outDir = options.outDir ?? join(docBuildPath, 'mcp-data');
   const modules = options.modules ?? [...MODULE_ORDER];
@@ -156,6 +161,7 @@ export function generateApiIndex(options: GenerateApiIndexOptions = {}): {
   const tagLookup = buildTagLookup(tagsData?.items ?? []);
   const diff = readJsonSafe<ExperimentalDiffResult>(diffPath);
   const meta = readJsonSafe<BuildMeta>(metaPath);
+  const versionMap = readJsonSafe<VersionMapIndex>(versionMapPath);
 
   const symbols = [];
   for (const mod of modules) {
@@ -188,12 +194,19 @@ export function generateApiIndex(options: GenerateApiIndexOptions = {}): {
     `${JSON.stringify(versions, null, 2)}\n`,
     'utf-8',
   );
+  if (versionMap && existsSync(versionMapPath)) {
+    copyFileSync(versionMapPath, join(outDir, 'version-map.json'));
+  } else {
+    console.warn(
+      '[mcp-index] 缺少 docs/versions/_data.json，跳过 version-map.json（先跑 npm run docs:sync）',
+    );
+  }
 
   console.log(
-    `[mcp-index] symbols=${api.symbolCount} examples=${examples.examples.length} packages=${Object.keys(versions.packages).length} -> ${outDir}`,
+    `[mcp-index] symbols=${api.symbolCount} examples=${examples.examples.length} packages=${Object.keys(versions.packages).length} versionMap=${versionMap ? Object.keys(versionMap.packages).length : 0} -> ${outDir}`,
   );
 
-  return { api, examples, versions, outDir };
+  return { api, examples, versions, versionMap, outDir };
 }
 
 function main() {
