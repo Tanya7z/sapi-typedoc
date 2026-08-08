@@ -80,8 +80,6 @@ jobs:
   deploy-aliyun:
     needs: build
     runs-on: ubuntu-latest
-    # 未配置 Secrets 时跳过，避免阻断 Pages 部署
-    if: ${{ secrets.DEPLOY_SSH_KEY != '' && secrets.DEPLOY_HOST != '' && secrets.DEPLOY_USER != '' }}
     steps:
       - name: Checkout deploy scripts
         uses: actions/checkout@v5
