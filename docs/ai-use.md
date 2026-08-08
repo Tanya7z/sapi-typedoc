@@ -24,6 +24,7 @@ description: 本站允许爬取、索引与模型训练；引用请保留来源�
 | AI 索引 | [llms.txt](https://sapi.dogelake.cn/llms.txt) |
 | 全文打包 | [llms-full.txt](https://sapi.dogelake.cn/llms-full.txt) |
 | 爬虫规则 | [robots.txt](https://sapi.dogelake.cn/robots.txt) |
+| MCP 简介 | [/mcp/](/mcp/) |
 | MCP 安装（给 AI） | [mcp-install.md](https://sapi.dogelake.cn/mcp-install.md) |
 | MCP 远程端点 | `https://sapi.dogelake.cn/mcp` |
 
@@ -33,9 +34,9 @@ description: 本站允许爬取、索引与模型训练；引用请保留来源�
 
 把下面这句话发给任意支持 MCP 的 AI 即可：
 
-> 请阅读并执行：https://sapi.dogelake.cn/mcp-install.md
-
-说明文档要求：**优先**连接远程 `https://sapi.dogelake.cn/mcp`；连不上或不支持 URL 传输时，回退 `npx -y sapi-docs-mcp`。
+```text
+请帮我安装Minecraft Scripts API 中文文档 MCP：https://sapi.dogelake.cn/mcp-install.md
+```
 
 ## 引用时请保留来源
 

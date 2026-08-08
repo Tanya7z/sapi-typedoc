@@ -71,7 +71,7 @@
   },
   {
     "text": "MCP",
-    "link": "/mcp-install/",
-    "activeMatch": "/mcp-install"
+    "link": "/mcp/",
+    "activeMatch": "/mcp/"
   }
 ]

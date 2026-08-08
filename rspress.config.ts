@@ -69,6 +69,8 @@ export default defineConfig({
           '/robots.txt',
           '/mcp',
           '/mcp-install.md',
+          'https://sapi.dogelake.cn/mcp-install.md',
+          'https://sapi.dogelake.cn/mcp',
         ],
       },
     },

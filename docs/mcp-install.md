@@ -96,4 +96,6 @@ npm 包：`sapi-docs-mcp`
 
 ## 给用户的最短提示（可复制）
 
-请阅读并执行：https://sapi.dogelake.cn/mcp-install.md
+```text
+请帮我安装Minecraft Scripts API 中文文档 MCP：https://sapi.dogelake.cn/mcp-install.md
+```

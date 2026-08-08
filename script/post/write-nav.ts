@@ -50,8 +50,8 @@ export function writeRootNav(presentModules: string[]) {
     },
     {
       text: 'MCP',
-      link: '/mcp-install/',
-      activeMatch: '/mcp-install',
+      link: '/mcp/',
+      activeMatch: '/mcp/',
     },
   ];
 
