@@ -38,6 +38,16 @@ export function SiteFooter({ variant = 'home' }: SiteFooterProps) {
         <span className="sapi-site-footer__sep" aria-hidden="true">
           ·
         </span>
+        <a
+          href="https://ovo71.statuspage.io/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          运行状态
+        </a>
+        <span className="sapi-site-footer__sep" aria-hidden="true">
+          ·
+        </span>
         <span className="sapi-site-footer__skin">
           皮肤贴图来自{' '}
           <a

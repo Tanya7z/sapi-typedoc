@@ -1,0 +1,37 @@
+name: Statuspage Sync
+
+# 站外定时探活并同步到 Atlassian Statuspage（避免与阿里云同机探活）
+on:
+  schedule:
+    # 每 5 分钟（GitHub 可能有数分钟抖动）
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: statuspage-sync
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Probe and sync component
+        env:
+          STATUSPAGE_API_KEY: ${{ secrets.STATUSPAGE_API_KEY }}
+          STATUSPAGE_PAGE_ID: qkgdl82ct4hx
+          STATUSPAGE_COMPONENT_ID: c9z3mztsf5xb
+          STATUSPAGE_PUBLIC_URL: https://ovo71.statuspage.io
+          SAPI_SITE_URL: https://sapi.dogelake.cn
+        run: |
+          if [ -z "${STATUSPAGE_API_KEY}" ]; then
+            echo "Missing secret STATUSPAGE_API_KEY" >&2
+            exit 1
+          fi
+          chmod +x deploy/sync-statuspage.sh
+          bash deploy/sync-statuspage.sh
