@@ -5,55 +5,55 @@ export class WidgetComponentVolumeOutline extends WidgetComponentBase {
     private constructor();
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     highlightHullColor: RGBA;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     highlightOutlineColor: RGBA;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     hullColor: RGBA;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     mirror: StructureMirrorAxis;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     normalizedOrigin: Vector3;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     outlineColor: RGBA;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     rotation: StructureRotation;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     showHighlightOutline: boolean;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     showOutline: boolean;
@@ -65,13 +65,13 @@ export class WidgetComponentVolumeOutline extends WidgetComponentBase {
     readonly transformedWorldVolume: BlockVolume;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     volumeOffset: Vector3;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      *
@@ -80,7 +80,7 @@ export class WidgetComponentVolumeOutline extends WidgetComponentBase {
     getVolume(): RelativeVolumeListBlockVolume | undefined;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      *

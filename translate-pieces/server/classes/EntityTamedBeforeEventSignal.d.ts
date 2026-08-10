@@ -9,9 +9,9 @@ export class EntityTamedBeforeEventSignal {
     private constructor();
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      * @param callback
      * This closure is called with restricted-execution privilege.
@@ -24,9 +24,9 @@ export class EntityTamedBeforeEventSignal {
     ): (arg0: EntityTamedBeforeEvent) => void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      * @param callback
      * This closure is called with restricted-execution privilege.

@@ -4,43 +4,43 @@
 export class WidgetComponentRenderPrimitiveTypeCuboid extends WidgetComponentRenderPrimitiveTypeBase {
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     alpha?: number;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     center: Vector3;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     color: RGBA;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     lengthX: number;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     lengthY: number;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     lengthZ: number;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     rotation?: Vector3;

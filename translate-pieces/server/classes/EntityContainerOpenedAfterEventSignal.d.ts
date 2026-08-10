@@ -11,9 +11,9 @@ export class EntityContainerOpenedAfterEventSignal {
      * Adds a callback that will be called when an entity container
      * is opened.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     subscribe(
@@ -25,9 +25,9 @@ export class EntityContainerOpenedAfterEventSignal {
      * Removes a callback from being called when an entity
      * container is opened.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     unsubscribe(callback: (arg0: EntityContainerOpenedAfterEvent) => void): void;

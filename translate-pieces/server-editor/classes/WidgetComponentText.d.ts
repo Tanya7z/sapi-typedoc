@@ -5,13 +5,13 @@ export class WidgetComponentText extends WidgetComponentBase {
     private constructor();
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     color: RGBA;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     label: string;

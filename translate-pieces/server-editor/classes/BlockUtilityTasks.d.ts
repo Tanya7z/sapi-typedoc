@@ -1,11 +1,11 @@
 /* IMPORT */ import { BlockPermutation, BlockType, BlockVolumeBase, Vector3 } from '../../server';
-/* IMPORT */ import { BlockMaskList, BlockUtilityExtrudeDirection, BlockUtilityFloodMatchCriteria, BlockUtilityManifest, RelativeVolumeListBlockVolume } from '..';
+/* IMPORT */ import { BlockMaskList, BlockUtilityExtrudeDirection, BlockUtilityFloodMatchCriteria, ManifestTaskPromise, NumberTaskPromise, RelativeVolumeListBlockVolume, VolumeTaskPromise } from '..';
 
 export class BlockUtilityTasks {
     private constructor();
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -21,10 +21,10 @@ export class BlockUtilityTasks {
         buildGeometry?: boolean,
         tolerance?: number,
         faceVolume?: BlockVolumeBase | RelativeVolumeListBlockVolume,
-    ): Promise<RelativeVolumeListBlockVolume>;
+    ): VolumeTaskPromise;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -32,20 +32,20 @@ export class BlockUtilityTasks {
         volume: BlockVolumeBase | RelativeVolumeListBlockVolume,
         block?: BlockPermutation | BlockType | string,
         maxBlocksPerTick?: number,
-    ): Promise<number>;
+    ): NumberTaskPromise;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     findObscuredBlocksWithinVolume(
         volume: BlockVolumeBase | RelativeVolumeListBlockVolume,
         maxBlocksPerTick?: number,
-    ): Promise<RelativeVolumeListBlockVolume>;
+    ): VolumeTaskPromise;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -56,20 +56,21 @@ export class BlockUtilityTasks {
         customBlockList?: string[],
         maxResultBlocks?: number,
         maxBlocksPerTick?: number,
-    ): Promise<RelativeVolumeListBlockVolume>;
+        directionMask?: number,
+    ): VolumeTaskPromise;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     generateManifest(
         volume: BlockVolumeBase | RelativeVolumeListBlockVolume,
         maxBlocksPerTick?: number,
-    ): Promise<BlockUtilityManifest>;
+    ): ManifestTaskPromise;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -78,20 +79,20 @@ export class BlockUtilityTasks {
         fromBlockIdentifier: string,
         toBlock?: BlockPermutation | BlockType | string,
         maxBlocksPerTick?: number,
-    ): Promise<number>;
+    ): NumberTaskPromise;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     shrinkWrapVolume(
         volume: BlockVolumeBase | RelativeVolumeListBlockVolume,
         maxBlocksPerTick?: number,
-    ): Promise<RelativeVolumeListBlockVolume>;
+    ): VolumeTaskPromise;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -102,5 +103,5 @@ export class BlockUtilityTasks {
         ignoreNoCollision: boolean,
         blockMask?: BlockMaskList,
         maxBlocksPerTick?: number,
-    ): Promise<RelativeVolumeListBlockVolume>;
+    ): VolumeTaskPromise;
 }

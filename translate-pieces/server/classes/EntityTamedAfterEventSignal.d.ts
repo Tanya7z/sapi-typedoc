@@ -9,9 +9,9 @@ export class EntityTamedAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     subscribe(
@@ -20,9 +20,9 @@ export class EntityTamedAfterEventSignal {
     ): (arg0: EntityTamedAfterEvent) => void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     unsubscribe(callback: (arg0: EntityTamedAfterEvent) => void): void;

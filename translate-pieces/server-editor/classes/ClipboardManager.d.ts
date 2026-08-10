@@ -1,11 +1,11 @@
-/* IMPORT */ import { ClipboardItem } from '..';
+/* IMPORT */ import { ClipboardItem, ExtensionContext } from '..';
 
 /**
- * The ClipboardManager (accessible from the {@link
- * ExtensionContext}) is responsible for the management of all
- * {@link ClipboardItem} objects, and provides the user the
- * ability to create new {@link ClipboardItem} objects for use
- * within an extension.
+ * The ClipboardManager (accessible from the
+ * {@link ExtensionContext}) is responsible for the management
+ * of all {@link ClipboardItem} objects, and provides the user
+ * the ability to create new {@link ClipboardItem} objects for
+ * use within an extension.
  *
  */
 export class ClipboardManager {
@@ -24,7 +24,7 @@ export class ClipboardManager {
      * @remarks
      * Create a new  {@link ClipboardItem} object
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */

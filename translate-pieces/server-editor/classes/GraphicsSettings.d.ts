@@ -1,8 +1,8 @@
-/* IMPORT */ import { GraphicsSettingsPropertyTypeMap } from '..';
+/* IMPORT */ import { GraphicsSettingsProperty, GraphicsSettingsPropertyTypeMap } from '..';
 
 /**
- * Settings category that manages {@link
- * GraphicsSettingsProperty} configurations.
+ * Settings category that manages
+ * {@link GraphicsSettingsProperty} configurations.
  */
 export class GraphicsSettings {
     private constructor();
@@ -29,7 +29,7 @@ export class GraphicsSettings {
      * @remarks
      * Modifies a graphics settings property value.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param property
      * Property identifier.
@@ -42,7 +42,7 @@ export class GraphicsSettings {
      * @remarks
      * Modify multiple graphics settings properties.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param properties
      * Property map to set available property values. If the

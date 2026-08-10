@@ -11,9 +11,9 @@ export class EntityHitEntityAfterEventSignal {
      * Adds a callback that will be called when an entity hits
      * another entity.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     subscribe(
@@ -25,9 +25,9 @@ export class EntityHitEntityAfterEventSignal {
      * Removes a callback from being called when an entity makes a
      * melee attack on another entity.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     unsubscribe(callback: (arg0: EntityHitEntityAfterEvent) => void): void;

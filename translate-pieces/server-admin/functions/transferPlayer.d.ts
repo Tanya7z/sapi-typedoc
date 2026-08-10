@@ -5,7 +5,7 @@
  * @remarks
  * Transfer player to another server.
  *
- * @worldMutation
+ * @privilege no-restricted-execution - @worldMutation
  *
  * @param player
  * Player to transfer.

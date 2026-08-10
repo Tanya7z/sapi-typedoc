@@ -7,7 +7,7 @@ export class SelectionContainerVolume extends SelectionContainerBase {
     readonly volumeCount: number;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     add(
@@ -20,7 +20,7 @@ export class SelectionContainerVolume extends SelectionContainerBase {
     ): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     clear(): void;
@@ -31,13 +31,13 @@ export class SelectionContainerVolume extends SelectionContainerBase {
     getBoundingBox(): BlockBoundingBox;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     moveTo(location: Vector3): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     remove(
@@ -50,7 +50,7 @@ export class SelectionContainerVolume extends SelectionContainerBase {
     ): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     set(
@@ -63,7 +63,7 @@ export class SelectionContainerVolume extends SelectionContainerBase {
     ): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     translate(offset: Vector3): void;

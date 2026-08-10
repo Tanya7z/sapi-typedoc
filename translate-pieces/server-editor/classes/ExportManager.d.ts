@@ -4,27 +4,27 @@ export class ExportManager {
     private constructor();
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     beginExportProject(options: GameOptions): Promise<ExportResult>;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     canExportProject(): boolean;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     getGameOptions(useDefault?: boolean): GameOptions;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */

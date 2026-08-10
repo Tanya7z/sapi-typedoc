@@ -4,19 +4,19 @@ export class GameTestError extends Error {
     private constructor();
     /**
      * @remarks
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly context?: GameTestErrorContext;
     /**
      * @remarks
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly messageParameters: string[];
     /**
      * @remarks
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly type: GameTestErrorType;

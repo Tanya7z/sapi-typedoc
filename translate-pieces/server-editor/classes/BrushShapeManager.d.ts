@@ -7,75 +7,75 @@ export class BrushShapeManager {
     readonly activeBrushVolume?: RelativeVolumeListBlockVolume;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     activateBrushTool(): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     beginPainting(onComplete: (arg0: PaintCompletionState) => void): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     clearBlockStateOverrides(): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     deactivateBrushTool(): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     disableItemPlacement(): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     enableItemPlacement(itemType: ItemType, data?: number): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     endPainting(cancelled: boolean): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     getBrushShapeOffset(): Vector3;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     getDirectionalPlacementMode(): BrushDirectionalPlacementMode;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     getInverseEraseMode(): boolean;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     isBrushPaintBusy(): boolean;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     pushBlockStateOverride<T extends keyof BlockStateSuperset>(
@@ -84,111 +84,111 @@ export class BrushShapeManager {
     ): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     setBlockFacePlacementBasedOnCamera(enabled: boolean): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     setBrushMask(mask: BlockMaskList): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     setBrushShape(shape: Vector3[] | RelativeVolumeListBlockVolume): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     setBrushShapeOffset(offset: Vector3): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     setBrushShapeVisible(visible: boolean): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     setDirectionalPlacementMode(directionalPlacementMode: BrushDirectionalPlacementMode): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     setElevationBrushRadius(elevationBrushRadius: number): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     setElevationFalloff(elevationFalloff: number): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     setElevationMode(elevationMode: BrushElevationMode): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     setElevationSampleLayers(elevationSampleLayers: number): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     setFlattenMode(flattenMode: FlattenMode): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     setFlattenSmoothing(flattenSmoothing: number): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     setFloorBlockOverride(floorBlockOverride: boolean): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     setInverseEraseMode(inverseEraseMode: boolean): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     setPendingTransaction(pendingTransaction?: PendingTransaction): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     setTerrainStrength(terrainStrength: number): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     singlePaint(onComplete: (arg0: PaintCompletionState) => void): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     switchBrushPaintMode(paintMode: PaintMode): void;

@@ -11,9 +11,9 @@ export class EntityHitBlockAfterEventSignal {
      * Adds a callback that will be called when an entity hits a
      * block.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     subscribe(
@@ -25,9 +25,9 @@ export class EntityHitBlockAfterEventSignal {
      * Removes a callback from being called when an entity hits a
      * block.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     unsubscribe(callback: (arg0: EntityHitBlockAfterEvent) => void): void;

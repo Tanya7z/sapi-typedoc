@@ -15,7 +15,7 @@ export class SimulationState {
      * Sets the state of mob simulation.  If set to `true`, mobs
      * are paused.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */

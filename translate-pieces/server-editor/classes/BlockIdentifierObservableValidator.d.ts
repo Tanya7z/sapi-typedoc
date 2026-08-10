@@ -7,7 +7,7 @@
 export declare class BlockIdentifierObservableValidator implements ObservableValidator<string> {
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-unusable - @worldMutation
      *
      */
     protected _defaultValue: string;

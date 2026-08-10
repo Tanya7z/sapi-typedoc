@@ -329,7 +329,7 @@ export class Block {
      * Returns the total brightness level of light shining on a
      * certain block.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @returns
      * The brightness level on the block.
@@ -350,7 +350,6 @@ export class Block {
      */
     getMapColor(): RGBA;
     /**
-     * @rc
      * @remarks
      * Returns array of all loaded block parts if this block has
      * the 'minecraft:multi_block' trait. If it does not have the
@@ -382,7 +381,7 @@ export class Block {
      * Returns the brightness level of light shining from the sky
      * on a certain block.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @returns
      * The brightness level on the block.
@@ -552,7 +551,7 @@ export class Block {
      * Sets the block in the dimension to the state of the
      * permutation.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param permutation
      * Permutation that contains a set of property states for the
@@ -568,7 +567,7 @@ export class Block {
      * @remarks
      * Sets the type of block.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param blockType
      * Identifier of the type of block to apply - for example,
@@ -587,7 +586,7 @@ export class Block {
      * Sets whether this block has a water logged state - for
      * example, whether stairs are submerged within water.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param isWaterlogged
      * true if the block should have water within it.
@@ -621,7 +620,7 @@ export class Block {
      * Tries to set the block in the dimension to the state of the
      * permutation by first checking if the placement is valid.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param permutation
      * Permutation that contains a set of property states for the

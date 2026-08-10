@@ -20,21 +20,21 @@ export class MinimapItem {
     readonly yLevel: number;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     addCustomMarker(iconIdentifier: string, data: MinimapMarkerData[], dimensionId: string): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     addLocationMarker(data: MinimapMarkerData[], dimensionId: string): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -52,28 +52,28 @@ export class MinimapItem {
     hasMarkerOfType(type: MinimapMarkerType): boolean;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     removeAllCustomMarkers(dimensionId: string): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     removeCustomMarker(iconIdentifier: string, dimensionId: string): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     removeLocationMarker(dimensionId: string): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -83,14 +83,14 @@ export class MinimapItem {
      * Control whether the minimap is currently active and visible
      * to the player.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     setActive(active: boolean): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -100,14 +100,14 @@ export class MinimapItem {
      * Adjust the width and height dimensions of the minimap
      * display.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     setSize(mapWidth: number, mapHeight: number): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -116,14 +116,14 @@ export class MinimapItem {
      * @remarks
      * Change the visual perspective or style of the minimap view.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     setViewType(viewType: MinimapViewType): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */

@@ -14,7 +14,7 @@ export class MinimapManager {
      * Create a new minimap instance with the specified view type
      * and dimensions.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -29,7 +29,7 @@ export class MinimapManager {
      * Remove an existing minimap instance from the manager using
      * its unique identifier.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -39,7 +39,7 @@ export class MinimapManager {
      * Retrieve a list of all active minimap identifiers currently
      * managed by the system.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -49,21 +49,21 @@ export class MinimapManager {
      * Retrieve a specific minimap instance using its unique
      * identifier.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     getMinimap(minimapId: string): MinimapItem;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     setVanillaBiomeColorMap(colorMap: Record<string, RGB>): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */

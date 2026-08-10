@@ -1,12 +1,12 @@
-/* IMPORT */ import { SelectionContainerEntity, SelectionContainerVolume, SelectionManifestData } from '..';
+/* IMPORT */ import { ExtensionContext, SelectionContainerEntity, SelectionContainerVolume, SelectionManifestData } from '..';
 
 /**
- * The SelectionManager (accessible from the {@link
- * ExtensionContext}) is responsible for the management of all
- * {@link @minecraft/server-editor.Selection} objects, and
- * provides the user the ability to create new {@link
- * @minecraft/server-editor.Selection} objects for use within
- * an extension.
+ * The SelectionManager (accessible from the
+ * {@link ExtensionContext}) is responsible for the management
+ * of all {@link SelectionContainerVolume} objects, and
+ * provides the user the ability to create new
+ * {@link SelectionContainerVolume} objects for use within an
+ * extension.
  */
 export class SelectionManager {
     private constructor();
@@ -14,25 +14,25 @@ export class SelectionManager {
     readonly volume: SelectionContainerVolume;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     deselectBlocks(blockIdentifier: string): Promise<number>;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     generateManifest(): Promise<SelectionManifestData>;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     getCurrentManifest(): SelectionManifestData | undefined;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     replaceBlocks(fromBlockIdentifier: string, toBlockIdentifier: string): Promise<number>;

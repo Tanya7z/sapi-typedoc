@@ -8,7 +8,7 @@ export class MinecraftEditor {
     private constructor();
     /**
      * @remarks
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly afterEvents: ProjectAfterEvents;

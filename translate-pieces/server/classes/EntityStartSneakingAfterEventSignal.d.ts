@@ -1,7 +1,7 @@
 /* IMPORT */ import { EntitySneakingChangedEventOptions, EntityStartSneakingAfterEvent } from '..';
 
 /**
- * @beta
+ * @rc
  * Manages callbacks that are connected to when an entity
  * begins sneaking.
  */
@@ -12,9 +12,9 @@ export class EntityStartSneakingAfterEventSignal {
      * Adds a callback that will be called when an entity begins
      * sneaking.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     subscribe(
@@ -26,9 +26,9 @@ export class EntityStartSneakingAfterEventSignal {
      * Removes a callback from being called when an entity begins
      * sneaking.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     unsubscribe(callback: (arg0: EntityStartSneakingAfterEvent) => void): void;

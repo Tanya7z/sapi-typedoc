@@ -21,7 +21,7 @@ export class Logger {
      * recommend that you remove any references to this log channel
      * to avoid a noisy experience for other users
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param message
      * The message string to send to the log window
@@ -36,7 +36,7 @@ export class Logger {
      * output to/from a player).  Use this channel sparingly - it's
      * meant to communicate important problems to the player
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param message
      * The message string to send to the log window
@@ -49,7 +49,7 @@ export class Logger {
      * non-fatal or non-erroneous information to the player that
      * can generally be safely ignored if they choose to do so.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param message
      * The message string to send to the log window
@@ -63,7 +63,7 @@ export class Logger {
      * things that cannot be found) but are not fatal and execution
      * can still be completed.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param message
      * The message string to send to the log window

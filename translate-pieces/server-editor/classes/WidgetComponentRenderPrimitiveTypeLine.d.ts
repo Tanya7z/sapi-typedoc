@@ -4,19 +4,19 @@
 export class WidgetComponentRenderPrimitiveTypeLine extends WidgetComponentRenderPrimitiveTypeBase {
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     color: RGBA;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     end: Vector3;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     start: Vector3;

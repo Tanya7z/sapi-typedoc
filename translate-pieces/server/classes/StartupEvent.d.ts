@@ -1,29 +1,36 @@
-/* IMPORT */ import { BlockComponentRegistry, CustomCommandRegistry, DimensionRegistry, ItemComponentRegistry } from '..';
+/* IMPORT */ import { BlockComponentRegistry, CustomCommandRegistry, DimensionRegistry, ItemComponentRegistry, WorldClockRegistry } from '..';
 
 export class StartupEvent {
     private constructor();
     /**
      * @remarks
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly blockComponentRegistry: BlockComponentRegistry;
     /**
      * @remarks
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly customCommandRegistry: CustomCommandRegistry;
     /**
      * @remarks
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly dimensionRegistry: DimensionRegistry;
     /**
      * @remarks
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly itemComponentRegistry: ItemComponentRegistry;
+    /**
+     * @beta
+     * @remarks
+     * @privilege early-execution-readable - @earlyExecution
+     *
+     */
+    readonly worldClockRegistry: WorldClockRegistry;
 }

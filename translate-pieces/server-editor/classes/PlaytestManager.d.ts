@@ -4,14 +4,14 @@ export class PlaytestManager {
     private constructor();
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     beginPlaytest(options: GameOptions): Promise<PlaytestSessionResult>;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */

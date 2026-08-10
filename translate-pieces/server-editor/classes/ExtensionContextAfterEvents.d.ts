@@ -8,31 +8,31 @@ export class ExtensionContextAfterEvents {
     private constructor();
     /**
      * @remarks
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly blockPaletteSelectedItemChange: BlockPaletteSelectedItemChangeAfterEventSignal;
     /**
      * @remarks
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly clipboardChange: ClipboardChangeAfterEventSignal;
     /**
      * @remarks
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly currentThemeChange: CurrentThemeChangeAfterEventSignal;
     /**
      * @remarks
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly currentThemeColorChange: CurrentThemeColorChangeAfterEventSignal;
     /**
      * @remarks
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly cursorPropertyChange: CursorPropertyChangeAfterEventSignal;
@@ -41,13 +41,13 @@ export class ExtensionContextAfterEvents {
      * This event triggers when the editor mode changes for the
      * player.
      *
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly modeChange: ModeChangeAfterEventSignal;
     /**
      * @remarks
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly SelectionChange: SelectionChangeAfterEventSignal;

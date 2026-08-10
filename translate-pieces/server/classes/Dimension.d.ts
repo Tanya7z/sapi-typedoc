@@ -29,7 +29,6 @@ export class Dimension {
      */
     readonly localizationKey: string;
     /**
-     * @rc
      * @remarks
      * Calculates the location of the closest biome of a particular
      * type from the world seed. Note that
@@ -66,7 +65,7 @@ export class Dimension {
      * Clones a region of blocks from one area of the dimension to
      * another.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param beginLocation
      * The lower northwest starting corner of the area to clone
@@ -166,7 +165,7 @@ export class Dimension {
      * @remarks
      * Creates an explosion at the specified location.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param location
      * The location of the explosion.
@@ -189,7 +188,7 @@ export class Dimension {
      * @remarks
      * Fills an area of blocks with a specific block type.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param volume
      * Volume of blocks to be filled.
@@ -480,7 +479,7 @@ export class Dimension {
      * Places the given feature into the dimension at the specified
      * location.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param featureName
      * The string identifier for the feature.
@@ -510,7 +509,7 @@ export class Dimension {
      * Places the given feature rule into the dimension at the
      * specified location.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param featureRuleName
      * The string identifier for the feature rule.
@@ -530,7 +529,7 @@ export class Dimension {
      * @remarks
      * Plays a sound for all players.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param soundId
      * Identifier of the sound.
@@ -555,7 +554,7 @@ export class Dimension {
      * Runs a command synchronously using the context of the
      * broader dimenion.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param commandString
      * Command to run. Note that command strings should not start
@@ -578,7 +577,7 @@ export class Dimension {
      * Sets a block in the world using a BlockPermutation.
      * BlockPermutations are blocks with a particular state.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param location
      * The location within the dimension to set the block.
@@ -597,7 +596,7 @@ export class Dimension {
      * @remarks
      * Sets a block at a given location within the dimension.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param location
      * The location within the dimension to set the block.
@@ -620,7 +619,7 @@ export class Dimension {
      * @remarks
      * Sets the current weather within the dimension
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param weatherType
      * Set the type of weather to apply.
@@ -637,7 +636,7 @@ export class Dimension {
      * Creates a new entity (e.g., a mob) at the specified
      * location.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param identifier
      * Identifier of the type of entity to spawn. If no namespace
@@ -671,7 +670,7 @@ export class Dimension {
      * Creates a new item stack as an entity at the specified
      * location.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param location
      * The location at which to create the item stack.
@@ -691,7 +690,7 @@ export class Dimension {
      * Creates a new particle emitter at a specified location in
      * the world.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param effectName
      * Identifier of the particle to create.
@@ -714,7 +713,7 @@ export class Dimension {
      * Spawns an experience orb at a specified location in the
      * dimension.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param location
      * The location at which to spawn the experience orb.
@@ -733,7 +732,7 @@ export class Dimension {
      * @remarks
      * Stops all sounds from playing for all players.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     stopAllSounds(): void;
@@ -742,7 +741,7 @@ export class Dimension {
      * @remarks
      * Stops a sound from playing for all players.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param soundId
      * Identifier of the sound.

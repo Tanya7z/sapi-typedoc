@@ -4,37 +4,37 @@
 export class WidgetComponentRenderPrimitiveTypeWireframeMesh extends WidgetComponentRenderPrimitiveTypeBase {
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     alpha?: number;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     center: Vector3;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     color: RGBA;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     meshId: string;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     rotation?: Vector3;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     scale?: Vector3;

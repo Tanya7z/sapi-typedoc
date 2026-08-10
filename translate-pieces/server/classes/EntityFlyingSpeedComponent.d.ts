@@ -10,7 +10,7 @@ export class EntityFlyingSpeedComponent extends EntityComponent {
      * @remarks
      * Current value of the flying speed of the associated entity.
      *
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     value: number;

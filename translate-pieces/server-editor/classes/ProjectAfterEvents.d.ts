@@ -4,7 +4,7 @@ export class ProjectAfterEvents {
     private constructor();
     /**
      * @remarks
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly simulationStateChange: SimulationStateChangeAfterEventSignal;

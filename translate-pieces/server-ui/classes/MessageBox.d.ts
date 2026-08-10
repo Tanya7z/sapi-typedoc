@@ -30,7 +30,7 @@ export class MessageBox {
      * Sets the body text displayed in the message box. Returns the
      * message box instance to allow method chaining.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param body
      * The body text to display. Accepts either a plain string or
@@ -45,7 +45,7 @@ export class MessageBox {
      * Sets the label for the first button of the message box.
      * Returns the message box instance to allow method chaining.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param label
      * The text label to display on the first button.
@@ -67,7 +67,7 @@ export class MessageBox {
      * message box. Returns the message box instance to allow
      * method chaining.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param label
      * The text label to display on the first button.
@@ -87,7 +87,7 @@ export class MessageBox {
      * Sets the label for the second button of the message box.
      * Returns the message box instance to allow method chaining.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param label
      * The text label to display on the second button.
@@ -109,7 +109,7 @@ export class MessageBox {
      * message box. Returns the message box instance to allow
      * method chaining.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param label
      * The text label to display on the second button.
@@ -130,7 +130,7 @@ export class MessageBox {
      * player. Throws a FormVisibilityError if the form is not
      * currently open.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      *
@@ -146,7 +146,7 @@ export class MessageBox {
      * Returns true if the message box is currently being shown to
      * the player, false otherwise.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     isShowing(): boolean;
@@ -156,7 +156,7 @@ export class MessageBox {
      * resolves with a MessageBoxResult containing the close reason
      * and the player's button selection.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      *

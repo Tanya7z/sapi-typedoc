@@ -11,9 +11,9 @@ export class ModeChangeAfterEventSignal {
      * Subscribes the specified callback to an editor mode change
      * after event.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     subscribe(callback: (arg0: ModeChangeAfterEvent) => void): (arg0: ModeChangeAfterEvent) => void;
@@ -22,9 +22,9 @@ export class ModeChangeAfterEventSignal {
      * Removes the specified callback from an editor mode change
      * after event.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     unsubscribe(callback: (arg0: ModeChangeAfterEvent) => void): void;

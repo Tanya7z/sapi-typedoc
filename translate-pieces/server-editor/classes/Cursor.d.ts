@@ -53,7 +53,7 @@ export class Cursor {
     readonly maxViewBlockDistance: number;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -62,7 +62,7 @@ export class Cursor {
      * @remarks
      * Get the world position of the 3D block cursor
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -72,14 +72,14 @@ export class Cursor {
      * Get a property object which represents the current
      * properties of the 3D block cursor.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     getProperties(): CursorProperties;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -89,7 +89,7 @@ export class Cursor {
      * Hide the 3D block cursor from view until the corresponding
      * {@link Cursor.show} function is called
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -100,7 +100,7 @@ export class Cursor {
      * Depending on the {@link CursorProperties.controlMode} - this
      * function may have no effect
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param offset
      * Amount by which the 3D block cursor should be moved
@@ -112,14 +112,14 @@ export class Cursor {
     moveBy(offset: Vector3): Vector3;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     popPropertiesById(identifier: string): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -128,7 +128,7 @@ export class Cursor {
      * @remarks
      * Reset the 3D block cursor to the system default state
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -137,7 +137,7 @@ export class Cursor {
      * @remarks
      * Set the 3D block cursor properties to a given state
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param properties
      * A set of optional parameters within a property state which
@@ -149,14 +149,14 @@ export class Cursor {
      * @remarks
      * Make the 3D block cursor visible on screen
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     show(): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */

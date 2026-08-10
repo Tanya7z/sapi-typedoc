@@ -8,19 +8,19 @@
 export declare class Vector2LimitObservableValidator implements ObservableValidator<Vector2> {
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-unusable - @worldMutation
      *
      */
     protected _isInteger?: boolean;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-unusable - @worldMutation
      *
      */
     protected _max: Partial<Vector2>;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-unusable - @worldMutation
      *
      */
     protected _min: Partial<Vector2>;

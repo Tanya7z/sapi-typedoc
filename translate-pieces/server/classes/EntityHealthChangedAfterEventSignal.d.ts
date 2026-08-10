@@ -11,9 +11,9 @@ export class EntityHealthChangedAfterEventSignal {
      * Adds a callback that will be called when the health of an
      * entity changes.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     subscribe(
@@ -25,9 +25,9 @@ export class EntityHealthChangedAfterEventSignal {
      * Removes a callback from being called when the health of an
      * entity changes.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     unsubscribe(callback: (arg0: EntityHealthChangedAfterEvent) => void): void;

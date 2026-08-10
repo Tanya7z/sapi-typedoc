@@ -8,7 +8,7 @@ export class IBlockPaletteItem {
     getType(): BlockPaletteItemType;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */

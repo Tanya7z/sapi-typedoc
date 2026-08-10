@@ -12,7 +12,7 @@ export class WidgetComponentRenderPrimitive extends WidgetComponentBase {
     readonly primitiveType: PrimitiveType;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      *

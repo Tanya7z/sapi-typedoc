@@ -4,9 +4,9 @@ export class BlockPaletteSelectedItemChangeAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     subscribe(
@@ -14,9 +14,9 @@ export class BlockPaletteSelectedItemChangeAfterEventSignal {
     ): (arg0: BlockPaletteSelectedItemChangeAfterEvent) => void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     unsubscribe(callback: (arg0: BlockPaletteSelectedItemChangeAfterEvent) => void): void;

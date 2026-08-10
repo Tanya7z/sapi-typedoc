@@ -12,9 +12,9 @@ export class EntityRemoveAfterEventSignal {
      * Will call your function every time an entity is removed from
      * the game.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      * @param callback
      * Function to call.
@@ -33,9 +33,9 @@ export class EntityRemoveAfterEventSignal {
      * Unsubscribes your function from subsequent calls when an
      * entity is removed.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     unsubscribe(callback: (arg0: EntityRemoveAfterEvent) => void): void;

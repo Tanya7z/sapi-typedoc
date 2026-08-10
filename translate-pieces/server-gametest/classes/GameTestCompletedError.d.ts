@@ -4,7 +4,7 @@ export class GameTestCompletedError extends Error {
     private constructor();
     /**
      * @remarks
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly reason: GameTestCompletedErrorReason;

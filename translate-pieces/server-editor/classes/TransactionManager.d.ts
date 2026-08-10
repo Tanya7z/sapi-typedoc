@@ -16,7 +16,7 @@ export class TransactionManager {
     private constructor();
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -32,7 +32,7 @@ export class TransactionManager {
      * transferred to the undo stack in case the creator decides to
      * undo it
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -41,14 +41,14 @@ export class TransactionManager {
      * @remarks
      * Return the number of transaction records on the redo stack.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     redoSize(): number;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -64,7 +64,7 @@ export class TransactionManager {
      * transferred to the redo stack in case the creator decides to
      * reapply it
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -74,7 +74,7 @@ export class TransactionManager {
      * Return how many transactions records currently exist on the
      * stack
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */

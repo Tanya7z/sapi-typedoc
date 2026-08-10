@@ -5,7 +5,7 @@ export class ProbabilityBlockPaletteItem extends IBlockPaletteItem {
     constructor(displayName?: string);
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param weight
      * Bounds: [1, 100]
@@ -15,7 +15,7 @@ export class ProbabilityBlockPaletteItem extends IBlockPaletteItem {
     getBlocks(): WeightedBlock[];
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */

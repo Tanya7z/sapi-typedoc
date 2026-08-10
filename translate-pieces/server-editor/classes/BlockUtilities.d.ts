@@ -5,7 +5,7 @@ export class BlockUtilities {
     private constructor();
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -15,7 +15,7 @@ export class BlockUtilities {
     ): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     findObscuredBlocksWithinVolume(
@@ -23,39 +23,39 @@ export class BlockUtilities {
     ): RelativeVolumeListBlockVolume;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     getContiguousSelection(properties?: ContiguousSelectionProperties): RelativeVolumeListBlockVolume;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     getDimensionLocationBoundingBox(): BlockBoundingBox;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     getDimensionMaxLocation(): Vector3;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     getDimensionMinLocation(): Vector3;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     getFacePreviewSelection(properties?: QuickExtrudeProperties): ListBlockVolume;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     isLocationInsideCurrentDimensionBounds(
@@ -67,14 +67,14 @@ export class BlockUtilities {
     ): boolean;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     quickExtrude(properties?: QuickExtrudeProperties): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     shrinkWrapVolume(
@@ -82,7 +82,7 @@ export class BlockUtilities {
     ): RelativeVolumeListBlockVolume;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */

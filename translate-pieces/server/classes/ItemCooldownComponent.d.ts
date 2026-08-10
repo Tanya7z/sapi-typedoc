@@ -26,7 +26,7 @@ export class ItemCooldownComponent extends ItemComponent {
     static readonly componentId = 'minecraft:cooldown';
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -36,7 +36,7 @@ export class ItemCooldownComponent extends ItemComponent {
      * Will return true if the item is the cooldown category passed
      * in and false otherwise.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param cooldownCategory
      * The cooldown category that might be associated with this
@@ -50,7 +50,7 @@ export class ItemCooldownComponent extends ItemComponent {
      * @remarks
      * Starts a new cooldown period for this item.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */

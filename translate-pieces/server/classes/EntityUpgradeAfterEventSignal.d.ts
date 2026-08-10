@@ -11,9 +11,9 @@ export class EntityUpgradeAfterEventSignal {
      * Adds a callback that will be called after a data driven
      * entity version upgrade is triggered.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     subscribe(
@@ -25,9 +25,9 @@ export class EntityUpgradeAfterEventSignal {
      * Removes a callback that will be called after a data driven
      * entity version upgrade is triggered.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     unsubscribe(callback: (arg0: EntityUpgradeAfterEvent) => void): void;

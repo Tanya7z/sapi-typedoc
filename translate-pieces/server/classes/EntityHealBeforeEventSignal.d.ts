@@ -11,9 +11,9 @@ export class EntityHealBeforeEventSignal {
      * Adds a callback that will be called when an entity will be
      * healed.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      * @param callback
      * This closure is called with restricted-execution privilege.
@@ -29,9 +29,9 @@ export class EntityHealBeforeEventSignal {
      * Removes a callback from being called when an entity will be
      * healed.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      * @param callback
      * This closure is called with restricted-execution privilege.

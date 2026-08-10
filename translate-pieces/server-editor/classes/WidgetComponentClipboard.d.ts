@@ -5,7 +5,7 @@ export class WidgetComponentClipboard extends WidgetComponentBase {
     private constructor();
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     clipboardOffset: Vector3;

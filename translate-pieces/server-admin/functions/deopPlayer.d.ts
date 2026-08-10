@@ -6,7 +6,7 @@
  * @remarks
  * Removes the player's op permissions.
  *
- * @worldMutation
+ * @privilege no-restricted-execution - @worldMutation
  *
  * @param player
  * Player to remove permissions from.

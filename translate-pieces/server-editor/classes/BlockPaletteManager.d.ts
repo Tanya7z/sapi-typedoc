@@ -5,7 +5,7 @@ export class BlockPaletteManager {
     private constructor();
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     addOrReplacePalette(paletteId: string, palette: BlockPalette): void;
@@ -23,28 +23,28 @@ export class BlockPaletteManager {
     getSelectedItem(): IBlockPaletteItem;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     removePalette(paletteId: string): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     setPaletteItem(paletteId: string, index: number, item: IBlockPaletteItem): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     setPrimaryPalette(paletteId: string): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */

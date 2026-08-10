@@ -17,7 +17,7 @@ export class WidgetComponentBase {
     readonly location: Vector3;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     lockToSurface: boolean;
@@ -29,7 +29,7 @@ export class WidgetComponentBase {
     readonly name: string;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     offset: Vector3;
@@ -43,7 +43,7 @@ export class WidgetComponentBase {
     readonly widget: Widget;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      *

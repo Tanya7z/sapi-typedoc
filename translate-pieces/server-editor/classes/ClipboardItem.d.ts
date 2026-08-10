@@ -22,14 +22,14 @@ export class ClipboardItem {
      * @remarks
      * Clear the contents of the item
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
     clear(): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -39,7 +39,7 @@ export class ClipboardItem {
     ): RelativeVolumeListBlockVolume;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -49,7 +49,7 @@ export class ClipboardItem {
      * Copy the contents of a rectangular volume into the Clipboard
      * Item
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      */
@@ -59,13 +59,13 @@ export class ClipboardItem {
      * Apply the contents of a ClipboardItem to the world at a
      * given location using a set of write options
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param location
      * The root point of the world location to which the
      * ClipboardItem is written (this is modified by the various
-     * anchor, offset and rotation parameters of the {@link
-     * ClipboardWriteOptions}
+     * anchor, offset and rotation parameters of the
+     * {@link ClipboardWriteOptions}
      * @param options
      * An optional set of write parameters which modify the
      * properties of the ClipboardItem as it is applied to the

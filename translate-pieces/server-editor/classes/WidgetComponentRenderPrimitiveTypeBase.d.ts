@@ -5,7 +5,7 @@ export class WidgetComponentRenderPrimitiveTypeBase {
     readonly primitiveType: PrimitiveType;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     renderPriority: number;

@@ -89,7 +89,7 @@ export class EditorStructure {
     getTags(): string[];
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @param waterlogged
      * Defaults to: false
@@ -106,7 +106,7 @@ export class EditorStructure {
     ): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      * @throws This function can throw errors.
      *

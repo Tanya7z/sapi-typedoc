@@ -4,13 +4,13 @@ export class NetworkBeforeEvents {
     private constructor();
     /**
      * @remarks
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly packetReceive: PacketReceiveBeforeEventSignal;
     /**
      * @remarks
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly packetSend: PacketSendBeforeEventSignal;

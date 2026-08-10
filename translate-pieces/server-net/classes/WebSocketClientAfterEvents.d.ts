@@ -4,13 +4,13 @@ export class WebSocketClientAfterEvents {
     private constructor();
     /**
      * @remarks
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly close: CloseAfterEventSignal;
     /**
      * @remarks
-     * @earlyExecution
+     * @privilege early-execution-readable - @earlyExecution
      *
      */
     readonly message: MessageAfterEventSignal;

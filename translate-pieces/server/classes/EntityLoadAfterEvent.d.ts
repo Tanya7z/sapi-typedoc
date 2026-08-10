@@ -11,7 +11,7 @@ export class EntityLoadAfterEvent {
      * @remarks
      * Entity that was loaded.
      *
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     entity: Entity;

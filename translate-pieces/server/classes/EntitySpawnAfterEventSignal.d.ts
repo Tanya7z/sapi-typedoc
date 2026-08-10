@@ -11,9 +11,9 @@ export class EntitySpawnAfterEventSignal {
      * Method to register an event handler for what happens when an
      * entity spawns.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      * @param callback
      * Function that handles the spawn event.
@@ -25,9 +25,9 @@ export class EntitySpawnAfterEventSignal {
      * Unregisters a method that was previously subscribed to the
      * subscription event.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      * @param callback
      * Original function that was passed into the subscribe event,

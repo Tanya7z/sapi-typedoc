@@ -4,7 +4,7 @@ export class RelativeVolumeListBlockVolume extends BlockVolumeBase {
     readonly isEmpty: boolean;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege restricted-execution-read-only - @worldMutation
      *
      */
     origin?: Vector3;
@@ -12,7 +12,7 @@ export class RelativeVolumeListBlockVolume extends BlockVolumeBase {
     constructor(origin?: Vector3);
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     add(
@@ -25,27 +25,27 @@ export class RelativeVolumeListBlockVolume extends BlockVolumeBase {
     ): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     clear(): void;
     clone(): RelativeVolumeListBlockVolume;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     getVolumeList(): BlockVolume[];
     hasAdjacent(location: Vector3, normalizedOffset: Vector3): boolean;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     moveTo(location: Vector3): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     remove(
@@ -58,7 +58,7 @@ export class RelativeVolumeListBlockVolume extends BlockVolumeBase {
     ): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     set(
@@ -71,7 +71,7 @@ export class RelativeVolumeListBlockVolume extends BlockVolumeBase {
     ): void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
      */
     translate(offset: Vector3): void;

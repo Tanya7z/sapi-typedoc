@@ -11,9 +11,9 @@ export class EntityHealAfterEventSignal {
      * Adds a callback that will be called when an entity is
      * healed.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     subscribe(
@@ -25,9 +25,9 @@ export class EntityHealAfterEventSignal {
      * Removes a callback from being called when an entity is
      * healed.
      *
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     unsubscribe(callback: (arg0: EntityHealAfterEvent) => void): void;

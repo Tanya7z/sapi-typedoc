@@ -4,9 +4,9 @@ export class CursorPropertyChangeAfterEventSignal {
     private constructor();
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     subscribe(
@@ -14,9 +14,9 @@ export class CursorPropertyChangeAfterEventSignal {
     ): (arg0: CursorPropertiesChangeAfterEvent) => void;
     /**
      * @remarks
-     * @worldMutation
+     * @privilege no-restricted-execution - @worldMutation
      *
-     * @earlyExecution
+     * @privilege early-execution-allowed - @earlyExecution
      *
      */
     unsubscribe(callback: (arg0: CursorPropertiesChangeAfterEvent) => void): void;
