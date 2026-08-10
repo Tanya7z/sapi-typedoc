@@ -13,7 +13,7 @@ import {
     type CommentDisplayPart
 } from 'typedoc';
 import type { Hook } from './hook.js';
-import { installLanguages, type TypeDocLanguages } from '../utils.js';
+import { installLanguages, translatingPath, type TypeDocLanguages } from '../utils.js';
 
 const ExampleNameOverwrite = [
     {
@@ -393,8 +393,10 @@ export default {
             }
         }
     },
-    afterUpdate({ translatingPath }) {
-        const exampleDir = resolvePath(translatingPath, 'examples');
+    afterUpdate(ctx) {
+        // 兼容旧调用方漏传 translatingPath 的情况
+        const root = ctx.translatingPath || translatingPath;
+        const exampleDir = resolvePath(root, 'examples');
         mkdirSync(exampleDir, { recursive: true });
         for (const [, exampleVersions] of Object.entries(examples)) {
             for (const exampleVersion of exampleVersions) {

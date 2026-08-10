@@ -153,7 +153,18 @@ export async function update(
     }
 
     rmSync(translatingPath, { recursive: true, force: true });
-    await runHooks('beforeUpdate', buildResult);
+    const updateHookContext = {
+        basePath,
+        originalPath,
+        translatingPath,
+        translatedPath,
+        distPath: '',
+        // afterUpdate 钩子当前不用 project；保持 TranslateHookContext 形状
+        project: null as unknown as import('ts-morph').Project,
+        sourceFiles: buildResult.sourceFiles,
+        dependencies: buildResult.dependencies
+    };
+    await runHooks('beforeUpdate', updateHookContext);
     let restoredCount = 0;
     let skippedStaleCount = 0;
     let freshCount = 0;
@@ -181,7 +192,7 @@ export async function update(
     console.log(
         `[update] 已恢复译文 ${restoredCount} 个，签名已变保留英文 ${skippedStaleCount} 个，新增待译 ${freshCount} 个`
     );
-    await runHooks('afterUpdate', buildResult);
+    await runHooks('afterUpdate', updateHookContext);
 
     // 生成 package.json 快照
     writeFileSync(packageSnapshotPath, JSON.stringify({ ...packageInfo, dependencies }, null, 2));
