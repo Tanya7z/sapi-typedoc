@@ -6,6 +6,7 @@ import { pluginSapiPostTypeDoc } from './script/plugins/sapi-post-typedoc.js';
 import { setupTypeDoc } from './script/rspress-setup.js';
 
 const SITE_ORIGIN = 'https://sapi.dogelake.cn';
+const IMG_ORIGIN = 'https://img.ovo7.cc/sapi';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -33,10 +34,10 @@ export default defineConfig({
   lang: 'zh',
   title: 'Minecraft Script API 文档',
   description: '基于官方 @minecraft/*.d.ts 生成的中文 Script API 参考（sapi-typedoc）',
-  icon: '/logo.png',
+  icon: `${IMG_ORIGIN}/logo.png`,
   logo: {
-    light: '/sapi_cn_docs_logo.png',
-    dark: '/sapi_cn_docs_logo.png',
+    light: `${IMG_ORIGIN}/sapi_cn_docs_logo.png`,
+    dark: `${IMG_ORIGIN}/sapi_cn_docs_logo.png`,
   },
   llms: true,
   builderConfig: {

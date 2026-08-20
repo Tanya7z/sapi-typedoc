@@ -5,7 +5,7 @@ description: 基于官方 @minecraft/*.d.ts 生成的中文 Script API 参考，
 
 hero:
   image:
-    src: /sapi_cn_docs_title.png
+    src: https://img.ovo7.cc/sapi/sapi_cn_docs_title.png
     alt: Minecraft Script API 中文文档
   actions:
     - theme: brand
