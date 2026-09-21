@@ -69,7 +69,6 @@ export class Dimension {
         options?: BiomeSearchOptions,
     ): Vector3 | undefined;
     /**
-     * @rc
      * @remarks
      * Clones a region of blocks from one area of the dimension to
      * another.
@@ -305,7 +304,6 @@ export class Dimension {
      */
     getBlockFromRay(location: Vector3, direction: Vector3, options?: BlockRaycastOptions): BlockRaycastHit | undefined;
     /**
-     * @rc
      * @remarks
      * Gets all the blocks in a volume that satisfy the block query
      * options.

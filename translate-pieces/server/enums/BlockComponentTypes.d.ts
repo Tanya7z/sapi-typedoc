@@ -3,14 +3,8 @@
  * function Block.getComponent.
  */
 export enum BlockComponentTypes {
-    /**
-     * @rc
-     */
     DynamicProperties = 'minecraft:dynamic_properties',
     FluidContainer = 'minecraft:fluid_container',
-    /**
-     * @rc
-     */
     Instrument = 'minecraft:instrument_sound',
     /**
      * @remarks

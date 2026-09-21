@@ -175,7 +175,6 @@ export class WorldAfterEvents {
      */
     readonly entitySpawn: EntitySpawnAfterEventSignal;
     /**
-     * @rc
      * @remarks
      * This event fires when an entity starts sneaking.
      *
@@ -184,7 +183,6 @@ export class WorldAfterEvents {
      */
     readonly entityStartSneaking: EntityStartSneakingAfterEventSignal;
     /**
-     * @rc
      * @remarks
      * This event fires when an entity stops sneaking.
      *
@@ -193,7 +191,6 @@ export class WorldAfterEvents {
      */
     readonly entityStopSneaking: EntityStopSneakingAfterEventSignal;
     /**
-     * @rc
      * @remarks
      * This event fires when an entity is tamed.
      *
@@ -521,7 +518,6 @@ export class WorldAfterEvents {
      */
     readonly projectileHitEntity: ProjectileHitEntityAfterEventSignal;
     /**
-     * @rc
      * @remarks
      * A tracked sound's declared duration elapsed.
      *

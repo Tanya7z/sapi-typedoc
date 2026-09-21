@@ -65,7 +65,6 @@ export class World {
      */
     readonly seed: string;
     /**
-     * @rc
      * @remarks
      * Provides read-only access to the sound definitions loaded
      * for this world.

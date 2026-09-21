@@ -2,12 +2,9 @@
  * Contains additional options for a playSound occurrence.
  */
 export interface WorldSoundOptions {
-    /**
-     * @rc
-     */
     isBroadcast?: boolean;
     /**
-     * @beta
+     * @rc
      * @remarks
      * Number of additional times to repeat the sound after the
      * initial play. `0` (the default) plays the sound once, `-1`
