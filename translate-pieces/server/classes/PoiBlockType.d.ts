@@ -59,5 +59,5 @@ export class PoiBlockType {
      * @returns
      * True if the POI conatains the tag; otherwise false.
      */
-    has(tag: string): boolean;
+    hasTag(tag: string): boolean;
 }

@@ -4,6 +4,10 @@
  */
 export enum BlockComponentTypes {
     DynamicProperties = 'minecraft:dynamic_properties',
+    /**
+     * @beta
+     */
+    EntityStorage = 'minecraft:entity_storage',
     FluidContainer = 'minecraft:fluid_container',
     Instrument = 'minecraft:instrument_sound',
     /**

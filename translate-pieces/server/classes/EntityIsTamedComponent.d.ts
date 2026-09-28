@@ -8,7 +8,7 @@
 export class EntityIsTamedComponent extends EntityComponent {
     private constructor();
     /**
-     * @beta
+     * @rc
      * @remarks
      * Returns the player that has tamed the entity, or 'undefined'
      * if the entity has no player owner.
@@ -19,7 +19,7 @@ export class EntityIsTamedComponent extends EntityComponent {
      */
     readonly tamedToPlayer?: Player;
     /**
-     * @beta
+     * @rc
      * @remarks
      * Returns the id of the player that has tamed the entity, or
      * 'undefined' if the entity has no player owner.

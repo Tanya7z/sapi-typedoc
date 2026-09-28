@@ -1,0 +1,4 @@
+/**
+ * @beta
+ */
+export interface MessageBoxBodyOptions {}
