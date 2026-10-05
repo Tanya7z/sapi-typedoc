@@ -1,7 +1,7 @@
 /* IMPORT */ import { TimeMarker, WorldClock, WorldClockOnTimeMarkerAfterEvent, WorldClockTimeMarkerEventOptions } from '..';
 
 /**
- * @beta
+ * @rc
  * Manages callbacks that are connected to when the time of a
  * {@link WorldClock} hits a {@link TimeMarker}.
  */

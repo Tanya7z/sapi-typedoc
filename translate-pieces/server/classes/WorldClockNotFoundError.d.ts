@@ -1,5 +1,5 @@
 /**
- * @beta
+ * @rc
  * Error thrown when a world clock is not found in the world
  * clock registry.
  */

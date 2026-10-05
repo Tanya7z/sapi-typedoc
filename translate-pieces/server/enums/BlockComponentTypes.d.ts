@@ -48,6 +48,10 @@ export enum BlockComponentTypes {
      */
     RecipeCrafting = 'minecraft:recipe_crafting',
     /**
+     * @beta
+     */
+    RecipeProcessing = 'minecraft:recipe_processing',
+    /**
      * @remarks
      * Represents a block that can play a record.
      *
@@ -65,4 +69,8 @@ export enum BlockComponentTypes {
      *
      */
     Sign = 'minecraft:sign',
+    /**
+     * @beta
+     */
+    VibrationProperties = 'minecraft:vibration_properties',
 }

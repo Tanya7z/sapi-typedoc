@@ -1,5 +1,5 @@
 /**
- * @beta
+ * @rc
  * Thrown when trying to register a world clock outside of the
  * system startup event.
  */

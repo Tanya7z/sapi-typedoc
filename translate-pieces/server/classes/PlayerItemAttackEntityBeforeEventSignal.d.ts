@@ -1,16 +1,16 @@
-/* IMPORT */ import { WorldClock, WorldClockEventOptions, WorldClockOnRestartBeforeEvent } from '..';
+/* IMPORT */ import { PlayerItemAttackEntityBeforeEvent } from '..';
 
 /**
- * @rc
- * Manages callbacks that are connected to a {@link WorldClock}
- * restarting.
+ * @beta
+ * Manages callbacks that run before a player attacks an entity
+ * through an item interaction.
  */
-export class WorldClockOnRestartBeforeEventSignal {
+export class PlayerItemAttackEntityBeforeEventSignal {
     private constructor();
     /**
      * @remarks
-     * Adds a callback that will be called when a world clock is
-     * restarting.
+     * Adds a callback that runs before a player attacks an entity
+     * through an item interaction.
      *
      * @privilege no-restricted-execution - @worldMutation
      *
@@ -22,13 +22,11 @@ export class WorldClockOnRestartBeforeEventSignal {
      * Closure that is called with restricted-execution privilege.
      */
     subscribe(
-        callback: (arg0: WorldClockOnRestartBeforeEvent) => void,
-        options?: WorldClockEventOptions,
-    ): (arg0: WorldClockOnRestartBeforeEvent) => void;
+        callback: (arg0: PlayerItemAttackEntityBeforeEvent) => void,
+    ): (arg0: PlayerItemAttackEntityBeforeEvent) => void;
     /**
      * @remarks
-     * Removes a callback from being called when a world clock is
-     * restarting.
+     * Removes a callback from this event signal.
      *
      * @privilege no-restricted-execution - @worldMutation
      *
@@ -37,5 +35,5 @@ export class WorldClockOnRestartBeforeEventSignal {
      * @param callback
      * This closure is called with restricted-execution privilege.
      */
-    unsubscribe(callback: (arg0: WorldClockOnRestartBeforeEvent) => void): void;
+    unsubscribe(callback: (arg0: PlayerItemAttackEntityBeforeEvent) => void): void;
 }

@@ -1,7 +1,7 @@
 /* IMPORT */ import { WorldClockInvalidTimeMarkerError } from '..';
 
 /**
- * @beta
+ * @rc
  * A named point in time on a world clock that can occur once
  * or periodically.
  */

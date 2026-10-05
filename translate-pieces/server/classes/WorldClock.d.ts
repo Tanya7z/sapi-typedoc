@@ -1,7 +1,7 @@
 /* IMPORT */ import { TimeMarker, TimeMarkerOptions, WorldClockAddTimeMarkerError, WorldClockRemoveMinecraftTimeMarkerError, WorldClockRewindError, WorldClockTimeMarkerNotFoundError } from '..';
 
 /**
- * @beta
+ * @rc
  * A class that represents a particular clock within a world.
  */
 export class WorldClock {

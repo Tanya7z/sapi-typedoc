@@ -1,5 +1,5 @@
 /**
- * @beta
+ * @rc
  * Error thrown when performing actions on a world clock with a
  * time marker that does not exist.
  */

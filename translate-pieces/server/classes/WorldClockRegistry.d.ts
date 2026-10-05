@@ -1,7 +1,7 @@
 /* IMPORT */ import { WorldClockInvalidRegistryError, WorldClockRegistrationError, WorldClockRegistrationOptions, WorldClockReloadNewWorldClockError, WorldClockReloadTimeMarkerError } from '..';
 
 /**
- * @beta
+ * @rc
  * Provides the functionality for registering custom world
  * clocks. World clocks can only be registered during the
  * system startup event.

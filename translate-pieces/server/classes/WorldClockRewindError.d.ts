@@ -1,7 +1,7 @@
 /* IMPORT */ import { WorldClock } from '..';
 
 /**
- * @beta
+ * @rc
  * Error thrown by {@link WorldClock.rewindTo} when the world
  * clock's time is already before the time marker's first
  * occurrence.

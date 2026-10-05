@@ -130,7 +130,7 @@ export class World {
      */
     getAllPlayers(): Player[];
     /**
-     * @beta
+     * @rc
      * @remarks
      * Retrieves a world clock by its name.
      *

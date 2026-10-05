@@ -1,7 +1,7 @@
 /* IMPORT */ import { WorldClock } from '..';
 
 /**
- * @beta
+ * @rc
  * Contains information related to changes to the time of a
  * {@link WorldClock}.
  */

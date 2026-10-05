@@ -1,4 +1,4 @@
-/* IMPORT */ import { BlockContainerClosedAfterEventSignal, BlockContainerOpenedAfterEventSignal, BlockExplodeAfterEventSignal, ButtonPushAfterEventSignal, ChatSendAfterEventSignal, DataDrivenEntityTriggerAfterEventSignal, EffectAddAfterEventSignal, EntityContainerClosedAfterEventSignal, EntityContainerOpenedAfterEventSignal, EntityDieAfterEventSignal, EntityHealAfterEventSignal, EntityHealthChangedAfterEventSignal, EntityHitBlockAfterEventSignal, EntityHitEntityAfterEventSignal, EntityHurtAfterEventSignal, EntityItemDropAfterEventSignal, EntityItemPickupAfterEventSignal, EntityLoadAfterEventSignal, EntityRemoveAfterEventSignal, EntitySpawnAfterEventSignal, EntityStartSneakingAfterEventSignal, EntityStopSneakingAfterEventSignal, EntityTamedAfterEventSignal, EntityUpgradeAfterEventSignal, ExplosionAfterEventSignal, GameRuleChangeAfterEventSignal, InputButton, InputMode, ItemCompleteUseAfterEventSignal, ItemReleaseUseAfterEventSignal, ItemStartUseAfterEventSignal, ItemStartUseOnAfterEventSignal, ItemStopUseAfterEventSignal, ItemStopUseOnAfterEventSignal, ItemUseAfterEventSignal, LeverActionAfterEventSignal, PackSettingChangeAfterEventSignal, PistonActivateAfterEventSignal, PlayerBreakBlockAfterEventSignal, PlayerButtonInputAfterEventSignal, PlayerCancelBreakingBlockAfterEventSignal, PlayerCraftRecipeAfterEventSignal, PlayerDimensionChangeAfterEventSignal, PlayerEmoteAfterEventSignal, PlayerGameModeChangeAfterEventSignal, PlayerHotbarSelectedSlotChangeAfterEventSignal, PlayerInputModeChangeAfterEventSignal, PlayerInputPermissionCategoryChangeAfterEventSignal, PlayerInteractWithBlockAfterEventSignal, PlayerInteractWithEntityAfterEventSignal, PlayerInventoryItemChangeAfterEventSignal, PlayerJoinAfterEventSignal, PlayerLeaveAfterEventSignal, PlayerPlaceBlockAfterEventSignal, PlayerSpawnAfterEventSignal, PlayerStartBreakingBlockAfterEventSignal, PlayerSwingStartAfterEventSignal, PlayerUseNameTagAfterEventSignal, PressurePlatePopAfterEventSignal, PressurePlatePushAfterEventSignal, ProjectileHitBlockAfterEventSignal, ProjectileHitEntityAfterEventSignal, ServerMessageAfterEventSignal, SoundCompletedAfterEventSignal, TargetBlockHitAfterEventSignal, TimeMarker, TripWireTripAfterEventSignal, WeatherChangeAfterEventSignal, WorldClock, WorldClockOnPausedAfterEventSignal, WorldClockOnResumedAfterEventSignal, WorldClockOnTimeMarkerAfterEventSignal, WorldClockOnTimeModifiedAfterEventSignal, WorldLoadAfterEventSignal } from '..';
+/* IMPORT */ import { BlockContainerClosedAfterEventSignal, BlockContainerOpenedAfterEventSignal, BlockExplodeAfterEventSignal, ButtonPushAfterEventSignal, ChatSendAfterEventSignal, DataDrivenEntityTriggerAfterEventSignal, EffectAddAfterEventSignal, EntityContainerClosedAfterEventSignal, EntityContainerOpenedAfterEventSignal, EntityDieAfterEventSignal, EntityHealAfterEventSignal, EntityHealthChangedAfterEventSignal, EntityHitBlockAfterEventSignal, EntityHitEntityAfterEventSignal, EntityHurtAfterEventSignal, EntityItemDropAfterEventSignal, EntityItemPickupAfterEventSignal, EntityLoadAfterEventSignal, EntityRemoveAfterEventSignal, EntitySpawnAfterEventSignal, EntityStartSneakingAfterEventSignal, EntityStopSneakingAfterEventSignal, EntityTamedAfterEventSignal, EntityUpgradeAfterEventSignal, ExplosionAfterEventSignal, GameRuleChangeAfterEventSignal, InputButton, InputMode, ItemCompleteUseAfterEventSignal, ItemReleaseUseAfterEventSignal, ItemStartUseAfterEventSignal, ItemStartUseOnAfterEventSignal, ItemStopUseAfterEventSignal, ItemStopUseOnAfterEventSignal, ItemUseAfterEventSignal, LeverActionAfterEventSignal, PackSettingChangeAfterEventSignal, PistonActivateAfterEventSignal, PlayerBreakBlockAfterEventSignal, PlayerButtonInputAfterEventSignal, PlayerCancelBreakingBlockAfterEventSignal, PlayerCraftRecipeAfterEventSignal, PlayerCursorItemGrabAfterEventSignal, PlayerCursorItemReleaseAfterEventSignal, PlayerDimensionChangeAfterEventSignal, PlayerEmoteAfterEventSignal, PlayerGameModeChangeAfterEventSignal, PlayerHotbarSelectedSlotChangeAfterEventSignal, PlayerInputModeChangeAfterEventSignal, PlayerInputPermissionCategoryChangeAfterEventSignal, PlayerInteractWithBlockAfterEventSignal, PlayerInteractWithEntityAfterEventSignal, PlayerInventoryItemChangeAfterEventSignal, PlayerJoinAfterEventSignal, PlayerLeaveAfterEventSignal, PlayerPlaceBlockAfterEventSignal, PlayerSpawnAfterEventSignal, PlayerStartBreakingBlockAfterEventSignal, PlayerSwingStartAfterEventSignal, PlayerUseNameTagAfterEventSignal, PressurePlatePopAfterEventSignal, PressurePlatePushAfterEventSignal, ProjectileHitBlockAfterEventSignal, ProjectileHitEntityAfterEventSignal, ServerMessageAfterEventSignal, SoundCompletedAfterEventSignal, TargetBlockHitAfterEventSignal, TimeMarker, TripWireTripAfterEventSignal, WeatherChangeAfterEventSignal, WorldClock, WorldClockOnPausedAfterEventSignal, WorldClockOnResumedAfterEventSignal, WorldClockOnTimeMarkerAfterEventSignal, WorldClockOnTimeModifiedAfterEventSignal, WorldLoadAfterEventSignal } from '..';
 
 /**
  * Contains a set of events that are available across the scope
@@ -355,6 +355,26 @@ export class WorldAfterEvents {
      */
     readonly playerCraftRecipe: PlayerCraftRecipeAfterEventSignal;
     /**
+     * @beta
+     * @remarks
+     * Event signal that fires when a player grabs an item from a
+     * container to their cursor.
+     *
+     * @privilege early-execution-readable - @earlyExecution
+     *
+     */
+    readonly playerCursorItemGrab: PlayerCursorItemGrabAfterEventSignal;
+    /**
+     * @beta
+     * @remarks
+     * Event signal that fires when a player releases an item from
+     * their cursor into a container.
+     *
+     * @privilege early-execution-readable - @earlyExecution
+     *
+     */
+    readonly playerCursorItemRelease: PlayerCursorItemReleaseAfterEventSignal;
+    /**
      * @remarks
      * Fires when a player moved to a different dimension.
      *
@@ -551,7 +571,7 @@ export class WorldAfterEvents {
      */
     readonly weatherChange: WeatherChangeAfterEventSignal;
     /**
-     * @beta
+     * @rc
      * @remarks
      * This event fires when a {@link WorldClock} is paused.
      *
@@ -560,7 +580,7 @@ export class WorldAfterEvents {
      */
     readonly worldClockOnPaused: WorldClockOnPausedAfterEventSignal;
     /**
-     * @beta
+     * @rc
      * @remarks
      * This event fires when a {@link WorldClock} is resumed.
      *
@@ -569,7 +589,7 @@ export class WorldAfterEvents {
      */
     readonly worldClockOnResumed: WorldClockOnResumedAfterEventSignal;
     /**
-     * @beta
+     * @rc
      * @remarks
      * This event fires when the time of a {@link WorldClock} hits
      * a {@link TimeMarker} on the clock. This can happen during a
@@ -580,7 +600,7 @@ export class WorldAfterEvents {
      */
     readonly worldClockOnTimeMarker: WorldClockOnTimeMarkerAfterEventSignal;
     /**
-     * @beta
+     * @rc
      * @remarks
      * This event fires when a {@link WorldClock} time is changed.
      * This can happen when the time is directly set through

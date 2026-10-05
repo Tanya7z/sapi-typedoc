@@ -1,7 +1,7 @@
 /* IMPORT */ import { WorldClock } from '..';
 
 /**
- * @beta
+ * @rc
  * Error thrown by {@link WorldClock.addTimeMarker} when
  * failing to add a time marker to a world clock.
  */

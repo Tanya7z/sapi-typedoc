@@ -1,7 +1,7 @@
 /* IMPORT */ import { WorldClock, WorldClockEventOptions, WorldClockOnResumedAfterEvent } from '..';
 
 /**
- * @beta
+ * @rc
  * Manages callbacks that are connected to a {@link WorldClock}
  * being resumed.
  */
