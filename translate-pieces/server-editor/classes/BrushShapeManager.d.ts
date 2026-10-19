@@ -17,7 +17,7 @@ export class BrushShapeManager {
      *
      * @throws This function can throw errors.
      */
-    beginPainting(onComplete: (arg0: PaintCompletionState) => void): void;
+    beginPainting(onComplete: (arg0: PaintCompletionState) => void, pendingTransaction?: PendingTransaction): void;
     /**
      * @remarks
      * @privilege no-restricted-execution - @worldMutation
@@ -185,7 +185,7 @@ export class BrushShapeManager {
      *
      * @throws This function can throw errors.
      */
-    singlePaint(onComplete: (arg0: PaintCompletionState) => void): void;
+    singlePaint(onComplete: (arg0: PaintCompletionState) => void, pendingTransaction?: PendingTransaction): void;
     /**
      * @remarks
      * @privilege no-restricted-execution - @worldMutation

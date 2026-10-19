@@ -1,5 +1,5 @@
 /* IMPORT */ import { InvalidArgumentError } from '../../common';
-/* IMPORT */ import { BlockComponent, BlockComponentRegistry, BlockComponentReturnType, BlockComponentTypes, BlockPermutation, BlockType, Dimension, Direction, ItemStack, LiquidType, LocationInUnloadedChunkError, LocationOutOfWorldBoundariesError, RGBA, Vector3 } from '..';
+/* IMPORT */ import { BlockComponent, BlockComponentRegistry, BlockComponentReturnType, BlockComponentTypes, BlockPermutation, BlockType, Dimension, Direction, ItemStack, LiquidType, LocationInUnloadedChunkError, LocationOutOfWorldBoundariesError, RGBA, ScheduledNamedTick, Vector3 } from '..';
 
 /**
  * Represents a block in a dimension. A block represents a
@@ -267,6 +267,23 @@ export class Block {
      */
     east(steps?: number): Block | undefined;
     /**
+     * @beta
+     * @remarks
+     * Returns the named tick events scheduled at this block by the
+     * calling script pack.
+     *
+     * @returns
+     * The scheduled named tick events. Each event contains its
+     * eventName and the number of ticks until it is raised as
+     * tickDelay.
+     * @throws This function can throw errors.
+     *
+     * {@link LocationInUnloadedChunkError}
+     *
+     * {@link LocationOutOfWorldBoundariesError}
+     */
+    getAllScheduledNamedTicks(): ScheduledNamedTick[];
+    /**
      * @remarks
      * Gets a component (that represents additional capabilities)
      * for a block - for example, an inventory component of a chest
@@ -376,6 +393,22 @@ export class Block {
      * {@link LocationOutOfWorldBoundariesError}
      */
     getRedstonePower(): number | undefined;
+    /**
+     * @beta
+     * @remarks
+     * Returns the number of named tick events scheduled at this
+     * block, regardless of which script pack scheduled them.
+     *
+     * @returns
+     * The number of named tick events currently scheduled at this
+     * block.
+     * @throws This function can throw errors.
+     *
+     * {@link LocationInUnloadedChunkError}
+     *
+     * {@link LocationOutOfWorldBoundariesError}
+     */
+    getScheduledNamedTickCount(): number;
     /**
      * @remarks
      * Returns the brightness level of light shining from the sky
@@ -571,7 +604,7 @@ export class Block {
      *
      * {@link LocationOutOfWorldBoundariesError}
      */
-    removeScheduledNamedTick(eventName: string): void;
+    removeScheduledNamedTicks(eventName: string): void;
     /**
      * @beta
      * @remarks

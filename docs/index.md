@@ -30,14 +30,14 @@ hero:
 
 | 模块 | 稳定版 | 预览版 |
 | --- | --- | --- |
-| [@minecraft/server](./changelog/server.md) | `2.10.0` | `2.11.0-rc.1.26.60-preview.30` |
-| [@minecraft/server-ui](./changelog/server-ui.md) | `2.2.0` | `2.3.0-rc.1.26.60-preview.30` |
-| [@minecraft/server-net](./changelog/server-net.md) | `1.0.0-beta.11940b24` | `1.0.0-beta.1.26.60-preview.30` |
+| [@minecraft/server](./changelog/server.md) | `2.10.0` | `2.12.0-rc.1.26.70-preview.20` |
+| [@minecraft/server-ui](./changelog/server-ui.md) | `2.2.0` | `2.3.0-rc.1.26.70-preview.20` |
+| [@minecraft/server-net](./changelog/server-net.md) | `1.0.0-beta.11940b24` | `1.0.0-beta.1.26.70-preview.20` |
 | [@minecraft/common](./changelog/common.md) | `1.3.0` | `1.3.0-rc.1.26.30-preview.26` |
-| [@minecraft/debug-utilities](./changelog/debug-utilities.md) | `1.0.0-beta.1.20.70-preview.20` | `1.0.0-beta.1.26.60-preview.30` |
-| [@minecraft/diagnostics](./changelog/diagnostics.md) | `1.0.0-beta.1.21.70-preview.22` | `1.0.0-beta.1.26.60-preview.30` |
-| [@minecraft/server-admin](./changelog/server-admin.md) | `1.0.0-beta.11940b24` | `1.0.0-beta.1.26.60-preview.30` |
-| [@minecraft/server-editor](./changelog/server-editor.md) | `0.1.0-beta.1.20.20-preview.20` | `0.1.0-beta.1.26.60-preview.30` |
+| [@minecraft/debug-utilities](./changelog/debug-utilities.md) | `1.0.0-beta.1.20.70-preview.20` | `1.0.0-beta.1.26.70-preview.20` |
+| [@minecraft/diagnostics](./changelog/diagnostics.md) | `1.0.0-beta.1.21.70-preview.22` | `1.0.0-beta.1.26.70-preview.20` |
+| [@minecraft/server-admin](./changelog/server-admin.md) | `1.0.0-beta.11940b24` | `1.0.0-beta.1.26.70-preview.20` |
+| [@minecraft/server-editor](./changelog/server-editor.md) | `0.1.0-beta.1.20.20-preview.20` | `0.1.0-beta.1.26.70-preview.20` |
 | [@minecraft/server-gametest](./changelog/server-gametest.md) | `1.0.0-beta.1.21.60-preview.24` | `0.1.0-rc.1.21.40-preview.20` |
 | [@minecraft/server-graphics](./changelog/server-graphics.md) | `1.0.0` | `1.0.0-rc.1.26.60-preview.23` |
 

@@ -4,10 +4,6 @@
  * @beta
  * Describes a block point-of-interest instance returned by a
  * query.
- *
- * Required Experiments:
- * - Poi
- *
  */
 export class PoiBlockInstance {
     private constructor();

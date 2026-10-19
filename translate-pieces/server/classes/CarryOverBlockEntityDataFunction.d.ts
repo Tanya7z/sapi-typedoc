@@ -2,8 +2,6 @@
 
 /**
  * @beta
- * 战利品物品函数，会尝试将被破坏方块的方块实体数据复制到掉落的物品上。
- *
  * Loot item function that will try to copy the block entity
  * data from the destroyed block to the dropped item.
  */
@@ -12,12 +10,23 @@ export class CarryOverBlockEntityDataFunction extends LootItemFunction {
     private constructor();
     /**
      * @remarks
-     * 如果为 `true`，并且方块实体具有 `dynamic_properties`，则该函数会将动态属性从方块实体复制到掉落的物品上。
-     *
      * If true, and if the block entity had dynamic_properties, the
      * function will copy the dynamic properties from the block
      * entity to the dropped item.
      *
      */
     readonly dynamicProperties: boolean;
+    /**
+     * @remarks
+     * If true, and if the block entity supports entity storage,
+     * the function will copy the stored entities from the block
+     * entity to the dropped item without releasing them. Placing
+     * the item restores the stored entities if the placed block
+     * supports entity storage. In loot table JSON, the optional
+     * entity_storage Boolean field defaults to false and is
+     * independent of dynamic_properties. Requires the Upcoming
+     * Creator Features experiment.
+     *
+     */
+    readonly entityStorage: boolean;
 }

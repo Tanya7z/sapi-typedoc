@@ -4,10 +4,6 @@
  * @beta
  * Provides methods for querying and managing block-based
  * points of interest in a dimension.
- *
- * Required Experiments:
- * - Poi
- *
  */
 export class PoiBlockManager {
     private constructor();
