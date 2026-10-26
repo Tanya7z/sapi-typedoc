@@ -1,7 +1,7 @@
 /* IMPORT */ import { PoiBlockInstance, PoiBlockOccupancyFilter, PoiBlockType, PoiDistancePair, PoiNameFilter, PoiTagFilter, Vector3 } from '..';
 
 /**
- * @beta
+ * @rc
  * Provides methods for querying and managing block-based
  * points of interest in a dimension.
  */

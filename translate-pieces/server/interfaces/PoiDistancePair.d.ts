@@ -1,7 +1,7 @@
 /* IMPORT */ import { PoiBlockInstance } from '..';
 
 /**
- * @beta
+ * @rc
  * Associates a block point-of-interest instance with its
  * squared distance from a query center.
  */

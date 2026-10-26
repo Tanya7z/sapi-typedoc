@@ -132,7 +132,7 @@ export class MessageBox {
         options?: MessageBoxButtonOptions,
     ): MessageBox;
     /**
-     * @beta
+     * @rc
      * @remarks
      * Sets the label and options for the third button of the
      * message box. Returns the message box instance to allow

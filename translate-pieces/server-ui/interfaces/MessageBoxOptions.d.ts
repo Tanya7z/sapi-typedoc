@@ -1,9 +1,9 @@
 /**
- * @beta
  * Options for configuring a message box.
  */
 export interface MessageBoxOptions {
     /**
+     * @rc
      * @remarks
      * Sets the desired layout for the buttons. True displays the
      * buttons horizontally, false displays them vertically.

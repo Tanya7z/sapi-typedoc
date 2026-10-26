@@ -1,7 +1,7 @@
 /* IMPORT */ import { ButtonOptions, ObservableString, ObservableUIRawMessage, UIRawMessage } from '..';
 
 /**
- * @beta
+ * @rc
  * Data used to configure a button.
  */
 export interface ButtonData {

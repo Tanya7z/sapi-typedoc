@@ -199,7 +199,7 @@ export class CustomForm {
      */
     label(text: ObservableString | ObservableUIRawMessage | string | UIRawMessage, options?: TextOptions): CustomForm;
     /**
-     * @beta
+     * @rc
      * @remarks
      * Adds a horizontal row of up to three clickable buttons to
      * the form layout. Returns the form instance to allow method

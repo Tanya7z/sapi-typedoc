@@ -1,5 +1,5 @@
 /**
- * @beta
+ * @rc
  * Describes a block point-of-interest type.
  */
 export class PoiBlockType {

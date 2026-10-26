@@ -1,5 +1,5 @@
 /* IMPORT */ import { ArgumentOutOfBoundsError, EngineError, InvalidArgumentError, NumberRange, PropertyOutOfBoundsError, UnsupportedFunctionalityError } from '../../common';
-/* IMPORT */ import { BiomeFilter, BiomeSearchOptions, BiomeType, Block, BlockFillOptions, BlockFilter, BlockPermutation, BlockQueryOptions, BlockRaycastHit, BlockRaycastOptions, BlockType, BlockVolumeBase, CloneMode, CommandError, CommandResult, Entity, EntityIdentifierType, EntityQueryOptions, EntityRaycastHit, EntityRaycastOptions, EntitySpawnError, ExplosionOptions, InvalidEntityError, ItemStack, ListBlockVolume, LocationInUnloadedChunkError, LocationOutOfWorldBoundariesError, MolangVariableMap, Player, PoiManager, SoundInstance, SpawnEntityOptions, UnloadedChunksError, Vector3, VectorXZ, WeatherType, WorldSoundOptions } from '..';
+/* IMPORT */ import { BiomeFilter, BiomeSearchOptions, BiomeType, Block, BlockFillOptions, BlockFilter, BlockPermutation, BlockQueryOptions, BlockRaycastHit, BlockRaycastOptions, BlockSearchOptions, BlockType, BlockVolumeBase, CloneMode, CommandError, CommandResult, Entity, EntityIdentifierType, EntityQueryOptions, EntityRaycastHit, EntityRaycastOptions, EntitySpawnError, ExplosionOptions, InvalidEntityError, ItemStack, ListBlockVolume, LocationInUnloadedChunkError, LocationOutOfWorldBoundariesError, MolangVariableMap, Player, PoiManager, SoundInstance, SpawnEntityOptions, UnloadedChunksError, Vector3, VectorXZ, WeatherType, WorldSoundOptions } from '..';
 /* IMPORT */ import { MinecraftFeatureTypes } from '../../vanilla-data';
 
 /**
@@ -29,7 +29,7 @@ export class Dimension {
      */
     readonly localizationKey: string;
     /**
-     * @beta
+     * @rc
      * @remarks
      * Provides access to point-of-interest (POI) managers for this
      * dimension. This property is available only when the POI
@@ -275,7 +275,7 @@ export class Dimension {
      * The options to decide if a block is a valid result.
      * @throws This function can throw errors.
      */
-    getBlockAbove(location: Vector3, options?: BlockRaycastOptions): Block | undefined;
+    getBlockAbove(location: Vector3, options?: BlockSearchOptions): Block | undefined;
     /**
      * @remarks
      * Gets the first block found below a given block location
@@ -288,7 +288,7 @@ export class Dimension {
      * The options to decide if a block is a valid result.
      * @throws This function can throw errors.
      */
-    getBlockBelow(location: Vector3, options?: BlockRaycastOptions): Block | undefined;
+    getBlockBelow(location: Vector3, options?: BlockSearchOptions): Block | undefined;
     /**
      * @remarks
      * Gets the first block that intersects with a vector emanating

@@ -1,7 +1,7 @@
 /* IMPORT */ import { PoiBlockType, Vector3 } from '..';
 
 /**
- * @beta
+ * @rc
  * Describes a block point-of-interest instance returned by a
  * query.
  */
