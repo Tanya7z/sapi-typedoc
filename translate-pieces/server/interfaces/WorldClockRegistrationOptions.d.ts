@@ -1,7 +1,6 @@
 /* IMPORT */ import { TimeMarkerOptions } from '..';
 
 /**
- * @rc
  * Contains additional options for registering world clocks.
  */
 export interface WorldClockRegistrationOptions {

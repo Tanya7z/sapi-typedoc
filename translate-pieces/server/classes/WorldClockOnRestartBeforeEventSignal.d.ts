@@ -1,7 +1,6 @@
 /* IMPORT */ import { WorldClock, WorldClockEventOptions, WorldClockOnRestartBeforeEvent } from '..';
 
 /**
- * @rc
  * Manages callbacks that are connected to a {@link WorldClock}
  * restarting.
  */

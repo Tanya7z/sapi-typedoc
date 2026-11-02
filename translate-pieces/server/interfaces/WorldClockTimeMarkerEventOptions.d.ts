@@ -1,5 +1,4 @@
 /**
- * @rc
  * Contains parameters for world clock time marker events that
  * filters out which events are passed to the provided
  * callback.

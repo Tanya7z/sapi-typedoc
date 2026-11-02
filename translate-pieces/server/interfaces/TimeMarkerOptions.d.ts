@@ -1,5 +1,4 @@
 /**
- * @rc
  * Options for creating time markers for world clocks.
  */
 export interface TimeMarkerOptions {

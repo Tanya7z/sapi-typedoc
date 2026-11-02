@@ -144,7 +144,6 @@ export class WorldBeforeEvents {
      */
     readonly weatherChange: WeatherChangeBeforeEventSignal;
     /**
-     * @rc
      * @remarks
      * This event fires when a {@link WorldClock} reaches its
      * maximum time and is about to restart.

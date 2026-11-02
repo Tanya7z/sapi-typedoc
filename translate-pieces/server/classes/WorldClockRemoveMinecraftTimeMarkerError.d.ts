@@ -1,7 +1,6 @@
 /* IMPORT */ import { WorldClock } from '..';
 
 /**
- * @rc
  * Error thrown by {@link WorldClock.removeTimeMarker} when
  * trying to remove a time marker with the 'minecraft'
  * namespace from a world clock.

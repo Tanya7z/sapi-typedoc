@@ -1,7 +1,6 @@
 /* IMPORT */ import { WorldClockRegistry } from '..';
 
 /**
- * @rc
  * Error thrown by {@link WorldClockRegistry.registerClock}
  * when failing to register a world clock.
  */

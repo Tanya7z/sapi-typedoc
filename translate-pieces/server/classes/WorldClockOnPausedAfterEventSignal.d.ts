@@ -1,7 +1,6 @@
 /* IMPORT */ import { WorldClock, WorldClockEventOptions, WorldClockOnPausedAfterEvent } from '..';
 
 /**
- * @rc
  * Manages callbacks that are connected to a {@link WorldClock}
  * being paused.
  */

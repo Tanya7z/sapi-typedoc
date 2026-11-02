@@ -571,7 +571,6 @@ export class WorldAfterEvents {
      */
     readonly weatherChange: WeatherChangeAfterEventSignal;
     /**
-     * @rc
      * @remarks
      * This event fires when a {@link WorldClock} is paused.
      *
@@ -580,7 +579,6 @@ export class WorldAfterEvents {
      */
     readonly worldClockOnPaused: WorldClockOnPausedAfterEventSignal;
     /**
-     * @rc
      * @remarks
      * This event fires when a {@link WorldClock} is resumed.
      *
@@ -589,7 +587,6 @@ export class WorldAfterEvents {
      */
     readonly worldClockOnResumed: WorldClockOnResumedAfterEventSignal;
     /**
-     * @rc
      * @remarks
      * This event fires when the time of a {@link WorldClock} hits
      * a {@link TimeMarker} on the clock. This can happen during a
@@ -600,7 +597,6 @@ export class WorldAfterEvents {
      */
     readonly worldClockOnTimeMarker: WorldClockOnTimeMarkerAfterEventSignal;
     /**
-     * @rc
      * @remarks
      * This event fires when a {@link WorldClock} time is changed.
      * This can happen when the time is directly set through
