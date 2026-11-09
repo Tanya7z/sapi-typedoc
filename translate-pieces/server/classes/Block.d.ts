@@ -267,7 +267,7 @@ export class Block {
      */
     east(steps?: number): Block | undefined;
     /**
-     * @beta
+     * @rc
      * @remarks
      * Returns the named tick events scheduled at this block by the
      * calling script pack.
@@ -394,7 +394,7 @@ export class Block {
      */
     getRedstonePower(): number | undefined;
     /**
-     * @beta
+     * @rc
      * @remarks
      * Returns the number of named tick events scheduled at this
      * block, regardless of which script pack scheduled them.
@@ -455,7 +455,7 @@ export class Block {
      */
     hasComponent(componentId: string): boolean;
     /**
-     * @beta
+     * @rc
      * @throws This function can throw errors.
      *
      * {@link LocationInUnloadedChunkError}
@@ -589,7 +589,7 @@ export class Block {
      */
     offset(offset: Vector3): Block | undefined;
     /**
-     * @beta
+     * @rc
      * @remarks
      * Removes all scheduled named tick events from this block with
      * the specified event name.
@@ -606,7 +606,7 @@ export class Block {
      */
     removeScheduledNamedTicks(eventName: string): void;
     /**
-     * @beta
+     * @rc
      * @remarks
      * Schedules a named tick event for this block. The event will
      * be delivered to block custom components registered with the

@@ -1,7 +1,7 @@
 /* IMPORT */ import { BlockPermutation, Direction } from '..';
 
 /**
- * @beta
+ * @rc
  * Contains information regarding a block change in one
  * neighboring direction.
  */

@@ -1,7 +1,7 @@
 /* IMPORT */ import { BlockEvent } from '..';
 
 /**
- * @beta
+ * @rc
  * Contains information regarding a named tick event for a
  * specific block.
  */

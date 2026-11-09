@@ -41,11 +41,11 @@ export interface BlockCustomComponent {
      */
     onEntityFallOn?: (arg0: BlockComponentEntityFallOnEvent, arg1: CustomComponentParameters) => void;
     /**
-     * @beta
+     * @rc
      */
     onNamedTick?: (arg0: BlockComponentNamedTickEvent, arg1: CustomComponentParameters) => void;
     /**
-     * @beta
+     * @rc
      */
     onNeighborChanged?: (arg0: BlockComponentNeighborChangedAfterEvent, arg1: CustomComponentParameters) => void;
     /**

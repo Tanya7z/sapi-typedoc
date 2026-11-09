@@ -78,7 +78,7 @@ export enum BlockComponentTypes {
      */
     Sign = 'minecraft:sign',
     /**
-     * @beta
+     * @rc
      */
     VibrationProperties = 'minecraft:vibration_properties',
 }

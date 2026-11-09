@@ -1,7 +1,7 @@
 /* IMPORT */ import { BlockComponent, LocationInUnloadedChunkError, LocationOutOfWorldBoundariesError } from '..';
 
 /**
- * @beta
+ * @rc
  * Represents the vibration properties of a block with a
  * 'minecraft:vibration_properties' component.
  */

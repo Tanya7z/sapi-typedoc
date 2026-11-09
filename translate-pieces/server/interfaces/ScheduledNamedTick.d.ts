@@ -1,5 +1,5 @@
 /**
- * @beta
+ * @rc
  */
 export interface ScheduledNamedTick {
     eventName: string;

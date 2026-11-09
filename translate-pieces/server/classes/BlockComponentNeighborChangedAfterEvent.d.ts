@@ -1,7 +1,7 @@
 /* IMPORT */ import { BlockEvent, NeighborChange } from '..';
 
 /**
- * @beta
+ * @rc
  * Contains information regarding neighboring block changes for
  * a specific block.
  */
