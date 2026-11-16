@@ -2,7 +2,7 @@
 /* IMPORT */ import { BlockComponent, InvalidEntityError, Player, RecipeCraftingContext } from '..';
 
 /**
- * @beta
+ * @rc
  * Represents a block component that provides access to recipe
  * crafting.
  */

@@ -1,7 +1,7 @@
 /* IMPORT */ import { PlayerCursorItemReleaseAfterEvent } from '..';
 
 /**
- * @beta
+ * @rc
  * Manages callbacks for items released from a player's cursor
  * to a container.
  */

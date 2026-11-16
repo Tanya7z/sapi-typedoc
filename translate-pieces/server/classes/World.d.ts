@@ -1,5 +1,5 @@
 /* IMPORT */ import { ArgumentOutOfBoundsError, EngineError, InvalidArgumentError, PropertyOutOfBoundsError } from '../../common';
-/* IMPORT */ import { AimAssistRegistry, CommandError, Difficulty, Dimension, Entity, EntityQueryOptions, GameRules, LocationOutOfWorldBoundariesError, LootTableManager, MoonPhase, MusicOptions, Player, PrimitiveShapesManager, RawMessage, Scoreboard, SoundDefinition, SoundDefinitionRegistry, SoundInstance, Structure, StructureManager, TickingAreaManager, TimeOfDay, Vector3, WorldAfterEvents, WorldBeforeEvents, WorldClock, WorldClockNotFoundError } from '..';
+/* IMPORT */ import { AimAssistRegistry, CommandError, Difficulty, Dimension, Entity, EntityQueryOptions, GameRules, LocationOutOfWorldBoundariesError, LootTableManager, MoonPhase, MusicOptions, Player, PrimitiveShapesManager, RawMessage, Scoreboard, SoundDefinition, SoundDefinitionRegistry, SoundInstance, Structure, StructureManager, TickingAreaManager, TimeOfDay, Vector3, VirtualContainerManager, WorldAfterEvents, WorldBeforeEvents, WorldClock, WorldClockNotFoundError } from '..';
 
 /**
  * A class that wraps the state of a world - a set of
@@ -84,6 +84,14 @@ export class World {
      *
      */
     readonly tickingAreaManager: TickingAreaManager;
+    /**
+     * @beta
+     * @remarks
+     * Manager for creating virtual containers, containers that
+     * only exist in memory.
+     *
+     */
+    readonly virtualContainerManager: VirtualContainerManager;
     /**
      * @beta
      * @remarks

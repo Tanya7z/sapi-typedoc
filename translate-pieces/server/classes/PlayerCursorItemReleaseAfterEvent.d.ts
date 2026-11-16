@@ -1,7 +1,7 @@
 /* IMPORT */ import { ItemStack, Player } from '..';
 
 /**
- * @beta
+ * @rc
  * Contains information about an item moved from a player's
  * cursor to a container.
  */

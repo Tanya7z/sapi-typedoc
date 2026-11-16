@@ -3,6 +3,10 @@
  * function Block.getComponent.
  */
 export enum BlockComponentTypes {
+    /**
+     * @beta
+     */
+    ClimbableProperties = 'minecraft:climbable',
     DynamicProperties = 'minecraft:dynamic_properties',
     /**
      * @beta
@@ -52,11 +56,11 @@ export enum BlockComponentTypes {
      */
     PrecipitationInteractions = 'minecraft:precipitation_interactions',
     /**
-     * @beta
+     * @rc
      */
     RecipeCrafting = 'minecraft:recipe_crafting',
     /**
-     * @beta
+     * @rc
      */
     RecipeProcessing = 'minecraft:recipe_processing',
     /**

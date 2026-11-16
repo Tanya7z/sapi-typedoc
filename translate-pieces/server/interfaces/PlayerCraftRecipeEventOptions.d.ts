@@ -1,7 +1,7 @@
 /* IMPORT */ import { BlockFilter, EntityFilter, ItemFilter } from '..';
 
 /**
- * @beta
+ * @rc
  * Contains options for filtering player craft recipe events.
  */
 export interface PlayerCraftRecipeEventOptions {

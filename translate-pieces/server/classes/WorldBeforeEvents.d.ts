@@ -1,4 +1,4 @@
-/* IMPORT */ import { ChatSendBeforeEventSignal, EffectAddBeforeEventSignal, EntityHealBeforeEventSignal, EntityHurtBeforeEventSignal, EntityItemPickupBeforeEventSignal, EntityRemoveBeforeEventSignal, EntityTamedBeforeEventSignal, ExplosionBeforeEventSignal, ItemUseBeforeEventSignal, PlayerBreakBlockBeforeEventSignal, PlayerGameModeChangeBeforeEventSignal, PlayerInteractWithBlockBeforeEventSignal, PlayerInteractWithEntityBeforeEventSignal, PlayerItemAttackEntityBeforeEventSignal, PlayerLeaveBeforeEventSignal, PlayerPlaceBlockBeforeEventSignal, WeatherChangeBeforeEventSignal, WorldClock, WorldClockOnRestartBeforeEventSignal } from '..';
+/* IMPORT */ import { ChatSendBeforeEventSignal, EffectAddBeforeEventSignal, EntityHealBeforeEventSignal, EntityHurtBeforeEventSignal, EntityItemPickupBeforeEventSignal, EntityRemoveBeforeEventSignal, EntityTamedBeforeEventSignal, ExplosionBeforeEventSignal, ItemUseBeforeEventSignal, PlayerBreakBlockBeforeEventSignal, PlayerGameModeChangeBeforeEventSignal, PlayerInteractWithBlockBeforeEventSignal, PlayerInteractWithEntityBeforeEventSignal, PlayerLeaveBeforeEventSignal, PlayerPlaceBlockBeforeEventSignal, WeatherChangeBeforeEventSignal, WorldClock, WorldClockOnRestartBeforeEventSignal } from '..';
 
 /**
  * A set of events that fire before an actual action occurs. In
@@ -113,13 +113,6 @@ export class WorldBeforeEvents {
      *
      */
     readonly playerInteractWithEntity: PlayerInteractWithEntityBeforeEventSignal;
-    /**
-     * @beta
-     * @remarks
-     * @privilege early-execution-readable - @earlyExecution
-     *
-     */
-    readonly playerItemAttackEntity: PlayerItemAttackEntityBeforeEventSignal;
     /**
      * @remarks
      * Fires when a player leaves the game.

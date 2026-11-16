@@ -2,7 +2,7 @@
 /* IMPORT */ import { InvalidRecipeError, ItemStack } from '..';
 
 /**
- * @beta
+ * @rc
  * Provides access to the slots and recipe of a players active
  * crafting UI ie. stonecutter.
  */

@@ -1,7 +1,7 @@
 /* IMPORT */ import { PlayerCursorItemGrabAfterEvent } from '..';
 
 /**
- * @beta
+ * @rc
  * Manages callbacks for items grabbed from a container to a
  * player's cursor.
  */

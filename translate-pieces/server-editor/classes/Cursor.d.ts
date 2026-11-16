@@ -57,6 +57,13 @@ export class Cursor {
      *
      * @throws This function can throw errors.
      */
+    getCollisionPoint(): Vector3;
+    /**
+     * @remarks
+     * @privilege no-restricted-execution - @worldMutation
+     *
+     * @throws This function can throw errors.
+     */
     getDefaultProperties(): CursorProperties;
     /**
      * @remarks
